@@ -1,0 +1,111 @@
+section {
+    width: 100%;
+    padding: 0!important;
+    margin-top: 1rem!important;
+}
+.about{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.about__image {
+    margin-bottom: 0!important;
+
+}
+.about__image > img{
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+}
+
+.spaces{
+    display: flex;
+    align-items: center;
+}
+
+.name_teacher{
+    font-size: 24px;
+    
+}
+.or{
+    text-align: center;
+    margin: 25px 20px 0 20px;
+    font-weight: 700;
+}
+
+
+.btn__buy{
+    border:2px solid  #FF3946;
+    border-radius: 50px;
+    background-color: #FF3946;
+    color:white;
+    padding:.5rem 2rem;
+    transition: .2s ease-in-out;
+}
+.btn__buy:hover{
+    color:#314484ea;
+    background-color: transparent;
+    padding:.5rem 2.3rem
+}
+
+
+.block{
+    display: inline-block!important;
+}
+.btn__demo{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    font-weight: 700;
+    padding:.5rem .8rem;
+}
+
+.text__teacher{
+    margin: 50px 20px;
+    max-width:550px;
+
+}
+.text__teacher h2{
+    font-family: 'Satisfy', cursive;
+    font-size: 3rem;
+    line-height: 1;
+    font-weight: 200;
+    margin-bottom: 0;
+}
+
+.country_teacher{
+    margin-bottom: 10px;
+}
+
+.bnt__teacher{
+    margin-top: 20px ;
+}
+.eslogan{
+    text-align: center;
+    width: 60%;
+}
+.eslogan p {
+    font-size: 24px;
+    font-family: 'Satisfy', cursive;
+    line-height: 1.5;
+    margin-bottom: 0;
+}
+.btn__shop{
+    color:white;
+    margin-left: 20px;
+    background-color: #FF3946;
+    padding: 3px 4px;
+    transition: .2s ease-in-out;
+    border-radius: 5px;
+}
+.btn__shop:hover{
+    padding: 3px 8px;
+}
+
+.styles_calendar{
+    border:solid 1px #777;
+    width: 800px;
+    height: 600px;
+}
