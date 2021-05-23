@@ -11,7 +11,7 @@ export const Teachers = ()=>{
     const [teachers, setTeachers] = useState([])
 
     const getTeachers = ()=>{
-        axios.get('http://192.168.1.4:4000/data/getAllTeachers').then(resp=>{
+        axios.get('http://ingenioapi.com/data/getAllTeachers').then(resp=>{
             setTeachers(resp.data.teachers)
             
         })

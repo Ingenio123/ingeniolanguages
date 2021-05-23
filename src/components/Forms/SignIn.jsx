@@ -1,7 +1,6 @@
 import '../../assets/components/ImageForm.css';
 import styled from 'styled-components';
-import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+
 
 export const SignIn = ()=>{
     const ButtonSubmit = styled.button`
@@ -50,19 +49,12 @@ export const SignIn = ()=>{
     `
 
         // ##########  estados ############ 
-        const [Email, setEmail] = useState('')
+      
         
         //#################################
         
 
-        const dispatch = useDispatch()
-        const handleSubmit= (e)=>{
-            e.preventDefault()
-            
-            dispatch(setUserData({
-                email:Email,
-            }))
-        }
+        
 
     return(
         <>
@@ -71,26 +63,24 @@ export const SignIn = ()=>{
                     <h1 className="text-center mt-5">Bienvenido</h1>
                     <div className="row ">
                         <div className="col-md-6   ">
-                            <form onSubmit={(e)=>handleSubmit(e)} >
+                            <form  >
                                 <div className="row mt-4">
-                                    <div class="col-12 col-md-12 ">
+                                    <div className="col-12 col-md-12 ">
                                         <div className="form-group">
                                             <label>Email</label>
                                             <input 
                                                 type="email"
-                                                class="form-control"
-                                                placeholder="Email@example.com"
-                                                value={Email} 
-                                                onChange={(e)=> setEmail(e.target.value)}    
+                                                className="form-control"
+                                                placeholder="Email@example.com"    
                                             />
                                         </div>
                                     </div>
-                                    <div class="col-12 col-md-12">
+                                    <div className="col-12 col-md-12">
                                         <div className="form-group">
                                             <label>Password</label>
                                             <input 
                                                 type="password"
-                                                class="form-control"
+                                                className="form-control"
                                                 
                                                 />
                                         </div>
@@ -107,7 +97,7 @@ export const SignIn = ()=>{
                         </div>
 
                         <div className="col-md-6 ">
-                            <div class="card" >
+                            <div className="card" >
                                 
                             </div>
                         </div>

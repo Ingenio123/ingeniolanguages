@@ -8,12 +8,11 @@ import  {Profile} from './components/profileTeacher/Profile'
 import {SignUp} from './components/Forms/SignUp';
 import {BrowserRouter as Router,Switch,Route } from 'react-router-dom'
 import { PriceSection } from './components/priceSection/PriceSection';
-import  rootReducer from './store/reducers/rootReducer'
+// import  rootReducer from './store/reducers/rootReducer'
 import {Provider} from 'react-redux'
-import { createStore, applyMiddleware } from 'redux';
-import thunk from 'redux-thunk'
-import {composeWithDevTools} from 'redux-devtools-extension'
-
+// import { createStore } from 'redux';
+// import {composeWithDevTools} from 'redux-devtools-extension'
+import {store} from './redux/store'
 
 const App = ()=> {
   const [isOpen,setisOpen] = useState(false);
@@ -21,7 +20,7 @@ const App = ()=> {
   const toggle = ()=>{
     setisOpen(!isOpen);
   }
-  const store = createStore(rootReducer,composeWithDevTools())
+  // const store = createStore(rootReducer,composeWithDevTools())
   return (
     <>
       <Provider store={store}>
