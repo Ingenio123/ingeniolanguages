@@ -11,14 +11,14 @@ export const Teachers = ()=>{
     const [teachers, setTeachers] = useState([])
 
     const getTeachers = ()=>{
-        axios.get('http://ingenioapi.com/data/getAllTeachers').then(resp=>{
+        axios.get('https://ingenioapi.com/data/getAllTeachers').then(resp=>{
             setTeachers(resp.data.teachers)
             
         })
     }
 
     useEffect(()=>{
-        console.log('YA PASO POR EL useEffect()')
+    
         getTeachers()
     },[])
    

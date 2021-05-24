@@ -11,7 +11,7 @@ export const Profile =  ()=>{
 
 
     const getData = ()=>{
-        axios.get(`http://ingenioapi.com/data/teacher/60a97544f8add948a8b793da`)
+        axios.get(`https://ingenioapi.com/data/teacher/${idTeacher}`)
         .then(res=>  setData(res.data.teacher)  ) 
     }
 
