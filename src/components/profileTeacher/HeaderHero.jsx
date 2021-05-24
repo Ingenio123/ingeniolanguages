@@ -17,7 +17,7 @@ export const HeaderHero = ({data})=>{
                         <img src={data.imageUrl} alt="nada" />
                 </figure>
                 <div className="text__teacher">
-                    <h4 className="country_teacher">Colombia</h4>
+                    
                     <h2 className="name_teacher">{data.firstName} {data.lastName} </h2>
                 </div>
            </div>
