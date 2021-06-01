@@ -1,10 +1,65 @@
-// import react from 'react'
 import { Link } from 'react-router-dom';
 import styled ,{css} from 'styled-components'
 import {MenuData} from '../../data/MenuData'
 import {Button} from './Button'
 import Bars from '../../assets/images/Bars.svg'
 import LogoImg from '../../assets/images/ingenio-languages.png'
+import {useSelector} from 'react-redux'
+import gravatar from '../../utils/gravatar'
+import { authData } from '../../data/AuthData';
+import {useDispatch} from 'react-redux'
+import  {Logout} from '../../redux/actions/authAction'
+import {withRouter} from 'react-router-dom'
+
+
+
+ 
+
+const Navbar = ({toggle,history})=>{
+    const auth = useSelector(state => state.auth)
+    const dispatch = useDispatch()
+
+    const  handleLogout = ()=>{
+      dispatch(Logout())
+    }
+    const profileUser = ()=>{ 
+      history.push('/UserProfile')
+    }
+    return (
+      <div>
+      <Nav>
+        <LogoImage> <img src={ LogoImg } alt="" /> </LogoImage>
+        <MenuBars onClick={toggle} />
+        
+        <Espacio>
+        <NavMenu>
+
+          { MenuData.map((item,index)=>(
+            <NavMenuLinks to={item.Link} key={index} >
+                {item.title}
+            </NavMenuLinks>
+            ))}
+            {
+              auth.isAuthenticated ? <NavMenuLinks onClick={handleLogout}>Logo Ut</NavMenuLinks>: ''
+            }
+
+            { auth.isAuthenticated ? <ImgPerfil onClick={profileUser} src={ gravatar( auth.email) } alt={auth.email } /> : authData.map((item,index)=>(
+              <NavMenuLinks to={item.link} key={index}>
+                {item.title}
+              </NavMenuLinks>
+            )) }
+           
+        </NavMenu>
+        </Espacio>
+            {
+              auth.isAuthenticated ? '' : <NaVBtn><Button to="/buyNow"  primary="true" big="true">Buy Now</Button> </NaVBtn>}
+      </Nav>
+    </div>
+    );
+
+}
+export default withRouter(Navbar) ;
+
 
 const Nav =  styled.nav`
   height: 60px;
@@ -45,6 +100,7 @@ const MenuBars = styled.i`
 
 const NavMenu = styled.div`
   display:flex;
+  align-items:center;
   @media screen and (max-width: 768px){
     display:none;
   }
@@ -72,30 +128,11 @@ const Espacio  = styled.div`
 const  LogoImage = styled(Link)`
   width:8rem;
 `
-
-const Navbar = ({toggle})=>{
-    return (
-      <div>
-      <Nav>
-        <LogoImage> <img src={ LogoImg } alt="" /> </LogoImage>
-        <MenuBars onClick={toggle} />
-        
-        <Espacio>
-        <NavMenu>
-          {MenuData.map((item,index)=>(
-            <NavMenuLinks to={item.Link} key={index} >
-              {item.title}
-            </NavMenuLinks>
-              
-            ))}
-        </NavMenu>
-        </Espacio>
-        <NaVBtn>
-            <Button to="/buyNow"  primary="true" big="true">Buy Now</Button>
-        </NaVBtn>
-      </Nav>
-    </div>
-    );
-
-}
-export default Navbar;
+const ImgPerfil = styled.img `
+  width:35px;
+  height:35px;
+  border-radius:50%;
+  &:hover{
+    cursor:pointer;
+  }
+`

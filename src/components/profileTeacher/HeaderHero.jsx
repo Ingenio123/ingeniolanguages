@@ -1,6 +1,7 @@
 import '../../assets/components/SectionTeacher.css'
 import {AiOutlineShoppingCart}  from 'react-icons/ai';
 import styled from 'styled-components'
+import  '../../assets/components/ResponsiveTeachers.css';
 
 export const HeaderHero = ({data})=>{
     const Icon  = styled(AiOutlineShoppingCart)`
@@ -13,9 +14,11 @@ export const HeaderHero = ({data})=>{
         <section className="about container">
             
            <div className="spaces">
-                <figure className="about__image">
+
+                <figure className="about__image__teacher">
                         <img src={data.imageUrl} alt="nada" />
                 </figure>
+
                 <div className="text__teacher">
                     
                     <h2 className="name_teacher">{data.firstName} {data.lastName} </h2>

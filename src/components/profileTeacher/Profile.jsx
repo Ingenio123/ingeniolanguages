@@ -2,6 +2,7 @@ import {HeaderHero} from './HeaderHero'
 import {useParams} from 'react-router-dom'
 import axios from 'axios';
 import { useEffect,useState} from 'react';
+import { SectionTeachers } from './SectionTeachers';
 
 export const Profile =  ()=>{
     
@@ -25,6 +26,7 @@ export const Profile =  ()=>{
         <>
       
             <HeaderHero data={Data} />
+            <SectionTeachers />
         </>
     );
 }

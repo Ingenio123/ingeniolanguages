@@ -1,5 +1,5 @@
 
-export const MenuData = [
+export const  MenuData = [
     {
         title: 'Datos', 
         Link: '/'
@@ -11,14 +11,5 @@ export const MenuData = [
     {
         title: 'Prices',
         Link: '/Prices'
-    },
-    {
-        title:'Sign Up',
-        Link: '/SignUp'
-    },
-    {
-        title: 'Sign In',
-        Link: '/signIn'
     }
-
 ]

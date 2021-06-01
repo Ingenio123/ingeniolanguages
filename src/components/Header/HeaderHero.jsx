@@ -2,16 +2,29 @@ import '../../assets/components/HeaderHero.css'
 import imgHero from '../../assets/images/LibaryPortada.png'
 import {AiOutlineShoppingCart}  from 'react-icons/ai';
 import styled from 'styled-components'
+import {useEffect, useState} from 'react'
+import {useSelector} from 'react-redux'
+
+
+
+const Icon  = styled(AiOutlineShoppingCart)`
+height:30px;
+width:30px;
+`;
+
 const HeaderHero = ()=>{
-  const Icon  = styled(AiOutlineShoppingCart)`
-  height:30px;
-  width:30px;
-  
-  `;
+
+  const auth = useSelector(state => state.auth)
+
+  useEffect(()=>{
+
+  },[])
+
+
   return(
   //  <!-- HEADER SECTION -->  
   <header id="home">
- 
+  
   {/* <!-- HERO SECTION -->     */}
   <div className="container-fluid hero">
     <img src={imgHero} alt=""/>

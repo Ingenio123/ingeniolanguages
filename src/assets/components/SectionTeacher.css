@@ -9,11 +9,11 @@ section {
     align-items: center;
 }
 
-.about__image {
+.about__image__teacher {
     margin-bottom: 0!important;
 
 }
-.about__image > img{
+.about__image__teacher> img{
     width: 250px;
     height: 250px;
     border-radius: 50%;
@@ -108,4 +108,58 @@ section {
     border:solid 1px #777;
     width: 800px;
     height: 600px;
+}
+
+.presentation {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+}
+
+.presentation p {
+    width: 80%;
+    text-align: justify;
+    line-height: 1.2;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+.teaches_profesional{
+    display: flex;
+}
+.data{
+    text-align: center;
+    width: 50%;
+}
+.data_flag{
+    margin-top: 10px;
+    margin-left: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: start;   
+}
+
+.data_flag img{
+    width: 70px;
+    height: 40px;
+}
+.data_flag h6{
+    
+    margin: 15px 0 9px 15px;
+}
+
+.profesional_background{
+    width: 50%;
+}
+
+.profesional_background span{
+    text-align: end;
+    
+}
+.profesional_background span h4{
+    margin-right: 110px;
+} 
+
+.profesional_background p {
+    line-height: 1.2;
+    text-align: justify;
 }

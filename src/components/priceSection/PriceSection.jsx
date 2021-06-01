@@ -1,8 +1,9 @@
-import React from 'react'
+
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-
-
+import '../../assets/components/SectionPrices.css';
+import {Dropdown} from './Dropdown.jsx'
 
 export const PriceSection = ()=>{
     const Btnbuy = styled(Link)`
@@ -19,9 +20,41 @@ export const PriceSection = ()=>{
             font-size:1.2rem;
         }
     `
+    const [selected, setSelected] = useState("")
+
+    const Data = [
+        {
+            title:'30 min lessons ',
+            lesson: [{
+                num:4,
+            },
+            {
+                num:6,
+            },
+            {
+                num:8,
+            }],
+            prices: [60,90,120]
+        },
+        {
+            title:'45 min lessons',
+            lesson: [{
+                num:4,
+            },
+            {
+                num:6,
+            },
+            {
+                num:8,
+            }],
+            prices: [60,90,120]
+        }]
+        
+        const [valor, setValor] = useState(0)
+
     return(
         <>
-            <section className="mt-4">
+            {/* <section className="mt-4">
                 <div id="cursos" className="container">
                     <div className="row">
                         <div className="col-sm-12 col-md-4">
@@ -34,6 +67,17 @@ export const PriceSection = ()=>{
                                     <Btnbuy>Buy Now</Btnbuy>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                </div>
+            </section> */}
+            <section className="container">
+                <div className="row">
+                    <div className="col-md-4">
+                        <div className="card text-center" >
+                            <div className="image_card_top"> </div>
+                                <Dropdown />              
+                            <button className=" price btn btn-primary m-auto ">PROCEED TO PAYMENT $60</button>
                         </div>
                     </div>
                 </div>

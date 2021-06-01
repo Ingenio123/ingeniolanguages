@@ -3,38 +3,35 @@ import Headerhero from './components/Header/HeaderHero';
 import Navbar from './components/Navbar/Navbar'
 import {DropDown} from '././components/Navbar/DropDown'
 import {Teachers} from './components/SectionTeachers/Teachers'
-import {SignIn} from './components/Forms/SignIn';
+import SignIn from './components/Forms/SignIn';
 import  {Profile} from './components/profileTeacher/Profile'
 import {SignUp} from './components/Forms/SignUp';
 import {BrowserRouter as Router,Switch,Route } from 'react-router-dom'
 import { PriceSection } from './components/priceSection/PriceSection';
-// import  rootReducer from './store/reducers/rootReducer'
 import {Provider} from 'react-redux'
-// import { createStore } from 'redux';
-// import {composeWithDevTools} from 'redux-devtools-extension'
 import {store} from './redux/store'
+import UserProfile from './components/Profile/UserProfile'
 
 const App = ()=> {
   const [isOpen,setisOpen] = useState(false);
-
+ 
   const toggle = ()=>{
     setisOpen(!isOpen);
   }
-  // const store = createStore(rootReducer,composeWithDevTools())
+
   return (
     <>
-      <Provider store={store}>
+        <Provider store={store} >
       <Router>
         <Navbar toggle={toggle} />
         <DropDown isOpen={isOpen} toggle={toggle} />
-
-
         <Switch>
           <Route exact path='/' > 
             <Headerhero/>
           </Route>
+          
           <Route path='/SignIn' > 
-            <SignIn/>
+            <SignIn />
           </Route>
           <Route path='/SignUp'>
             <SignUp/>
@@ -48,9 +45,12 @@ const App = ()=> {
           <Route path='/ProfileTeachers/:idTeacher'>
             <Profile/>
           </Route>
+          <Route path='/UserProfile'>
+            <UserProfile/>
+          </Route>
         </Switch>
       </Router>
-      </Provider>
+        </Provider>
     </>
   )
    };

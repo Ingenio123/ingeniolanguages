@@ -1,14 +1,6 @@
-import {ADD_ID_TEACHER} from '../actions/types'
-const idsReducers = (state,action)=>{
-    switch(action.type){
-        case ADD_ID_TEACHER:
-            return {
-                ...state,
-                ids: [...state.id_teacher, action.payload]
-            }
-        default:
+import {combineReducers} from 'redux'
+import  authReducer from './authReducer'
 
-            return state;
-    }
-}
-export default idsReducers;
+export default combineReducers({
+  auth: authReducer
+})

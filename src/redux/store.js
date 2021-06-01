@@ -1,9 +1,12 @@
-import {createStore} from 'redux'
+import {createStore,applyMiddleware} from 'redux'
 import reducer from './reducers/index'
-const initialState = {
-    id_teacher: ''
-}
+import thunk from 'redux-thunk';
+import  {composeWithDevTools} from 'redux-devtools-extension';
+
+const middlewares = [thunk]
+
+const initialState = {}
 
 export const store = createStore(
-    reducer, initialState, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+    reducer, initialState,composeWithDevTools(applyMiddleware(...middlewares))
 );
