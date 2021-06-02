@@ -41,18 +41,16 @@ export const Register = ({username, password, your_lenguage,email,confirmPasswor
   // Request body
   const body = JSON.stringify({ username, password, your_lenguage, email ,confirmPassword,age});
 
-  const res = await axios.post('https://ingenioapi.com/data/userSignUp', body, config)
+  const res = await axios.post('https://www.ingenioapi.com/data/userSignUp', body, config)
   
   dispatch({
     type: REGISTER_SUCCESS,
     payload: res.data
   })
-
 };
 
 // Login User
 export const Login = ({email,password}) => async (dispatch) => { 
-  
     // headers
     const configuracion = {
       headers: {
@@ -62,7 +60,7 @@ export const Login = ({email,password}) => async (dispatch) => {
 
     // Request body
     const body = JSON.stringify({ email, password });
-    const  res = await axios.post('https://ingenioapi.com/data/userSignIn',body,configuracion);
+    const  res = await axios.post('https://www.ingenioapi.com/data/userSignIn',body,configuracion);
 
     dispatch({
       type: LOGIN_SUCCESS,

@@ -12,7 +12,7 @@ export const Profile =  ()=>{
 
 
     const getData = ()=>{
-        axios.get(`https://ingenioapi.com/data/teacher/${idTeacher}`)
+        axios.get(`https://www.ingenioapi.com/data/teacher/${idTeacher}`)
         .then(res=>  setData(res.data.teacher)  ) 
     }
 

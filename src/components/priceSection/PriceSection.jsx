@@ -7,7 +7,6 @@ import {Dropdown} from './Dropdown.jsx'
 
 export const PriceSection = ()=>{
     const Btnbuy = styled(Link)`
-
         color:white;
         font-size:1rem;
         padding:5px 1.5rem;
