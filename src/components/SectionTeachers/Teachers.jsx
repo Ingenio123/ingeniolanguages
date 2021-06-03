@@ -32,7 +32,7 @@ export const Teachers = ()=>{
            <div className="container">
            
             <h1>OUR TEAM</h1>
-               <div className="row  portafolio__teacher">
+               <div className="row  portafolio__teacher" id="/Teachers" >
                 {teachers.map((item,index)=>(
                     <div className="col-xs-12 col-sm-6 col-md-4" key={index}>
                         <div className="image-flip" ontouchstart="this.classList.toggle('hover');">

@@ -1,10 +1,10 @@
 import styled  from 'styled-components'
 import {FaTimes} from 'react-icons/fa'
 import {MenuData} from '../../data/MenuData'
-import { Link } from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux'
 import {authData} from '../../data/AuthData';
 import {Logout} from '../../redux/actions/authAction'
+import {Link} from 'react-scroll'
 const DropDownContainer = styled.div`
     position:fixed;
     z-index:999;
@@ -80,7 +80,7 @@ export const DropDown = ({isOpen, toggle })=>{
                     <DropdownMenu>
                         {
                             MenuData.map((item,index)=>(
-                                <DropdownLink to={item.Link} key={index} >
+                                <DropdownLink to={item.Link} key={index} onClick={toggle} >
                                     {item.title}
                                 </DropdownLink>
                             ))

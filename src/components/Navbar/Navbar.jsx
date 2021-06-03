@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom';
 import styled ,{css} from 'styled-components'
 import {MenuData} from '../../data/MenuData'
 import {Button} from './Button'
@@ -10,8 +9,10 @@ import { authData } from '../../data/AuthData';
 import {useDispatch} from 'react-redux'
 import  {Logout} from '../../redux/actions/authAction'
 import {withRouter} from 'react-router-dom'
-
-
+import { Link as LinkID } from 'react-scroll';
+import {Link} from 'react-router-dom'
+import Headerhero from '../Header/HeaderHero';
+import {Teachers} from '../../components/SectionTeachers/Teachers'
 
  
 
@@ -35,7 +36,7 @@ const Navbar = ({toggle,history})=>{
         <NavMenu>
 
           { MenuData.map((item,index)=>(
-            <NavMenuLinks to={item.Link} key={index} >
+            <NavMenuLinks to={item.Link} key={index} smooth={true}  duration={500} spy={true} >
                 {item.title}
             </NavMenuLinks>
             ))}
@@ -105,7 +106,7 @@ const NavMenu = styled.div`
     display:none;
   }
 `
-const NavMenuLinks = styled(Link)`
+const NavMenuLinks = styled(LinkID)`
   ${NavLink}
 
 `

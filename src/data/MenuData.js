@@ -2,7 +2,7 @@
 export const  MenuData = [
     {
         title: 'Datos', 
-        Link: '/'
+        Link: 'header'
     },
     {
         title:'Teachers',

@@ -34,7 +34,7 @@ export const Register = ({username, password, your_lenguage,email,confirmPasswor
     headers: {
       'Content-Type': 'application/json'
     }
-  };
+  }; 
 
  
 

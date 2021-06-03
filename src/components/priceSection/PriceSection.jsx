@@ -70,7 +70,7 @@ export const PriceSection = ()=>{
                     </div>
                 </div>
             </section> */}
-            <section className="container">
+            <section className="container" id="/Prices">
                 <div className="row">
                     <div className="col-md-4">
                         <div className="card text-center" >
