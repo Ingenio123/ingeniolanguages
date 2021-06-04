@@ -76,7 +76,7 @@ const SignIn =  props =>{
                             <Linea></Linea>
                             <Or>Or</Or>
                             <Centrar>
-                                <ButtonGoogle href="http://192.168.1.3:4000/google" >Google</ButtonGoogle>
+                                <ButtonGoogle href="https://www.ingenioapi.com/google" >Google</ButtonGoogle>
                             </Centrar>
                         </div>
 

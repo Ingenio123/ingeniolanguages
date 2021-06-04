@@ -7,7 +7,8 @@ import './assets/components/default.css';
 import  {Profile} from './components/profileTeacher/Profile'
 import {Provider} from 'react-redux'
 import {store} from './redux/store'
-
+import SignIn from './components/Forms/SignIn';
+import {SignUp} from './components/Forms/SignUp';
 
 ReactDOM.render(
   <React.StrictMode>
@@ -16,6 +17,8 @@ ReactDOM.render(
           <Switch>
             <Route exact path='/' component={App} />
             <Route exact  path='/ProfileTeachers/:idTeacher'  component={Profile} />
+            <Route exact  path='/SignIn' component={SignIn}  />
+            <Route exact  path='/SignUp' component={SignUp}  />
           </Switch>
       </Router>
     </Provider>

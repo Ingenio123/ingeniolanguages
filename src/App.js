@@ -2,8 +2,6 @@ import {useState} from 'react'
 import Headerhero from './components/Header/HeaderHero';
 import Navbar from './components/Navbar/Navbar'
 import {DropDown} from '././components/Navbar/DropDown'
-import SignIn from './components/Forms/SignIn';
-import {SignUp} from './components/Forms/SignUp';
 import {Footer}  from './components/Footer/Footer';
 const App = () => {
     const [isOpen,setisOpen] = useState(false);

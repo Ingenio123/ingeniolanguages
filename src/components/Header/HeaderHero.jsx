@@ -24,7 +24,7 @@ const HeaderHero = () =>{
   return(
     <>
           
-          <header id="home">
+          <header >
           
           {/* <!-- HERO SECTION -->     */}
           <div className="container-fluid hero">

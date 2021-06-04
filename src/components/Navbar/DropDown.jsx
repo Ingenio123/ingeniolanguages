@@ -4,7 +4,49 @@ import {MenuData} from '../../data/MenuData'
 import {useDispatch, useSelector} from 'react-redux'
 import {authData} from '../../data/AuthData';
 import {Logout} from '../../redux/actions/authAction'
-import {Link} from 'react-scroll'
+import {Link as LinkSmooth } from 'react-scroll';
+import {Link}  from 'react-router-dom'
+
+export const DropDown = ({isOpen, toggle })=>{
+
+    const {isAuthenticated} = useSelector(state => state.auth)
+    const dispatch = useDispatch()
+    const handleLogout = () =>{
+        dispatch(Logout())
+    }
+
+    return(
+        <>
+            <DropDownContainer isOpen={isOpen} onClick={toggle} >
+                <Icon onClick={toggle}>
+                    <CloseIcon/>
+                </Icon>
+                 <DropdownWrapper>
+                    <DropdownMenu>
+                        {
+                            MenuData.map((item,index)=>(
+                                <LinkScroll to={item.Link} key={index} onClick={toggle} >
+                                    {item.title}
+                                </LinkScroll>
+                            ))
+                        }
+                        {
+                            isAuthenticated? <DropdownLink onClick={handleLogout}>Log Out</DropdownLink>: ''
+                        }
+                        {   
+                            isAuthenticated ? <DropdownLink to='/profile'> Perfil </DropdownLink> : authData.map((item,index)=>(
+                                <DropdownLink to={item.link} key={index} >
+                                    {item.title}
+                                </DropdownLink>
+                            ))
+                        }
+                    </DropdownMenu>
+                </DropdownWrapper> 
+            </DropDownContainer>
+        </>
+    );
+}
+
 const DropDownContainer = styled.div`
     position:fixed;
     z-index:999;
@@ -46,6 +88,7 @@ const DropdownWrapper = styled.div`
     grid-template-colums:1fr;
     grid-template-rows: repeat(4,80px);
 `
+
 const DropdownLink = styled(Link)`
     text-align:center;
     margin-bottom:4rem;
@@ -61,43 +104,18 @@ const DropdownLink = styled(Link)`
     }
 `
 
-
-export const DropDown = ({isOpen, toggle })=>{
-
-    const {isAuthenticated} = useSelector(state => state.auth)
-    const dispatch = useDispatch()
-    const handleLogout = () =>{
-        dispatch(Logout())
+const LinkScroll = styled(LinkSmooth)`
+    text-align:center;
+    margin-bottom:4rem;
+    align-items:center;
+    justify-contente:center;
+    color:#fff !important;
+    font-size:2rem;
+    cursor:pointer;
+    list-style:none;
+    transition: 0.2s ease-in-out;
+    &:hover{
+        color:#314584;
     }
+`
 
-    return(
-        <>
-            <DropDownContainer isOpen={isOpen} onClick={toggle} >
-                <Icon onClick={toggle}>
-                    <CloseIcon/>
-                </Icon>
-                 <DropdownWrapper>
-                    <DropdownMenu>
-                        {
-                            MenuData.map((item,index)=>(
-                                <DropdownLink to={item.Link} key={index} onClick={toggle} >
-                                    {item.title}
-                                </DropdownLink>
-                            ))
-                        }
-                        {
-                            isAuthenticated? <DropdownLink onClick={handleLogout}>Log Out</DropdownLink>: ''
-                        }
-                        {   
-                            isAuthenticated ? <DropdownLink to='/profile'> Perfil </DropdownLink> : authData.map((item,index)=>(
-                                <DropdownLink to={item.link} key={index} >
-                                    {item.title}
-                                </DropdownLink>
-                            ))
-                        }
-                    </DropdownMenu>
-                </DropdownWrapper> 
-            </DropDownContainer>
-        </>
-    );
-}

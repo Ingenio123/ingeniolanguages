@@ -1,16 +1,18 @@
 import styled from 'styled-components'
-import ingenio  from  '../../assets/images/IngenioLanguages.svg'
+import ingenio  from  '../../assets/images/IngenioLanguages.svg';
+import {Link as LinkFooter } from 'react-scroll';
+
 export const Footer = () => {
     return (
         <>
             <SectionFooter>
                <Container>
-                    <ImgLogo src={ingenio} />
+                    <ImgLogo src={ingenio} alt="Ingenio Languages" />
                     <Items>
-                        <SubItems>Home</SubItems>
-                        <SubItems>Teachers</SubItems>
-                        <SubItems>Prices</SubItems>
-                        <SubItems>Contac Us</SubItems>
+                        <SubItems to='home'      offset={50}  duration={1000}  smooth={true} >Home</SubItems>
+                        <SubItems to='/Teachers' offset={50}  duration={1000}  smooth={true} >Teachers</SubItems>
+                        <SubItems to='/Prices'   offset={50}  duration={1000}  smooth={true} >Prices</SubItems>
+                        <SubItems to='' >Contac Us</SubItems>
                     </Items>
                     <CopyRight> Copyright © 2021 </CopyRight>
                </Container>
@@ -37,7 +39,8 @@ const Items =  styled.ul `
     padding:2rem 0;
 
 `
-const SubItems =  styled.li `
+const SubItems =  styled(LinkFooter) `
+    display:block;
     list-style:none;
     padding:10px;
     font-size:25px;
@@ -51,7 +54,12 @@ const SubItems =  styled.li `
         width:20px;
         height:3px;
     }
+    &:hover {
+        color:red !important;
+        cursor:pointer;
+    }
 `
+
 const CopyRight =  styled.span `
     display:flex;
     justify-content:center;

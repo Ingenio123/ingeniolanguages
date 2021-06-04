@@ -2,17 +2,16 @@ import styled ,{css} from 'styled-components'
 import {MenuData} from '../../data/MenuData'
 import {Button} from './Button'
 import Bars from '../../assets/images/Bars.svg'
-import LogoImg from '../../assets/images/ingenio-languages.png'
+import ingenio  from  '../../assets/images/IngenioLanguages.svg';
 import {useSelector} from 'react-redux'
 import gravatar from '../../utils/gravatar'
 import { authData } from '../../data/AuthData';
 import {useDispatch} from 'react-redux'
 import  {Logout} from '../../redux/actions/authAction'
 import {withRouter} from 'react-router-dom'
+import {Link} from 'react-router-dom';
 import { Link as LinkID } from 'react-scroll';
-import {Link} from 'react-router-dom'
-import Headerhero from '../Header/HeaderHero';
-import {Teachers} from '../../components/SectionTeachers/Teachers'
+
 
  
 
@@ -27,9 +26,9 @@ const Navbar = ({toggle,history})=>{
       history.push('/UserProfile')
     }
     return (
-      <div>
+      <div id="home" >
       <Nav>
-        <LogoImage> <img src={ LogoImg } alt="" /> </LogoImage>
+        <LogoImage> <img src={ ingenio } alt=""   /> </LogoImage>
         <MenuBars onClick={toggle} />
         
         <Espacio>
@@ -45,9 +44,9 @@ const Navbar = ({toggle,history})=>{
             }
 
             { auth.isAuthenticated ? <ImgPerfil onClick={profileUser} src={ gravatar( auth.email) } alt={auth.email } /> : authData.map((item,index)=>(
-              <NavMenuLinks to={item.link} key={index}>
+              <ItemAuth to={item.link} key={index}>
                 {item.title}
-              </NavMenuLinks>
+              </ItemAuth>
             )) }
            
         </NavMenu>
@@ -72,13 +71,6 @@ const Nav =  styled.nav`
   width:100%;
 
 `
-const NavLink = css`
-  padding:0 1rem;
-  height:100%;
-  cursor:pointer;
-  font-weight:700;
-  font-size:1rem;
-`
 
 
 const MenuBars = styled.i`
@@ -99,6 +91,7 @@ const MenuBars = styled.i`
 `
 
 
+
 const NavMenu = styled.div`
   display:flex;
   align-items:center;
@@ -106,9 +99,20 @@ const NavMenu = styled.div`
     display:none;
   }
 `
+
+const NavLink = css`
+  padding:0 1rem;
+  height:100%;
+  cursor:pointer;
+  font-weight:700;
+  font-size:1rem;
+`
+
 const NavMenuLinks = styled(LinkID)`
   ${NavLink}
-
+`
+const ItemAuth = styled(Link) `
+  ${NavLink}
 `
 
 const NaVBtn = styled.div`
@@ -124,7 +128,7 @@ const Espacio  = styled.div`
   justify-content: flex-end;
   align-items:center;
   width:80%;
-  margin-right:20px
+  margin-right:20px;
 `
 const  LogoImage = styled(Link)`
   width:8rem;

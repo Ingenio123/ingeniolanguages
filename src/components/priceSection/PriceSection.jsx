@@ -70,8 +70,8 @@ export const PriceSection = ()=>{
                     </div>
                 </div>
             </section> */}
-            <section className="container" id="/Prices">
-                <div className="row">
+            <section className="container" >
+                <div className="row" id="/Prices">
                     <div className="col-md-4">
                         <div className="card text-center" >
                             <div className="image_card_top"> </div>
