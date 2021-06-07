@@ -1,12 +1,14 @@
 import '../../assets/components/ImageForm.css';
+import {FcGoogle} from 'react-icons/fc'
 import styled from 'styled-components';
 import { useState } from 'react';
 import {Login} from '../../redux/actions/authAction'
-import {useDispatch} from 'react-redux'
-import {withRouter} from 'react-router-dom'
-
-
-
+import {useDispatch,useSelector} from 'react-redux'
+import { withRouter}  from 'react-router-dom'
+import {SignInGoogle} from '../../redux/actions/authAction';
+import {GoogleLogin} from 'react-google-login'
+import axios from 'axios'
+import {authenticate,isAuth} from '../../helpers/Auth'
 
 const SignIn =  props =>{
 
@@ -16,6 +18,9 @@ const SignIn =  props =>{
         })
         //#################################
         const dispatch = useDispatch()
+
+        const auth = useSelector(state => state.auth)
+
 
         const handleInput = e =>{
             setValue({
@@ -35,7 +40,34 @@ const SignIn =  props =>{
             props.history.push('/')
             e.target.reset();
         }  
-    
+        
+        const responseGoogle = (res)=>{
+            sendGoogleToken(res.tokenId)
+        }
+
+        const sendGoogleToken = (tokenId)=>{
+
+            axios.post('https://www.ingenioapi.com/data/authGoogle',{
+                idToken:tokenId
+            })
+            .then(res => {
+                informParent(res)
+                dispatch(SignInGoogle())
+            })
+            .catch(err=> console.log('GOOGLE SIGNIN ERROR',err))
+        }
+
+        const informParent = response => {
+            authenticate(response, () => {
+                isAuth() && isAuth().role === 'admin'
+                ? props.history.push('/admin')
+                : props.history.push('/private');
+            });
+        };
+        
+
+
+
 
     return(
         <>
@@ -76,8 +108,19 @@ const SignIn =  props =>{
                             <Linea></Linea>
                             <Or>Or</Or>
                             <Centrar>
-                                <ButtonGoogle href="https://www.ingenioapi.com/google" >Google</ButtonGoogle>
+                               {/* <GoogleButton onClick={signIn} >G Sign In</GoogleButton> */}
+                               <GoogleLogin
+                                    clientId="669011089415-8gtepgk9pivth0itvut5tom96kn9r7i1.apps.googleusercontent.com"
+                                    render={renderProps => (
+                                    <GoogleButton onClick={renderProps.onClick} disabled={renderProps.disabled}> <FcGoogle></FcGoogle>  Sing In</GoogleButton>
+                                    )}
+                                    buttonText="Login"
+                                    onSuccess={responseGoogle}
+                                    onFailure={responseGoogle}
+                                    cookiePolicy={'single_host_origin'}
+                                />,
                             </Centrar>
+                        
                         </div>
 
                         <div className="col-md-6 ">
@@ -107,7 +150,6 @@ const ButtonSubmit = styled.button`
         color:white;
         padding:8px  30px 4px 30px;
         background:#314584;
-        
     }
 `
 const Linea = styled.hr `
@@ -127,14 +169,19 @@ const Centrar = styled.div `
     justify-content:center;
     margin: 10px 0;
 `
-const  ButtonGoogle = styled.a `
+const GoogleButton = styled.button `
+    color:#ff3946;
+    border:2px solid #ff3946;
+    background:none;
+    padding:8px 1rem;
     font-size:20px;
-    background:  #FF3946 ;
-    padding:5px 20px;
-    color:white;
-    transition: .2s ease-in-out;
+    font-weight:600;
+    border-radius:10px;
+    transition:all .3s ease-in-out;
     &:hover{
+        background:#ff3946;
         color:white;
-        padding: 5px 25px;
+        border:none;
+        padding:8px 2rem;
     }
 `

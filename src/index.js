@@ -9,16 +9,22 @@ import {Provider} from 'react-redux'
 import {store} from './redux/store'
 import SignIn from './components/Forms/SignIn';
 import {SignUp} from './components/Forms/SignUp';
+import  PrivateRouter from './Routes/PrivateRoute'
+import  UserPrivate from './components/Private/UserPrivate'
+import Home from './home'
+
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store} >
       <Router>
+          <App/>
           <Switch>
-            <Route exact path='/' component={App} />
+            <Route exact path='/' component={Home} />
             <Route exact  path='/ProfileTeachers/:idTeacher'  component={Profile} />
             <Route exact  path='/SignIn' component={SignIn}  />
             <Route exact  path='/SignUp' component={SignUp}  />
+            <PrivateRouter path='/private' exact  component={UserPrivate} />
           </Switch>
       </Router>
     </Provider>

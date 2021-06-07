@@ -14,8 +14,6 @@ const App = () => {
     <>
       <Navbar toggle={toggle} />
       <DropDown isOpen={isOpen} toggle={toggle} />
-      <Headerhero/>
-      <Footer /> 
     </>
   )
    };

@@ -9,9 +9,9 @@ import { authData } from '../../data/AuthData';
 import {useDispatch} from 'react-redux'
 import  {Logout} from '../../redux/actions/authAction'
 import {withRouter} from 'react-router-dom'
-import {Link} from 'react-router-dom';
 import { Link as LinkID } from 'react-scroll';
-
+import {Link} from 'react-router-dom';
+import {useGoogleLogin} from 'react-use-googlelogin'
 
  
 
@@ -19,16 +19,22 @@ const Navbar = ({toggle,history})=>{
     const auth = useSelector(state => state.auth)
     const dispatch = useDispatch()
 
-    const  handleLogout = ()=>{
+    const { signOut } = useGoogleLogin({
+      clientId: '669011089415-8gtepgk9pivth0itvut5tom96kn9r7i1.apps.googleusercontent.com',
+    })
+
+    const  handleLogout = () => {
+      signOut()
       dispatch(Logout())
+      history.push('/')
     }
     const profileUser = ()=>{ 
-      history.push('/UserProfile')
+      history.push('/Private')
     }
     return (
       <div id="home" >
       <Nav>
-        <LogoImage> <img src={ ingenio } alt=""   /> </LogoImage>
+        <LogoImage> <img src={ ingenio } alt="" /> </LogoImage>
         <MenuBars onClick={toggle} />
         
         <Espacio>

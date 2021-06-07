@@ -9,13 +9,15 @@ import {
     LOGOUT_SUCCESS,
     REGISTER_SUCCESS,
     REGISTER_FAIL,
-    GET_TOKEN
+    GET_TOKEN,
+    AUTH_GOOGLE,
+    LOGIN_GOOGLE_SUCCESS
   } from '../actions/types';
   let isAuth = null;
-  if(localStorage.getItem('token')) isAuth =  true;
-  console.log(isAuth)
+  if(localStorage.getItem('user')) isAuth =  true;
+
   const initialState = {
-    token: localStorage.getItem('token'),
+    token: localStorage.getItem('user'),
     isAuthenticated: isAuth,
     isLoading: false
   };
@@ -36,7 +38,7 @@ export default function casos(state = initialState, action){
         };
       case LOGIN_SUCCESS:
       case REGISTER_SUCCESS:
-        localStorage.setItem('token', action.payload.data.data);
+        localStorage.setItem('user', action.payload.data.data);
         return {
           ...state,
           ...action.payload,
@@ -48,12 +50,12 @@ export default function casos(state = initialState, action){
       case LOGIN_FAIL:
       case LOGOUT_SUCCESS:
       case REGISTER_FAIL:
-        localStorage.removeItem('token');
+        localStorage.removeItem('user');
         return {
           ...state,
           token: null,
           user: null,
-          isAuthenticated: false,
+          isAuthenticated: null,
           isLoading: false
         };
       case GET_TOKEN:
@@ -63,6 +65,13 @@ export default function casos(state = initialState, action){
           user: action.payload,
           isAuthenticated: true,
           isLoading: false
+        };
+      case LOGIN_GOOGLE_SUCCESS:
+        return {
+          ...state,
+          token: action.payload,
+          isAuthenticated:true,
+          isLoading:false
         }
       default:
         return state;

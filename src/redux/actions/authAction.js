@@ -7,7 +7,8 @@ import {
   LOGIN_SUCCESS,
   LOGOUT_SUCCESS,
   REGISTER_SUCCESS,
-  REGISTER_FAIL,
+  AUTH_GOOGLE,
+  LOGIN_GOOGLE_SUCCESS
 } from './types';
 
 
@@ -25,6 +26,14 @@ export const loadUser = () => (dispatch, getState) => {
       })
     )
 };
+
+// --------------> Sign whith Google <------------- 
+export const  SignWithGoogle = (token_id) => async (dispatch) =>{
+  dispatch({
+    type:AUTH_GOOGLE,
+    payload: token_id
+  })
+}
 
 // Register User
 export const Register = ({username, password, your_lenguage,email,confirmPassword,age}) => async (dispatch) => {
@@ -49,6 +58,12 @@ export const Register = ({username, password, your_lenguage,email,confirmPasswor
   })
 };
 
+export const SignInGoogle = () => dispatch =>{
+  return dispatch({
+    type: LOGIN_GOOGLE_SUCCESS,
+  })
+}
+
 // Login User
 export const Login = ({email,password}) => async (dispatch) => { 
     // headers
@@ -66,17 +81,17 @@ export const Login = ({email,password}) => async (dispatch) => {
       type: LOGIN_SUCCESS,
       payload:{
           data: res.data,
-          eamil:email
+          email:email
         }
     })
     
 }
   
 // Logout User
-export const Logout = () => {
-  return {
+export const Logout = () => dispatch => {
+  dispatch({
     type: LOGOUT_SUCCESS
-  };
+  })
 };
 
 // Setup config/headers and token
