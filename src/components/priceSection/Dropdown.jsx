@@ -32,7 +32,7 @@ export const  Dropdown = ({title,lesson})=>{
 
     `
     const DropdownItem = styled.div `
-        font-size:20px;
+        font-size:18px;
         font-weight:700;
         padding:8px 10px;
         display:flex;
