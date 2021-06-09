@@ -50,7 +50,7 @@ const SignIn =  props =>{
 
         const sendGoogleToken = (tokenId)=>{
 
-            axios.post('http://localhost:4000/data/authGoogle',{
+            axios.post('https://www.ingenioapi.com/data/authGoogle',{
                 idToken:tokenId
             })
             .then(res => {
