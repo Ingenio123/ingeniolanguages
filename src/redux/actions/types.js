@@ -11,3 +11,5 @@ export const CLEAR_ERRORS = 'CLEAR_ERRORS';
 export const GET_TOKEN = 'GET_TOKEN';
 export const AUTH_GOOGLE = 'AUTH_GOOGLE';
 export const LOGIN_GOOGLE_SUCCESS = 'LOGIN_GOOGLE_SUCCESS'
+
+export const TEACHER_DATA = 'TEACHER_DATA'; 

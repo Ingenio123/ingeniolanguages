@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { useState } from 'react';
 import {Login} from '../../redux/actions/authAction'
 import {useDispatch,useSelector} from 'react-redux'
-import { withRouter}  from 'react-router-dom'
+import { withRouter,Redirect}  from 'react-router-dom'
 import {SignInGoogle} from '../../redux/actions/authAction';
 import {GoogleLogin} from 'react-google-login'
 import axios from 'axios'
@@ -41,13 +41,16 @@ const SignIn =  props =>{
             e.target.reset();
         }  
         
+
+        
+        
         const responseGoogle = (res)=>{
             sendGoogleToken(res.tokenId)
         }
 
         const sendGoogleToken = (tokenId)=>{
 
-            axios.post('https://www.ingenioapi.com/data/authGoogle',{
+            axios.post('http://localhost:4000/data/authGoogle',{
                 idToken:tokenId
             })
             .then(res => {
@@ -72,7 +75,7 @@ const SignIn =  props =>{
     return(
         <>
             <div className="container ">
-               
+                    {isAuth() ? <Redirect to='/' /> : null}
                     <h1 className="text-center mt-5">Bienvenido</h1>
                     <div className="row ">
                         <div className="col-md-6   ">

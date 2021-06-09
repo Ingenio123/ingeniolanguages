@@ -8,7 +8,7 @@ import  {Profile} from './components/profileTeacher/Profile'
 import {Provider} from 'react-redux'
 import {store} from './redux/store'
 import SignIn from './components/Forms/SignIn';
-import {SignUp} from './components/Forms/SignUp';
+import SignUp from './components/Forms/SignUp';
 import  PrivateRouter from './Routes/PrivateRoute'
 import  UserPrivate from './components/Private/UserPrivate'
 import Home from './home'

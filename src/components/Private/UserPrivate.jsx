@@ -14,13 +14,12 @@ const PrivateRoute = ({history})=>{
     }, [])
 
     const loadProfile = ()=>{
-        axios.get(`https://www.ingenioapi.com/data/user/${isAuth()._id}`,{
+        axios.get(`http://localhost:4000/data/user/${isAuth()._id}`,{
         headers:{
             Authorization: `Beares ${token}`
         }
         }).then(res=>{
             const {username,email} = res.data;
-            console.log(res.data)
             setFormData({...formData, name:username,email})
         })
         .catch((err)=> console.log('Existe un Error', err))
@@ -31,10 +30,11 @@ const PrivateRoute = ({history})=>{
     }
     return (
         <>
-            <h2>hello</h2>
-            <button onClick={clickme} >home</button>
-            <br />
-            <h2>{ formData.name}</h2>
+            {/* <button onClick={clickme} >home</button>
+            <h2>{ formData.name}</h2> */}
+            <header className="container hero">
+                <button onClick={clickme} >home</button>
+            </header>
         </>
     )
 

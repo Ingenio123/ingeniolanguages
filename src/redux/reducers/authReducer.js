@@ -1,5 +1,3 @@
-
-
 import {
     USER_LOADED,
     USER_LOADING,
@@ -38,7 +36,6 @@ export default function casos(state = initialState, action){
         };
       case LOGIN_SUCCESS:
       case REGISTER_SUCCESS:
-        localStorage.setItem('user', action.payload.data.data);
         return {
           ...state,
           ...action.payload,

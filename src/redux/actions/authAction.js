@@ -1,5 +1,5 @@
 import axios from 'axios';
-
+import {isAuth,authenticate} from '../../helpers/Auth' 
 
 import {
   USER_LOADED,
@@ -50,8 +50,12 @@ export const Register = ({username, password, your_lenguage,email,confirmPasswor
   // Request body
   const body = JSON.stringify({ username, password, your_lenguage, email ,confirmPassword,age});
 
-  const res = await axios.post('https://www.ingenioapi.com/data/userSignUp', body, config)
+  const res = await axios.post('http://localhost:4000/data/userSignUp', body, config)
   
+  authenticate(res,()=>{
+    
+  })
+
   dispatch({
     type: REGISTER_SUCCESS,
     payload: res.data

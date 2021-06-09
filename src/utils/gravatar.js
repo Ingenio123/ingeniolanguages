@@ -1,7 +1,18 @@
 import gravatar from 'gravatar'
-const image = (email)=>{
-    // var profile = gravatar.profile_url(`${email}`, {protocol: 'https'});
-    var profile = gravatar.url(email, {s: '100', r: 'x', d: 'retro'}, true);
+
+const image = (email,picture=null )=>{
+
+    let user = window.localStorage.getItem('user')
+    user = JSON.parse(user)
+    picture =  user.picture
+
+    let profile = '';
+    if(picture !== null){
+        profile =  `${picture}`
+
+    }else{
+        profile = gravatar.url(email, {s: '100', r: 'x', d: 'retro'}, true);
+    }
 
     return profile;
 }

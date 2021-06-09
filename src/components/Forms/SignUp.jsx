@@ -2,18 +2,23 @@ import styled from 'styled-components'
 import {useDispatch, useSelector}  from 'react-redux'
 import {useForm} from 'react-hook-form';
 import {Register}  from '../../redux/actions/authAction'
+import { isAuth } from '../../helpers/Auth';
+import {withRouter,Redirect} from 'react-router-dom';
 
-export const SignUp = ()=>{
+const SignUp = props =>{
 
     const auth = useSelector(state => state.auth)
     const {register,handleSubmit,formState:{errors} }   = useForm()
     const dispatch = useDispatch()
     const onSubmit = (data)=>{
-       dispatch(Register(data));
+
+        dispatch(Register(data));
+        isAuth() && isAuth().role === 'admin' ? props.history.push('/admin') : props.history.push('/private');
     }
     return(
         <>
-            <div className="container ">
+            <div className="container">
+                {isAuth() ? <Redirect to='/' /> : null}
                 <h1 className="title text-center">Bienvenido</h1>
                 <form onSubmit={ handleSubmit(onSubmit) }>
                     <div className="row">
@@ -145,7 +150,7 @@ export const SignUp = ()=>{
         </>
     );
 }
-
+export default withRouter(SignUp);
 const BtnSubmit =  styled.button `
     display:flex;
     justify-content:center;
