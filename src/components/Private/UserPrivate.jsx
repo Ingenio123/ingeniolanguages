@@ -30,8 +30,6 @@ const PrivateRoute = ({history})=>{
     }
     return (
         <>
-            {/* <button onClick={clickme} >home</button>
-            <h2>{ formData.name}</h2> */}
             <header className="container hero">
                 <button onClick={clickme} >home</button>
             </header>
