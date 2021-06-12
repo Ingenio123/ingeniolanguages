@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import {IoIosArrowDown,IoIosArrowUp} from 'react-icons/io';
 import DataDropDown  from '../../data/DropDown.js'
 
-export const Dropdown = () => {
+export const DropdownsItems = () => {
     const [click, setClicked] = useState(false)        
     const toggle = index => {
         if(click === index ){
