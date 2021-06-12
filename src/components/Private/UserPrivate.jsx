@@ -33,6 +33,11 @@ const PrivateRoute = ({history})=>{
     const clickme = ()=>{
         history.push('/');
     }
+    const [click, setClicked] = useState(false);
+    
+    const clickDrop = ()=>{
+        setClicked(!click)
+    }
     return (
         <>
         <header className="container">
@@ -40,15 +45,19 @@ const PrivateRoute = ({history})=>{
                 <img src={formData.picture} alt={formData.name} />
                 <ButtonAgenda>BUY LESSON PACKAGE</ButtonAgenda>
                 <Content>
-                    <Unit>Unit 1    <ArrowDown/> </Unit>
+                    <Unit>Unit 1    <ArrowDown onClick={clickDrop} /> </Unit>
+
+                        {click && (
+
                         <Lessons>
                             <Data>Lesson 1</Data>
                             <Items><b>Fecha: </b> 6-12-2021 </Items>
                             <Items><b>Resumen: </b> Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ipsum officia est quis recusandae quos veniam. Explicabo ex consectetur quisquam velit. </Items>
-                            <Items><b>feedback:</b>Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis nisi hic perspiciatis placeat assumenda labore, facere cupiditate eos consequuntur natus.</Items>
-                            <Items><b>Fortaleza:</b>😎 Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis nisi hic perspiciatis placeat assumenda labore, facere cupiditate eos consequuntur natus.</Items>
-                            <Items><b>A Mejorar:</b>Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis nisi hic perspiciatis placeat assumenda labore, facere cupiditate eos consequuntur natus.</Items>
+                            <Items><b>feedback: </b> Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis nisi hic perspiciatis placeat assumenda labore, facere cupiditate eos consequuntur natus.</Items>
+                            <Items><b>Fortaleza: </b>😎 Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis nisi hic perspiciatis placeat assumenda labore, facere cupiditate eos consequuntur natus.</Items>
+                            <Items><b>A Mejorar: </b> Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis nisi hic perspiciatis placeat assumenda labore, facere cupiditate eos consequuntur natus.</Items>
                         </Lessons>
+                        )}
                         
                     <Unit>Unit 2    <ArrowDown/> </Unit>
                     
@@ -112,7 +121,6 @@ const ButtonAgenda   = styled.button  `
     margin: -45px 0 0 auto;
 `
 const Lessons = styled.div  `
-    border:1px solid red;
     display:block;
     padding:10px;
 `
