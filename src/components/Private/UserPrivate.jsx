@@ -14,7 +14,7 @@ const PrivateRoute = ({history})=>{
     }, [])
 
     const loadProfile = ()=>{
-        axios.get(`http://localhost:4000/data/user/${isAuth()._id}`,{
+        axios.get(`https://www.ingenioapi.com/data/user/${isAuth()._id}`,{
         headers:{
             Authorization: `Beares ${token}`
         }
