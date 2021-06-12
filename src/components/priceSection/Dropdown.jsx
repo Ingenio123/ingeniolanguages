@@ -1,7 +1,7 @@
 import {useState} from 'react';
 import styled from 'styled-components';
 import {IoIosArrowDown,IoIosArrowUp} from 'react-icons/io';
-import DataDropDown  from '../../data/DropDown'
+import DataDropDown  from '../../data/DropDown.js'
 
 export const Dropdown = () => {
     const [click, setClicked] = useState(false)        

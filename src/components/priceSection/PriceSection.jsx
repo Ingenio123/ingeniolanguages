@@ -1,4 +1,3 @@
-
 import styled from 'styled-components';
 import '../../assets/components/SectionPrices.css';
 import {Dropdown} from './DropDown.jsx'
