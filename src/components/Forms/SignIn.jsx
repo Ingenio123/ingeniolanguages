@@ -11,7 +11,6 @@ import axios from 'axios'
 import {authenticate,isAuth} from '../../helpers/Auth'
 
 const SignIn =  props =>{
-
         // ##########  estados ############ 
         const [form, setValue] = useState({
             email: ''
@@ -32,7 +31,9 @@ const SignIn =  props =>{
 
         const handleOnSubmit = (e)=>{
             e.preventDefault();
+            
 
+            SubmitLogin(form.email,form.password)
             // ###### IMPORTANT ######## 
 //          --> SIEMPRE UTILILIZAR EL DISPATCH PARA LLAMAR EL ACTION <-- 
             dispatch(Login(form))
@@ -42,15 +43,35 @@ const SignIn =  props =>{
         }  
         
 
+
+
+
+        const SubmitLogin = async (email,password)=>{
+            // Headers
+            const config = {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            };
+            
+            const response = await axios.post('http://localhost:4000/data/userSignIn',{email,password},config)
+
+            console.log(response)
+            informParent(response)
+        }
         
-        
+
+
+
         const responseGoogle = (res)=>{
             sendGoogleToken(res.tokenId)
         }
 
         const sendGoogleToken = (tokenId)=>{
 
-            axios.post('https://www.ingenioapi.com/data/authGoogle',{
+            // axios.post('https://www.ingenioapi.com/data/authGoogle',{
+            axios.post('http://localhost:4000/data/authGoogle',{
+            
                 idToken:tokenId
             })
             .then(res => {
@@ -60,11 +81,30 @@ const SignIn =  props =>{
             .catch(err=> console.log('GOOGLE SIGNIN ERROR',err))
         }
 
+        
+
         const informParent = response => {
             authenticate(response, () => {
-                isAuth() && isAuth().role === 'admin'
-                ? props.history.push('/admin')
-                : props.history.push('/private');
+
+                if(isAuth()){
+                    if(isAuth().rol === 'admin') return props.history.push('/admin');
+                    if(isAuth().rol === 'teacher') return props.history.push('/teacherPage');
+                    return props.history.push('/private')
+                }
+
+                // switch (isAuth().rol){
+                //     case 'admin':
+                //             props.history.push('/admin')
+                //             break
+                //     case 'teacher':
+                //             props.history.push('/teacherPage')
+                //             break;
+                //     case 'user':
+                //         props.history.push('/private')
+                //         break;
+                //     default:
+                //         return  props.history.push('/')
+                // }
             });
         };
         

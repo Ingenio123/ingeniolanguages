@@ -19,9 +19,9 @@ const PrivateRoute = ({history})=>{
 
     const loadProfile = ()=>{
         // axios.get(`https://www.ingenioapi.com/data/user/${isAuth()._id}`,{
-        axios.get(`https://www.ingenioapi.com/data/user/${isAuth()._id}`,{
+        axios.get(`http://localhost:4000/data/user/${isAuth()._id}`,{
             headers:{
-                Authorization: `Beares ${token}`
+                Authorization: `Bearer ${token}`
             }
             }).then(res=>{
                 const {username,email,picture} = res.data;
@@ -45,7 +45,7 @@ const PrivateRoute = ({history})=>{
                 <img src={formData.picture} alt={formData.name} />
                 <ButtonAgenda>BUY LESSON PACKAGE</ButtonAgenda>
                 <Content>
-                    <Unit>Unit 1    <ArrowDown onClick={clickDrop} /> </Unit>
+                    <Unit>Unit 1 <ArrowDown onClick={clickDrop} /> </Unit>
 
                         {click && (
 

@@ -8,9 +8,9 @@ import {
     REGISTER_SUCCESS,
     REGISTER_FAIL,
     GET_TOKEN,
-    AUTH_GOOGLE,
     LOGIN_GOOGLE_SUCCESS
   } from '../actions/types';
+
   let isAuth = null;
   if(localStorage.getItem('user')) isAuth =  true;
 

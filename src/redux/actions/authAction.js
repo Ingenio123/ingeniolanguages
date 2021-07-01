@@ -1,5 +1,6 @@
 import axios from 'axios';
-import {isAuth,authenticate} from '../../helpers/Auth' 
+import {isAuth,authenticate} from '../../helpers/Auth';
+import {useHistory} from 'react-router-dom' 
 
 import {
   USER_LOADED,
@@ -70,25 +71,10 @@ export const SignInGoogle = () => dispatch =>{
 
 // Login User
 export const Login = ({email,password}) => async (dispatch) => { 
-    // headers
-    const configuracion = {
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    };
-
-    // Request body
-    const body = JSON.stringify({ email, password });
-    const  res = await axios.post('https://www.ingenioapi.com/data/userSignIn',body,configuracion);
-
+  
     dispatch({
       type: LOGIN_SUCCESS,
-      payload:{
-          data: res.data,
-          email:email
-        }
     })
-    
 }
   
 // Logout User

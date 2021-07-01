@@ -11,5 +11,8 @@ export const CLEAR_ERRORS = 'CLEAR_ERRORS';
 export const GET_TOKEN = 'GET_TOKEN';
 export const AUTH_GOOGLE = 'AUTH_GOOGLE';
 export const LOGIN_GOOGLE_SUCCESS = 'LOGIN_GOOGLE_SUCCESS'
+export const SHIPPING_DATA = 'SHIPPING_DATA';
+export const CARD_DATA =  'CARD_DATA';
+export const CANCEL_SHIPPING_DATA = 'CANCEL_SHIPPING_DATA';
+export const PRICE_LESSON = 'PRICE_LESSON';
 
-export const TEACHER_DATA = 'TEACHER_DATA'; 

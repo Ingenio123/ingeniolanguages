@@ -34,7 +34,7 @@ const Navbar = ({toggle,history})=>{
     return (
       <div id="home" >
       <Nav>
-        <LogoImage> <img src={ ingenio } alt="" /> </LogoImage>
+        <LogoImage onClick={() => history.push('/') } > <img src={ ingenio } alt="" />  </LogoImage>
         <MenuBars onClick={toggle} />
         
         <Espacio>
@@ -46,10 +46,10 @@ const Navbar = ({toggle,history})=>{
             </NavMenuLinks>
             ))}
             {
-              auth.isAuthenticated ? <NavMenuLinks onClick={handleLogout}>Logo Ut</NavMenuLinks>: ''
+              auth.isAuthenticated ? <NavMenuLinks onClick={handleLogout} > Logo Ut </NavMenuLinks>: ''
             }
 
-            { auth.isAuthenticated ? <ImgPerfil onClick={profileUser} src={ gravatar( auth.email) } alt={auth.email } /> : authData.map((item,index)=>(
+            { auth.isAuthenticated ? <ImgPerfil onClick={profileUser} src={ gravatar( auth.email ) } alt={auth.email } /> : authData.map((item,index)=>(
               <ItemAuth to={item.link} key={index}>
                 {item.title}
               </ItemAuth>

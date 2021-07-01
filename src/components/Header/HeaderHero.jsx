@@ -6,7 +6,7 @@ import {useEffect, useState} from 'react'
 import {useSelector} from 'react-redux'
 import { Teachers } from '../SectionTeachers/Teachers'
 import { PriceSection } from '../priceSection/PriceSection';
-
+import { Link as LinkID } from 'react-scroll';
 const Icon  = styled(AiOutlineShoppingCart)`
 height:30px;
 width:30px;
@@ -36,7 +36,7 @@ const HeaderHero = () =>{
               <p>Our mission at Ingenio Languages is to help  <br/>you communicate fluently in the language that you always dreamed of!<br/> Learning a language has never been easier and more fun!</p>
               <div className="hero-btns">
                 {/* <!-- Hero Btn First --> */}
-                <a data-scroll href="/"> <Icon></Icon> Buy a lesson Package</a>
+                <ButtonBuyaLesson   to="/Prices"  smooth={true}  duration={500} spy={true}> <Icon></Icon> Buy a lesson Package </ButtonBuyaLesson> 
                 {/* <!-- Hero Btn Second --> */}
                 <a data-scroll href="/">Request Demo Class Free</a>
               </div>
@@ -45,10 +45,13 @@ const HeaderHero = () =>{
         </header>
         <Teachers/>
         <PriceSection/>
-       
     </>
   );
 
 
 };
 export default HeaderHero;
+
+const ButtonBuyaLesson = styled(LinkID)`
+  cursor:pointer;
+`

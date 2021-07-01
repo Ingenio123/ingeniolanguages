@@ -5,7 +5,7 @@ import DataDropDown  from '../../data/DropDown.js'
 import { useDispatch } from 'react-redux';
 import {Select_Package}  from '../../redux/actions/packageAction'
 
-export const DropdownsItems = (props) => {
+export const DropdownsItemsFrench = (props) => {
     const [click, setClicked] = useState(false)        
     const dispatch = useDispatch()
     const toggle = index => {
@@ -14,9 +14,10 @@ export const DropdownsItems = (props) => {
         }
         setClicked(index)
     }
-    const handlePrice  = (price,idiom,lessonmin)=>{
-        console.log(lessonmin)
-        dispatch(Select_Package(price,idiom,lessonmin))
+    const [price, setPrice] = useState();
+    const handlePrice  = (price,idiom,lesson)=>{
+        setPrice(price)
+        dispatch(Select_Package(price,idiom,lesson))
     }
     return (
         <>
@@ -33,7 +34,8 @@ export const DropdownsItems = (props) => {
                                                     item.SectionPrices.map((e,i)=>{
                                                         return (
                                                             <>
-                                                                <p key={i}  onClick={()=> handlePrice(e.price,props.idiom,item.SectionLesson)} > {e.nro} lesson / <Small> monthly </Small>  <Price >USD   </Price>  { e.price}  </p>
+                                                                <p key={i}  onClick={()=> handlePrice(e.price,props.idiom,item.SectionLesson)} > {e.nro} lesson / <Small> monthly </Small>  <Price >USD   { e.price} </Price> </p>
+
                                                             </>
                                                         )
                                                     })
@@ -117,5 +119,4 @@ const Small = styled.span `
 `
 const Price = styled.span `
     color:red;
-    font-size:1rem;
 `
