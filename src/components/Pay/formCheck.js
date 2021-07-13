@@ -1,40 +1,61 @@
 import styled  from 'styled-components'
-import React from "react";
 import {useForm} from 'react-hook-form'
 import {DataTarjet} from './DataTarjet'
 import {FormCheck,BoxForm,FormCheckOut,Box_input,Input}  from './styles'
 import {useSelector} from 'react-redux'
-import { useState } from 'react';
+import { useState,useEffect} from 'react';
 import {IoArrowBackCircle} from "react-icons/io5";
 import {SHIPPING_DATA,CANCEL_SHIPPING_DATA} from '../../redux/actions/types'
 import {useDispatch} from 'react-redux'
+import {SendDataPayClient} from './AxiosFormPay'
+
+import Success from '../../assets/images/Success.svg'
+import DatafastPay from './FormPayDatafast'
+import {isAuth} from '../../helpers/Auth'
+
 
 function CheckOut(props){
+    
+
+
     const dispatch = useDispatch()
     const {register,handleSubmit,formState:{errors} }   = useForm()
     const {items} = useSelector(state => state.package);
-    const {getCard}  = useSelector(state => state.cardData);
+    const Shipping  = useSelector(state => state.Shipping)
+    
+    const [Loader, setLoader] = useState(false)
+    const [ActiveButton, setActiveButton] = useState(true)
+    const [Show, setShow] = useState(false)
+    const [IdCheck, setIdCheck] = useState('')
 
-    const [Active, setActive] = useState(true)
-    const [Display, setDisplay] = useState(true)
+
+    const [CardDebit, setCardDebit] = useState(false);
+    const [CardCredit, setCardCredit] = useState(false);
+
+
     let res = 0;
 
+    
 
     if(items){
+        const arrayPrices = [];
+        items.map(val => arrayPrices.push(val.price))
+        console.log(arrayPrices)
         res = items.reduce((acc,item)=>{
             return  acc +=  item.price;
         },0)
     }
+
+
     // ############## CALCULO DEL BEFORE TAX ############# 
     
 
     function ValorTotal(){
         let valIva = 12;
         let CobroIva = (res  * valIva) / 100;
-
         return CobroIva;
     }
-
+  
 
     const handleArrowLeft =  ()=>{
         props.history.push('/');
@@ -44,22 +65,61 @@ function CheckOut(props){
         })
     }
 
-    const HandleData = (data)=> {
-        
+    const HandleData = async (data)=> {
+        let userData;
+
+        if(isAuth()){
+            userData = JSON.parse(window.localStorage.getItem('user'))
+        }else{
+            window.localStorage.setItem('Auth','NotAuth')
+            return props.history.push('/SignUp')
+        }
+
         dispatch({
             type: SHIPPING_DATA,
             shippingDataForm:data
         })
 
-        setActive(false)
-        setDisplay(false)
+        if(res>0){
+            
+            setActiveButton(false)
+            const Cobrar  = res + ValorTotal()
+            const resultadoFunction = await SendDataPayClient(data,Cobrar,res,items,userData._id,userData.email)
+            setIdCheck(resultadoFunction.resultados.id)
+            setShow(true)
+
+        }
     }
 
+    function RenderComponentsSuccess (){
+        return (
+            <BoxSuccess>
+                <BoxIconSucces> 
+                    <img  src={Success}  alt="imgae" />
+                    <div>
+                        <span>thank you! you're done</span>
+                    </div>
+                </BoxIconSucces>
+            </BoxSuccess>
+        )
+    }
     
 
+    const handleShowsCards = (Debit,Credit)=>{
+        if(Debit) {
+            setCardDebit(true)
+            setCardCredit(false)
+        }
+        if(Credit){
+            setCardDebit(false)
+            setCardCredit(true)
+            return <DatafastPay id={IdCheck} /> 
+        }
+    }
 
     return (
         <>
+            
             <Section className="container">
                 <IconsArrow> <IconsArrowLeft onClick={()=> handleArrowLeft()} /> </IconsArrow>
                 <FormCheck>
@@ -232,29 +292,73 @@ function CheckOut(props){
 
 
                     <BoxItemsProduct>
-                        <ButtonPalceOrder disabled={getCard} onClick={ () => alert('order')} > Place Order </ButtonPalceOrder>
-                        <Line/>
-                        <BoxOrder>  
-                            <OrderSumary>Order Sumary</OrderSumary>
-                            <ItemsOrder>
-                                <span>items({items? items.length : '0'}):</span> <span>$ {res !== 0 ? res : 0}</span>
-                            </ItemsOrder>
-                            <ItemsOrder>
-                                <span>Before Tax (+12%): </span> <span>$ { ValorTotal() } </span>
-                            </ItemsOrder>
-                            <Line mb={true} />
-                            <ItemsOrder>
-                                <Order_total>Order Total</Order_total> <Order_total>$ {res !== 0 ? res + ValorTotal() : 0} </Order_total>
-                            </ItemsOrder>
-                        </BoxOrder>
+                    
+                        {Loader? RenderComponentsSuccess() :
+                            <div>
+                                <Line/>
+                                <BoxOrder>  
+                                    <OrderSumary>Order Sumary</OrderSumary>
+                                    <ItemsOrder>
+                                        <span>items({items? items.length : '0'}):</span> <span>$ {res !== 0 ? res : 0}</span>
+                                    </ItemsOrder>
+                                    <ItemsOrder>
+                                        <span>Before Tax (+12%): </span> <span>$ { ValorTotal() } </span>
+                                    </ItemsOrder>
+                                    <Line mb={true} />
+                                    <ItemsOrder>
+                                        <Order_total>Order Total</Order_total> <Order_total>$ {res !== 0 ? res + ValorTotal() : 0} </Order_total>
+                                    </ItemsOrder>
+                                </BoxOrder>
+                            </div>
+                        }
                     </BoxItemsProduct>
-                <DataTarjet activeInputs = {Active} Display={Display} /> 
+                    <div>
+                        { Show ? <DatafastPay id={IdCheck} /> : '' }
+                    </div>
                 </FormCheck>
             </Section>
         </>
     )
 }
+{/* <DatafastPay id={IdCheck} /> */}
 export default CheckOut;
+
+const  ButtonCards = styled.button `
+    border:none;
+    background-color: blueviolet;
+    padding: 4px 10px;
+    color:white;
+    border-radius: 4px;
+`
+
+
+const BoxSuccess = styled.div `    
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+`
+const BoxIconSucces = styled.div `
+    margin-top: 10px;
+    text-align:center;
+    width: 80%;
+    & > img {
+        padding:10px;
+        width: 70%;
+    }
+    & > div {
+        display: flex;
+        justify-content: center;
+    }
+    & div > span {
+        text-align: center;
+        font-size: 30px;
+        color:#27ae60;
+    }
+`
+
+
 
 const BoxItemsProduct  = styled.div `
     width:100%;
