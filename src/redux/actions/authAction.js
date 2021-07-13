@@ -19,7 +19,7 @@ export const loadUser = () => (dispatch, getState) => {
   // User loading
   dispatch({ type: USER_LOADING });
   axios 
-    .get('http://localhost:4000/data/api/auth/user', tokenConfig(getState))
+    .get('https://www.ingenioapi.com/data/api/auth/user', tokenConfig(getState))
     .then(res =>
       dispatch({
         type: USER_LOADED,
@@ -51,7 +51,7 @@ export const Register = ({username, password, your_lenguage,email,confirmPasswor
   // Request body
   const body = JSON.stringify({ username, password, your_lenguage, email ,confirmPassword,age});
 
-  const res = await axios.post('http://localhost:4000/data/userSignUp', body, config)
+  const res = await axios.post('https://www.ingenioapi.com/data/userSignUp', body, config)
   
   authenticate(res,()=>{
     

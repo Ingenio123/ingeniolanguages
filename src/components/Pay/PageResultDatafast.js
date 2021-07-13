@@ -25,7 +25,7 @@ export default function PageResultDatafast(props) {
         const {id} = queryString.parse(search);
         console.log('este el id del action',id)
         const data = {id}
-        const res = await  axios.post('http://localhost:4000/data/datafastresults',data);
+        const res = await  axios.post('https://www.ingenioapi.com/data/datafastresults',data);
         console.log('este son los datos de result de la tarjeta de datafast',res.data);
         
         if(res.data){

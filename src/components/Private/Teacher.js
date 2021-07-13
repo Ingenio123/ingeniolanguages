@@ -16,7 +16,7 @@ export const Teacher = () => {
 
     const loadPagage = async () => {
 
-        axios.get(`http://localhost:4000/data/teacherAccount/${isAuth()._id}`, {
+        axios.get(`https://www.ingenioapi.com/teacherAccount/${isAuth()._id}`, {
             headers: {
                 Authorization: `Bearer ${token}`
             }

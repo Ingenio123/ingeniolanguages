@@ -54,7 +54,7 @@ const SignIn =  props =>{
                 }
             };
             
-            const response = await axios.post('http://localhost:4000/data/userSignIn',{email,password},config)
+            const response = await axios.post('https://www.ingenioapi.com/data/userSignIn',{email,password},config)
 
             console.log(response)
             informParent(response)
@@ -70,7 +70,7 @@ const SignIn =  props =>{
         const sendGoogleToken = (tokenId)=>{
 
             // axios.post('https://www.ingenioapi.com/data/authGoogle',{
-            axios.post('http://localhost:4000/data/authGoogle',{
+            axios.post('https://www.ingenioapi.com/data/authGoogle',{
             
                 idToken:tokenId
             })

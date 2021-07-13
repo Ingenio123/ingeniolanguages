@@ -23,7 +23,7 @@ export default function FormPayDatafast(props) {
     }
     return (
         <div className="container" >
-            <form action="http://localhost:4000/data/actions" onSubmit={e=> handleSubmit(e)} className="paymentWidgets" data-brands="VISA MASTER DINERS DISCOVER AMEX" ></form>
+            <form action="https://www.ingenioapi.com/data/actions" onSubmit={e=> handleSubmit(e)} className="paymentWidgets" data-brands="VISA MASTER DINERS DISCOVER AMEX" ></form>
         </div>
     )
 }

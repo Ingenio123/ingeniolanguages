@@ -25,6 +25,6 @@ export const SendDataPayClient  = async (shippingData,Cobrar,SumaPrices,items,id
         email
     }
     
-    const res = await  axios.post('http://localhost:4000/payIngenioLanguages',data)    
+    const res = await  axios.post('https://www.ingenioapi.com/payIngenioLanguages',data)    
     return  res.data;
 }
