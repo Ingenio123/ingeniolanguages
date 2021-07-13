@@ -67,7 +67,7 @@ export const PriceSection = ()=>{
                             {
                                 priceEnglish && (
                                     <BoxPackageLesson>
-                                        <p className="text-center"> haz elejido el paquete de {lessonEnglish} a un precio de USD {priceEnglish} </p>
+                                        <p className="text-center"> You have chosen the {lessonEnglish} package at this price: USD {priceEnglish} </p>
                                     </BoxPackageLesson>
                                 )
                             }
@@ -84,7 +84,7 @@ export const PriceSection = ()=>{
                             {
                                 priceFrench && (
                                     <BoxPackageLesson>
-                                        <p className="text-center"> haz elejido el paquete de {lessonFrench} a un precio de USD {priceFrench} </p>
+                                        <p className="text-center">You have chosen the {lessonFrench} package at this price: USD {priceFrench} </p>
                                     </BoxPackageLesson>
                                 )
                             }
@@ -103,7 +103,7 @@ export const PriceSection = ()=>{
                                 {
                                     priceSpanish && (
                                         <BoxPackageLesson>
-                                            <p className="text-center"> haz elejido el paquete de {lessonSpanish} a un precio de USD {priceSpanish} </p>
+                                            <p className="text-center"> You have chosen the {lessonSpanish} package at this price: USD {priceSpanish} </p>
                                         </BoxPackageLesson>
                                     )
                                 }
