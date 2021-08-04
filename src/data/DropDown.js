@@ -5,7 +5,7 @@ const DataDropDown = [
             {   
                 id:1,
                 nro: 4,
-                price:60,
+                price:1.00,
             },
             {
                 id:2,
@@ -24,7 +24,7 @@ const DataDropDown = [
             {
                 id:4,
                 nro: 4,
-                price:90,
+                price:3,
             },
             {
                 id:5,

@@ -122,7 +122,7 @@ function CheckOut(props){
             
             <Section className="container">
                 <IconsArrow> <IconsArrowLeft onClick={()=> handleArrowLeft()} /> </IconsArrow>
-                <FormCheck>
+                <FormCheck >
                     <BoxForm onSubmit={handleSubmit(data => HandleData(data))} >
                         <FormCheckOut>
                             <Box_input>
@@ -475,7 +475,7 @@ const ButtonCancel = styled.button `
     }
 `
 const IconsArrow = styled.div `
-    margin-top: -20px;
+    margin-top: 60px;
     margin-left:26px;
     @media screen  and (max-width: 768px){
         display:flex;

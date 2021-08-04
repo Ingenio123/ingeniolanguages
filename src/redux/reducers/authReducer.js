@@ -11,6 +11,7 @@ import {
     LOGIN_GOOGLE_SUCCESS
   } from '../actions/types';
 
+  import {removeCookie} from '../../helpers/Auth'
   let isAuth = null;
   if(localStorage.getItem('user')) isAuth =  true;
 
@@ -47,7 +48,9 @@ export default function casos(state = initialState, action){
       case LOGIN_FAIL:
       case LOGOUT_SUCCESS:
       case REGISTER_FAIL:
-        localStorage.removeItem('user');
+        localStorage.removeItem('user')
+        removeCookie('token')
+        
         return {
           ...state,
           token: null,

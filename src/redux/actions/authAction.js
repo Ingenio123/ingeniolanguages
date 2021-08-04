@@ -1,6 +1,5 @@
 import axios from 'axios';
 import {isAuth,authenticate} from '../../helpers/Auth';
-import {useHistory} from 'react-router-dom' 
 
 import {
   USER_LOADED,

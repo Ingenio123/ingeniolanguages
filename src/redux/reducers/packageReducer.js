@@ -3,7 +3,7 @@ export default  function cases(state={ items:[] },action){
     switch(action.type){
         case PRICE_LESSON:
             const item  = action.payload //english 
-            const existItem = state.items.find(x=> x.idiom === item.idiom );
+            const existItem = state.items.find(x => x.idiom === item.idiom );
             if(existItem ){
                 return{
                     ...state,

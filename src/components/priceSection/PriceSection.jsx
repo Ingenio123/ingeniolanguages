@@ -1,120 +1,58 @@
+import { useState } from 'react';
 import styled from 'styled-components';
 import '../../assets/components/SectionPrices.css';
-import {DropdownsItems} from './Dropdowns'
-import {DropdownsItemsSpanish} from './DropdownSpanish'
-import { DropdownsItemsFrench } from './DropdownsFrench';
-import {useDispatch,useSelector} from 'react-redux';
-import {Link} from 'react-router-dom'
 import {FaTrashAlt} from 'react-icons/fa'
-import {Delete_Package} from '../../redux/actions/packageAction'
+import ModalPackage from '../modalsPackage/modalPackage'
+import ModalPackageFrench from '../modalsPackage/ModalPackageFrench';
+import ModalPackageSpanish from '../modalsPackage/ModalPackageSpanish';
+
 
 export const PriceSection = ()=>{
-    const dispatch = useDispatch();
-    const {items} = useSelector(state => state.package)
+
+    const [ShowModal, setShowModal] = useState(false)
+    const [ShowModalFrench, setShowModalFrench] = useState(false)
+    const [ShowModalSpanish, setShowModalSpanish] = useState(false)
+
+    const OpenModal = () =>{
+        setShowModal(prev => !prev)
+    }
     
-
-    let priceEnglish  = false;
-    let priceFrench = false;
-    let priceSpanish = false;
-
-    let lessonEnglish = ''
-    let lessonFrench = ''
-    let lessonSpanish = ''
-    let data1 = ''
-    let data2 = ''
-    let data3 = ''
-
-    if(items){
-
-        const English = items.find(x => x.idiom === 'English')
-        const French =  items.find(x => x.idiom === 'French')
-        const Spanish =  items.find(x => x.idiom === 'Spanish')
-
-        if(English){
-            priceEnglish = English.price;
-            lessonEnglish = English.lesson;
-            data1 = English.idiom
-        }
-        if(French) {
-            priceFrench = French.price
-            lessonFrench = French.lesson
-            data2 = French.idiom
-        }
-        if(Spanish){ 
-            priceSpanish =  Spanish.price 
-            lessonSpanish = Spanish.lesson
-            data3 = Spanish.idiom
-        }
-    }else{
-        console.log('else')
+    const OpenModalFrench = ()=>{
+        setShowModalFrench(prev => !prev);
     }
-    const ClickDelete = (idiom)=>{
-        dispatch(Delete_Package(idiom))
+    const OpenModalSpanish = ()=>{
+        setShowModalSpanish(prev => !prev);
     }
 
+   
     return(
         <>
             <section className="container" >
                 <div className="row" id="/Prices">
-                    <PartBotonPay>
-                        <ItemsCart>{items.length}</ItemsCart>
-                        <Link to='/payClient' ><ButtonPay>Pay</ButtonPay> </Link> 
-                    </PartBotonPay>
+                    
                     <div className="col-md-4">
-                        <div className="card mb-2" >
-                        <div className="image_card english "> <h4 className="text-center">English</h4> </div>
-                            <DropdownsItems idiom={'English'} />
-                            {
-                                priceEnglish && (
-                                    <BoxPackageLesson>
-                                        <p className="text-center"> You have chosen the {lessonEnglish} package at this price: USD {priceEnglish} </p>
-                                    </BoxPackageLesson>
-                                )
-                            }
-                            <Box_Buttons>
-                                { priceEnglish &&  <Delete onClick={()=> ClickDelete(data1) } > <IconTrash/> </Delete> } 
-                            </Box_Buttons>
-                            <Security> <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" size="20" height="20" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"></path></svg> PAGOS TOTALMENTE SEGUROS </Security> 
+                        <div className="" >
+                        <div className="image_card english"   onClick={ OpenModal } > <h4 className="text-center">English</h4> </div>
+                            
                         </div>
                     </div>
                     <div className="col-md-4">
-                        <div className="card text-center mb-2" >
-                        <div className="image_card france "> <h4 className="text-center">French </h4> </div>
-                            <DropdownsItemsFrench idiom={'French'}/>
-                            {
-                                priceFrench && (
-                                    <BoxPackageLesson>
-                                        <p className="text-center">You have chosen the {lessonFrench} package at this price: USD {priceFrench} </p>
-                                    </BoxPackageLesson>
-                                )
-                            }
-                            <Box_Buttons>
-                                 {priceFrench &&  <Delete onClick={()=> ClickDelete(data2) } ><IconTrash/></Delete> }
-                            </Box_Buttons>
-                            <Security> <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" size="20" height="20" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"></path></svg> PAGOS TOTALMENTE SEGUROS </Security>
+                        <div className="" >
+                        <div className="image_card france"   onClick={ OpenModalFrench } > <h4 className="text-center">French </h4> </div>
+                            
                         </div>
                     </div>
                     <div className="col-md-4">
-                        <div className="card text-center mb-2" >
-                        
-                        <div className="image_card spanish "> <h4 className="text-center">Spanish</h4> </div>
-                                <DropdownsItemsSpanish idiom={'Spanish'}  />
-
-                                {
-                                    priceSpanish && (
-                                        <BoxPackageLesson>
-                                            <p className="text-center"> You have chosen the {lessonSpanish} package at this price: USD {priceSpanish} </p>
-                                        </BoxPackageLesson>
-                                    )
-                                }
-                                <Box_Buttons>
-                                    {priceSpanish  && <Delete onClick={()=> ClickDelete(data3) } > <IconTrash/> </Delete> }
-                                </Box_Buttons>
-                                <Security> <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" size="20" height="20" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"></path></svg> <span>PAGOS TOTALMENTE SEGUROS</span> </Security>
+                        <div className="" >
+                        <div className="image_card spanish" onClick={ OpenModalSpanish } > <h4  className="text-center">Spanish</h4> </div> 
                         </div>
                     </div>
                 </div>
             </section>
+
+            <ModalPackage    ShowModal={ShowModal} setShowModal={setShowModal}  />
+            <ModalPackageFrench ShowModalFrench={ShowModalFrench} setShowModalFrench={setShowModalFrench}  />
+            <ModalPackageSpanish ShowModalSpanish={ShowModalSpanish} setShowModalSpanish={setShowModalSpanish}  />
         </>
     );
 }
@@ -163,7 +101,7 @@ const ItemsCart = styled.div `
     height:25px;
     border-radius:50%;
     background:#ff3946;
-    z-index:99999;
+    z-index:2;
     right:20px;
     top:-10px;
     display:flex;

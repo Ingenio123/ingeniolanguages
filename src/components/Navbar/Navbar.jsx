@@ -12,12 +12,13 @@ import {withRouter} from 'react-router-dom'
 import { Link as LinkID } from 'react-scroll';
 import {Link} from 'react-router-dom';
 import {useGoogleLogin} from 'react-use-googlelogin'
-
+import {useState} from 'react'
  
 
 const Navbar = ({toggle,history})=>{
     const auth = useSelector(state => state.auth)
     const dispatch = useDispatch()
+    const [NavBar, setNavBar] = useState(false)
 
     const { signOut } = useGoogleLogin({
       clientId: '669011089415-8gtepgk9pivth0itvut5tom96kn9r7i1.apps.googleusercontent.com',
@@ -31,9 +32,23 @@ const Navbar = ({toggle,history})=>{
     const profileUser = ()=>{ 
       history.push('/Private')
     }
+
+    const ScrollPage = ()=>{
+
+      if(window.scrollY >=50){
+        setNavBar(true)
+
+      }else{
+        setNavBar(false)
+      }
+    }
+
+    window.addEventListener('scroll',ScrollPage);
+
     return (
       <div id="home" >
-      <Nav>
+  
+      <Nav NavBar={NavBar} >
         <LogoImage onClick={() => history.push('/') } > <img src={ ingenio } alt="" />  </LogoImage>
         <MenuBars onClick={toggle} />
         
@@ -60,6 +75,7 @@ const Navbar = ({toggle,history})=>{
             {
               auth.isAuthenticated ? '' : <NaVBtn><Button to="/buyNow"  primary="true" big="true">Buy Now</Button> </NaVBtn>}
       </Nav>
+
     </div>
     );
 
@@ -72,13 +88,13 @@ const Nav =  styled.nav`
   display:flex;
   justify-content: space-between;
   padding: 1rem 2rem;
-  z-index:100;
-  position:realtive;
+  z-index:3;
+  position:fixed;
+  top:0;
   width:100%;
-
+  background:white;
+  box-shadow:${({NavBar})=>(NavBar? '0px 0px 10px -2px rgba(0,0,0,0.21)':'none' )}
 `
-
-
 const MenuBars = styled.i`
   display:none;
   @media screen and (max-width: 768px){

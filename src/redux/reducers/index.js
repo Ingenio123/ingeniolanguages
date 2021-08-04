@@ -2,10 +2,13 @@ import {combineReducers} from 'redux'
 import  authReducer from './authReducer';
 import packageReducer from './packageReducer'
 import {shippingData,CardData} from './CheckOutReducer'
-
+import temary from './temaryReducer'
+import itemPackage from './ItemPackageReducer'
 export default combineReducers({
   auth: authReducer,
   package: packageReducer,
   Shipping: shippingData,
-  cardData: CardData
+  cardData: CardData,
+  temary,
+  itemPackage
 })

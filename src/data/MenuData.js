@@ -1,10 +1,6 @@
 
 export const  MenuData = [
     {
-        title: 'Datos', 
-        Link: '/'
-    },
-    {
         title:'Teachers',
         Link: '/Teachers'
     },

@@ -8,7 +8,9 @@ import { withRouter,Redirect,Link}  from 'react-router-dom'
 import {SignInGoogle} from '../../redux/actions/authAction';
 import {GoogleLogin} from 'react-google-login'
 import axios from 'axios'
-import {authenticate,isAuth} from '../../helpers/Auth'
+import {authenticate,isAuth} from '../../helpers/Auth';
+import {useForm} from 'react-hook-form'
+
 
 const SignIn =  props =>{
         // ##########  estados ############ 
@@ -54,7 +56,7 @@ const SignIn =  props =>{
                 }
             };
             
-            const response = await axios.post('https://www.ingenioapi.com/data/userSignIn',{email,password},config)
+            const response = await axios.post('https://localhost:4000/data/userSignIn',{email,password},config)
 
             console.log(response)
             informParent(response)
@@ -69,8 +71,8 @@ const SignIn =  props =>{
 
         const sendGoogleToken = (tokenId)=>{
 
-            // axios.post('https://www.ingenioapi.com/data/authGoogle',{
             axios.post('https://www.ingenioapi.com/data/authGoogle',{
+            // axios.post('https://www.ingenioapi.com/data/authGoogle',{
             
                 idToken:tokenId
             })
@@ -96,7 +98,7 @@ const SignIn =  props =>{
         
 
 
-
+    const  {register,handleSubmit,formState:{errors}} = useForm()
 
     return(
         <>
@@ -110,7 +112,7 @@ const SignIn =  props =>{
                                     <div className="col-12 col-md-12 ">
                                         <div className="form-group">
                                             <label>Email</label>
-                                            <input 
+                                            <input
                                                 name="email"
                                                 type="email"
                                                 className="form-control"

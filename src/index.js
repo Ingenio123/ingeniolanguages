@@ -24,11 +24,16 @@ import {TeacherRoutes} from './Routes/TeacherRoute'
 import {Teacher} from './components/Private/Teacher'
 import resultDatafast from './components/Pay/PageResultDatafast'
 
+import PoliticasPrivacidad from './components/PoliticasPrivacidad/PoliticasPrivacidad'
+
+import FormTemary from './components/Temary/FormTemary'
+import Modal from './components/modalsPackage/modalPackage'  
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store} >
       <Router>
+        
           <App/>
           <Switch>
             <Route exact path='/' component={Home} />
@@ -40,6 +45,8 @@ ReactDOM.render(
             <AdminRoute path="/admin" exact component={Admin} />
             <TeacherRoutes  path='/teacherPage' exact  component={Teacher} />
             <Route exact path="/results/" component={resultDatafast} />
+            <Route exact path="/politicasPrivacidad" component={PoliticasPrivacidad} />
+            <Route exact path="/createonetemary" component={FormTemary} />
           </Switch>
       </Router>
     </Provider>

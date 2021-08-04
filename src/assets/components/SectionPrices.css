@@ -5,6 +5,7 @@
     width: 80%;
     height: 250px;
     background-position: center;
+    cursor:pointer;
 }
 
 .image_card h4 {
@@ -14,6 +15,7 @@
 
 .english {
     background-image: url('../images/EnglishImage.jpg');
+    cursor: pointer;
 }
 .france{
     background-image:  url('../images/frenchImg.jpg');

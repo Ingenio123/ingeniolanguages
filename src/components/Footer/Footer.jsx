@@ -2,6 +2,8 @@ import styled from 'styled-components'
 import ingenio  from  '../../assets/images/IngenioLanguages.svg';
 import {Link as LinkFooter } from 'react-scroll';
 
+import {Link} from 'react-router-dom'
+
 export const Footer = () => {
     return (
         <>
@@ -30,7 +32,7 @@ export const Footer = () => {
                             <TextPoliticas><b>Copyright © 2021</b></TextPoliticas> 
                         </PoliticaPriv>
                         <PoliticaPriv>
-                            <ItemsPoliticas>Politicas  de privacidad</ItemsPoliticas>
+                            <Link to='/politicasPrivacidad'> <ItemsPoliticas>Politicas  de privacidad</ItemsPoliticas>  </Link> 
                             <TextPoliticas>Ingenio Languages. Gestiona sus Datos de manera segura, Con responsabilidad de uso, mantenimiento y divulgacion de su informacion colectadas. Por ejemplo tipo de informacion que usted nos porpociona Nombres,Correo Electronico,Numero Telefonico.</TextPoliticas> 
                         </PoliticaPriv>
                         <PoliticaPriv>
