@@ -16,14 +16,15 @@ export default function Optiontime({GroupLessons,valor}) {
     const dispatch  = useDispatch();
 
     const handleItems = (item)=>{
+        
         setItems(item)
         dispatch(CreateOneItems(item))
 
-        if(GroupLessons){
-            dispatch({
-                type:'RESET_PRICES'
-            })
-        }
+        // if(GroupLessons){
+        //     dispatch({
+        //         type:'RESET_PRICES'
+        //     })
+        // }
 
         dispatch({
             type: 'CALCULATE_PRICES_ITEMS'

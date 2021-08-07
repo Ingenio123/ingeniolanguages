@@ -9,10 +9,13 @@ import {RESET_PRICES} from '../../redux/actions/types'
 import {GroupPersons} from '../../redux/actions/ItemOnePackageAction';
 import {Select_Package,Months_lesson} from '../../redux/actions/packageAction';
 import {Link} from 'react-router-dom';
+import LessonMonths from './lessonMonth';
+
 
 export default function ModalPackage({ShowModal,setShowModal}) {
 
     const modalRef = useRef();
+    const InputMonths = useRef(0);
     
     const CalculoPrices = useSelector(state => state.itemPackage.calculatePrices)
     const LessonsMonth = useSelector(state => state.itemPackage.lessonMonth.label)
@@ -25,7 +28,8 @@ export default function ModalPackage({ShowModal,setShowModal}) {
     const [IndividualClass, setIndividualClass] = useState(true)
     const [PersonsGroup, setPersonsGroup] = useState({value: 0})
     const [Valores, setValores] = useState(false)
-    const [Months, setMonths] = useState({value:0})
+    const [Months, setMonths] = useState({value:1})
+    // const [NumMonths,setNumMonths] = useState(0)
 
     const OnClickValores =  ()=>{
       setValores(!Valores)
@@ -37,24 +41,44 @@ export default function ModalPackage({ShowModal,setShowModal}) {
       dispatch({
         type:RESET_PRICES
       })
+
+      InputMonths.current.value = 1;
+
+      dispatch({
+        type: 'GROUP_CLASS',
+        payload: 2
+      })
     }
 
+
     const OnClickIndividual =  ()=>{
+
       setIndividualClass(true)
       setGroupClass(false);
+
+      InputMonths.current.value = 1;
       dispatch({
         type:RESET_PRICES
       })
+      dispatch({
+        type: 'GROUP_CLASS',
+        payload: 1
+      })
+
     }
+
 
     const closeModal = e => {
       if (modalRef.current === e.target) {
         setShowModal(false);
+
         dispatch({
           type:RESET_PRICES
         })
+
       }
     };
+
 
     const keyPress = useCallback(
       
@@ -66,6 +90,7 @@ export default function ModalPackage({ShowModal,setShowModal}) {
       },
       [setShowModal, ShowModal]
     );
+
 
 
     useEffect(
@@ -82,14 +107,17 @@ export default function ModalPackage({ShowModal,setShowModal}) {
     );
 
 
-    const handleNumber = (e) =>{
-      var val = parseInt(e.target.value)
 
+    const handleNumber = (e) =>{
+
+      var val = parseInt(e.target.value)
+      
       if(isNaN(val)){
         setPersonsGroup({value: 0 });
         return ;
       }
       setPersonsGroup({value: e.target.value });
+      InputMonths.current.value = 1;
 
     }
 
@@ -97,52 +125,28 @@ export default function ModalPackage({ShowModal,setShowModal}) {
       dispatch(GroupPersons(PersonsGroup))
     },[PersonsGroup])
 
-    
-    // realizar aqui   de los meses 
-    const handleMonth = (e)=>{
-      var valMonth = parseInt(e.target.value);
-      
-      if(isNaN(valMonth)){
-        setMonths({value: 0 });
-        return ;
-      }
-      console.log(optionClass)
-      
-      if(optionClass == 1){
-        console.log('1')
-        // Estas en el  Individual 
-        // dispatch()
-      }
-      if(optionClass == 2){
-        console.log('2')
-        // estas en el  group
-        //dispatch()
-
-      }
-
-      setMonths({value: e.target.value })
-      // MonthsLessons();
-    }
-    
-    useEffect(() => {
-      dispatch(Months_lesson(Months));
-    }, [Months])
-
     useEffect(() => {
 
       setPersonsGroup({value:1})
-      setMonths({value:1})
+      // setMonths({value:1})
 
     }, [Valores])
 
     const handleCart = ()=>{
                               //price , idiom , lesson
       dispatch(Select_Package(CalculoPrices,'English',LessonsMonth,time))
-      setShowModal(false);
-      dispatch({type: 'ADD_CART'});
 
+      dispatch({type: 'ADD_CART'})
+      setShowModal(false);
     }
 
+
+    // realizar aqui   de los meses 
+    const handleMonth = useCallback(()=>{
+        setMonths({value: InputMonths.current.value })
+    },[Months])
+  
+    
     return (
         <>
           {
@@ -192,17 +196,10 @@ export default function ModalPackage({ShowModal,setShowModal}) {
                           }
 
                         </LessonMonth>
-
-
-
                         <MonthPrices>
-                         
-                            <div style={{width:"100px"}}>
-                              <TextLesson>Choose Month</TextLesson>
-                              <br /> 
-                              <MonthBuy value={Months.value} onChange={e => handleMonth(e)}  type="number"  min="1" max="12" />
-                            </div>
-
+                          {/* number Months */}
+                            <LessonMonths  Months ={Months} InputMonths={InputMonths} handleMonth={handleMonth} />
+                          {/* end number Months */}
                             <div>
                               <Buttons Cart title="add to cart" onClick={handleCart} >add to cart</Buttons>
                               <Link to="/payclient">
@@ -299,6 +296,7 @@ const TextLesson = styled.span `
   font-size:16px;
   letter-spacing: 0px;
 `
+
 const SelectPerMonth =  styled.select`
   width: 100%;
   background-color: white;

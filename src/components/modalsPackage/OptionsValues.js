@@ -20,11 +20,11 @@ export default function OptionsValues({ GroupLessons,valor }) {
         setItems(item)
         dispatch(CreateOneMonthLesson(item))
 
-        if(GroupLessons){
-            dispatch({
-                type:'RESET_PRICES'
-              })
-        }
+        // if(GroupLessons){
+        //     dispatch({
+        //         type:'RESET_PRICES'
+        //       })
+        // }
 
         dispatch({
             type: 'CALCULATE_PRICES_ITEMS'

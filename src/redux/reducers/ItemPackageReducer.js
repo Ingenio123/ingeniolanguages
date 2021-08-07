@@ -13,11 +13,13 @@ const initialState  = {
     lessonMonth:{},
     calculatePrices: 0,
     calculatePricesIndividual: 0,
-    cantPersons: 0,
+    calculatePricesGroup: 1,
+    cantPersons: 1,
     modificacionSelect:false,
     numberMonts: 0,
     addCart: false,
-    optionClass:1 // optioncClass --->  1.- Individual  ##  2.- Group 
+    optionClass:1,// optioncClass --->  1.- Individual  ##  2.- Group 
+    pricesGroup: 0
 }
 
 export default function CreateOnePackage  (state = initialState , action ){
@@ -72,7 +74,8 @@ export default function CreateOnePackage  (state = initialState , action ){
                 ...state,
                 calculatePrices: state.calculatePricesIndividual + res,
                 cantPersons: 2,
-                modificacionSelect:false
+                modificacionSelect:false,
+                calculatePricesGroup: state.calculatePricesIndividual + res,
             }
 
         case GROUP_MORE_OF_TWO_PERSONS :
@@ -84,15 +87,22 @@ export default function CreateOnePackage  (state = initialState , action ){
                 ...state,
                 cantPersons: action.payload.valor,
                 calculatePrices: state.calculatePricesIndividual  +  total,
+                calculatePricesGroup:state.calculatePricesIndividual  +  total,
                 modificacionSelect:false
             }
-        
-        case RESET_PRICES:
+        case 'PRICES_GROUP':
+            return {
+                ...state,
+                pricesGroup: state.calculatePrices
+            }
 
+        case RESET_PRICES:
             return {
                 ...state,
                 calculatePricesIndividual: 0,
-                calculatePrices:0
+                calculatePrices:0,
+                numberMonts:0,
+                calculatePricesGroup:0
             }
         case CHANGE_TIME: 
             return {
@@ -117,12 +127,19 @@ export default function CreateOnePackage  (state = initialState , action ){
         case LESSON_MONTHS:
             return {
                 ...state,
-                calculatePrices: state.calculatePricesIndividual * state.numberMonts
+                calculatePrices: state.pricesGroup * state.numberMonts
             }
         case 'NUMBER_MONTHS':
             return{
                 ...state,
                 numberMonts:  action.payload,
+                calculatePrices: state.calculatePricesGroup * action.payload
+            }
+        case 'NUMBER_MONTHS_INDIVIDUAL':
+            return {
+                ...state,
+                numberMonts: action.payload,
+                calculatePrices: state.calculatePricesIndividual * action.payload
             }
         case 'GROUP_CLASS':
             return {
@@ -130,6 +147,6 @@ export default function CreateOnePackage  (state = initialState , action ){
                 optionClass: action.payload
             }
         default:
-            return state;
+            return  state;
     }
 }

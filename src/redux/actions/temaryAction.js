@@ -16,7 +16,7 @@ export const CreateOneItemTemary = (data) => async (dispatch) =>{
         }]
     }
     console.log(dataObject)
-    const res = await axios.post('http://192.168.1.9:4000/temary/createOne',dataObject)
+    const res = await axios.post('https://www.ingenioapi.com/temary/createOne',dataObject)
     console.log(res)
     dispatch({
         type: CREATE_ONE_iTEMEN_TEMARY,

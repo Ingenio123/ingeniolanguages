@@ -9,7 +9,7 @@ import {ITEM_PACKAGE,
 
 export const CreateOneItems  = (data) => (dispatch) =>{
     
-    dispatch({
+    return dispatch({
         type: ITEM_PACKAGE,
         payload: data
     })
@@ -19,12 +19,12 @@ export const CreateOneItems  = (data) => (dispatch) =>{
 
 export const CreateOneMonthLesson =  (data) => (dispatch)=>{
     
-    dispatch({
+    return dispatch({
         type: LESSON_MONTH,
         payload:data
     })
 
-}
+} 
 
 export const GroupPersons = (data)=> (dispatch) =>{
 
@@ -34,24 +34,34 @@ export const GroupPersons = (data)=> (dispatch) =>{
     if(valor >1 && valor === 2){
         valorCalcular = 0.75; // --> serial el 75%
         
-        return dispatch({
+        dispatch({
             type:GROUP_TOW_CLASS_CANT_PERSONS,
             payload: valorCalcular
         })
 
+        return dispatch({
+            type:'PRICES_GROUP'
+        })
+        
+        
     }
 
     if(valor > 2  && valor <= 10){
 
         valorCalcular = 0.50;
 
-        return dispatch({
+        dispatch({
             type: GROUP_MORE_OF_TWO_PERSONS,
             payload: {
                 valorCalcular,
                 valor
             }
         })
+
+        return dispatch({
+            type:'PRICES_GROUP'
+        })
+
         
     }
 
@@ -59,6 +69,5 @@ export const GroupPersons = (data)=> (dispatch) =>{
         type: GROUP_CLASS_CANT_PERSONS,
         payload:valor
     })
-
 
 }

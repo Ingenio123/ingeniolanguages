@@ -9,6 +9,7 @@ import {RESET_PRICES} from '../../redux/actions/types'
 import {GroupPersons} from '../../redux/actions/ItemOnePackageAction';
 import {Select_Package} from '../../redux/actions/packageAction'
 import {Link} from 'react-router-dom'
+import LesonMonth from './lessonMonth';
 
 
 
@@ -26,6 +27,8 @@ export default function ModalPackageFrench({ShowModalFrench,setShowModalFrench})
     const [IndividualClass, setIndividualClass] = useState(true)
     const [PersonsGroup, setPersonsGroup] = useState({value: 0})
     const [Valores, setValores] = useState(false)
+    const [Months, setMonths] = useState({value:1})
+    const InputMonths = useRef(0);
 
     const OnClickValores =  ()=>{
       setValores(!Valores)
@@ -104,6 +107,11 @@ export default function ModalPackageFrench({ShowModalFrench,setShowModalFrench})
       setShowModalFrench(false);
     }
 
+     // realizar aqui   de los meses 
+    const handleMonth = useCallback(()=>{
+      setMonths({value: InputMonths.current.value })
+    },[Months])
+
     return (
         <>
           {
@@ -161,7 +169,7 @@ export default function ModalPackageFrench({ShowModalFrench,setShowModalFrench})
                             <div style={{width:"100px"}}>
                               <TextLesson>Choose Month</TextLesson>
                               <br /> 
-                              <MonthBuy Month type="number"  min="1" max="12" />
+                              <LesonMonth  Months={Months}  InputMonths={InputMonths} handleMonth={handleMonth} />   
                             </div>
 
                             <div>
