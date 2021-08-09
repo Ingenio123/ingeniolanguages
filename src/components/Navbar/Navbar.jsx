@@ -73,7 +73,7 @@ const Navbar = ({toggle,history})=>{
         </NavMenu>
         </Espacio>
             {
-              auth.isAuthenticated ? '' : <NaVBtn><Button to="/buyNow"  primary="true" big="true">Buy Now</Button> </NaVBtn>}
+              auth.isAuthenticated ? '' : <NaVBtn><Button to="/orderSummary"  primary="true" big="true">Cart</Button> </NaVBtn>}
       </Nav>
 
     </div>
@@ -89,7 +89,7 @@ const Nav =  styled.nav`
   justify-content: space-between;
   padding: 1rem 2rem;
   z-index:3;
-  position:fixed;
+  position:${({NavBar})=>(NavBar? 'fixed':'relative' )};
   top:0;
   width:100%;
   background:white;

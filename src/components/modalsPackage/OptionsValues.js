@@ -6,11 +6,11 @@ export default function OptionsValues({ GroupLessons,valor }) {
     const dispatch =  useDispatch();
     
     const options = [
-        { value: '4', label: '4 lesson' },
-        { value: '8', label: '8 lesson' },
-        { value: '12', label: '12 lesson' },
-        { value: '16', label: '16 lesson' },
-        { value: '20', label: '20 lesson' }
+        { value: '4', label: '4 lessons per month' },
+        { value: '8', label: '8 lessons per month' },
+        { value: '12', label: '12 lessons per month' },
+        { value: '16', label: '16 lessons per month' },
+        { value: '20', label: '20 lessons per month' }
       ]
     
     

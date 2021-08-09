@@ -29,6 +29,8 @@ import PoliticasPrivacidad from './components/PoliticasPrivacidad/PoliticasPriva
 import FormTemary from './components/Temary/FormTemary'
 import Modal from './components/modalsPackage/modalPackage'  
 
+import OrderSummary from './components/OrderCarts/OrderPay'
+
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store} >
@@ -47,6 +49,7 @@ ReactDOM.render(
             <Route exact path="/results/" component={resultDatafast} />
             <Route exact path="/politicasPrivacidad" component={PoliticasPrivacidad} />
             <Route exact path="/createonetemary" component={FormTemary} />
+            <Route exact path="/orderSummary" component={OrderSummary}  />
           </Switch>
       </Router>
     </Provider>

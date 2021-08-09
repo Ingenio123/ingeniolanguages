@@ -11,7 +11,6 @@ const SignUp = props =>{
     const {register,handleSubmit,formState:{errors} }   = useForm()
     const dispatch = useDispatch()
     const onSubmit = (data)=>{
-
         dispatch(Register(data));
         isAuth() && isAuth().role === 'admin' ? props.history.push('/admin') : props.history.push('/private');
     }
@@ -22,12 +21,15 @@ const SignUp = props =>{
                 <h1 className="title text-center">Bienvenido</h1>
                 <form onSubmit={ handleSubmit(onSubmit) }>
                     <div className="row">
+
                         <div className="col-md-6 ">
+
                             <div className="row mt-4">
-                                <div className="col-12 col-md-6">
+
+                                <div className="col-12 col-md-12">
+
                                     <div className="form-group">
                                         <label>User name</label>
-
                                         <input 
                                         type="text" 
                                         className="form-control" 
@@ -42,6 +44,7 @@ const SignUp = props =>{
                                         />
                                         <span className="text-samall text-danger"> {errors.username?.message } </span>
                                     </div>
+
                                 </div>
                                 <div className="col-12 col-md-6"> 
                                     <div className="form-group">
@@ -71,6 +74,29 @@ const SignUp = props =>{
                                         />
                                         <span className="text-small text-danger"> {errors.age?.message} </span>
                                     </div>
+                                </div>
+                                <div className="col-12 col-md-6">
+                                    <Gender>Gender</Gender>
+                                    <BoxChecks>
+                                        <div class="form-check ">
+                                            <input class="form-check-input"  name="inlineRadioOptions" type="radio" id="Hombre"   />
+                                            <label class="form-check-label" for="Hombre">
+                                                Hombre
+                                            </label>
+                                        </div>
+                                        <div class="form-check ">
+                                            <input class="form-check-input"  name="inlineRadioOptions" type="radio" id="Mujer"  />
+                                            <label class="form-check-label" for="Mujer">
+                                                Mujer
+                                            </label>
+                                        </div>
+                                        <div class="form-check ">
+                                            <input class="form-check-input" name="inlineRadioOptions"  type="radio"  id="Other"   />
+                                            <label class="form-check-label" for="Other">
+                                                Other
+                                            </label>
+                                        </div>
+                                    </BoxChecks>
                                 </div>
                                 <div className="col-12 col-md-12">
                                     <div className="form-group">
@@ -175,4 +201,16 @@ const ButtonSignIn =  styled(Link)`
     &:hover{
         text-decoration:underline;
     }
+`
+
+const BoxChecks = styled.div `
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+`
+const Gender = styled.p`
+    margin:0;
+    text-align: center;
+    font-size:1rem;
+    color: #314584;
 `

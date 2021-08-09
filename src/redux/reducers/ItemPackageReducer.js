@@ -38,22 +38,20 @@ export default function CreateOnePackage  (state = initialState , action ){
             }
         case CALCULATE_PRICES_ITEMS:
             let prices = 0;
-            
             switch (state.timeLesson.value) {
                 case '30':
-                    prices = 15
+                    prices = 16.80
                     break;
                 case '45':
-                    prices = 22.50
+                    prices = 25.2
                     break;
                 case '60':
-                    prices = 30
+                    prices = 33.6
                     break;
                 default:
                     prices = 0
                     break;
             }
-            
             return {
                 ...state,
                 calculatePricesIndividual: prices * state.lessonMonth.value,
@@ -61,7 +59,6 @@ export default function CreateOnePackage  (state = initialState , action ){
                 modificacionSelect: true
             }
         case GROUP_CLASS_CANT_PERSONS:
-            // action.payload === 2 ? '' : ''
             return {
                 ...state,
                 valuePersons: action.payload.valor,

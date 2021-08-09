@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import {Link} from 'react-router-dom'
 
 export const Button = styled(Link)`
-    background-color: ${({ primary })=> ( primary ? '#ff3946': 'blue')};;
+    background-color: ${({ primary })=> ( primary ? '#ff3946': 'blue')};
     white-sapce:nowrap;
     otline: none;
     border:none;
@@ -14,8 +14,8 @@ export const Button = styled(Link)`
     display:flex;
     justify-content:center;
     align-items:center;
-    padding: ${({ big }) => ( big ? '16px 40px ': '14px 2px')};
-    color:${({primary}) => (primary ? '#fff':'black')};
+    padding: ${({ big }) => ( big? '16px 40px ': '14px 2px')};
+    color:${({primary}) => (primary? '#fff':'black')};
     &:hover{
         color:white;
         transform:translateY(-5px)

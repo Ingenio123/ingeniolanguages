@@ -1,6 +1,6 @@
 import axios from 'axios';
 import {isAuth,authenticate} from '../../helpers/Auth';
-
+import Url  from '../../components/Urls';
 import {
   USER_LOADED,
   USER_LOADING,
@@ -8,7 +8,8 @@ import {
   LOGOUT_SUCCESS,
   REGISTER_SUCCESS,
   AUTH_GOOGLE,
-  LOGIN_GOOGLE_SUCCESS
+  LOGIN_GOOGLE_SUCCESS,
+  LOGIN_FAIL
 } from './types';
 
 
@@ -49,8 +50,10 @@ export const Register = ({username, password, your_lenguage,email,confirmPasswor
 
   // Request body
   const body = JSON.stringify({ username, password, your_lenguage, email ,confirmPassword,age});
+  
+  const EndPoint = Url.url + '/data/userSignUp';
 
-  const res = await axios.post('https://www.ingenioapi.com/data/userSignUp', body, config)
+  const res = await axios.post(EndPoint, body, config)
   
   authenticate(res,()=>{
     
@@ -68,14 +71,35 @@ export const SignInGoogle = () => dispatch =>{
   })
 }
 
+
+
+
 // Login User
 export const Login = ({email,password}) => async (dispatch) => { 
+  const data = {
+    email: email,
+    password: password
+  }
+  const res = await axios.post(Url.url + '/data/userSignIn',data);
   
+  authenticate(res,()=>{
     dispatch({
       type: LOGIN_SUCCESS,
     })
+  })
+
+  return dispatch({
+    type: LOGIN_FAIL
+  })
+
+
 }
   
+
+
+
+
+
 // Logout User
 export const Logout = () => dispatch => {
   dispatch({

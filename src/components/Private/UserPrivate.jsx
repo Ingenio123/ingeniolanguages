@@ -38,6 +38,7 @@ const PrivateRoute = ({history})=>{
     const clickDrop = ()=>{
         setClicked(!click)
     }
+    
     return (
         <>
         <header className="container">

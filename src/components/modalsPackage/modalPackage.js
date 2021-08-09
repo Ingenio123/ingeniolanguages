@@ -154,7 +154,7 @@ export default function ModalPackage({ShowModal,setShowModal}) {
             <Background onClick={closeModal} ref={modalRef} >
               <ModalWrapper ShowModal={ShowModal} >
                 <HeaderInformContent>
-                    <h4>English Class</h4>
+                    <h4>English</h4>
                 </HeaderInformContent>
                   <ContentModel>
                       <ContentImg>
@@ -168,8 +168,8 @@ export default function ModalPackage({ShowModal,setShowModal}) {
                         <hr />
 
                         <ContentIcon>
-                          <ButoonIndividual activado={IndividualClass}   onClick={OnClickIndividual} >Individual Class</ButoonIndividual>
-                          <ButoonIndividual activado={GroupClass} onClick={OnClickGroup} >Group Class</ButoonIndividual>
+                          <ButoonIndividual activado={IndividualClass}   onClick={OnClickIndividual} >Individual lessons</ButoonIndividual>
+                          <ButoonIndividual activado={GroupClass} onClick={OnClickGroup} >Group lessons</ButoonIndividual>
                         </ContentIcon>
 
                         <LessonMonth>
@@ -177,12 +177,12 @@ export default function ModalPackage({ShowModal,setShowModal}) {
                           
 
                           <ContentSelect>
-                            <TextLesson>Lesson Month</TextLesson>
+                            <TextLesson>Lesson Package </TextLesson>
                             <OptionValues  valor={OnClickValores} GroupLessons ={ GroupClass } />
                           </ContentSelect>
 
                           <ContentSelect>
-                            <TextLesson>Duracion Lesson</TextLesson>
+                            <TextLesson>Duration of each lesson</TextLesson>
                             <OptionTime valor={OnClickValores}  GroupLessons ={ GroupClass } />
                           </ContentSelect>
 

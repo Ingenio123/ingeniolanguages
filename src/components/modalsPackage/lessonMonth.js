@@ -14,9 +14,8 @@ function LessonMonth({handleMonth,InputMonths,Months}) {
     }, [Months])
 
     return (
-        <div style={{width:"100px"}}>
-            <TextLesson>Choose Month</TextLesson>
-            <br /> 
+        <div style={{width:"120px"}}>
+            <TextLesson>Number of months</TextLesson>
             <MonthBuy   onChange={handleMonth}  ref={InputMonths} type="number"  min="1" max="12" />
         </div>
     )
@@ -27,8 +26,8 @@ export default  memo(LessonMonth);
 const TextLesson = styled.span `
   font-size:16px;
   letter-spacing: 0px;
+  line-height: 80%;
 `
-
 const MonthBuy =  styled.input`
   background:transparent;
   font-size:1rem;

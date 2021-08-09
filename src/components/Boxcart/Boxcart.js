@@ -43,7 +43,6 @@ export default function Boxcart() {
                 return <> <img src={Francia}  width="25" height="25" /> <sppan>French</sppan> </>
             default:
                 return 'nada';
-                break;
         }
     }
     
@@ -73,12 +72,14 @@ export default function Boxcart() {
                 <Content__Cart>
                 
                     <div>
-                        <Text_Subtotal>Sub Total</Text_Subtotal>
+                        <Text_Subtotal>Subtotal</Text_Subtotal>
                         <SubTotal>${res}</SubTotal>
                         <Link to="/payclient">
-                            <Button_ProccedPay>Procced Pay</Button_ProccedPay>
+                            <Button_ProccedPay>Cart details</Button_ProccedPay>
                         </Link>
                         <Separador/>
+                        <Text_Subtotal>Order Summary</Text_Subtotal>   
+                        
                         {
                             items.map((item,index)=>(
                                 <div>

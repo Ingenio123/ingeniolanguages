@@ -10,6 +10,7 @@ import {GoogleLogin} from 'react-google-login'
 import axios from 'axios'
 import {authenticate,isAuth} from '../../helpers/Auth';
 import {useForm} from 'react-hook-form'
+import Url from '../Urls'
 
 
 const SignIn =  props =>{
@@ -56,7 +57,7 @@ const SignIn =  props =>{
                 }
             };
             
-            const response = await axios.post('https://ingenioapi.com/data/userSignIn',{email,password},config)
+            const response = await axios.post(Url.url+'/data/userSignIn',{email,password},config)
 
             console.log(response)
             informParent(response)
@@ -70,10 +71,8 @@ const SignIn =  props =>{
         }
 
         const sendGoogleToken = (tokenId)=>{
-
-            axios.post('https://www.ingenioapi.com/data/authGoogle',{
-            // axios.post('https://www.ingenioapi.com/data/authGoogle',{
             
+            axios.post(Url.url + '/data/authGoogle',{
                 idToken:tokenId
             })
             .then(res => {
@@ -132,29 +131,46 @@ const SignIn =  props =>{
                                                 />
                                         </div>
                                     </div>
-                                    <ButtonSubmit >Submit</ButtonSubmit>
+                                    <ButtonSubmit >Sign In</ButtonSubmit>
+                                   
+                                    
                                 </div>
-                                
-                            </form>
-                            <Linea></Linea>
-                            <Or>Or</Or>
-                            <Centrar>
-                               {/* <GoogleButton onClick={signIn} >G Sign In</GoogleButton> */}
+                                <Centrar>
                                <GoogleLogin
                                     clientId="669011089415-8gtepgk9pivth0itvut5tom96kn9r7i1.apps.googleusercontent.com"
                                     render={renderProps => (
-                                    <GoogleButton onClick={renderProps.onClick} disabled={renderProps.disabled}> <FcGoogle></FcGoogle>  Sing In</GoogleButton>
+                                    <GoogleButton onClick={renderProps.onClick} disabled={renderProps.disabled}> <FcGoogle></FcGoogle>  Sign In</GoogleButton>
                                     )}
                                     buttonText="Login"
                                     onSuccess={responseGoogle}
                                     onFailure={responseGoogle}
                                     cookiePolicy={'single_host_origin'}
                                 />
-                            
                             </Centrar>
-                            <SingUpCenter>
-                                <ButtonSignUp to="/SignUp">Sing Up</ButtonSignUp>
-                            </SingUpCenter>
+                            </form>
+                            
+                            <Linea></Linea>
+                            <Or>Or</Or>
+                            <Or>If you are new in Ingenio Languages</Or>
+                            <Or>Create an account</Or>
+
+                            
+                            <Centrar>
+                               {/* <GoogleButton onClick={signIn} >G Sign In</GoogleButton> */}
+                               <Link to="/SignUp">
+                               <GoogleButton blue={true} > Sing Up </GoogleButton>
+                               </Link>
+                               <GoogleLogin
+                                    clientId="669011089415-8gtepgk9pivth0itvut5tom96kn9r7i1.apps.googleusercontent.com"
+                                    render={renderProps => (
+                                    <GoogleButton onClick={renderProps.onClick} disabled={renderProps.disabled}> <FcGoogle></FcGoogle>  Sign Up</GoogleButton>
+                                    )}
+                                    buttonText="Login"
+                                    onSuccess={responseGoogle}
+                                    onFailure={responseGoogle}
+                                    cookiePolicy={'single_host_origin'}
+                                />
+                            </Centrar>
                         </div>
 
                         <div className="col-md-6 ">
@@ -174,7 +190,7 @@ export default withRouter(SignIn);
 const ButtonSubmit = styled.button`
     border-radius:10px;
     border:2px solid #314584 ; 
-    padding:8px  24px 4px 24px;
+    padding:4px  24px 4px 24px;
     font-size:20px;
     background:transparent;
     color:#314584;
@@ -187,7 +203,7 @@ const ButtonSubmit = styled.button`
     }
 `
 const Linea = styled.hr `
-    margin-top:30px;
+    /* margin-top:30px; */
     width:100%;
 `
 const Or = styled.span `
@@ -196,6 +212,7 @@ const Or = styled.span `
     font-weight:600;
     display:flex;
     justify-content:center;
+    margin-top: -10px ;
 `
 
 const Centrar = styled.div `
@@ -204,20 +221,20 @@ const Centrar = styled.div `
     margin: 10px 0;
 `
 const GoogleButton = styled.button `
-    color:#ff3946;
-    border:2px solid #ff3946;
+    color:${props => props.blue? '#314584':'#ff3946' };
+    border:${(props)=> (props.blue ? '2px solid #314584':'2px solid #ff3946')};
     background:none;
-    padding:8px 1rem;
+    padding:4px 1rem;
     font-size:20px;
-    font-weight:600;
     border-radius:10px;
     transition:all .3s ease-in-out;
     &:hover{
-        background:#ff3946;
+        background:${props => props.blue?'#314584':'#ff3946' };
         color:white;
         border:none;
-        padding:8px 2rem;
+        padding:4px 2rem;
     }
+    margin-left: 5px;
 `
 
 
@@ -227,7 +244,7 @@ const  SingUpCenter = styled.div `
     justify-content:center;
 
 `
-
 const ButtonSignUp = styled(Link) `
     font-size:20px;
+    font-weight: 700;
 `

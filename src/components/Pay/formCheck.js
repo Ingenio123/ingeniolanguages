@@ -21,6 +21,7 @@ function CheckOut(props){
     const dispatch = useDispatch()
     const {register,handleSubmit,formState:{errors} }   = useForm()
     const {items} = useSelector(state => state.package);
+
     const Shipping  = useSelector(state => state.Shipping)
     
     const [Loader, setLoader] = useState(false)
@@ -35,15 +36,17 @@ function CheckOut(props){
 
     let res = 0;
 
-    
-
     if(items){
         const arrayPrices = [];
-        items.map(val => arrayPrices.push(val.price))
+
+        items.map(val => arrayPrices.push(val.price) )
+
         console.log(arrayPrices)
+
         res = items.reduce((acc,item)=>{
             return  acc +=  item.price;
         },0)
+        
     }
 
 
@@ -53,7 +56,8 @@ function CheckOut(props){
     function ValorTotal(){
         let valIva = 12;
         let CobroIva = (res  * valIva) / 100;
-        return CobroIva;
+        var valorn = parseFloat(CobroIva).toFixed(2)
+        return valorn;
     }
   
 
@@ -116,9 +120,13 @@ function CheckOut(props){
             return <DatafastPay id={IdCheck} /> 
         }
     }
-
+    function PrintWind(res,val){
+        var valorn = res - val ;
+        var valorn = parseFloat(valorn).toFixed(2)
+        return valorn
+    }
     return (
-        <>
+        <div>
             
             <Section className="container">
                 <IconsArrow> <IconsArrowLeft onClick={()=> handleArrowLeft()} /> </IconsArrow>
@@ -299,14 +307,20 @@ function CheckOut(props){
                                 <BoxOrder>  
                                     <OrderSumary>Order Sumary</OrderSumary>
                                     <ItemsOrder>
-                                        <span>items({items? items.length : '0'}):</span> <span>$ {res !== 0 ? res : 0}</span>
+                                        <span>items({items? items.length : '0'}):</span> <span>$ {res !== 0 ? parseFloat(res).toFixed(2) : 0}</span>
                                     </ItemsOrder>
+
                                     <ItemsOrder>
-                                        <span>Before Tax (+12%): </span> <span>$ { ValorTotal() } </span>
+                                        <span>Subtotal:</span> <span>$ {res !== 0 ? PrintWind(res,ValorTotal()) : 0}</span>
                                     </ItemsOrder>
+
+                                    <ItemsOrder>
+                                        <span>Taxes +12%: </span> <span>$ { ValorTotal() } </span>
+                                    </ItemsOrder>
+
                                     <Line mb={true} />
                                     <ItemsOrder>
-                                        <Order_total>Order Total</Order_total> <Order_total>$ {res !== 0 ? res + ValorTotal() : 0} </Order_total>
+                                        <Order_total>Order Total</Order_total> <Order_total>$ {res !== 0 ? parseFloat(res).toFixed(2)  : 0} </Order_total>
                                     </ItemsOrder>
                                 </BoxOrder>
                             </div>
@@ -317,7 +331,7 @@ function CheckOut(props){
                     </div>
                 </FormCheck>
             </Section>
-        </>
+        </div>
     )
 }
 {/* <DatafastPay id={IdCheck} /> */}
