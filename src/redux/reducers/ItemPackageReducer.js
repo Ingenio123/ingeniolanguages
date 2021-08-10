@@ -19,7 +19,8 @@ const initialState  = {
     numberMonts: 0,
     addCart: false,
     optionClass:1,// optioncClass --->  1.- Individual  ##  2.- Group 
-    pricesGroup: 0
+    pricesGroup: 0,
+    valorDescuento: 1
 }
 
 export default function CreateOnePackage  (state = initialState , action ){
@@ -40,13 +41,13 @@ export default function CreateOnePackage  (state = initialState , action ){
             let prices = 0;
             switch (state.timeLesson.value) {
                 case '30':
-                    prices = 16.80
+                    prices = 15
                     break;
                 case '45':
-                    prices = 25.2
+                    prices = 22.5
                     break;
                 case '60':
-                    prices = 33.6
+                    prices = 30
                     break;
                 default:
                     prices = 0
@@ -142,6 +143,11 @@ export default function CreateOnePackage  (state = initialState , action ){
             return {
                 ...state,
                 optionClass: action.payload
+            }
+        case 'ValorDesc':
+            return {
+                ...state,
+                valorDescuento: action.payload
             }
         default:
             return  state;

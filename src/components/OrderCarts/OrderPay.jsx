@@ -107,7 +107,7 @@ export default function OrderPay(props) {
                     <div>
                         <TextPrices>$ {res} </TextPrices>
                         <br />
-                        <ProccedPay onClick={ VerifyIsAuth } >Proced to Pay</ProccedPay> 
+                        <ProccedPay onClick={ VerifyIsAuth } >Proced to Paymenth</ProccedPay> 
                     </div>
                 </BoxPrices>
             </SectionOrder>

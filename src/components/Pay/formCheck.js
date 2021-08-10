@@ -12,7 +12,7 @@ import {SendDataPayClient} from './AxiosFormPay'
 import Success from '../../assets/images/Success.svg'
 import DatafastPay from './FormPayDatafast'
 import {isAuth} from '../../helpers/Auth'
-
+import BoxVerify from './BoxVerify'
 
 function CheckOut(props){
     
@@ -21,6 +21,7 @@ function CheckOut(props){
     const dispatch = useDispatch()
     const {register,handleSubmit,formState:{errors} }   = useForm()
     const {items} = useSelector(state => state.package);
+    const {valorDescuento} = useSelector(state => state.itemPackage);
 
     const Shipping  = useSelector(state => state.Shipping)
     
@@ -54,9 +55,10 @@ function CheckOut(props){
     
 
     function ValorTotal(){
-        let valIva = 12;
-        let CobroIva = (res  * valIva) / 100;
-        var valorn = parseFloat(CobroIva).toFixed(2)
+        let valIva = 1.12;
+        let CobroIva = res / 1.12;
+        var valortotal =  res - CobroIva 
+        var valorn = parseFloat(valortotal).toFixed(2)
         return valorn;
     }
   
@@ -67,6 +69,7 @@ function CheckOut(props){
         dispatch({
             type: CANCEL_SHIPPING_DATA
         })
+        
     }
 
     const HandleData = async (data)=> {
@@ -125,6 +128,17 @@ function CheckOut(props){
         var valorn = parseFloat(valorn).toFixed(2)
         return valorn
     }
+
+    function ValorTotales(){
+        if(valorDescuento == 1){
+            return parseFloat(res).toFixed(2)
+        }
+        var calculos = res * valorDescuento;
+        var total =  res - calculos
+        return parseFloat(total).toFixed(2)
+    }
+
+
     return (
         <div>
             
@@ -301,13 +315,14 @@ function CheckOut(props){
 
                     <BoxItemsProduct>
                     
-                        {Loader? RenderComponentsSuccess() :
+                        {Loader? null :
                             <div>
+                                <BoxVerify />
                                 <Line/>
-                                <BoxOrder>  
+                                <BoxOrder>
                                     <OrderSumary>Order Sumary</OrderSumary>
-                                    <ItemsOrder>
-                                        <span>items({items? items.length : '0'}):</span> <span>$ {res !== 0 ? parseFloat(res).toFixed(2) : 0}</span>
+                                    <ItemsOrder end={true}>
+                                        <span >items: {items? items.length : '0'} </span>
                                     </ItemsOrder>
 
                                     <ItemsOrder>
@@ -320,7 +335,8 @@ function CheckOut(props){
 
                                     <Line mb={true} />
                                     <ItemsOrder>
-                                        <Order_total>Order Total</Order_total> <Order_total>$ {res !== 0 ? parseFloat(res).toFixed(2)  : 0} </Order_total>
+                                        <Order_total>Order Total</Order_total> <Order_total>$ {res !== 0 ? ValorTotales() : 0} </Order_total>
+                                        {/* <Order_total>Order Total</Order_total> <Order_total>$ {res !== 0 ? parseFloat(res).toFixed(2)  : 0} </Order_total> */}
                                     </ItemsOrder>
                                 </BoxOrder>
                             </div>
@@ -430,7 +446,7 @@ const OrderSumary = styled.h4 `
 `
 const ItemsOrder =  styled.div `
     display:flex;
-    justify-content:space-between;
+    justify-content:${props => props.end? 'flex-end': 'space-between'};
     align-items:center;
     font-size:20px;
     color:#535966;
