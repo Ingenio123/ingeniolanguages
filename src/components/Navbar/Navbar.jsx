@@ -13,7 +13,9 @@ import { Link as LinkID } from 'react-scroll';
 import {Link} from 'react-router-dom';
 import {useGoogleLogin} from 'react-use-googlelogin'
 import {useState} from 'react'
- 
+import './style.css';
+import {isAuth} from '../../helpers/Auth'
+import Sidebar from '../Private/UserUI/Sidebar';
 
 const Navbar = ({toggle,history})=>{
     const auth = useSelector(state => state.auth)
@@ -47,9 +49,8 @@ const Navbar = ({toggle,history})=>{
 
     return (
       <div id="home" >
-  
-      <Nav NavBar={NavBar} >
-        <LogoImage onClick={() => history.push('/') } > <img src={ ingenio } alt="" />  </LogoImage>
+       <Nav NavBar={NavBar}  >
+        <LogoImage to="/" > <img src={ ingenio } alt="" />  </LogoImage>
         <MenuBars onClick={toggle} />
         
         <Espacio>
@@ -74,7 +75,8 @@ const Navbar = ({toggle,history})=>{
         </Espacio>
             {
               auth.isAuthenticated ? '' : <NaVBtn><Button to="/orderSummary"  primary="true" big="true">Cart</Button> </NaVBtn>}
-      </Nav>
+      </Nav> 
+      
 
     </div>
     );

@@ -7,6 +7,9 @@ import {useSelector} from 'react-redux'
 import { Teachers } from '../SectionTeachers/Teachers'
 import { PriceSection } from '../priceSection/PriceSection';
 import { Link as LinkID } from 'react-scroll';
+import {isAuth} from '../../helpers/Auth'
+import { useHistory } from "react-router-dom";
+
 const Icon  = styled(AiOutlineShoppingCart)`
 height:30px;
 width:30px;
@@ -17,7 +20,8 @@ const DeleteReload  = ()=>{
 }
 
 
-const HeaderHero = () =>{
+const HeaderHero = (props) =>{
+    const history  = useHistory();
 
     const auth = useSelector(state => state.auth)
 
@@ -28,7 +32,6 @@ const HeaderHero = () =>{
 
   return(
     <>
-          
           <header >
           
           {/* <!-- HERO SECTION -->     */}

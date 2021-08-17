@@ -48,9 +48,6 @@ export default function casos(state = initialState, action){
       case LOGIN_FAIL:
       case LOGOUT_SUCCESS:
       case REGISTER_FAIL:
-        localStorage.removeItem('user')
-        removeCookie('token')
-        
         return {
           ...state,
           token: null,

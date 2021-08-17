@@ -13,12 +13,17 @@ export const CreateOneItems  = (data) => (dispatch) =>{
         type: ITEM_PACKAGE,
         payload: data
     })
-
 }
 
-
 export const CreateOneMonthLesson =  (data) => (dispatch)=>{
+    console.log('este el dato' ,data);
     
+    if(data.value ==  1 ){
+        // return dispatch({
+        //     type:'CALCULATE_PRICES_ONE',
+        // })
+    }
+
     return dispatch({
         type: LESSON_MONTH,
         payload:data

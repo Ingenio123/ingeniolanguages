@@ -11,7 +11,7 @@ function LessonMonth({handleMonth,InputMonths,Months}) {
   
   useEffect(() => {
     dispatch(Months_lesson(Months,Opcion))
-    }, [Months])
+  }, [Months])
 
     return (
         <div style={{width:"120px"}}>

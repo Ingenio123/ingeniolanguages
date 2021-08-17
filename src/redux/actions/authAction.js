@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {isAuth,authenticate} from '../../helpers/Auth';
+import {isAuth,authenticate,removeCookie} from '../../helpers/Auth';
 import Url  from '../../components/Urls';
 import {
   USER_LOADED,
@@ -18,8 +18,10 @@ import {
 export const loadUser = () => (dispatch, getState) => {
   // User loading
   dispatch({ type: USER_LOADING });
+
+  const EndPoint = Url.url
   axios 
-    .get('https://www.ingenioapi.com/data/api/auth/user', tokenConfig(getState))
+    .get(EndPoint + '/data/api/auth/user', tokenConfig(getState))
     .then(res =>
       dispatch({
         type: USER_LOADED,
@@ -35,9 +37,10 @@ export const  SignWithGoogle = (token_id) => async (dispatch) =>{
     payload: token_id
   })
 }
+//  ---------------End Sign With Google -----------------
 
 // Register User
-export const Register = ({username, password, your_lenguage,email,confirmPassword,age}) => async (dispatch) => {
+export const Register = ({FirstName,LastName, password, your_lenguage,email,confirmPassword,age,Gender},country,phone) => async (dispatch) => {
 
   // Headers
   const config = {
@@ -49,20 +52,18 @@ export const Register = ({username, password, your_lenguage,email,confirmPasswor
  
 
   // Request body
-  const body = JSON.stringify({ username, password, your_lenguage, email ,confirmPassword,age});
-  
+  const body = JSON.stringify({ FirstName,LastName,Gender, password, your_lenguage, email ,confirmPassword,age,country,phone});
   const EndPoint = Url.url + '/data/userSignUp';
 
   const res = await axios.post(EndPoint, body, config)
-  
   authenticate(res,()=>{
-    
+      dispatch({
+        type: REGISTER_SUCCESS,
+        payload: res.data
+      })
   })
 
-  dispatch({
-    type: REGISTER_SUCCESS,
-    payload: res.data
-  })
+  
 };
 
 export const SignInGoogle = () => dispatch =>{
@@ -102,7 +103,11 @@ export const Login = ({email,password}) => async (dispatch) => {
 
 // Logout User
 export const Logout = () => dispatch => {
-  dispatch({
+
+  localStorage.removeItem('user')
+  removeCookie('token')
+  
+  return dispatch({
     type: LOGOUT_SUCCESS
   })
 };

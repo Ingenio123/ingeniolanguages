@@ -74,15 +74,19 @@ export default function Boxcart() {
                     <div>
                         <Text_Subtotal>Subtotal</Text_Subtotal>
                         <SubTotal>${res}</SubTotal>
-                        <Link to="/payclient">
+                        <Link to="/orderSummary"> 
                             <Button_ProccedPay>Cart details</Button_ProccedPay>
                         </Link>
+                        <Link to="/payclient">
+                            <Button_ProccedPay pay={true} >Procced to paymenth</Button_ProccedPay>
+                        </Link>
+                        
                         <Separador/>
                         <Text_Subtotal>Order Summary</Text_Subtotal>   
                         
                         {
                             items.map((item,index)=>(
-                                <div>
+                                <div key={index}>
                                     <BoxItems>
                                         <IconsItems> 
                                             { ShowBanderas(item.idiom) }
@@ -254,6 +258,7 @@ const Text_Subtotal = styled.p`
     letter-spacing: normal;
     text-align: center;
     margin: 0;
+    margin-bottom: .5rem;
 `
 const SubTotal =  styled.p`
     font-size: 1.5rem;
@@ -264,12 +269,16 @@ const SubTotal =  styled.p`
 `
 const Button_ProccedPay = styled.button `
     border:none;
-    background: #314584;
+    background: ${props => props.pay? '#FF3946' : '#314584'};
     padding:4px 8px;
     color:white;
     font-size:1rem;
     border-radius: 15px;
-    margin-left:50px;
+    margin-top:5px;
+    margin-left: ${props => props.pay? '8px' : '40px'};
+    &:hover{
+        background-color:${props => props.pay? '#FF4C58' : '#455790'};
+    }
 `
 const Separador = styled.hr `
     margin:10px 0;
@@ -287,14 +296,7 @@ const IconsItems = styled.div`
     }
 ` 
 
-const Items_Content  = styled.p`
-    background:rgba(83, 82, 237,.8);
-    color:White;
-    line-height: 17px;
-    padding:6px 8px;
-    border-radius: 5px;
-    margin:5px 0;
-`
+
 const BoxDelete = styled.div `
     width: 100%;
     display: flex;

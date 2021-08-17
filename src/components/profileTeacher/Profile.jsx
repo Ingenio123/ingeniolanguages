@@ -35,7 +35,7 @@ export const Profile =  ()=>{
                 </section>
                 <section className="teaches_profesional">
                     <div className="data">
-                        <h4>Languages {Data.firstName} teaches</h4>
+                        <h4 className="mb-1  font-w-600 font-md">Languages {Data.firstName} teaches</h4>
                         {Flags.map((item,index)=>(
                             <div className="data_flag" key={index} >
                                 <img src={ item.urlFlag } alt="flag" />
@@ -44,7 +44,9 @@ export const Profile =  ()=>{
                         ))}
                     </div>
                     <div className="profesional_background" >
-                        <span><h4>Profesional background</h4></span>
+                        <span>
+                            <h4 className="font-w-600 mb-1">Profesional background</h4>
+                        </span>
                         <p>{Data.profesionalBackround}</p>
                     </div>
                 </section>

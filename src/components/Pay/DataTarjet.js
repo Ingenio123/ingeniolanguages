@@ -2,7 +2,7 @@ import {useState} from 'react'
 import {FormCheckOut,Box_input,BoxFormCard,Box_input_submit,Input_send,Input} from './styles';
 import { FaCcMastercard,FaCcDinersClub,FaCcVisa,FaCcDiscover} from "react-icons/fa";
 import {CARD_DATA} from '../../redux/actions/types'
-import Cleave from 'cleave.js/react';
+// import Cleave from 'cleave.js/react';
 import  './styles.css'
 import { useForm} from "react-hook-form";
 import {useDispatch} from 'react-redux'
@@ -48,7 +48,7 @@ export const DataTarjet = (props) => {
                             </Box_input>
                             <Box_input>
                                 <label htmlFor="CardNumber">Card Number  </label> 
-                                    <Cleave
+                                    {/* <Cleave
                                         disabled={props.activeInputs}
                                         placeholder="Enter credit card number"
                                         options={{ creditCard: true, onCreditCardTypeChanged }}
@@ -65,25 +65,25 @@ export const DataTarjet = (props) => {
                                             }
                                         }
                                         )}
-                                    />
+                                    /> */}
                                 <span className="Icons__Card" >{creditCardType === 'visa'? <FaCcVisa/> :  '' } {creditCardType === 'discover'? <FaCcDiscover/> : '' } {creditCardType === 'mastercard' ? <FaCcMastercard/> :'' } {creditCardType === 'diners'? <FaCcDinersClub/> : ''}</span>
                                 <br />
                                 <span className="text-small text-danger "> {errors.cardNumber?.message } </span>
                             </Box_input>
                             <Box_input>
                                 <label htmlFor="ExpriesCard">Card Expiry</label>
-                                <Cleave
+                                {/* <Cleave
                                     disabled={props.activeInputs}
                                     id="ExpriesCard"
                                     placeholder="MM/YY"
                                     options={{ date: true, datePattern: ["m", "d"] }}
                                     className="form__card"
                                     {...register("ExpiresCard")}
-                                />
+                                /> */}
                             </Box_input>
                             <Box_input>
                                 <label htmlFor="Cvv">CVV</label>
-                                <Cleave
+                                {/* <Cleave
                                     disabled={props.activeInputs}
                                     id="Cvv"
                                     placeholder="CVV"
@@ -93,7 +93,7 @@ export const DataTarjet = (props) => {
                                     }}
                                     className="form__card"
                                     {...register("Cvv")}
-                                />
+                                /> */}
                             </Box_input>
                             <Box_input_submit>
                                 <Input_send  type="button" value="Cancel" />

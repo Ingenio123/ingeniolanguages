@@ -111,7 +111,7 @@ export default function ModalPackageFrench({ShowModalSpanish,setShowModalSpanish
             <Background onClick={closeModal} ref={modalRef} >
               <ModalWrapper ShowModalSpanish={ShowModalSpanish} >
                 <HeaderInformContent>
-                    <h4>Spanish Class</h4>
+                    <TitlePackage>Spanish Class</TitlePackage>
                 </HeaderInformContent>
                   <ContentModel>
                       <ContentImg>
@@ -308,4 +308,11 @@ const ButoonIndividual =  styled.button`
   color:${(props)=>(props.activado? "#fff":"#0069FF")};
   background:${(props)=>(props.activado? "#314584":"rgba(0, 105, 255,.3)")};
   font-size: 1rem;
+`
+
+const TitlePackage = styled.h4 `
+  font-size: 2.5rem;
+  font-weight: 700;
+  font-family: 'Sacramento',cursive;
+  color: #314584;
 `

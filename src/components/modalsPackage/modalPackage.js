@@ -141,11 +141,13 @@ export default function ModalPackage({ShowModal,setShowModal}) {
     }
 
 
-    // realizar aqui   de los meses 
+    //     ======>  realizar aqui   de los meses    <=====
+    
     const handleMonth = useCallback(()=>{
         setMonths({value: InputMonths.current.value })
     },[Months])
-  
+
+  // ##################################################################
     
     return (
         <>
@@ -154,7 +156,7 @@ export default function ModalPackage({ShowModal,setShowModal}) {
             <Background onClick={closeModal} ref={modalRef} >
               <ModalWrapper ShowModal={ShowModal} >
                 <HeaderInformContent>
-                    <h4>English</h4>
+                    <TitlePackage >English Class</TitlePackage>
                 </HeaderInformContent>
                   <ContentModel>
                       <ContentImg>
@@ -200,7 +202,7 @@ export default function ModalPackage({ShowModal,setShowModal}) {
                           {/* number Months */}
                             <LessonMonths  Months ={Months} InputMonths={InputMonths} handleMonth={handleMonth} />
                           {/* end number Months */}
-                            <div>
+                            <div  className="dflex">
                               <Buttons Cart title="add to cart" onClick={handleCart} >add to cart</Buttons>
                               <Link to="/payclient">
                                 <Buttons title="Procced to pay">Procced to pay</Buttons>
@@ -314,7 +316,7 @@ const MonthPrices = styled.div `
 `
 
 const Buttons =  styled.button`
-  padding:4px 8px;
+  padding:.4rem .3rem;
   border:none;
   color:#fff;
   font-size: 1rem;
@@ -345,4 +347,13 @@ const ButoonIndividual =  styled.button`
   color:${(props)=>(props.activado? "#fff":"#0069FF")};
   background:${(props)=>(props.activado? "#314584":"rgba(0, 105, 255,.3)")};
   font-size: 1rem;
+  letter-spacing: .050rem;
+  font-weight: 400;
+`
+
+const TitlePackage = styled.h4 `
+  font-size: 2.5rem;
+  font-weight: 700;
+  font-family: 'Sacramento',cursive;
+  color: #314584;
 `

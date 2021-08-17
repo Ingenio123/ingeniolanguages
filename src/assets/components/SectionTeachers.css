@@ -154,6 +154,11 @@
     font-size: 2.5rem;
     line-height: 24px;
 }
+.card-title{
+    font-weight: 800;
+    font-family: 'Sacramento',cursive;
+    font-size: 3.6rem !important;
+}
 
 .frontside .card .card-body img {
     width: 250px;
@@ -161,17 +166,16 @@
     border-radius: 50%;
 }
 .btn-conoce-more{
-    border-radius: 6px;
+    border-radius: 5px;
     margin-top: 20px;
     margin-left: 20px;
-    color:white;
+    color:white !important;
     background-color: #314584;
-    /* padding: .2rem  35px  .2rem 42px; */
-    padding: .2rem 29.8px .2rem 2.2rem;
+    padding: .6rem 1rem;
     transition: .2s ease-in-out;
 }
 .btn-conoce-more:hover{
-    padding: .2rem  35px  .2rem 42px;
+    padding: .6rem 1.3rem;
     font-weight: 400;
     color:white;
 }

@@ -26,11 +26,15 @@ export const HeaderHero = ({data})=>{
            </div>
 
             <div className="bnt__teacher">
-                <p><a data-scroll href="/" className="btn__buy"> <Icon></Icon> Buy a lesson Package</a></p>
+                <p>
+                    <a  className="btn__buy"> <Icon></Icon> Buy a lesson Package</a>
+                </p>
                 <div className="or">
                    Or
                 </div>
-                <p><a href="/" className="btn__demo">Reques a free demo  lesson </a></p>
+                <p>
+                    <a href="/" className="btn__demo">Reques a free demo  lesson </a>
+                </p>
             </div>
 
         </section>

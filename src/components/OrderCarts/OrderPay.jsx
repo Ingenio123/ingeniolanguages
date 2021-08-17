@@ -76,8 +76,8 @@ export default function OrderPay(props) {
 
                 {
                     items.map((item,index)=>(
-                        <>
-                            <BoxContentOrderSummary key={index}>
+                        <div key={index} >
+                            <BoxContentOrderSummary >
                                 <BoxImages>
                                     { ShowBanderas(item.idiom) }
                                 </BoxImages>
@@ -100,14 +100,14 @@ export default function OrderPay(props) {
 
                             </BoxContentOrderSummary>
                             <hr style={{margin:"0"}} />
-                        </>
+                        </div>
                     ))
                 }
                 <BoxPrices>
                     <div>
                         <TextPrices>$ {res} </TextPrices>
                         <br />
-                        <ProccedPay onClick={ VerifyIsAuth } >Proced to Paymenth</ProccedPay> 
+                        <ProccedPay onClick={ VerifyIsAuth } >Proced to Payment</ProccedPay> 
                     </div>
                 </BoxPrices>
             </SectionOrder>
@@ -152,9 +152,10 @@ const ListContent =  styled.ul `
     margin-top:20px;
 `
 const ItemListContent =  styled.li `
-    font-size: 26px;
-    /* color:#57606f; */
-    /* font-weight: 700; */
+    font-size: 1.5rem;
+    font-weight: 500;
+    margin: 0;
+    line-height: 1.4;
     `
 const TextFuerte = styled.span `
     /* font-weight: 700; */

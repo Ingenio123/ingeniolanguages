@@ -59,6 +59,28 @@ export default function CreateOnePackage  (state = initialState , action ){
                 calculatePrices: prices * state.lessonMonth.value,
                 modificacionSelect: true
             }
+        case 'CALCULATE_PRICES_ONE':
+            let prices2 = 0;
+            switch (state.timeLesson.value) {
+                case '30':
+                    prices2 = 16
+                    break;
+                case '45':
+                    prices2 = 24
+                    break;
+                case '60':
+                    prices2 = 32
+                    break;
+                default:
+                    prices2 = 0
+                    break;
+            }
+            return {
+                ...state,
+                calculatePricesIndividual: prices2 * state.lessonMonth.value,
+                calculatePrices: prices2 * state.lessonMonth.value,
+                modificacionSelect: true
+            }
         case GROUP_CLASS_CANT_PERSONS:
             return {
                 ...state,

@@ -26,12 +26,14 @@ section {
 
 .name_teacher{
     font-size: 24px;
-    
+    font-family: 'Sacramento' !important;
+    font-weight: 600!important; 
 }
 .or{
     text-align: center;
     margin: 25px 20px 0 20px;
     font-weight: 700;
+    font-size: 1rem;
 }
 
 
@@ -39,16 +41,18 @@ section {
     border:2px solid  #FF3946;
     border-radius: 50px;
     background-color: #FF3946;
-    color:white;
-    padding:.5rem 2rem;
+    color: #fff !important;
+    padding:.8rem 2rem;
     transition: .2s ease-in-out;
+    font-size: 1.2rem;
+    letter-spacing: normal;
 }
 .btn__buy:hover{
-    color:#314484ea;
+    color:#314484ea !important;
     background-color: transparent;
-    padding:.5rem 2.3rem
+    padding:.8rem 2.3rem;
+    cursor:pointer;
 }
-
 
 .block{
     display: inline-block!important;
@@ -57,9 +61,9 @@ section {
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1rem;
-    font-weight: 700;
+    font-size: 1.3rem;
     padding:.5rem .8rem;
+    letter-spacing: normal;
 }
 
 .text__teacher{
@@ -68,7 +72,8 @@ section {
 
 }
 .text__teacher h2{
-    font-family: 'Satisfy', cursive;
+    font-family: 'Josefin Sans', sans-serif;
+    /* font-family: 'Nunito Sans', sans-serif; */
     font-size: 3rem;
     line-height: 1;
     font-weight: 200;
@@ -88,7 +93,8 @@ section {
 }
 .eslogan p {
     font-size: 24px;
-    font-family: 'Satisfy', cursive;
+    font-family: 'Josefin Sans', sans-serif;
+    /* font-family: 'Nunito Sans', sans-serif; */
     line-height: 1.5;
     margin-bottom: 0;
 }
@@ -119,7 +125,7 @@ section {
 .presentation p {
     width: 80%;
     text-align: justify;
-    line-height: 1.2;
+    line-height: 1.5;
     margin-top: 10px;
     margin-bottom: 20px;
 }
@@ -137,7 +143,6 @@ section {
     align-items: center;
     justify-content: start;   
 }
-
 .data_flag img{
     width: 70px;
     height: 40px;
@@ -157,9 +162,18 @@ section {
 }
 .profesional_background span h4{
     margin-right: 110px;
+    font-size:1.8rem;
 } 
 
 .profesional_background p {
-    line-height: 1.2;
+    line-height: 1.5;
     text-align: justify;
+    font-size:1.2rem;
+}
+
+.font-w-600{
+    font-weight: 600;
+}
+.font-md{
+    font-size: 1.8rem;;
 }

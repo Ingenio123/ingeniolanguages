@@ -119,7 +119,7 @@ export default function ModalPackageFrench({ShowModalFrench,setShowModalFrench})
             <Background onClick={closeModal} ref={modalRef} >
               <ModalWrapper ShowModalFrench={ShowModalFrench} >
                 <HeaderInformContent>
-                    <h4>French Class</h4>
+                    <TitlePackage>French Class</TitlePackage>
                 </HeaderInformContent>
                   <ContentModel>
                       <ContentImg>
@@ -167,8 +167,6 @@ export default function ModalPackageFrench({ShowModalFrench,setShowModalFrench})
                         <MonthPrices>
                          
                             <div style={{width:"100px"}}>
-                              <TextLesson>Choose Month</TextLesson>
-                              <br /> 
                               <LesonMonth  Months={Months}  InputMonths={InputMonths} handleMonth={handleMonth} />   
                             </div>
 
@@ -316,4 +314,10 @@ const ButoonIndividual =  styled.button`
   color:${(props)=>(props.activado? "#fff":"#0069FF")};
   background:${(props)=>(props.activado? "#314584":"rgba(0, 105, 255,.3)")};
   font-size: 1rem;
+`
+const TitlePackage = styled.h4 `
+  font-size: 2.5rem;
+  font-weight: 700;
+  font-family: 'Sacramento',cursive;
+  color: #314584;
 `

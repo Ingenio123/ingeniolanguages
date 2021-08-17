@@ -9,13 +9,11 @@ import {Provider} from 'react-redux'
 import {store} from './redux/store'
 import SignIn from './components/Forms/SignIn';
 import SignUp from './components/Forms/SignUp';
-
 import  PrivateRouter from './Routes/PrivateRoute'
 import  UserPrivate from './components/Private/UserPrivate'
-
 import formCheckOutPay from './components/Pay/formCheck'
-
 import Home from './home'
+
 // admins 
 import {AdminRoute} from './Routes/AdminRoute';
 import {Admin} from './components/Private/Admin'; 
@@ -28,29 +26,39 @@ import PoliticasPrivacidad from './components/PoliticasPrivacidad/PoliticasPriva
 
 import FormTemary from './components/Temary/FormTemary'
 import Modal from './components/modalsPackage/modalPackage'  
-
 import OrderSummary from './components/OrderCarts/OrderPay'
+import {isAuth} from './helpers/Auth';
+import  Sidebar from './components/Private/UserUI/Sidebar';
+import {Temary} from './components/Private/UserUI/Temary/Temary';
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store} >
       <Router>
+        {isAuth() ? <Sidebar /> :  <App/> }
         
-          <App/>
           <Switch>
             <Route exact path='/' component={Home} />
             <Route exact  path='/ProfileTeachers/:idTeacher'  component={Profile} />
             <Route exact  path='/SignIn' component={SignIn}  />
             <Route exact  path='/SignUp' component={SignUp}  />
             <Route exact   path="/payclient" component={formCheckOutPay} />
-            <PrivateRouter path='/private' exact  component={UserPrivate} />
-            <AdminRoute path="/admin" exact component={Admin} />
-            <TeacherRoutes  path='/teacherPage' exact  component={Teacher} />
             <Route exact path="/results/" component={resultDatafast} />
             <Route exact path="/politicasPrivacidad" component={PoliticasPrivacidad} />
             <Route exact path="/createonetemary" component={FormTemary} />
             <Route exact path="/orderSummary" component={OrderSummary}  />
+
+            <PrivateRouter path='/private' exact  component={UserPrivate} />
+            <PrivateRouter path='/temary' exact  component={Temary} />
+            {/* <PrivateRouter path="" exact  component={} />  */}
+
+            <AdminRoute path="/admin" exact component={Admin} />
+            
+            <TeacherRoutes  path='/teacherPage' exact  component={Teacher} />
+            
+            
           </Switch>
+          
       </Router>
     </Provider>
  

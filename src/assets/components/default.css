@@ -1,5 +1,5 @@
 
-@import url('https://fonts.googleapis.com/css2?family=Satisfy&display=swap');
+/* @import url('https://fonts.googleapis.com/css2?family=Satisfy&display=swap'); */
 
 :root{
     --btn-user-mt:10px;
@@ -65,7 +65,9 @@
   body {
     color: #314584;
     /* font-family: 'Work Sans', sans-serif; */
-    font-family: 'Baloo Da 2'; 
+    /* font-family: 'Baloo Da 2';  */
+    font-family: 'Josefin Sans',sans-serif;
+    /* font-family: 'Nunito Sans', sans-serif; */
     font-size: 14px;
     font-weight: 400;
     overflow-x: hidden;
@@ -74,8 +76,9 @@
   }
 
   .cursive{
-    font-family: 'Satisfy', cursive;
-    line-height: 1.5;
+    font-family: 'Josefin Sans',sans-serif;
+    line-height: 1.1;
+    margin-top: 25px;
   }
 
   h1,
@@ -138,7 +141,8 @@
   background-color: #fff;
   border-radius: 3px;
   font-size: 1.2rem;
-  font-family: 'Work Sans', sans-serif;
+  font-family: 'Josefin Sans',sans-serif;
+  /* font-family: 'Nunito Sans', sans-serif; */
   font-weight: 600;
   color: #FF3946;
 }
