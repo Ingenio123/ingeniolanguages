@@ -49,9 +49,9 @@ export const Teachers = ()=>{
                             <div className="backside">
                             <div className="card">
                                 <div className="card-body text-center mt-4">
-                                    <h6>LANGUAGES THAT</h6>
-                                    <h4 className="card-title cursive"> {item.firstName} </h4>
-                                    <h6>TEACHES</h6>
+                                    <h6 className="font-w-600 title-card" >LANGUAGES THAT</h6>
+                                    <h4 className="card-title cursive mb-1"> {item.firstName} </h4>
+                                    <h6 className="">TEACHES</h6>
                                     <div className="separador">
                                         {
                                             item.flags.map((item2,index)=>(
@@ -59,7 +59,7 @@ export const Teachers = ()=>{
                                             ))
                                         }
                                     </div>
-                                    <Link to="/Prices" className="btn__shop" ><IoCart  color='white' size="30px"  ></IoCart></Link>
+                                    <Link to="/Prices" className="btn__shop button-cart" ><IoCart  color='white' size="30px"  ></IoCart></Link>
                                     <Link to={`/ProfileTeachers/${item._id}`} className="btn-conoce-more" >See Profile <IconArrow></IconArrow> </Link>
                                 </div>
                             </div>

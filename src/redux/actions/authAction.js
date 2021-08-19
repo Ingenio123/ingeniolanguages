@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {isAuth,authenticate,removeCookie} from '../../helpers/Auth';
+import {authenticate,removeCookie} from '../../helpers/Auth';
 import Url  from '../../components/Urls';
 import {
   USER_LOADED,

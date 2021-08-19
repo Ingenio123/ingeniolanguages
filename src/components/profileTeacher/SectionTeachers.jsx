@@ -1,10 +1,5 @@
-import { useEffect } from 'react';
 import '../../assets/components/SectionTeacher.css';
 export const SectionTeachers = props =>{
-    useEffect(() => {
-        console.log(props.data)
-        
-    }, [])
     return(
         <>
             <div className="container">

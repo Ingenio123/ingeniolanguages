@@ -22,7 +22,7 @@ export default  function cases(state={ items:[] },action){
             const data = action.payload;
              return {
                 ...state,
-                items: state.items.filter( x => x.idiom != data )
+                items: state.items.filter( x => x.idiom !== data )
              }
         default:
             return state;

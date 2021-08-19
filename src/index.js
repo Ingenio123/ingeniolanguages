@@ -25,7 +25,6 @@ import resultDatafast from './components/Pay/PageResultDatafast'
 import PoliticasPrivacidad from './components/PoliticasPrivacidad/PoliticasPrivacidad'
 
 import FormTemary from './components/Temary/FormTemary'
-import Modal from './components/modalsPackage/modalPackage'  
 import OrderSummary from './components/OrderCarts/OrderPay'
 import {isAuth} from './helpers/Auth';
 import  Sidebar from './components/Private/UserUI/Sidebar';

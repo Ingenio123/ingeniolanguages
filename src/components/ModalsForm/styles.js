@@ -57,7 +57,6 @@ export const InputWhithIcon =  styled.div `
 
     &>input[type="password"]{
         padding-left:30px;
-        padding: .2rem !important;
     }
     
     &>input[type="password"] + i {

@@ -147,7 +147,7 @@ export default function ModalPackageFrench({ShowModalFrench,setShowModalFrench})
                           </ContentSelect>
 
                           <ContentSelect>
-                            <TextLesson>Duracion Lesson</TextLesson>
+                            <TextLesson>Duration of each lesson</TextLesson>
                             <OptionTime valor={OnClickValores}  GroupLessons ={ GroupClass } />
                           </ContentSelect>
 
@@ -202,16 +202,16 @@ const Background = styled.div`
 `;
 
 const ModalWrapper = styled.div`
-  width: 800px;
+  width: 850px;
   box-shadow: 0 5px 16px rgba(0, 0, 0, 0.2);
   background: #fff;
   position: relative;
-  padding:30px;
+  padding:1rem;
 `;
 
 const ContentModel = styled.div`
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 18rem 1fr;
 `
 
 const BtnClose = styled(MdClose)`

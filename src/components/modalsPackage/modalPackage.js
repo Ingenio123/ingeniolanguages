@@ -139,8 +139,6 @@ export default function ModalPackage({ShowModal,setShowModal}) {
       dispatch({type: 'ADD_CART'})
       setShowModal(false);
     }
-
-
     //     ======>  realizar aqui   de los meses    <=====
     
     const handleMonth = useCallback(()=>{
@@ -202,12 +200,13 @@ export default function ModalPackage({ShowModal,setShowModal}) {
                           {/* number Months */}
                             <LessonMonths  Months ={Months} InputMonths={InputMonths} handleMonth={handleMonth} />
                           {/* end number Months */}
-                            <div  className="dflex">
-                              <Buttons Cart title="add to cart" onClick={handleCart} >add to cart</Buttons>
-                              <Link to="/payclient">
-                                <Buttons title="Procced to pay">Procced to pay</Buttons>
-                              </Link>
-                            </div>
+                              <div className="">
+                                  <Buttons Cart title="add to cart" onClick={handleCart} >add to cart</Buttons>
+                                  <Link to="/payclient">
+                                    <Buttons title="Procced to pay">Procced to pay</Buttons>
+                                  </Link>
+                              </div>
+                         
 
                         </MonthPrices>
                       </InformContent>
@@ -234,16 +233,18 @@ const Background = styled.div`
 `;
 
 const ModalWrapper = styled.div`
-  width: 800px;
+  width: 850px;
   box-shadow: 0 5px 16px rgba(0, 0, 0, 0.2);
   background: #fff;
   position: relative;
-  padding:30px;
+  padding: .5rem;
 `;
 
 const ContentModel = styled.div`
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 18rem 1fr;
+
+
 `
 
 const BtnClose = styled(MdClose)`
@@ -289,10 +290,11 @@ const LessonMonth  = styled.div`
   display: flex;
   justify-content: flex-start;
   align-items: center;
+
 `
 const ContentSelect =  styled.div`
-  width: 50%;
-  margin:5px 2px;
+  width: 100%;
+  /* margin:5px 2px; */
 `
 const TextLesson = styled.span `
   font-size:16px;
@@ -316,7 +318,7 @@ const MonthPrices = styled.div `
 `
 
 const Buttons =  styled.button`
-  padding:.4rem .3rem;
+  padding:.4rem 1rem;
   border:none;
   color:#fff;
   font-size: 1rem;

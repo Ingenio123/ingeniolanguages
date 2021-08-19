@@ -14,7 +14,7 @@ function LessonMonth({handleMonth,InputMonths,Months}) {
   }, [Months])
 
     return (
-        <div style={{width:"120px"}}>
+        <div >
             <TextLesson>Number of months</TextLesson>
             <MonthBuy   onChange={handleMonth}  ref={InputMonths} type="number"  min="1" max="12" />
         </div>

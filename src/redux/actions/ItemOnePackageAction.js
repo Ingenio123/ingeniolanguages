@@ -3,12 +3,16 @@ import {ITEM_PACKAGE,
     GROUP_CLASS_CANT_PERSONS,
     GROUP_TOW_CLASS_CANT_PERSONS,
     GROUP_MORE_OF_TWO_PERSONS,
-    CHANGE_TIME,
-    CHANGE_LESSON,
-    CALCULO_MONTHS} from './types'
+} from './types'
+
+export const CalculatePricesOne = (data)=> (dispatch)=>{
+   
+    return dispatch({
+        type: 'CALCULATE_PRICES_ONE',
+    })
+}
 
 export const CreateOneItems  = (data) => (dispatch) =>{
-    
     return dispatch({
         type: ITEM_PACKAGE,
         payload: data
@@ -16,12 +20,10 @@ export const CreateOneItems  = (data) => (dispatch) =>{
 }
 
 export const CreateOneMonthLesson =  (data) => (dispatch)=>{
-    console.log('este el dato' ,data);
-    
-    if(data.value ==  1 ){
-        // return dispatch({
-        //     type:'CALCULATE_PRICES_ONE',
-        // })
+    if(data.value ===  1 ){
+        return dispatch({
+            type:'CALCULATE_PRICES_ONE',
+        })
     }
 
     return dispatch({

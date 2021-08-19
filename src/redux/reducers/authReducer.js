@@ -11,7 +11,6 @@ import {
     LOGIN_GOOGLE_SUCCESS
   } from '../actions/types';
 
-  import {removeCookie} from '../../helpers/Auth'
   let isAuth = null;
   if(localStorage.getItem('user')) isAuth =  true;
 

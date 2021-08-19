@@ -5,10 +5,14 @@ import { BsFillUnlockFill,BsLockFill } from "react-icons/bs";
 import { useEffect } from "react";
 import axios from 'axios';
 import { getCookie } from '../../../helpers/Auth';
+import Url from '../../Urls'
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 const initialForm = {
   student: "",
 };
+
 
 function SearchStudent({ handleSearch }) {
 
@@ -16,13 +20,15 @@ function SearchStudent({ handleSearch }) {
   const [DataStudents, setDataStudents] = useState([])
   const [text, setText] = useState('')
   const [suggestion, setSuggestion] = useState([])
-  const token = getCookie('token');
-  const [checkClick, setCheckClick ] = useState(false);
-  const [checkClick2, setCheckClick2 ] = useState(false);
-  const [checkClick3, setCheckClick3 ] = useState(false);
-  const [checkClick4, setCheckClick4 ] = useState(false);
-  const [checkClick5, setCheckClick5 ] = useState(false);
+  const [DataOneStudent, setDataOneStudent] = useState({
+    Name:'',
+    courses:[],
+    lessonsTotal: '',
+    lessonsRestantes: ''
+  });
 
+  const token = getCookie('token');
+  const [DateCalendar, setDateCalendar] = useState(new Date())
   
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -31,14 +37,16 @@ function SearchStudent({ handleSearch }) {
     setForm(initialForm);
   };
 
-  const loadStudents =  () =>{
-    axios.get('http://localhost:4000/data/getAllStudents',{
+  const loadStudents =  async () =>{
+    const EndPoint = Url.url + '/data/getAllStudents'
+    const res = await axios.get(EndPoint,{
         headers:{
             Authorization: `Bearer ${token}`
         } 
     })
-    .then(res => setDataStudents(res.data.students))
-    .catch(err => console.log(err))
+
+    if(res) return  setDataStudents(res.data.students);
+    return setDataStudents(null)
   }
 
   const onChangeHandler = (text)=>{
@@ -47,7 +55,7 @@ function SearchStudent({ handleSearch }) {
     if(text.length > 0){
         matches = DataStudents.filter(student=>{
           const regex = new RegExp(`${text}`, "gi");
-          return student.username.match(regex)
+          return student.FirstName.match(regex)
         })
     }
     setSuggestion(matches)
@@ -55,10 +63,43 @@ function SearchStudent({ handleSearch }) {
   }
 
   const  onSuggestHandler = (text)=>{
-    setText(text);
+    setDataOneStudent({
+      ...DataOneStudent,
+      Name: text.FirstName,
+      courses: text.courses,
+      lessonsTotal: 0,
+      lessonsRestantes: 0
+    })
+    setText(text.FirstName);
     setSuggestion([])
-  }
 
+  }
+  function showData(courses){
+    console.log(courses)
+    if(courses.length> 1){
+      const cursos = courses.map((item,index)=> <> 
+            <Options value={item.nameCourse} >{item.nameCourse}</Options>
+         </>) ;
+      return (
+        <>
+          <Select  >
+            {cursos}
+          </Select>
+        </>
+        )
+      ;
+    }
+
+    if(courses.length != 0){
+      return (
+        <>
+          <span>{courses[0].nameCourse} </span>
+        </>
+      )
+    }
+
+    return '';
+  }
 
   useEffect(() => {
     loadStudents();
@@ -73,7 +114,6 @@ function SearchStudent({ handleSearch }) {
           <Input
             type="text"
             placeholder="Student's Name"
-            name="student"
             onChange={e => onChangeHandler( e.target.value )}
             value={text}
           />
@@ -83,18 +123,37 @@ function SearchStudent({ handleSearch }) {
         </SearchBox>
       </Form>
       <br/>
+
+
         {
           suggestion && suggestion.map((suggestion, i)=> 
             <BoxFatter>
               <BoxSearch>
-                <ItemsSearch key={i} onClick={ ()=> onSuggestHandler( suggestion.username ) } > {suggestion.username} </ItemsSearch>
+                <ItemsSearch key={i} onClick={ ()=> onSuggestHandler( suggestion ) } > {suggestion.FirstName} </ItemsSearch>
               </BoxSearch>
             </BoxFatter>
           )
         }
+
+
+
         <BoxExample>
           <BoxCardStudent>
-            <ItemsCard end={true}>  <ItemText>Date</ItemText> <InputFecha  placeholder="7/10/2021" /></ItemsCard>
+
+          
+
+            <ItemsCard start={true}><DateText>Date </DateText>  <DatePickerStyle selected={DateCalendar} onChange={(date) => setDateCalendar(date)} /> </ItemsCard>
+            {/* start Datos Estaticos  */}
+            <ItemsCard block  >
+              <p > <TextBold>Nombre:</TextBold> {DataOneStudent.Name}</p>
+              <p ><TextBold>Idioma: </TextBold> { DataOneStudent.courses ?  showData(DataOneStudent.courses) : null } </p>
+              <p><TextBold>Plan Active: </TextBold> { DataOneStudent.lessonsRestantes } </p>
+              <p><TextBold>Cuanto le queda: </TextBold>{DataOneStudent.lessonsRestantes} </p>
+
+            </ItemsCard>
+            {/* end Datos Estaticos */}
+
+
             <ItemsCard block={true} > <ResumenLabel htmlFor="resumen">Class summary</ResumenLabel> <br/> <TextLarge id="resumen" cols="45"></TextLarge></ItemsCard>
             <ItemsCard block={true} > <ResumenLabel htmlFor="observacion">Comments</ResumenLabel> <br/> <TextLarge id="observacion" cols="45"></TextLarge></ItemsCard>
             <ItemsCard block={true} > 
@@ -114,14 +173,7 @@ function SearchStudent({ handleSearch }) {
                   </BoxLevels>
 
             </ItemsCard>
-            <h6 className="text-center">Calificacion</h6>
-            <BoxTimeLine>
-            <CircleTimeLine check={checkClick} onClick={ ()=> setCheckClick(!checkClick)} ></CircleTimeLine>
-            <CircleTimeLine check={checkClick2} onClick={ ()=>setCheckClick2(!checkClick2)} ></CircleTimeLine>
-            <CircleTimeLine check={checkClick3} onClick={()=> setCheckClick3(!checkClick3)} ></CircleTimeLine>
-            <CircleTimeLine check={checkClick4} onClick={()=> setCheckClick4(!checkClick4)} ></CircleTimeLine>
-            <CircleTimeLine check={checkClick5} onClick={()=> setCheckClick5(!checkClick5)} ></CircleTimeLine>
-            </BoxTimeLine>
+            
             
           </BoxCardStudent>
         </BoxExample>
@@ -288,6 +340,7 @@ const BoxSearch = styled.div `
   max-height:120px;
   background: #fff;
   overflow: auto;
+  z-index:1;
   &::-webkit-scrollbar{
     background:rgba(0,0,0,.3);
     width:3px;
@@ -301,6 +354,7 @@ const  ItemsSearch = styled.p `
   width:100%;
   padding-left:16px;
   color:black;
+  z-index:1;
   &:hover {
     background: rgba(0,0,0,.3);
     cursor:pointer;
@@ -314,15 +368,13 @@ const BoxExample = styled.div `
   width:100%;
   display:grid;
   grid-template-columns:repeat(2,1fr);
-  grid-template-rows: repeat(2,1fr);
 `
 
 const BoxCardStudent = styled.div `
   ${'' /* display:none; */}
-  width:60%;
+  width:80%;
   background:#f2f2f2;
-  grid-row: 1/2;
-  grid-column: 2/3;
+  grid-column: 1/3;
   border-radius:8px;
   justify-self:end;
 `
@@ -330,10 +382,20 @@ const BoxCardStudent = styled.div `
 const ItemsCard = styled.div `
   width:100%;
   display:${(props)=> (props.block ? "block": "flex")};
-  justify-content:${(props)=> (props.end ? "flex-end" : "")};
+  justify-content:${(props)=> (props.start ? "flex-start" : "")};
   align-items:center;
   padding:10px;
   padding-bottom:0;
+  &>p{
+    margin: 0;
+    border:  ${(props) => (props.border ? "1px solid black": "none" )};
+    line-height : 1;
+    padding: .4rem 0;
+    color: #314584; 
+  }
+`
+const TextBold  = styled.span`
+  font-weight: 600;
 `
 
 const ItemText =  styled.span  `
@@ -350,6 +412,8 @@ const InputFecha = styled.input `
 `
 const ResumenLabel = styled.label `
   font-size:1rem;
+  font-weight: 600;
+  font-size:1.1rem;
 `
 const TextLarge = styled.textarea `
   background:transparent;
@@ -359,6 +423,9 @@ const TextLarge = styled.textarea `
   resize: none;
   padding:5px;
   width:100%;
+  font-size:1.1rem;
+  font-weight:400;
+  line-height: 1.1;
   &:focus {
     border:1px solid #00A1F1;
   }
@@ -376,3 +443,40 @@ const TextLarge = styled.textarea `
   }
 `
 
+
+const Select = styled.select `
+  padding: .2rem 1rem .2rem 0 ;
+  font-size: 1rem;
+  color: #546E7A;
+  border-radius: 4px;
+  width:50%;
+  &:focus{
+    outline: none;
+    border-color:  #0077FF;
+    box-shadow:0 0 0 2px rgba(#0077FF,.2);
+  }
+`
+const Options =  styled.option`
+  
+`
+
+const DatePickerStyle = styled(DatePicker)`
+  margin-left: 10px;
+  padding:.4rem 0 ;
+  padding-right: 1rem;
+  padding-left: .5rem;
+  color: #455A64;
+  border: 1px solid #B0BEC5;
+  line-height: 1;
+
+  &:focus{
+    outline: none;
+    border:1px solid #1565C0;
+  }
+`
+const DateText = styled.span`
+  color: #314584;
+  line-height: 1;
+  font-size:1rem;
+  font-weight: 700;
+`

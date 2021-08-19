@@ -208,3 +208,16 @@
 .btn__buy:hover {
     color:#314584;
 }
+.font-w-600{
+    font-weight: 700;
+}
+.title-card{
+    letter-spacing: 1 !important;
+    margin-bottom: .2rem;
+}
+.mb-1{
+    margin-bottom: 1rem !important;
+}
+.button-cart{
+    padding: .3rem .8rem;
+}

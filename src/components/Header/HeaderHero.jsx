@@ -9,6 +9,7 @@ import { PriceSection } from '../priceSection/PriceSection';
 import { Link as LinkID } from 'react-scroll';
 import {isAuth} from '../../helpers/Auth'
 import { useHistory } from "react-router-dom";
+import './HeaderStyle.scss';
 
 const Icon  = styled(AiOutlineShoppingCart)`
 height:30px;
@@ -41,12 +42,12 @@ const HeaderHero = (props) =>{
               {/* <!-- Hero Title --> */}
               <h1>Learn a new language<br/>Anytime<br/>Anywhere</h1>
               {/* <!-- Hero Title Info --> */}
-              <p>Our mission at Ingenio Languages is to help  <br/>you communicate fluently in the language that you always dreamed of!<br/> Learning a language has never been easier and more fun!</p>
+              <p className="text-md-1 parrafo_header color-gray-700">Our mission at Ingenio Languages is to help  <br/>you communicate fluently in the language that you always dreamed of!<br/> Learning a language has never been easier and more fun!</p>
               <div className="hero-btns">
                 {/* <!-- Hero Btn First --> */}
                 <ButtonBuyaLesson   to="/Prices"  smooth={true}  duration={500} spy={true}> <Icon></Icon> Buy a lesson Package </ButtonBuyaLesson> 
                 {/* <!-- Hero Btn Second --> */}
-                <a data-scroll href="/">Request Demo Class Free</a>
+                <a className="request-free-class" >Request Demo Class Free</a>
               </div>
             </div>
           </div>
@@ -62,4 +63,6 @@ export default HeaderHero;
 
 const ButtonBuyaLesson = styled(LinkID)`
   cursor:pointer;
+  font-size: 1.2rem !important;
+  font-weight: 600;
 `

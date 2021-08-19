@@ -10,18 +10,24 @@ import GoogleButton from '../GoogleButton/Google';
 const  ModalSignUp = ({showSignUp,setSignUp}) => {
     const {register,handleSubmit,formState:{errors} }   = useForm()
     const [value, setValue] = useState(false)
-    const [types, setTypes] = useState(false)
+    const [types, setTypes] = useState(true)
     const [valor, setValor] = useState({phone:null});
     const [ValueCountry, setValueCountry] = useState(false)
+    const [types2, setTypes2] = useState(true)
     const selectCountry = (val) =>{
         
         setValue(val.toLowerCase() )
         setValueCountry(val);
     }
 
-    const ShowPassword = ()=>{
+    const ShowPassword = (valor)=>{
+        if(valor === 2){
+            setTypes2(!types2);
+            return ;
+        }
         setTypes(!types)
     }
+
 
     return (
         <div>
@@ -135,21 +141,26 @@ const  ModalSignUp = ({showSignUp,setSignUp}) => {
                                 
                                 <span className="text-small text-danger">{errors.password?.message } </span>
                                 <Label>Confirm Password</Label>
-                                <Input 
-                                type="password" 
-                                className="form-control"    
-                                {...register("confirmPassword",{
-                                    required: 'Confirm password  is required',
-                                    maxLength:{
-                                        value:20,
-                                        message: 'max length character is 20'
-                                    },
-                                    minLength:{
-                                        value: 8,
-                                        message: 'min lingth character is 8'
-                                    }
-                                })}
-                                />
+                                <InputWhithIcon>
+                                    <Input 
+                                     type={types2? 'password':'text'}
+                                    className="form-control"    
+                                    {...register("confirmPassword",{
+                                        required: 'Confirm password  is required',
+                                        maxLength:{
+                                            value:20,
+                                            message: 'max length character is 20'
+                                        },
+                                        minLength:{
+                                            value: 8,
+                                            message: 'min lingth character is 8'
+                                        }
+                                    })}
+                                    />
+                                    <i style={{top:"6px"}} > <IoLockClosedOutline /> </i>
+                                    {types2? <Icon_i onClick={()=> ShowPassword(2) } /> : <Icon_i2 onClick={()=> ShowPassword(2)}  />  }
+                                </InputWhithIcon>
+                                
                                 { errors.ConfirmPassword&&( <span className="text-small text-danger"> {errors.ConfirmPassword.message} </span>)}
                                 <Centrar>
                                     <ButtonSubmit mt={true} className="btn">Sign Up</ButtonSubmit> 

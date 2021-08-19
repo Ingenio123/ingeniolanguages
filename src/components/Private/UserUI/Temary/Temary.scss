@@ -63,8 +63,8 @@ h4{
 
 .l-section{
     margin-bottom: calc(var(--vertical-block-space) * 2);
-    width: 70%;
-
+    width: 100%;
+    margin-right: 0;
 }
 
 // propiedades display
@@ -118,10 +118,12 @@ h4{
     padding-left: 1rem;
 }
 .s-py-1{
-    padding: .5rem 0;
+    padding-top: .5rem ;
+    padding-bottom: .5rem;
 }
 .s-py-2{
-    padding: 1rem 0;
+    padding-left: 1rem;
+    padding-bottom: 1rem;
 }
 .s-px-1{
     padding: 0 .5rem ;
@@ -222,10 +224,20 @@ h4{
 }
 .progress-bar__bar {
     border-radius: 1.5rem;
-    height: 1rem;
-    background: var(--green-300);
-    width: 20%;
+    height: 1.5rem;
+    background: #ECEFF1;
+    display: flex;
+    align-items: center;
+    padding-left: .2rem;
+    border:1px solid #B0BEC5;
 }
+
+.progres-bar__level{
+    border-radius: 1.5rem;
+    height: 1.2rem;
+    background-color: #314584;  
+}
+
 .progess-bar__percentage{
     color: var(--gray-600);
 }
@@ -257,7 +269,7 @@ h4{
     font-size:1.5rem !important;
 }
 .font-md-1{
-    font-size: 1.3rem;
+    font-size: 1.2rem;
     font-weight: 400;
 }
 .l-none{
@@ -305,4 +317,49 @@ h4{
 }
 .hover-bg-03:hover{
     background-color: rgba(236, 239, 241,.3);
+}
+
+.contentInputsCheck input[type="checkbox"]{
+    display: none;
+}
+.contentInputsCheck  label{ 
+    // color: #0074d9;
+    cursor:pointer;
+}
+// .contentInputsCheck label:before{
+//     content: "";
+//     width: 17px;
+//     height: 17px;
+//     background: transparent;
+//     display: inline-block;
+//     border: 1px solid #039BE5;
+//     position:absolute;
+//     left:0;
+// }
+.contentInputsCheck input[type="checkbox"]:checked + label{
+    color: #00C853 !important;
+}
+// .contentInputsCheck input[type="checkbox"]:checked + label:before{
+//     display: none;
+// }
+
+.jst-content-end{
+    justify-content: flex-end;
+}
+
+.border-blue-600{
+    border: 1px solid #3949AB;
+}
+.color-blue-600{
+    color:#3949AB !important;
+    &:hover{
+        background: rgba(13, 71, 161,.2);
+    }
+}
+.btn-temary{
+    padding: .3rem 1rem;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-weight: 600;
+    background-color: transparent;
 }

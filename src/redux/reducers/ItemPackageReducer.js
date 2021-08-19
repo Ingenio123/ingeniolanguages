@@ -39,6 +39,7 @@ export default function CreateOnePackage  (state = initialState , action ){
             }
         case CALCULATE_PRICES_ITEMS:
             let prices = 0;
+
             switch (state.timeLesson.value) {
                 case '30':
                     prices = 15
@@ -170,6 +171,11 @@ export default function CreateOnePackage  (state = initialState , action ){
             return {
                 ...state,
                 valorDescuento: action.payload
+            }
+        case "REMOVE_OPTION_CLASS_ONE":
+            return {
+                ...state,
+                
             }
         default:
             return  state;

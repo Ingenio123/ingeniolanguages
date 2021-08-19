@@ -166,12 +166,12 @@
 }
 .hero-btns a:first-child:hover {
   background-color: #fff;
-  border:2px solid #FF3946;
+  border:3px solid #FF3946;
   color: #314584;
   padding: 17px 35px;
-  font-size: 1.0rem;
   border-radius: 30px;
   transition: all 0.3s ease;
+  font-weight: 600;
 }
 .hero-btns a:last-child {
   color: #314584;
@@ -282,6 +282,8 @@
 .contact-btn a:hover {
   color: #314584!important;
 }
+
+
 
 /* media querys  */
 

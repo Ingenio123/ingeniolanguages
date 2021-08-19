@@ -1,4 +1,4 @@
-import {PRICE_LESSON,LESSON_MONTHS} from './types';
+import {PRICE_LESSON} from './types';
 
 export const  Select_Package = (price,idiom,lesson,time) => (dispatch) =>{
     

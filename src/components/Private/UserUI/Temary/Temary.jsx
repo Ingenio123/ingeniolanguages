@@ -1,6 +1,6 @@
 import './Temary.scss';
 import {BiChevronUp,BiCheckCircle} from "react-icons/bi";
-import { useEffect,useState } from 'react';
+import { useEffect,useState,useRef } from 'react';
 import axios from 'axios'
 
 // get Data desde el Server 
@@ -10,7 +10,7 @@ export const Temary = () => {
     const [Valor, setValor] = useState([])
     const [ClickPrimary, setClickPrimary] = useState(false);
     const [ClickSecondary, setClickSecondary] = useState(false);
-
+    const FormRef = useRef();
     const GetDataTemary = async () =>{
         const Enpoint  =  'https://www.ingenioapi.com/temary/getTemary'
         
@@ -33,6 +33,12 @@ export const Temary = () => {
             return setClickSecondary(null);
         }
         setClickSecondary(index);
+    }
+
+    const handleSubmit = (e)=>{
+        e.preventDefault();
+        console.log('estas en el submit')
+        console.log(FormRef)   
     }
     return (
         <div>
@@ -90,21 +96,26 @@ export const Temary = () => {
                                                                     {
                                                                         ClickSecondary === keySub ? (
                                                                             <ul  className="l-none s-transition  ">
-                                                                                {
-                                                                                    subItem.content.map((subItemContent,Contentindex)=>(
-                                                                                        <div>
-                                                                                            <li className=" s-pxy-1 small grey-600 s-transition hover-bg-03 ">
-                                                                                                <div className="dflex alg-center">
-                                                                                                    <i className="  icon-sm s-mr-1" > <BiCheckCircle /> </i>
-                                                                                                    <p className="small  grey-500 s-mb-0 " >
-                                                                                                    {subItemContent.item}
-                                                                                                    </p>
-                                                                                                </div>
-                                                                                            </li>
+                                                                                    <form onSubmit={ (e) => handleSubmit(e) } ref={FormRef} >
+                                                                                        {
+                                                                                            subItem.content.map((subItemContent,Contentindex)=>(
+                                                                                                <li className=" s-pxy-1 small grey-600 s-transition hover-bg-03 ">
+                                                                                                    <div className="dflex alg-center contentInputsCheck">
+                                                                                                        <input type="checkbox" id={Contentindex}  value="valor luis"/>
+                                                                                                        <label htmlFor={Contentindex}> <i className="icon-sm s-mr-1" > <BiCheckCircle /> </i> </label>
+                                                                                                        <p className="small  grey-500 s-mb-0 " >
+                                                                                                        {subItemContent.item}
+                                                                                                        </p>
+                                                                                                    </div>
+                                                                                                </li>
+                                                                                            ))
+                                                                                        }
+                                                                                        
+                                                                                        <div className="dflex jst-content-end">
+                                                                                            <button className="btn-temary  color-blue-600 border-blue-600" type="submit" >Enviar</button>
                                                                                         </div>
-                                                                                    ))
-                                                                                }
-                                                                        
+
+                                                                                    </form>
                                                                             </ul>
                                                                         ) : null
                                                                     }
