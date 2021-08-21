@@ -1,27 +1,35 @@
 import axios from 'axios';
-import {getCookie,isAuth} from '../../helpers/Auth'
 import {useState,useEffect} from 'react'
 import styled from 'styled-components';
 import  {IoIosArrowDown} from 'react-icons/io'
 import Url from '../Urls';
-import {Temary} from './UserUI/Temary/Temary'
 
 const PrivateRoute = ({history})=>{
-    const token = getCookie('token');
-    console.log(token)
-    useEffect(async () => {
-        // const EndPoint = Url.url + '/data/user/';
-        // const res = await axios.get(`${EndPoint}${isAuth()._id}`,{
-        //     headers:{ Authorization: `Bearer ${window.localStorage.getItem('user').token}`}
-        // })
-        // console.log(res.data)
-    }, [])
    
+    useEffect(() => {
+        VerifyAuth()
+    }, [])
+
+    const VerifyAuth = async () =>{
+        const user = window.localStorage.getItem('user');
+        if(user){
+            var data = JSON.parse(user);
+            const EndPoint = Url.url + '/data/user/' + data._id;    
+            const res = await axios.get(EndPoint,{
+                headers:{Authorization: `Bearer ${data.token}`}
+            });
+
+            if(!res) return history.push('/');
+        }else{
+            return history.push('/')
+        }
+       
+    } 
 
     
     return (
         <>
-            
+            <h2>Home del Usuario</h2>
         </>
     )
 

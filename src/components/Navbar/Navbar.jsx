@@ -74,7 +74,7 @@ const Navbar = ({toggle,history})=>{
         </NavMenu>
         </Espacio>
             {
-              auth.isAuthenticated ? '' : <NaVBtn><Button to="/orderSummary"  primary="true" big="true">Cart</Button> </NaVBtn>}
+              auth.isAuthenticated ? '' : <NaVBtn><Button to="/orderSummary"  primary="true" big="true">View cart</Button> </NaVBtn>}
       </Nav> 
       
 
@@ -141,7 +141,7 @@ const ItemAuth = styled(Link) `
 
 const NaVBtn = styled.div`
   display:flex;
-  margin: 0 24px 0 0;
+  /* margin: 0 24px 0 0; */
 
   @media screen and (max-width: 768px){
     display:none;

@@ -10,7 +10,7 @@ import {GroupPersons} from '../../redux/actions/ItemOnePackageAction';
 import {Select_Package,Months_lesson} from '../../redux/actions/packageAction';
 import {Link} from 'react-router-dom';
 import LessonMonths from './lessonMonth';
-
+import NumberStudent from './NumberStudents'
 
 export default function ModalPackage({ShowModal,setShowModal}) {
 
@@ -154,7 +154,7 @@ export default function ModalPackage({ShowModal,setShowModal}) {
             <Background onClick={closeModal} ref={modalRef} >
               <ModalWrapper ShowModal={ShowModal} >
                 <HeaderInformContent>
-                    <TitlePackage >English Class</TitlePackage>
+                    <TitlePackage >English Lessons</TitlePackage>
                 </HeaderInformContent>
                   <ContentModel>
                       <ContentImg>
@@ -177,7 +177,7 @@ export default function ModalPackage({ShowModal,setShowModal}) {
                           
 
                           <ContentSelect>
-                            <TextLesson>Lesson Package </TextLesson>
+                            <TextLesson> Lessons per month </TextLesson>
                             <OptionValues  valor={OnClickValores} GroupLessons ={ GroupClass } />
                           </ContentSelect>
 
@@ -189,8 +189,9 @@ export default function ModalPackage({ShowModal,setShowModal}) {
                           {
                             GroupClass && (
                               <ContentSelect>
-                                <TextLesson>Number Persons</TextLesson>
-                                <MonthBuy type="number"  value={PersonsGroup.value} min="2" max="10" onChange={e => handleNumber(e)} />
+                                <TextLesson>Number of Students</TextLesson>
+                                <NumberStudent />
+                                {/* <MonthBuy type="number"  value={PersonsGroup.value} min="2" max="10" onChange={e => handleNumber(e)} /> */}
                               </ContentSelect>
                             )
                           }
@@ -236,8 +237,9 @@ const ModalWrapper = styled.div`
   width: 850px;
   box-shadow: 0 5px 16px rgba(0, 0, 0, 0.2);
   background: #fff;
-  position: relative;
+  position: absolute;
   padding: .5rem;
+  top: 75px;
 `;
 
 const ContentModel = styled.div`

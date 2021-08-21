@@ -119,7 +119,7 @@ export default function ModalPackageFrench({ShowModalFrench,setShowModalFrench})
             <Background onClick={closeModal} ref={modalRef} >
               <ModalWrapper ShowModalFrench={ShowModalFrench} >
                 <HeaderInformContent>
-                    <TitlePackage>French Class</TitlePackage>
+                    <TitlePackage>French Lessons</TitlePackage>
                 </HeaderInformContent>
                   <ContentModel>
                       <ContentImg>
@@ -142,7 +142,7 @@ export default function ModalPackageFrench({ShowModalFrench,setShowModalFrench})
                           
 
                           <ContentSelect>
-                            <TextLesson>Lesson Month</TextLesson>
+                            <TextLesson>Lessons per month </TextLesson>
                             <OptionValues  valor={OnClickValores} GroupLessons ={ GroupClass } />
                           </ContentSelect>
 

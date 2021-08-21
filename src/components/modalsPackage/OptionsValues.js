@@ -9,12 +9,12 @@ export default function OptionsValues({ GroupLessons,valor }) {
     const {lessonMonth} = useSelector(state => state.itemPackage);
 
     const options = [
-        { value: '1', label: '1 lessons' },
-        { value: '4', label: '4 lessons per month' },
-        { value: '8', label: '8 lessons per month' },
-        { value: '12', label: '12 lessons per month' },
-        { value: '16', label: '16 lessons per month' },
-        { value: '20', label: '20 lessons per month' }
+        { value: '1', label: '1 lesson' },
+        { value: '4', label: '4 lessons ' },
+        { value: '8', label: '8 lessons ' },
+        { value: '12', label: '12 lessons ' },
+        { value: '16', label: '16 lessons ' },
+        { value: '20', label: '20 lessons ' }
       ]
     
     

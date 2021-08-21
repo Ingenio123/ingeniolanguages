@@ -5,7 +5,13 @@ import {useState,memo} from 'react';
 import PhoneInput from 'react-phone-input-2';
 import { IoMailOutline,IoLockClosedOutline} from "react-icons/io5";
 import GoogleButton from '../GoogleButton/Google';
-
+import {useDispatch,useSelector} from 'react-redux'
+import {Register} from '../../redux/actions/authAction';
+import {useHistory} from 'react-router-dom'
+import axios from 'axios';
+import  Url from '../Urls';
+import {REGISTER_SUCCESS} from '../../redux/actions/types'
+import {authenticate} from '../../helpers/Auth'
 
 const  ModalSignUp = ({showSignUp,setSignUp}) => {
     const {register,handleSubmit,formState:{errors} }   = useForm()
@@ -13,7 +19,11 @@ const  ModalSignUp = ({showSignUp,setSignUp}) => {
     const [types, setTypes] = useState(true)
     const [valor, setValor] = useState({phone:null});
     const [ValueCountry, setValueCountry] = useState(false)
-    const [types2, setTypes2] = useState(true)
+    const [types2, setTypes2] = useState(true);
+    const dispatch = useDispatch();
+    const auth = useSelector(state => state.auth);
+    const history =  useHistory();
+
     const selectCountry = (val) =>{
         
         setValue(val.toLowerCase() )
@@ -28,10 +38,41 @@ const  ModalSignUp = ({showSignUp,setSignUp}) => {
         setTypes(!types)
     }
 
+    const SubmitData = async (data) =>{
+        const  Endpoint =  Url.url + '/data/userSignUp';
+        // Headers
+        const config = {
+            headers: {
+            'Content-Type': 'application/json'
+            }
+        };
+
+        const { FirstName,LastName,Gender, password, your_lenguage, email ,confirmPassword,age} = data;
+        var phone = valor.phone;
+        var country =  ValueCountry
+
+        const body = JSON.stringify({FirstName,LastName,Gender, password, your_lenguage, email ,confirmPassword,age,country,phone});
+        const res = await axios.post(Endpoint,body,config)
+      
+        authenticate(res,()=>{
+            dispatch({
+                type: REGISTER_SUCCESS,
+                payload: res.data
+            })
+            return history.push('/payclient')
+        })
+        
+        // console.log(auth)
+        // if(auth.isAuthenticated){
+        //     return history.push('/payclient');
+        // }else{
+        //     return history.push('/')
+        // }
+    }
 
     return (
         <div>
-            <Form>
+            <Form onSubmit={handleSubmit((data)=> SubmitData(data))}>
                 <div className="row">
                     <div className="col-12 col-md-12">
                         <div className="form-group" style={{margin:"0",fontSize:"18px"}}>
@@ -96,7 +137,9 @@ const  ModalSignUp = ({showSignUp,setSignUp}) => {
                                 {/* select */}
                                 <div class="input-group">
                                 <Label className="mt-2">Gender</Label>
-                                <Gender class="form-control custom-select " id="inputGroupSelect04">
+                                <Gender class="form-control custom-select " {...register("Gender",{
+                                    required: "Gender is Required"
+                                })}>
                                     <option value="Male">Male</option>
                                     <option value="Female">Female</option>
                                     <option value="Other">Other</option>
