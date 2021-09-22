@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import $ from "jquery";
-
+import { url } from "../Urls";
 export default function FormPayDatafast(props) {
   const [LoaderForm, setLoaderForm] = useState(false);
 
@@ -48,10 +48,11 @@ export default function FormPayDatafast(props) {
     e.preventDefault();
     console.log("pay now form");
   };
+
   return (
     <div className="container">
       <form
-        action="http://localhost:3000/results"
+        action="https://www.ingeniolanguages.com/results"
         onSubmit={(e) => handleSubmit(e)}
         className="paymentWidgets"
         data-brands="VISA MASTER DINERS DISCOVER AMEX"

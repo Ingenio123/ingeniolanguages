@@ -1,5 +1,5 @@
 import axios from "axios";
-
+import { url } from "../Urls";
 async function getIpClient() {
   const res = await axios.get("https://api.ipify.org");
   return res.data;
@@ -40,11 +40,8 @@ export const SendDataPayClient = async (
     id,
     email,
   };
-
+  const EndPoint = url + "/payIngenioLanguages";
   // const res = await  axios.post('https://www.ingenioapi.com/payIngenioLanguages',data)
-  const res = await axios.post(
-    "http://localhost:4000/payIngenioLanguages",
-    data
-  );
+  const res = await axios.post(EndPoint, data);
   return res.data;
 };
