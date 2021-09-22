@@ -1,25 +1,41 @@
-import { BiGridAlt,BiUser,BiBarChart,BiBook,BiLogOut,BiCog,BiCodeCurly,BiHomeAlt,BiCaretLeft} from "react-icons/bi";
+import {
+  BiGridAlt,
+  BiUser,
+  BiBarChart,
+  BiBook,
+  BiLogOut,
+  BiCog,
+  BiCodeCurly,
+  BiHomeAlt,
+  BiCaretLeft,
+} from "react-icons/bi";
 
-const Items = [
-    {
-        item: 'Home',
-        icon: <BiHomeAlt />,
-        url: "/"
-    },
-    {
-        item: 'My Class',
-        icon:<BiBarChart />,
-        url: '/private'
-    },
-    {
-        item: "Temary",
-        icon: <BiBook />,
-        url: "Temary"
-    },
-    {
-        item: "Settings",
-        icon: <BiCog />,
-        url: "/settings"
-    },
-]
-export default Items;
+export const Items = [
+  {
+    item: "Home",
+    itemTeacher: "Home",
+    icon: <BiHomeAlt />,
+    url: "/",
+    urlTeacher: "/",
+  },
+  {
+    item: "My Class",
+    itemTeacher: "Nada",
+    icon: <BiBarChart />,
+    url: "/private",
+    urlTeacher: "/teacherPage",
+  },
+  {
+    item: "Temary",
+    itemTeacher: "Calificacion",
+    icon: <BiBook />,
+    url: "/Temary",
+    urlTeacher: "/",
+  },
+  {
+    item: "Settings",
+    icon: <BiCog />,
+    url: "/settings",
+    urlTeacher: "/",
+  },
+];

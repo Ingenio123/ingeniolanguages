@@ -5,7 +5,7 @@ const image = (email)=>{
     
     let profile = '';
 
-    if(user!==null ){
+    if(user !== null ){
         const {picture} = JSON.parse(user) 
         return profile =  `${picture}`;
     }else{

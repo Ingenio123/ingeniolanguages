@@ -1,20 +1,19 @@
-import {useEffect,useState} from 'react'
-import $ from 'jquery'
+import { useEffect, useState } from "react";
+import $ from "jquery";
 
 export default function FormPayDatafast(props) {
-    const [LoaderForm, setLoaderForm] = useState(false)
-    
+  const [LoaderForm, setLoaderForm] = useState(false);
 
-    useEffect(()=>{
-        const scriptTag = document.createElement('script')
-        scriptTag.src = `https://oppwa.com/v1/paymentWidgets.js?checkoutId=${props.id}`
-        scriptTag.addEventListener('load',() => setLoaderForm(true))
-        document.body.appendChild(scriptTag);
-        
-        const scriptBy =  document.createElement('script');
-        scriptBy.type = "text/javascript"
-        scriptBy.addEventListener('load', setLoaderForm(true))
-        scriptBy.textContent = `
+  useEffect(() => {
+    const scriptTag = document.createElement("script");
+    scriptTag.src = `https://test.oppwa.com/v1/paymentWidgets.js?checkoutId=${props.id}`;
+    scriptTag.addEventListener("load", () => setLoaderForm(true));
+    document.body.appendChild(scriptTag);
+
+    const scriptBy = document.createElement("script");
+    scriptBy.type = "text/javascript";
+    scriptBy.addEventListener("load", setLoaderForm(true));
+    scriptBy.textContent = `
         var wpwlOptions = {  
 
             onReady: function() {  
@@ -37,24 +36,27 @@ export default function FormPayDatafast(props) {
             
             }
             wpwlOptions.onReady;
-        `
-        document.querySelector('footer').appendChild(scriptBy)
-    },[])
+        `;
+    document.querySelector("footer").appendChild(scriptBy);
+  }, []);
 
-    useEffect(() => {
-        if(!LoaderForm) return ;
-    }, [LoaderForm])
+  useEffect(() => {
+    if (!LoaderForm) return;
+  }, [LoaderForm]);
 
-    const handleSubmit = (e)=>{
-        e.preventDefault();
-        console.log('pay now form')
-    }
-    return (
-        <div className="container" >
-            <form action="http://localhost:4000/data/actions" onSubmit={e=> handleSubmit(e)} className="paymentWidgets" data-brands="VISA MASTER DINERS DISCOVER AMEX" ></form>
-            <footer>
-
-            </footer>
-        </div>
-    )
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log("pay now form");
+  };
+  return (
+    <div className="container">
+      <form
+        action="http://localhost:3000/results"
+        onSubmit={(e) => handleSubmit(e)}
+        className="paymentWidgets"
+        data-brands="VISA MASTER DINERS DISCOVER AMEX"
+      ></form>
+      <footer></footer>
+    </div>
+  );
 }

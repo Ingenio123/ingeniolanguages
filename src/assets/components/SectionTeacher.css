@@ -98,7 +98,7 @@ section {
     line-height: 1.5;
     margin-bottom: 0;
 }
-.btn__shop{
+.btn__shop {
     color:white;
     margin-left: 20px;
     background-color: #FF3946;
@@ -107,7 +107,7 @@ section {
     border-radius: 5px;
 }
 .btn__shop:hover{
-    padding: 3px 8px;
+    padding: .5rem .7rem ;
 }
 
 .styles_calendar{

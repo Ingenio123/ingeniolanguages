@@ -53,9 +53,12 @@ export const Register = ({FirstName,LastName, password, your_lenguage,email,conf
 
   // Request body
   const body = JSON.stringify({ FirstName,LastName,Gender, password, your_lenguage, email ,confirmPassword,age,country,phone});
-  const EndPoint = Url.url + '/data/userSignUp';
 
+  console.log(body)
+
+  const EndPoint = Url.url + '/data/userSignUp';
   const res = await axios.post(EndPoint, body, config)
+  
   authenticate(res,()=>{
       dispatch({
         type: REGISTER_SUCCESS,

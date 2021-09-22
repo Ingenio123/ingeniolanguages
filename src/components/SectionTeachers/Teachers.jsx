@@ -5,7 +5,7 @@ import {IoChevronForwardOutline,IoCart} from 'react-icons/io5';
 import  {Flag} from './Flag'
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-
+import {Link as LinkSmooth } from 'react-scroll';
 
 export const Teachers = ()=>{ 
     const [teachers, setTeachers] = useState([])
@@ -16,23 +16,22 @@ export const Teachers = ()=>{
             
         })
     }
-
     useEffect(()=>{
-    
-        getTeachers()
+        getTeachers();
+        
     },[])
    
     const IconArrow = styled(IoChevronForwardOutline) `
         color:white;
-        font-size:26px;
+        font-size:1.4rem;
     `
     return(
         <>
         
            <div className="container">
-           
-            <h1 id="/Teachers"  className="text-center">OUR TEAM</h1>
-               <div className="row  portafolio__teacher"  >
+           <br /><br /><br /><br />
+            <h1 id="/Teachers"   className="text-center ">Our teachers</h1>
+               <div className="row  portafolio__teacher mb-4"  >
                 {teachers.map((item,index)=>(
                     <div className="col-xs-12 col-sm-6 col-md-4" key={index} >
                         <div className="image-flip" ontouchstart="this.classList.toggle('hover');">
@@ -41,8 +40,8 @@ export const Teachers = ()=>{
                                 <div className="card card_radius">
                                     <div className="card-body text-center">
                                         <p><img className="img-fluid" src={item.imageUrl} alt="imagenes de los docentes"/></p>
-                                        <h4 className="card-title ">{item.firstName} </h4>
-                                        <p className="card-text cursive"> " {item.eslogan } " </p>
+                                        <h4 className="card-title mt-4 ">{item.firstName} </h4>
+                                        <p className="card-text cursive"> "{item.eslogan }" </p>
                                     </div>
                                 </div>
                             </div>
@@ -59,8 +58,9 @@ export const Teachers = ()=>{
                                             ))
                                         }
                                     </div>
-                                    <Link to="/Prices" className="btn__shop button-cart" ><IoCart  color='white' size="30px"  ></IoCart></Link>
-                                    <Link to={`/ProfileTeachers/${item._id}`} className="btn-conoce-more" >See Profile <IconArrow></IconArrow> </Link>
+                                    <LinkSmooth to="/Prices" className="btn__shop button-cart" smooth={true}  duration={500} spy={true} ><IoCart  color='white' size="25px"  ></IoCart></LinkSmooth>
+
+                                    <Link to={`/ProfileTeachers/${item._id}`} className="btn-conoce-more" >View profile <IconArrow></IconArrow> </Link>
                                 </div>
                             </div>
                             </div>

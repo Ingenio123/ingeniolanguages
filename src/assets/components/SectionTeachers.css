@@ -142,7 +142,7 @@
 }
 
 .backside .card a {
-    font-size: 20px;
+    font-size: 1rem;
 }
 .frontside .card .card-title {
     font-weight: 600 !important;
@@ -165,17 +165,19 @@
     height: 250px;
     border-radius: 50%;
 }
-.btn-conoce-more{
-    border-radius: 5px;
+.btn-conoce-more {
+    border-radius: 4px;
     margin-top: 20px;
     margin-left: 20px;
     color:white !important;
     background-color: #314584;
-    padding: .6rem 1rem;
+    padding: .5rem 1rem;
     transition: .2s ease-in-out;
+    font-size: 1rem;
 }
+
 .btn-conoce-more:hover{
-    padding: .6rem 1.3rem;
+    padding: .5rem 1.2rem;
     font-weight: 400;
     color:white;
 }
@@ -219,5 +221,5 @@
     margin-bottom: 1rem !important;
 }
 .button-cart{
-    padding: .3rem .8rem;
+    padding: .5rem ;
 }

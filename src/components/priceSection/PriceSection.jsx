@@ -1,8 +1,7 @@
 import { useState } from 'react';
 import styled from 'styled-components';
 import '../../assets/components/SectionPrices.css';
-import {FaTrashAlt} from 'react-icons/fa'
-import ModalPackage from '../modalsPackage/modalPackage'
+import ModalPackage from '../modalsPackage/modalPackage';
 import ModalPackageFrench from '../modalsPackage/ModalPackageFrench';
 import ModalPackageSpanish from '../modalsPackage/ModalPackageSpanish';
 
@@ -26,9 +25,10 @@ export const PriceSection = ()=>{
 
    
     return(
-        <>
-            <section className="container" >
-                <div className="row" id="/Prices">
+        <div  >
+            <section className="container"  >
+                <h1 className="text-center ">Lessons packages</h1>
+                <div className="row" >
                     
                     <div className="col-md-4">
                         <div className="" >
@@ -53,7 +53,7 @@ export const PriceSection = ()=>{
             <ModalPackage    ShowModal={ShowModal} setShowModal={setShowModal}  />
             <ModalPackageFrench ShowModalFrench={ShowModalFrench} setShowModalFrench={setShowModalFrench}  />
             <ModalPackageSpanish ShowModalSpanish={ShowModalSpanish} setShowModalSpanish={setShowModalSpanish}  />
-        </>
+        </div >
     );
 }
 

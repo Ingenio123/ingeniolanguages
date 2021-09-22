@@ -2,7 +2,8 @@ import styled from 'styled-components'
 import {useDispatch, useSelector}  from 'react-redux'
 import {useForm} from 'react-hook-form';
 import {Register}  from '../../redux/actions/authAction'
-import { isAuth,authenticate } from '../../helpers/Auth';
+import { authenticate } from '../../helpers/Auth';
+import {IsAuth} from '../../helpers/Requests';
 import {withRouter,Redirect,Link} from 'react-router-dom';
 import {useState} from 'react'
 import { CountryDropdown } from 'react-country-region-selector';
@@ -14,28 +15,36 @@ import {GoogleLogin} from 'react-google-login'
 import Url from '../Urls'
 import axios from 'axios'
 import {SignInGoogle} from '../../redux/actions/authAction';
-import {FcGoogle} from 'react-icons/fc'
+import {FcGoogle} from 'react-icons/fc';
+import {SignUpUser} from '../../helpers/Requests'
+
+
 
 const SignUp = props =>{
     const [value, setValue] = useState(null)
     const [valor, setValor] = useState({phone:null})
-    const [types, setTypes] = useState(true)
-
-    const auth = useSelector(state => state.auth)
+    const [types, setTypes] = useState(true);
+    const [types2, setTypes2] = useState(true)
+    const [ValueCountry, setValueCountry] = useState(null)
     
     const {register,handleSubmit,formState:{errors} }   = useForm()
     const dispatch = useDispatch()
     
     const onSubmit = (data)=>{
-        dispatch(Register(data,value,valor.phone))
+        // dispatch(Register(data,value,valor.phone));
+
+        const resultados = SignUpUser(data,value,valor.phone)
+
+        if(resultados) return  props.history.push('/private');
+
+        return props.history.push('/');
     }
 
-    const selectCountry = (val) =>{
-        setValue(val);
-    }
+   
     
-    const ShowPassword = ()=>{
-        setTypes(!types)
+    const ShowPassword = (val)=>{
+        if(val === 2 ) return setTypes2(!types2); 
+        return  setTypes(!types)
     }
     const responseGoogle = (res)=>{
         sendGoogleToken(res.tokenId)
@@ -55,18 +64,22 @@ const SignUp = props =>{
     const informParent = response => {
 
         authenticate(response, () => {
-            if(isAuth()){
-                if(isAuth().rol === 'admin') return props.history.push('/admin');
-                if(isAuth().rol === 'teacher') return props.history.push('/teacherPage');
-                if(isAuth().rol === 'user') return props.history.push('/private');
+            if(IsAuth()) {
+                if(IsAuth().rol === 'admin') return props.history.push('/admin');
+                if(IsAuth().rol === 'teacher') return props.history.push('/teacherPage');
+                if(IsAuth().rol === 'user') return props.history.push('/private');
             }
         });
     };
+    const selectCountry = (val) =>{
+        setValue(val)
+        setValueCountry(val.toLowerCase());
+    }
 
     return(
         <>
-            <div className="container">
-                {isAuth() ? <Redirect to='/' /> : null}
+            <div className="container ">
+                {IsAuth() ? <Redirect to='/' /> : null}
                 <div className="row">
                 <div className="col-md-6">
                 <form className="bck-theme p-4" onSubmit={ handleSubmit(onSubmit) }>
@@ -79,7 +92,7 @@ const SignUp = props =>{
                                         <input 
                                         type="text" 
                                         className="form-control" 
-                                        placeholder="User Name"
+                                        placeholder="First Name"
                                         {...register("FirstName", {
                                             required:"First Name is required",
                                             pattern: {
@@ -143,32 +156,14 @@ const SignUp = props =>{
                                 </div>
                                 <div className="col-12 col-md-6">
                                     <Gender>Gender</Gender>
-                                    <BoxChecks>
-                                        <div class="form-check ">
-                                            <input {...register("Gender",{
-                                                required:"es requerido"
-                                            })} class="form-check-input"  name="Gender" type="radio" id="Hombre" value="Male"   />
-                                            <label class="form-check-label" for="Hombre">
-                                                Male
-                                            </label>
-                                        </div>
-                                        <div class="form-check ">
-                                            <input {...register("Gender",{
-                                                required:"es requerido"
-                                            })}  class="form-check-input"  name="Gender" type="radio" id="Mujer" value="Female"  />
-                                            <label class="form-check-label" for="Mujer">
-                                                Female
-                                            </label>
-                                        </div>
-                                        <div class="form-check ">
-                                            <input {...register("Gender",{
-                                                required:"es requerido"
-                                            })} class="form-check-input" name="Gender"  type="radio"  id="Other"  value="other" />
-                                            <label class="form-check-label" for="Other">
-                                                Other
-                                            </label>
-                                        </div>
-                                    </BoxChecks>
+                                    <SelectGender {...register('Gender',{
+                                        required: "Gender is Required"
+                                    })} >
+                                        <option value="Male">Male</option>
+                                        <option value="Female">Female</option>
+                                        <option value="Other">Other</option>
+                                    </SelectGender>
+                                    <span className="text-small text-danger">{errors.Gender?.message} </span> 
                                 </div>
                                 <div className="col-12 col-md-5">
                                     <label>Country</label><br />
@@ -178,7 +173,7 @@ const SignUp = props =>{
                                 </div>
 
                                 <div className="col-12 col-md-7">
-                                    <PhoneInput country={'us'} value={valor.phone}
+                                    <PhoneInput country={ValueCountry} value={valor.phone}
                                         specialLabel={''}
                                         onChange={phone => setValor({ phone })} />
                                 </div>
@@ -186,9 +181,9 @@ const SignUp = props =>{
                                
                                 <div className="col-12 col-md-12">
                                     <div className="form-group">
-                                        <label>Email</label>
+                                        <label>E-mail</label>
                                         <InputWhithIcon>
-                                            <input type="email"  placeholder="Email" {...register('email',{required:"Email is required"})} />
+                                            <input type="email"  placeholder="E-mail" {...register('email',{required:"Email is required"})} />
                                             {/* icon */}
                                             <i><IoMailOutline /> </i>
                                             <span className="text-small text-danger">{errors.email?.message} </span> 
@@ -197,7 +192,7 @@ const SignUp = props =>{
                                 </div>
                                 <div className="col-12 col-md-12">
                                     <div className="form-group">
-                                        <label>Password</label>
+                                        <label>Create password</label>
                                         <InputWhithIcon>
                                             <input 
                                                 type={types? 'password':'text'} 
@@ -224,10 +219,10 @@ const SignUp = props =>{
                                     </div>
                                 </div>
                                 <div className="col-12 col-md-12">
-                                    <div className="form-group">
+                                    <InputWhithIcon >
                                         <label>Confirm Password</label>
                                         <input 
-                                        type="password" 
+                                        type={types2 ? "password": "text"} 
                                         className="form-control"    
                                         {...register("confirmPassword",{
                                             required: 'Confirm password  is required',
@@ -241,9 +236,11 @@ const SignUp = props =>{
                                             }
                                         })}
                                         />
-                                        { errors.ConfirmPassword&&( <span className="text-small text-danger"> {errors.ConfirmPassword.message} </span>)}
+                                        <i clock={true} style={{top:"32px"}} > <IoLockClosedOutline /> </i>
+                                        {types2? <Icon_i style={{top: "38px" }} onClick={()=> ShowPassword(2) } /> : <Icon_i2 style={{top: "38px" }} onClick={()=> ShowPassword(2)}  />}
 
-                                    </div>
+                                        { errors.ConfirmPassword&&( <span className="text-small text-danger"> {errors.ConfirmPassword.message} </span>)}
+                                    </InputWhithIcon>
                                 </div>
                                 
                             </div>
@@ -256,7 +253,7 @@ const SignUp = props =>{
                 </div>
                 <div className="row">
                     <div className="col-md-6 text-center">
-                        <LineCenter>Or Sign up with</LineCenter>
+                        <LineCenter>Or</LineCenter>
                         <GoogleLogin
                                     clientId="669011089415-8gtepgk9pivth0itvut5tom96kn9r7i1.apps.googleusercontent.com"
                                     render={renderProps => (
@@ -266,16 +263,17 @@ const SignUp = props =>{
                                     onSuccess={responseGoogle}
                                     onFailure={responseGoogle}
                                     cookiePolicy={'single_host_origin'}
-                                />
+                        />
                     <div className="mt-3">
-                    <TextGray>if you alrady have account </TextGray> <ButtonSignIn to="/SignIn" >Sign In</ButtonSignIn>
+                    <TextGray>If you already have an account </TextGray> <ButtonSignIn to="/SignIn" >Sign In</ButtonSignIn>
                     </div>   
                     </div>
                     <div className="col-md-6 text-center">
                     </div>
-                        <br /><br /> <br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+                    
                 </div>
             </div>
+            <br /><br /><br /><br /><br /><br /><br />
         </>
     );
 }
@@ -431,15 +429,11 @@ const ButtonSignIn =  styled(Link)`
     color: #314584;
 `
 
-const BoxChecks = styled.div `
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-`
+
 const Gender = styled.p`
     margin:0;
-    text-align: center;
-    font-size:1rem;
+    text-align: start;
+    font-size:.8rem;
     color: #314584;
 `
 const InputCountry = styled(CountryDropdown)`
@@ -450,3 +444,20 @@ const InputCountry = styled(CountryDropdown)`
     border-radius: 5px;
     width:100%;
 `
+const  SelectGender = styled.select `
+    border: 1px solid #D1D5DB; 
+    padding:  .5rem 0 .5rem .5rem;
+    width: 100%;
+    line-height: 1.5;
+    font-size:1rem;
+    border-radius: 4px;
+    color: #64748B;
+    &:focus{
+        border: 1px solid #2563EB;
+    }
+    &>option{
+        font-size: 1rem;
+        line-height: 3;
+    }
+`
+
