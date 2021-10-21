@@ -3,10 +3,8 @@ import { LoginUser, SignUpUser } from "../services/UserService";
 import Context from "../components/Context/UserContext";
 
 export default function useUser() {
-  const { UserData, InformUser, setUserData, setInformUser } =
-    useContext(Context);
-  const user = useContext(Context);
-  console.log(user);
+  const { UserData, InformUser, setInformUser } = useContext(Context);
+
   const [state, setState] = useState({ loading: false, error: false });
   // console.log(user);
 

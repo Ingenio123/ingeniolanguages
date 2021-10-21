@@ -3,7 +3,6 @@ import { useEffect } from "react";
 import styled from "styled-components";
 import Url from "../Urls";
 import Layout from "./Layout";
-import IndexTemary from "./UserUI/Temary/IndexTemary";
 
 const PrivateRoute = ({ history }) => {
   useEffect(() => {
@@ -24,10 +23,7 @@ const PrivateRoute = ({ history }) => {
 
   return (
     <BackgroundUser>
-      <Layout>
-        <hr />
-        <IndexTemary />
-      </Layout>
+      <Layout></Layout>
     </BackgroundUser>
   );
 };

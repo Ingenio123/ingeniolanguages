@@ -1,6 +1,6 @@
 import { BiGridAlt, BiLogOut, BiCodeCurly, BiCaretLeft } from "react-icons/bi";
 import "./Sidebar.css";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useState, useEffect } from "react";
 import { Logout } from "../../../redux/actions/authAction";
 import { useHistory, Link } from "react-router-dom";
@@ -43,11 +43,6 @@ export default function Sidebar({ logout, isLogged }) {
       setRoles(data.rol);
       GetUser(data);
     }
-    // document.body.classList.add("body-mod");
-    // const element = document.getElementById("home");
-    // if (element) {
-    //   element.style.display = "none";
-    // }
   }, []);
 
   async function GetUser(data) {
@@ -62,9 +57,6 @@ export default function Sidebar({ logout, isLogged }) {
         return history.push("/");
       }
     }
-    // if(data.rol == 'teacher'){
-    //     var Enpoint =  Url.url + ''
-    // }
   }
   return (
     <div>
@@ -100,7 +92,6 @@ export default function Sidebar({ logout, isLogged }) {
                       onClick={() => itemActive(index)}
                     >
                       <a
-                        href="/ddd"
                         className={
                           Active === index ? "nav__link active" : "nav__link"
                         }

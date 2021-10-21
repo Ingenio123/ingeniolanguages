@@ -1,0 +1,51 @@
+const CardList = [
+  {
+    img: "https://i.pinimg.com/474x/c9/88/03/c98803dababf408a24a23ffead108692.jpg",
+    urltemary: "/temary",
+    idiom: "Spanish",
+    timeLesson: "0",
+    lessonTotal: "0",
+    idIdiom: "6146058170fdf50618a4744a",
+  },
+  {
+    img: "https://i.pinimg.com/474x/c9/88/03/c98803dababf408a24a23ffead108692.jpg",
+    urltemary: "/temary",
+    idiom: "French",
+    timeLesson: "0",
+    lessonTotal: "0",
+    idIdiom: "6146057770fdf50618a47448",
+  },
+  {
+    img: "https://i.pinimg.com/474x/c9/88/03/c98803dababf408a24a23ffead108692.jpg",
+    urltemary: "/temary",
+    idiom: "English",
+    timeLesson: "0",
+    lessonTotal: "0",
+    idIdiom: "6146057270fdf50618a47446",
+  },
+  {
+    img: "https://i.pinimg.com/474x/c9/88/03/c98803dababf408a24a23ffead108692.jpg",
+    urltemary: "/temary",
+    idiom: "Russian",
+    timeLesson: "0",
+    lessonTotal: "0",
+    idIdiom: "6151e6c0aafabf272802595c",
+  },
+  {
+    img: "https://i.pinimg.com/474x/c9/88/03/c98803dababf408a24a23ffead108692.jpg",
+    urltemary: "/temary",
+    idiom: "Germany",
+    timeLesson: "0",
+    lessonTotal: "0",
+    idIdiom: "6151e65daafabf272802595a",
+  },
+  {
+    img: "https://i.pinimg.com/474x/c9/88/03/c98803dababf408a24a23ffead108692.jpg",
+    urltemary: "/temary",
+    idiom: "Korean",
+    timeLesson: "0",
+    lessonTotal: "0",
+    idIdiom: "6151e62eaafabf2728025956",
+  },
+];
+export default CardList;

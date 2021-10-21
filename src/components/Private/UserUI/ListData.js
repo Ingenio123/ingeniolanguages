@@ -1,15 +1,5 @@
-import {
-  BiGridAlt,
-  BiUser,
-  BiBarChart,
-  BiBook,
-  BiLogOut,
-  BiCog,
-  BiCodeCurly,
-  BiHomeAlt,
-  BiCaretLeft,
-} from "react-icons/bi";
-
+import { BiBook, BiCog, BiHomeAlt } from "react-icons/bi";
+import { AiOutlineUser } from "react-icons/ai";
 export const Items = [
   {
     item: "Home",
@@ -21,17 +11,18 @@ export const Items = [
   {
     item: "My Class",
     itemTeacher: "Nada",
-    icon: <BiBarChart />,
+    icon: <BiBook />,
     url: "/private",
     urlTeacher: "/teacherPage",
   },
   {
-    item: "Temary",
-    itemTeacher: "Calificacion",
-    icon: <BiBook />,
-    url: "/Temary",
-    urlTeacher: "/",
+    item: "Me data",
+    itemTeacher: "Nada",
+    icon: <AiOutlineUser />,
+    url: "/me",
+    urlTeacher: "/teacherPage",
   },
+
   {
     item: "Settings",
     icon: <BiCog />,

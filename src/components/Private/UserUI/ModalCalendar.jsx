@@ -2,7 +2,11 @@ import { useCallback, useEffect, useRef } from "react";
 import styled from "styled-components";
 import { BiX } from "react-icons/bi";
 
-export default function ModalCalendar({ setShowModal, showModal }) {
+export default function ModalCalendar({
+  setShowModal,
+  showModal,
+  url_teacher,
+}) {
   const ModalRef = useRef();
 
   const Close = (e) => {
@@ -27,10 +31,7 @@ export default function ModalCalendar({ setShowModal, showModal }) {
       {showModal ? (
         <Background onClick={Close} ref={ModalRef}>
           <ModalWrapper>
-            <iframe
-              src="https://www.ingeniocalendar.com/luis/reunion"
-              frameborder="0"
-            ></iframe>
+            <iframe src={url_teacher} frameborder="0"></iframe>
             <BtnClose
               aria-label="Close modal"
               onClick={() => setShowModal((prev) => !prev)}

@@ -1,6 +1,9 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import styled, { css } from "styled-components";
 import { Link, useHistory } from "react-router-dom";
+import useTeacher from "../../../../hooks/useTeachers";
+
+// Ui
 import {
   IoCalendarOutline,
   IoTimeOutline,
@@ -8,50 +11,94 @@ import {
   IoDocumentTextOutline,
 } from "react-icons/io5";
 
-import Image from "../../../../assets/images/Francia.png";
-
 import { FaCartPlus } from "react-icons/fa";
-import { GetDataCourse } from "./HeaderService";
-import HeaderUser from "../../Ui/HeaderStudent";
+import studentContext from "../../../Context/StudentContext";
+import CardList from "./CardList";
+import French from "../../../../assets/images/svgs/French.svg";
+import English from "../../../../assets/images/svgs/Inglaterra.svg";
+import Spanish from "../../../../assets/images/svgs/Espanish.svg";
+import Ruso from "../../../../assets/images/svgs/russia.svg";
+import korea from "../../../../assets/images/svgs/korea.svg";
+import Germany from "../../../../assets/images/svgs/germany.svg";
+
+// imgs png
+import Alemania from "../../../../assets/images/svgs/Alemania.png";
+import Spain from "../../../../assets/images/svgs/Spain.png";
+import Rusia from "../../../../assets/images/svgs/Rusia.png";
+import KoreaImg from "../../../../assets/images/svgs/Korea.png";
+import Francia from "../../../../assets/images/svgs/Francia.png";
+import Inglaterra from "../../../../assets/images/svgs/Inglaterra.png";
+
+const imgs = (idiom) => {
+  switch (idiom) {
+    case "French":
+      return French;
+    case "English":
+      return English;
+    case "Spanish":
+      return Spanish;
+    case "Russian":
+      return Ruso;
+    case "Korean":
+      return korea;
+    case "Germany":
+      return Germany;
+    default:
+      return English;
+  }
+};
+const imgFondo = (idiom) => {
+  switch (idiom) {
+    case "French":
+      return Francia;
+    case "English":
+      return Inglaterra;
+    case "Spanish":
+      return Spain;
+    case "Russian":
+      return Rusia;
+    case "Korean":
+      return KoreaImg;
+    case "Aleman":
+      return Alemania;
+    case "Germany":
+      return Alemania;
+    default:
+      return English;
+  }
+};
 
 export default function Header() {
-  const [DateServer, setDateServer] = useState();
   const history = useHistory();
-
+  const contextStudent = useContext(studentContext);
+  const teachers = useTeacher();
+  const { GetTeachers } = teachers;
   const Home = () => {
     history.push("/");
   };
-  const DataHeader = async () => {
-    const user = window.localStorage.getItem("user");
-    const getData = await GetDataCourse(JSON.parse(user).token);
-    // setStausCode(getData.success);
-    console.log(getData);
-    setDateServer(getData.result);
-  };
 
   useEffect(() => {
-    DataHeader();
+    contextStudent.getStudent();
+    console.log("Header Student", teachers);
   }, []);
 
   return (
     <ContainerHeader>
       <ContentCards className="container">
-        {!DateServer ? (
-          <HeaderUser />
-        ) : (
+        {contextStudent.student ? (
           <>
-            {DateServer.QueryStudent.courses.map((item, index) => (
-              <CardContent key={index} img={Image}>
+            {contextStudent.student.QueryStudent.courses.map((item, index) => (
+              <CardContent key={index} img={imgFondo(item.idiom)}>
                 <CardCourse>
                   <ContentImage>
-                    <Img
-                      url="https://i.pinimg.com/474x/c9/88/03/c98803dababf408a24a23ffead108692.jpg"
-                      width="200px"
-                      alt=""
-                    />
+                    <Img url={imgs(item.idiom)} width="200px" alt="" />
                     <ItemsDeCompra flex style={{ width: "100%" }}>
-                      <ButtonViewTemary to="/temary">
-                        Course content
+                      <ButtonViewTemary
+                        onClick={() => {
+                          GetTeachers(item._id, item.idiom);
+                        }}
+                      >
+                        Book now
                       </ButtonViewTemary>
                     </ItemsDeCompra>
                   </ContentImage>
@@ -72,6 +119,50 @@ export default function Header() {
                         <IconNumberLessons />
                         <ItemContent>
                           Number of lessons: {item.lessonsTotal} lessons
+                        </ItemContent>
+                      </ItemsDeCompra>
+                      <ItemsDeCompra>
+                        <IconCalendar />
+                        <ItemContent>Dias de expiracion</ItemContent>
+                      </ItemsDeCompra>
+                    </DatosDeCompra>
+                  </div>
+                </CardCourse>
+              </CardContent>
+            ))}
+          </>
+        ) : (
+          <>
+            {CardList.map((item, index) => (
+              <CardContent key={index} img={imgFondo(item.idiom)}>
+                <CardCourse>
+                  <ContentImage>
+                    <Img url={imgs(item.idiom)} alt="" width="200px" />
+                    <ItemsDeCompra flex style={{ width: "100%" }}>
+                      <ButtonViewTemary
+                        onClick={() => GetTeachers(item.idIdiom, item.idiom)}
+                      >
+                        Book now
+                      </ButtonViewTemary>
+                    </ItemsDeCompra>
+                  </ContentImage>
+                  <div>
+                    <CardHeader>
+                      <span>{item.idiom}</span>
+                      <BuyNewCourse onClick={Home} title="Buy a now package" />
+                    </CardHeader>
+                    <DatosDeCompra>
+                      <ItemsDeCompra>
+                        <IconTime />
+                        <ItemContent>
+                          Duration of each lesson: {item.timeLesson}
+                          {/* Time de cada lessons: 40 min lessons */}
+                        </ItemContent>
+                      </ItemsDeCompra>
+                      <ItemsDeCompra>
+                        <IconNumberLessons />
+                        <ItemContent>
+                          Number of lessons: {item.lessonTotal} lessons
                         </ItemContent>
                       </ItemsDeCompra>
                       <ItemsDeCompra>
@@ -229,12 +320,13 @@ const Img = styled.div`
   }
 `;
 
-const ButtonViewTemary = styled(Link)`
+const ButtonViewTemary = styled.button`
   font-size: calc(1em + 2px);
   color: #fff;
   background-color: #314584;
   padding: 0.3rem 0.8rem;
   border-radius: 20px;
+  border: none;
   :hover {
     color: #fff;
     background-color: #284196;

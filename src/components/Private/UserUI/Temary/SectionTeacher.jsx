@@ -1,34 +1,67 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import styled from "styled-components";
 import ModalCalendar from "../ModalCalendar";
-export default function SectionTeacher({ TeacherIdiom }) {
+import Student from "../../../Context/StudentContext";
+import ModalNotStudent from "./NotStudent";
+
+export default function SectionTeacher({ TeacherIdiom, idiom }) {
+  const studentState = useContext(Student);
   const [showModal, setShowModal] = useState(false);
+  const [notStudent, setNotStudent] = useState(false);
+
   const OpenModal = () => {
     setShowModal((prev) => !prev);
+  };
+  const UserNotStudent = () => {
+    setNotStudent((prev) => !prev);
   };
   return (
     <div>
       <ContenGrid>
-        <ModalCalendar showModal={showModal} setShowModal={setShowModal} />
-        <TitleTeachers>Spanish teachers</TitleTeachers>
-        {TeacherIdiom.map((item, index) => {
-          return (
+        <ModalCalendar
+          showModal={showModal}
+          setShowModal={setShowModal}
+          url_teacher={
+            "https://www.ingeniocalendar.com/libary%20m/30-min-lessons"
+          }
+        />
+        <ModalNotStudent
+          setNotStudent={setNotStudent}
+          notStudent={notStudent}
+        />
+        <TitleTeachers>Booking your {idiom} lesson now</TitleTeachers>
+        <ContentTeacherXl>
+          {TeacherIdiom ? (
             <>
-              <ContentTeacher key={index}>
-                <Img src={item.img} />
-                <ContenTextTeacher>
-                  <NombreTeacher>{item.firstName}</NombreTeacher>
-                  <TextTeacher>{item.eslogan}</TextTeacher>
-                  <ContentButton>
-                    <ButtonAgendarClass onClick={OpenModal}>
-                      Book a lesson with me
-                    </ButtonAgendarClass>
-                  </ContentButton>
-                </ContenTextTeacher>
-              </ContentTeacher>
+              {TeacherIdiom.map((item, index) => {
+                return (
+                  <>
+                    <ContentTeacher key={index}>
+                      <Img src={item.img} />
+                      <ContenTextTeacher>
+                        <NombreTeacher>{item.firstName}</NombreTeacher>
+                        <TextTeacher>{item.eslogan}</TextTeacher>
+                        <ContentButton>
+                          <ButtonAgendarClass
+                            onClick={() => {
+                              studentState.student
+                                ? OpenModal()
+                                : UserNotStudent();
+                            }}
+                          >
+                            Book a lesson with me
+                          </ButtonAgendarClass>
+                        </ContentButton>
+                      </ContenTextTeacher>
+                    </ContentTeacher>
+                  </>
+                );
+              })}
             </>
-          );
-        })}
+          ) : (
+            ""
+          )}
+        </ContentTeacherXl>
       </ContenGrid>
       {/* <ContentCalendar
         src="https://www.ingeniocalendar.com/luis/reunion"
@@ -45,40 +78,40 @@ const ContentCalendar = styled.iframe`
   border: none;
 `;
 
-const ContenGrid = styled.div``;
-const HeaderContentGrid = styled.div`
-  h3 {
-    color: rgb(82, 82, 91);
-    margin: 0;
-    text-align: center;
-    margin-top: 0.5rem;
-    font-size: 1.8rem;
-  }
-  /* border: 2px solid red; */
-`;
-const ContentTeacher = styled.div`
-  width: 100%;
+const ContentTeacherXl = styled.div`
+  padding: 1rem;
+
   display: flex;
-  align-items: center;
+  flex-wrap: wrap;
+`;
+const ContenGrid = styled.div``;
+
+const ContentTeacher = styled.div`
+  width: 49%;
+  display: flex;
   background-color: #fff;
   padding: 0.8rem 1rem;
   border-radius: 0.5rem;
   margin-bottom: 1rem;
+  margin-left: 0.5rem;
   box-shadow: 0px 7px 15px -1px rgba(0, 0, 0, 0.18);
   -webkit-box-shadow: 0px 7px 15px -1px rgba(0, 0, 0, 0.18);
   -moz-box-shadow: 0px 7px 15px -1px rgba(0, 0, 0, 0.18);
+  @media screen and (max-width: 768px) {
+    background-color: gray;
+  }
 `;
 const Img = styled.img`
   width: 80px;
   height: 80px;
   border-radius: 50%;
-  align-self: flex-start;
 `;
 const NombreTeacher = styled.span`
   font-size: 1.5rem;
   color: rgb(82, 82, 82);
-  align-self: flex-start;
+  align-self: center;
   margin: 0;
+  width: 100%;
 `;
 const TextTeacher = styled.p`
   margin: 0;
@@ -89,13 +122,14 @@ const TextTeacher = styled.p`
 const ContenTextTeacher = styled.div`
   margin: 0;
   margin-left: 0.5rem;
-  margin-top: 0.5rem;
+  margin-top: auto;
   width: 100%;
 `;
 const ContentButton = styled.div`
   display: flex;
   align-items: flex-end;
   justify-content: flex-end;
+  margin-top: auto;
   /* border: 1px solid red; */
 `;
 
@@ -107,12 +141,14 @@ const ButtonAgendarClass = styled.button`
   padding: 0.2rem 1rem;
   font-size: 1rem;
   border-radius: 4px;
+  margin-top: auto;
   &:hover {
     background-color: rgb(67, 56, 202);
   }
 `;
 const TitleTeachers = styled.h2`
   color: rgb(82, 82, 82);
+  text-align: center;
 
   line-height: 3.5rem;
   margin-bottom: 1rem;

@@ -106,10 +106,6 @@ const Navbar = ({ toggle, history, isLogged }) => {
           )}
         </Nav>
       )}
-      <br />
-      <br />
-      <br />
-      {/* <h2>{isLogged ? "Hola" : ""}</h2> */}
     </div>
   );
 };

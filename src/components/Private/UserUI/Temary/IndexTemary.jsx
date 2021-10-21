@@ -4,26 +4,17 @@ import SectionTeacher from "../Temary/SectionTeacher";
 import axios from "axios";
 import Url from "../../../Urls";
 import { useEffect, useState } from "react";
+import useTeacher from "../../../../hooks/useTeachers";
 
 export default function IndexTemary() {
   const [TeacherIdiom, setTeacherIdiom] = useState([]);
-  useEffect(() => {
-    GetTeacherIdiom();
-  }, []);
+  const { Teachers, idIdiom } = useTeacher();
 
-  const GetTeacherIdiom = async () => {
-    const Enpoint = Url.url + "/data/courses/6146057270fdf50618a47446";
-    const res = await axios.get(Enpoint);
-    // console.log("estos son los datos", res.data.datos);
-    setTeacherIdiom(res.data.datos);
-  };
   return (
     <Container>
       <GridLayout>
-        <Temary />
-        <ColumGrid>
-          <SectionTeacher TeacherIdiom={TeacherIdiom} />
-        </ColumGrid>
+        <SectionTeacher idiom={idIdiom} TeacherIdiom={Teachers} />
+        <ColumGrid>{/* <Temary /> */}</ColumGrid>
       </GridLayout>
     </Container>
   );
@@ -37,10 +28,9 @@ const Container = styled.div`
 `;
 const GridLayout = styled.div`
   width: 100%;
-
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  column-gap: 1rem;
+  grid-template-columns: 957px 323px;
+  column-gap: 0.5rem;
   @media (max-width: 768px) {
     column-gap: 0px;
     grid-template-columns: 100%;

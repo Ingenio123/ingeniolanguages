@@ -1,9 +1,5 @@
-import { createContext, useState } from "react";
+import { createContext } from "react";
 
-const Context = createContext({});
-
-export function UserContextProvider({ children }) {
-  return <Context.Provider value={{}}>{children}</Context.Provider>;
-}
+const Context = createContext();
 
 export default Context;

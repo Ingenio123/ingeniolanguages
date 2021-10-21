@@ -32,6 +32,7 @@ import IndexTemary from "./components/Private/UserUI/Temary/IndexTemary";
 import { UserContextProvider } from "./components/Context/UserContext";
 
 import redirectpage from "./components/Redirect/redirect";
+import UserSumary from "./components/Private/UserSumary";
 
 ReactDOM.render(
   <React.StrictMode>
@@ -60,6 +61,7 @@ ReactDOM.render(
             <Route exact path="/orderSummary" component={OrderSummary} />
 
             <PrivateRouter path="/private" exact component={UserPrivate} />
+            <PrivateRouter path="/me" exact component={UserSumary} />
             <PrivateRouter path="/temary" exact component={IndexTemary} />
             {/* <PrivateRouter path="" exact  component={} />  */}
 

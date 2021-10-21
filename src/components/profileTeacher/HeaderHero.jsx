@@ -11,11 +11,7 @@ export const HeaderHero = ({ data }) => {
 
   return (
     <>
-      <br />
-      <br />
-      <br />
-      <br />
-      <section className="about container">
+      <main className="about container" style={{ marginTop: "70px" }}>
         <div className="spaces">
           <figure className="about__image__teacher">
             <img src={data.imageUrl} alt="nada" />
@@ -42,7 +38,7 @@ export const HeaderHero = ({ data }) => {
             </a>
           </p>
         </div>
-      </section>
+      </main>
       <div className="eslogan container">
         <p>"{data.eslogan}"</p>
       </div>

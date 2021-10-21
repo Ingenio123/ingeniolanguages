@@ -3,12 +3,11 @@ import { BiChevronUp, BiCheckCircle } from "react-icons/bi";
 import { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import styled from "styled-components";
-
+import useCalificacion from "../../../../hooks/useCalificacion";
 export const Temary = () => {
   const [Valor, setValor] = useState([]);
   const [ClickPrimary, setClickPrimary] = useState(false);
   const [ClickSecondary, setClickSecondary] = useState(false);
-  const FormRef = useRef();
 
   const GetDataTemary = async () => {
     const Enpoint = "https://www.ingenioapi.com/temary/getTemary";
@@ -33,12 +32,7 @@ export const Temary = () => {
     }
     setClickSecondary(index);
   };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("estas en el submit");
-    console.log(FormRef);
-  };
+  const { Level, Sublevel, IdContent } = useCalificacion();
   return (
     <TemaryLayout className="l-section s-border md-pxy brd-radius">
       <div className="dgrid m-grid-2 al-center header_temary">
@@ -52,12 +46,6 @@ export const Temary = () => {
         </div>
       </div>
 
-      <div className="md-px-0 ">
-        <div className="s-mb-2 s-cross-center progress-bar s-py-1">
-          <div className="progress-bar__bar"></div>
-          <span className="progess-bar__percentage small">0% Completed</span>
-        </div>
-      </div>
       {/* contents */}
       <div className="dgrid lgrid card-template row-gap s-gap-0 s-py-1 ">
         {Valor.map((item, key) => (
@@ -65,7 +53,10 @@ export const Temary = () => {
             <div className="article s-mb-0 s-borderline-left green-400 s-px-2">
               <div
                 className="s-cursor-pointer"
-                onClick={() => togglePrimary(key)}
+                onClick={() => {
+                  togglePrimary(key);
+                  Level(item._id);
+                }}
               >
                 <div className="dflex s-cross-center nowrap s-mb-0 spc-between">
                   <h3 className="course-class__temary-title s-mb-0 s-mr-1">
@@ -82,8 +73,7 @@ export const Temary = () => {
                           : " blue-grey-400 action-btn s-cross-center s-main-center s-border-none s-cursor-pointer  icon-md bg-0 s-transition  s-rotation-180"
                       }
                     >
-                      {" "}
-                      <BiChevronUp />{" "}
+                      <BiChevronUp />
                     </button>
                   </div>
                 </div>
@@ -102,7 +92,10 @@ export const Temary = () => {
                       <li className="s-border-bottom s-py-2 s-transition ">
                         <div
                           className="dflex spc-between s-cursor-pointer alg-center"
-                          onClick={() => toggleSecondary(keySub)}
+                          onClick={() => {
+                            toggleSecondary(keySub);
+                            Sublevel(subItem._id);
+                          }}
                         >
                           <h4 className=" s-mb-0 font-md-1">
                             {subItem.name_sublevel}
@@ -119,46 +112,35 @@ export const Temary = () => {
                         </div>
                         {ClickSecondary === keySub ? (
                           <ul className="l-none s-transition ">
-                            <form
-                              onSubmit={(e) => handleSubmit(e)}
-                              ref={FormRef}
-                            >
-                              {subItem.content.map(
-                                (subItemContent, Contentindex) => (
-                                  <li
-                                    key={Contentindex}
-                                    className=" s-pxy-1 small grey-600 s-transition hover-bg-03"
-                                  >
-                                    <div className="dflex alg-center contentInputsCheck">
-                                      <input
-                                        type="checkbox"
-                                        id={Contentindex}
-                                        value="valor luis"
-                                      />
-                                      <label htmlFor={Contentindex}>
-                                        {" "}
-                                        <i className="icon-sm s-mr-1">
-                                          {" "}
-                                          <BiCheckCircle />{" "}
-                                        </i>{" "}
-                                      </label>
-                                      <p className="small grey-500 s-mb-0 ">
-                                        {subItemContent.item}
-                                      </p>
-                                    </div>
-                                  </li>
-                                )
-                              )}
-
-                              {/* <div className="dflex jst-content-end">
-                                  <button
-                                    className="border-blue-600 btn-temary color-blue-600"
-                                    type="submit"
-                                  >
-                                    Enviar
-                                  </button>
-                                </div> */}
-                            </form>
+                            {subItem.content.map(
+                              (subItemContent, Contentindex) => (
+                                <li
+                                  key={Contentindex}
+                                  className=" s-pxy-1 small grey-600 s-transition hover-bg-03"
+                                >
+                                  <div className="dflex alg-center contentInputsCheck">
+                                    <input
+                                      type="checkbox"
+                                      id={Contentindex}
+                                      value="valor luis"
+                                    />
+                                    <label htmlFor={Contentindex}>
+                                      <i
+                                        className="icon-sm s-mr-1"
+                                        onClick={() =>
+                                          IdContent(subItemContent._id)
+                                        }
+                                      >
+                                        <BiCheckCircle />
+                                      </i>
+                                    </label>
+                                    <p className="small grey-500 s-mb-0 ">
+                                      {subItemContent.item}
+                                    </p>
+                                  </div>
+                                </li>
+                              )
+                            )}
                           </ul>
                         ) : null}
                       </li>

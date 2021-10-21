@@ -40,6 +40,7 @@ export const SendDataPayClient = async (
     id,
     email,
   };
+  console.log(url);
   const EndPoint = url + "/payIngenioLanguages";
   // const res = await  axios.post('https://www.ingenioapi.com/payIngenioLanguages',data)
   const res = await axios.post(EndPoint, data);
