@@ -5,7 +5,7 @@ const CardList = [
     idiom: "Spanish",
     timeLesson: "0",
     lessonTotal: "0",
-    idIdiom: "6146058170fdf50618a4744a",
+    idIdiom: "6170cc7e08370b9faec085a4",
   },
   {
     img: "https://i.pinimg.com/474x/c9/88/03/c98803dababf408a24a23ffead108692.jpg",
@@ -13,7 +13,7 @@ const CardList = [
     idiom: "French",
     timeLesson: "0",
     lessonTotal: "0",
-    idIdiom: "6146057770fdf50618a47448",
+    idIdiom: "6170cc6f08370b9faec085a2",
   },
   {
     img: "https://i.pinimg.com/474x/c9/88/03/c98803dababf408a24a23ffead108692.jpg",
@@ -21,7 +21,7 @@ const CardList = [
     idiom: "English",
     timeLesson: "0",
     lessonTotal: "0",
-    idIdiom: "6146057270fdf50618a47446",
+    idIdiom: "6170cc5908370b9faec085a0",
   },
   {
     img: "https://i.pinimg.com/474x/c9/88/03/c98803dababf408a24a23ffead108692.jpg",
@@ -29,7 +29,7 @@ const CardList = [
     idiom: "Russian",
     timeLesson: "0",
     lessonTotal: "0",
-    idIdiom: "6151e6c0aafabf272802595c",
+    idIdiom: "6170cc8b08370b9faec085a6",
   },
   {
     img: "https://i.pinimg.com/474x/c9/88/03/c98803dababf408a24a23ffead108692.jpg",
@@ -37,7 +37,7 @@ const CardList = [
     idiom: "Germany",
     timeLesson: "0",
     lessonTotal: "0",
-    idIdiom: "6151e65daafabf272802595a",
+    idIdiom: "6170cc9608370b9faec085a8",
   },
   {
     img: "https://i.pinimg.com/474x/c9/88/03/c98803dababf408a24a23ffead108692.jpg",
@@ -45,7 +45,7 @@ const CardList = [
     idiom: "Korean",
     timeLesson: "0",
     lessonTotal: "0",
-    idIdiom: "6151e62eaafabf2728025956",
+    idIdiom: "6170cc9b08370b9faec085aa",
   },
 ];
 export default CardList;
