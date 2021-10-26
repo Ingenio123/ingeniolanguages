@@ -5,7 +5,7 @@ import Bars from "../../assets/images/Bars.svg";
 import ingenio from "../../assets/images/IngenioLanguages.svg";
 import { useSelector } from "react-redux";
 import { authData } from "../../data/AuthData";
-import { withRouter } from "react-router-dom";
+import { withRouter, useLocation } from "react-router-dom";
 import { Link as LinkID } from "react-scroll";
 import { Link } from "react-router-dom";
 import { useGoogleLogin } from "react-use-googlelogin";
@@ -19,9 +19,9 @@ const Navbar = ({ toggle, history, isLogged }) => {
   const { logout, init, isLoginLoading, hasLoginError, UserData } = useUser();
   const auth = useSelector((state) => state.auth);
   const { items } = useSelector((state) => state.package);
-
   const [NavBar, setNavBar] = useState(false);
   const [Picture, setPicture] = useState("");
+  const location = useLocation();
 
   const { signOut } = useGoogleLogin({
     clientId:
@@ -48,7 +48,7 @@ const Navbar = ({ toggle, history, isLogged }) => {
   return (
     <div id="home">
       {isLogged ? (
-        <SideBar isLogged={isLogged} logout={logout} />
+        <SideBar isLogged={isLogged} salir={logout} />
       ) : (
         <Nav NavBar={NavBar}>
           <LogoImage to="/">
@@ -57,23 +57,30 @@ const Navbar = ({ toggle, history, isLogged }) => {
           <MenuBars onClick={toggle} />
           <Espacio>
             <NavMenu>
-              {MenuData.map((item, index) => (
-                <NavMenuLinks
-                  to={item.Link}
-                  key={index}
-                  smooth={true}
-                  duration={500}
-                  spy={true}
-                >
-                  {item.title}
-                </NavMenuLinks>
-              ))}
+              {location.pathname === "/" && (
+                <>
+                  {MenuData.map((item, index) => {
+                    return (
+                      <NavMenuLinks
+                        to={item.Link}
+                        key={index}
+                        smooth={true}
+                        duration={1000}
+                        spy={true}
+                      >
+                        {item.title}
+                      </NavMenuLinks>
+                    );
+                  })}
+                </>
+              )}
+              {location.pathname !== "/" && <ItemUrl to="/">Home</ItemUrl>}
+
               {isLogged ? (
                 <NavMenuLinks onClick={handleLogout}> Logo Ut </NavMenuLinks>
               ) : (
                 ""
               )}
-
               {isLogged ? (
                 <ImgPerfil
                   onClick={profileUser}
@@ -158,6 +165,15 @@ const NavLink = css`
 `;
 
 const NavMenuLinks = styled(LinkID)`
+  ${NavLink}
+  :active {
+    color: black;
+  }
+  .active {
+    color: black;
+  }
+`;
+const ItemUrl = styled(Link)`
   ${NavLink}
 `;
 

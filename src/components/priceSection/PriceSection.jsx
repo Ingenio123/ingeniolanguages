@@ -6,10 +6,6 @@ import ModalPackageFrench from "../modalsPackage/ModalPackageFrench";
 import ModalPackageSpanish from "../modalsPackage/ModalPackageSpanish";
 
 export const PriceSection = () => {
-  const price = useRef(null);
-  useEffect(() => {
-    price.current.scrollIntoView({ behavior: "smooth" });
-  }, []);
   const [ShowModal, setShowModal] = useState(false);
   const [ShowModalFrench, setShowModalFrench] = useState(false);
   const [ShowModalSpanish, setShowModalSpanish] = useState(false);
@@ -26,9 +22,14 @@ export const PriceSection = () => {
   };
 
   return (
-    <div ref={price}>
+    // ref={price}
+    <>
       <section className="container">
-        <h1 className="text-center ">Lessons packages</h1>
+        <h1 className="text-center">Lessons packages</h1>
+        <div id="Prices" className="mb-5"></div>
+        <div className="mt-3"></div>
+        <br />
+        <br />
         <div className="row">
           <div className="col-md-4">
             <div className="">
@@ -56,7 +57,6 @@ export const PriceSection = () => {
           </div>
         </div>
       </section>
-
       <ModalPackage ShowModal={ShowModal} setShowModal={setShowModal} />
       <ModalPackageFrench
         ShowModalFrench={ShowModalFrench}
@@ -66,7 +66,7 @@ export const PriceSection = () => {
         ShowModalSpanish={ShowModalSpanish}
         setShowModalSpanish={setShowModalSpanish}
       />
-    </div>
+    </>
   );
 };
 
@@ -74,4 +74,5 @@ const TitleCard = styled.h4`
   font-size: 1.5rem;
   color: #1a237e;
   font-weight: 600;
+  z-index: -1 !important;
 `;

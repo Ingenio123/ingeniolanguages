@@ -1,31 +1,31 @@
-.image_card{
-    margin: 0 auto;
-    background-size: cover;
-    background-repeat: no-repeat;
-    width: 80%;
-    height: 250px;
-    background-position: center;
-    cursor:pointer;
+.image_card {
+  margin: 0 auto;
+  background-size: cover;
+  background-repeat: no-repeat;
+  width: 80%;
+  height: 250px;
+  background-position: center;
+  cursor: pointer;
 }
 
 .image_card h4 {
-    background-color: rgba(255, 255, 255,.6);
-    padding:10px 0;
+  background-color: rgba(255, 255, 255, 0.6);
+  padding: 10px 0;
 }
 
 .english {
-    background-image: url('../images/EnglishImage.jpg');
-    cursor: pointer;
+  background-image: url("../images/EnglishImage.jpg");
+  cursor: pointer;
 }
-.france{
-    background-image:  url('../images/frenchImg.jpg');
+.france {
+  background-image: url("../images/frenchImg.jpg");
 }
-.spanish{
-    background-image:  url('../images/SpainImage.jpg');
+.spanish {
+  background-image: url("../images/SpainImage.jpg");
 }
 
 .price {
-    width: 80% !important;
-    margin-top: 20px !important ;
-    margin-bottom: 30px !important;
+  width: 80% !important;
+  margin-top: 20px !important ;
+  margin-bottom: 30px !important;
 }

@@ -42,9 +42,27 @@ export const SignUpUser = async ({ data, country, cellphone }) => {
     country,
     phone,
   });
+  try {
+    const res = await axios.post(Enpoint, body, config);
+    if (!res) return false;
+    return res;
+  } catch (error) {
+    return false;
+  }
+};
 
-  const res = await axios.post(Enpoint, body, config);
-  if (!res) return false;
-
-  return res;
+export const GetCourseStudent = async ({ token }) => {
+  try {
+    const Enpoint = Url.url + "/data/verifyIstudent";
+    const res = await fetch(Enpoint, {
+      headers: {
+        authorization: `Bearer: ${token}`,
+      },
+    });
+    const data = await res.json();
+    return data;
+  } catch (error) {
+    console.log("hay un error", error.status);
+    return false;
+  }
 };

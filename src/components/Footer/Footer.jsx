@@ -17,7 +17,7 @@ export const Footer = () => {
             <SubItems to="/Teachers" offset={50} duration={1000} smooth={true}>
               Teachers
             </SubItems>
-            <SubItems to="/Prices" offset={50} duration={1000} smooth={true}>
+            <SubItems to="Prices" offset={50} duration={1000} smooth={true}>
               Prices
             </SubItems>
             <SubItems to="">Contac Us</SubItems>
@@ -38,7 +38,15 @@ export const Footer = () => {
             <b>Direccion: </b> Ecuador - Santo Domingo de los Tsachilas
           </TextPoliticas>
           <TextPoliticas>
-            Suggestion And Coments <br /> https://forms.gle/z3wtdBtqmXtY8N9t8
+            Suggestion And Coments <br />{" "}
+            <HiperVinculo
+              to={{
+                pathname: "https://forms.gle/z3wtdBtqmXtY8N9t8",
+              }}
+              target="_blank"
+            >
+              https://forms.gle/z3wtdBtqmXtY8N9t8
+            </HiperVinculo>
           </TextPoliticas>
           <br />
           <br />
@@ -51,24 +59,10 @@ export const Footer = () => {
           <HiperVinculo to="/politicasPrivacidad">
             Politicas de privacidad
           </HiperVinculo>
-
-          <TextPoliticas>
-            Ingenio Languages. Gestiona sus Datos de manera segura, Con
-            responsabilidad de uso, mantenimiento y divulgacion de su
-            informacion colectadas. Por ejemplo tipo de informacion que usted
-            nos porpociona Nombres,Correo Electronico,Numero Telefonico.
-          </TextPoliticas>
         </BoxCenter>
 
         <PoliticaPriv>
           <ItemsPoliticas>Terminos y Condiciones</ItemsPoliticas>
-          <TextPoliticas3>
-            {" "}
-            <b>Terminos Comerciales:</b> La tarifa por los servicios y cualquier
-            otro cargo que pueda incurrir en relación con tu uso del servicio,
-            como los impuestos y las posibles tarifas de transacción, se
-            cobrarán instataneamente a tu método de pago
-          </TextPoliticas3>
         </PoliticaPriv>
       </TerminosCondiciones>
     </>
@@ -162,6 +156,9 @@ const HiperVinculo = styled(Link)`
   margin-top: 1rem;
   margin-bottom: 2rem;
   &:hover {
+    color: #ff3946;
+  }
+  &:focus {
     color: #ff3946;
   }
 `;

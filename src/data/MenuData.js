@@ -5,6 +5,6 @@ export const MenuData = [
   },
   {
     title: "Pricing",
-    Link: "/Prices",
+    Link: "Prices",
   },
 ];

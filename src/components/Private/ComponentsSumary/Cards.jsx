@@ -9,7 +9,7 @@ export default function Cards(props) {
       <Card color={props.color} border={props.border}>
         <CardCol>
           <Card_text>{props.idiom}</Card_text>
-          <Text_base> Lorem ipsum dolor sit.</Text_base>
+          <Text_base>lesson of {props.TimeLossons} </Text_base>
           <ButtonSumary textColor={props.textColor} primary={props.primary}>
             <Icon />
             Sumary

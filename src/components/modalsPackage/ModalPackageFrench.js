@@ -171,7 +171,7 @@ export default function ModalPackageFrench({
 
                     {GroupClass && (
                       <ContentSelect>
-                        <TextLesson>Number Persons</TextLesson>
+                        <TextLesson>Number of students</TextLesson>
                         <MonthBuy
                           type="number"
                           value={PersonsGroup.value}

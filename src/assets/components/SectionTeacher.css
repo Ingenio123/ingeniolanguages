@@ -1,179 +1,180 @@
 section {
-    width: 100%;
-    padding: 0!important;
-    margin-top: 1rem!important;
+  width: 100%;
+  padding: 0 !important;
+  margin-top: 1rem !important;
 }
-.about{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+.about {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .about__image__teacher {
-    margin-bottom: 0!important;
-
+  margin-bottom: 0 !important;
 }
-.about__image__teacher> img{
-    width: 250px;
-    height: 250px;
-    border-radius: 50%;
-}
-
-.spaces{
-    display: flex;
-    align-items: center;
+.about__image__teacher > img {
+  width: 250px;
+  height: 250px;
+  border-radius: 50%;
 }
 
-.name_teacher{
-    font-size: 24px;
-    font-family: 'Sacramento' !important;
-    font-weight: 600!important; 
-}
-.or{
-    text-align: center;
-    margin: 25px 20px 0 20px;
-    font-weight: 700;
-    font-size: 1rem;
+.spaces {
+  display: flex;
+  align-items: center;
 }
 
-
-.btn__buy{
-    border:2px solid  #FF3946;
-    border-radius: 50px;
-    background-color: #FF3946;
-    color: #fff !important;
-    padding:.8rem 2rem;
-    transition: .2s ease-in-out;
-    font-size: 1.2rem;
-    letter-spacing: normal;
+.name_teacher {
+  font-size: 24px;
+  font-family: "Sacramento" !important;
+  font-weight: 600 !important;
 }
-.btn__buy:hover{
-    color:#314484ea !important;
-    background-color: transparent;
-    padding:.8rem 2.3rem;
-    cursor:pointer;
+.or {
+  text-align: center;
+  margin: 25px 20px 0 20px;
+  font-weight: 700;
+  font-size: 1rem;
 }
 
-.block{
-    display: inline-block!important;
+.btn__buy {
+  border: 2px solid #ff3946;
+  border-radius: 50px;
+  background-color: #ff3946;
+  color: #fff !important;
+  padding: 0.8rem 2rem;
+  transition: 0.2s ease-in-out;
+  font-size: 1.2rem;
+  letter-spacing: normal;
 }
-.btn__demo{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.3rem;
-    padding:.5rem .8rem;
-    letter-spacing: normal;
-}
-
-.text__teacher{
-    margin: 50px 20px;
-    max-width:550px;
-
-}
-.text__teacher h2{
-    font-family: 'Josefin Sans', sans-serif;
-    /* font-family: 'Nunito Sans', sans-serif; */
-    font-size: 3rem;
-    line-height: 1;
-    font-weight: 200;
-    margin-bottom: 0;
+.btn__buy:hover {
+  color: #314484ea !important;
+  background-color: transparent;
+  padding: 0.8rem 2.3rem;
+  cursor: pointer;
 }
 
-.country_teacher{
-    margin-bottom: 10px;
+.block {
+  display: inline-block !important;
+}
+.btn__demo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  padding: 0.5rem 0.8rem;
+  letter-spacing: normal;
+  background: none;
+  border: none;
+  color: #314584;
+}
+.btn__demo:hover {
+  color: #ff3946;
 }
 
-.bnt__teacher{
-    margin-top: 20px ;
+.text__teacher {
+  margin: 50px 20px;
+  max-width: 550px;
 }
-.eslogan{
-    text-align: center;
-    width: 60%;
+.text__teacher h2 {
+  font-family: "Josefin Sans", sans-serif;
+  /* font-family: 'Nunito Sans', sans-serif; */
+  font-size: 3rem;
+  line-height: 1;
+  font-weight: 200;
+  margin-bottom: 0;
+}
+
+.country_teacher {
+  margin-bottom: 10px;
+}
+
+.bnt__teacher {
+  margin-top: 20px;
+}
+.eslogan {
+  text-align: center;
+  width: 60%;
 }
 .eslogan p {
-    font-size: 24px;
-    font-family: 'Josefin Sans', sans-serif;
-    /* font-family: 'Nunito Sans', sans-serif; */
-    line-height: 1.5;
-    margin-bottom: 0;
+  font-size: 24px;
+  font-family: "Josefin Sans", sans-serif;
+  /* font-family: 'Nunito Sans', sans-serif; */
+  line-height: 1.5;
+  margin-bottom: 0;
 }
 .btn__shop {
-    color:white;
-    margin-left: 20px;
-    background-color: #FF3946;
-    padding: 3px 4px;
-    transition: .2s ease-in-out;
-    border-radius: 5px;
+  color: white;
+  margin-left: 20px;
+  background-color: #ff3946;
+  padding: 3px 4px;
+  transition: 0.2s ease-in-out;
+  border-radius: 5px;
 }
-.btn__shop:hover{
-    padding: .5rem .7rem ;
+.btn__shop:hover {
+  padding: 0.5rem 0.7rem;
 }
 
-.styles_calendar{
-    border:solid 1px #777;
-    width: 800px;
-    height: 600px;
+.styles_calendar {
+  border: solid 1px #777;
+  width: 800px;
+  height: 600px;
 }
 
 .presentation {
-    display: flex;
-    width: 100%;
-    justify-content: center;
+  display: flex;
+  width: 100%;
+  justify-content: center;
 }
 
 .presentation p {
-    width: 80%;
-    text-align: justify;
-    line-height: 1.5;
-    margin-top: 10px;
-    margin-bottom: 20px;
+  width: 80%;
+  text-align: justify;
+  line-height: 1.5;
+  margin-top: 10px;
+  margin-bottom: 20px;
 }
-.teaches_profesional{
-    display: flex;
+.teaches_profesional {
+  display: flex;
 }
-.data{
-    text-align: center;
-    width: 50%;
+.data {
+  text-align: center;
+  width: 50%;
 }
-.data_flag{
-    margin-top: 10px;
-    margin-left: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: start;   
+.data_flag {
+  margin-top: 10px;
+  margin-left: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: start;
 }
-.data_flag img{
-    width: 70px;
-    height: 40px;
+.data_flag img {
+  width: 70px;
+  height: 40px;
 }
-.data_flag h6{
-    
-    margin: 15px 0 9px 15px;
-}
-
-.profesional_background{
-    width: 50%;
+.data_flag h6 {
+  margin: 15px 0 9px 15px;
 }
 
-.profesional_background span{
-    text-align: end;
-    
+.profesional_background {
+  width: 50%;
 }
-.profesional_background span h4{
-    margin-right: 110px;
-    font-size:1.8rem;
-} 
+
+.profesional_background span {
+  text-align: end;
+}
+.profesional_background span h4 {
+  margin-right: 110px;
+  font-size: 1.8rem;
+}
 
 .profesional_background p {
-    line-height: 1.5;
-    text-align: justify;
-    font-size:1.2rem;
+  line-height: 1.5;
+  text-align: justify;
+  font-size: 1.2rem;
 }
 
-.font-w-600{
-    font-weight: 600;
+.font-w-600 {
+  font-weight: 600;
 }
-.font-md{
-    font-size: 1.8rem;;
+.font-md {
+  font-size: 1.8rem;
 }

@@ -20,11 +20,10 @@ const StudentState = (props) => {
         },
       });
       const data = res.data;
-      console.log(res);
       dispatch({ type: "GET_STUDENT", payload: data });
     } catch (error) {
-      // console.log("Error 400", error.response);
-      if (error.response.status) return dispatch({ type: "ERROR_STUDENT" });
+      if (error.response.status || error)
+        return dispatch({ type: "ERROR_STUDENT" });
     }
   };
   return (

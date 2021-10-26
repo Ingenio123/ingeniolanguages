@@ -7,6 +7,7 @@ import { CountryDropdown } from "react-country-region-selector";
 import { useEffect, useCallback, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useHistory } from "react-router-dom";
+import { isAuth } from "../../helpers/Auth";
 
 import {
   IoEyeOutline,
@@ -71,10 +72,21 @@ export default function ModalRequesFreeClass({
     setShowConfirmPassword(!ShowConfirmPassword);
   };
 
-  const SendData = (data) => {
+  const SendData = async (data) => {
+    console.log(data);
     const country = valueCountry;
     const cellphone = valorPhone.phone;
-    SignUp({ data, country, cellphone });
+    const res = await SignUp({ data, country, cellphone });
+
+    if (res) {
+      if (isAuth()) {
+        if (isAuth().rol === "admin") return history.push("/admin");
+        if (isAuth().rol === "teacher") return history.push("/teacherPage");
+        if (isAuth().rol === "user" || isAuth().rol === "student") {
+          return history.push("/private");
+        }
+      }
+    }
   };
 
   const SelectCountryData = (data) => {
@@ -227,7 +239,7 @@ export default function ModalRequesFreeClass({
 
 const ModalWrapper = styled.div`
   width: 40vw;
-  height: 88vh;
+  height: 90vh;
   box-shadow: 0 5px 16px rgba(0, 0, 0, 0.2);
   background: #fff;
   position: relative;
@@ -302,7 +314,7 @@ const ButtonSubmit = styled.button`
 `;
 const Card_Publicidad = styled.div`
   position: absolute;
-  bottom: 20px;
+  bottom: 5px;
   right: 20px;
   background-color: #fff;
   border-radius: 1rem;

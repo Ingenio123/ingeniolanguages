@@ -10,13 +10,18 @@ import { GroupPersons } from "../../redux/actions/ItemOnePackageAction";
 import { Select_Package } from "../../redux/actions/packageAction";
 import { Link } from "react-router-dom";
 import ProgressStetpBar from "./ProgressStetpBar";
+import LessonMonths from "./lessonMonth";
+
+/**
+ * @function_React
+ */
 
 export default function ModalPackageFrench({
   ShowModalSpanish,
   setShowModalSpanish,
 }) {
   const modalRef = useRef();
-
+  const InputMonths = useRef(0);
   const CalculoPrices = useSelector(
     (state) => state.itemPackage.calculatePrices
   );
@@ -31,6 +36,7 @@ export default function ModalPackageFrench({
   const [IndividualClass, setIndividualClass] = useState(true);
   const [PersonsGroup, setPersonsGroup] = useState({ value: 0 });
   const [Valores, setValores] = useState(false);
+  const [Months, setMonths] = useState({ value: 1 });
 
   const OnClickValores = () => {
     setValores(!Valores);
@@ -78,7 +84,7 @@ export default function ModalPackageFrench({
         type: RESET_PRICES,
       });
     };
-  }, [keyPress]);
+  }, [dispatch, keyPress]);
 
   const handleNumber = (e) => {
     var val = parseInt(e.target.value);
@@ -91,7 +97,7 @@ export default function ModalPackageFrench({
   };
   useEffect(() => {
     dispatch(GroupPersons(PersonsGroup));
-  }, [PersonsGroup]);
+  }, [PersonsGroup, dispatch]);
 
   useEffect(() => {
     setPersonsGroup({ value: 1 });
@@ -107,6 +113,10 @@ export default function ModalPackageFrench({
     });
     setShowModalSpanish(false);
   };
+
+  const handleMonth = useCallback(() => {
+    setMonths({ value: InputMonths.current.value });
+  }, []);
 
   return (
     <>
@@ -161,7 +171,7 @@ export default function ModalPackageFrench({
 
                     {GroupClass && (
                       <ContentSelect>
-                        <TextLesson>Number Persons</TextLesson>
+                        <TextLesson>Number of students</TextLesson>
                         <MonthBuy
                           type="number"
                           value={PersonsGroup.value}
@@ -174,10 +184,15 @@ export default function ModalPackageFrench({
                   </LessonMonth>
 
                   <MonthPrices>
-                    <div>
+                    {/* <div>
                       <TextLesson>Choose Month</TextLesson>
                       <MonthBuy Month type="number" min="1" max="12" />
-                    </div>
+                    </div> */}
+                    <LessonMonths
+                      Months={Months}
+                      InputMonths={InputMonths}
+                      handleMonth={handleMonth}
+                    />
 
                     <div>
                       <Buttons Cart title="add to cart" onClick={handleCart}>

@@ -50,9 +50,13 @@ export default function useUser() {
     },
     [setInformUser]
   );
-  const ActivarLoged = useCallback(() => {
-    setInformUser(true);
-  }, [setInformUser]);
+
+  const ActivarLoged = useCallback(
+    ({ res }) => {
+      setInformUser(res);
+    },
+    [setInformUser]
+  );
 
   const logout = useCallback(() => {
     window.localStorage.removeItem("user");

@@ -67,13 +67,14 @@ section .section-title {
   transition: 1s;
   transform-style: preserve-3d;
   position: relative;
+  z-index: 1 !important;
 }
 
 .frontside {
   position: relative;
   /* -webkit-transform: rotateY(0deg); */
   -webkit-ms-transform: rotateY(0deg);
-  z-index: 2;
+  z-index: -2 !important;
   margin-bottom: 30px;
   border: none;
 }
@@ -93,7 +94,7 @@ section .section-title {
   position: relative;
   /* -webkit-transform: rotateY(0deg); */
   -webkit-ms-transform: rotateY(0deg);
-  z-index: 2;
+  z-index: -2 !important;
   margin-bottom: 30px;
 }
 

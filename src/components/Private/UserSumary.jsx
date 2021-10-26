@@ -1,9 +1,10 @@
-import StudentState from "../../hooks/useStudent";
 import SectionCards from "./SummaryUi/Cardssummary";
+import { ProviderCourses } from "../Context/CoursesContext";
+
 export default function UserSumary() {
   return (
-    <StudentState>
+    <ProviderCourses>
       <SectionCards />
-    </StudentState>
+    </ProviderCourses>
   );
 }

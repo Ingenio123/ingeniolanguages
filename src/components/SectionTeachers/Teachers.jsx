@@ -29,7 +29,7 @@ export const Teachers = () => {
         <h1 id="/Teachers" className="text-center ">
           Our teachers
         </h1>
-        <div className="row  portafolio__teacher mb-4">
+        <div className="mb-4 row portafolio__teacher">
           {teachers.map((item, index) => (
             <div className="col-xs-12 col-sm-6 col-md-4" key={index}>
               <div
@@ -39,7 +39,7 @@ export const Teachers = () => {
                 <div className="mainflip">
                   <div className="frontside">
                     <div className="card card_radius">
-                      <div className="card-body text-center">
+                      <div className="text-center card-body">
                         <p>
                           <img
                             className="img-fluid"
@@ -47,18 +47,18 @@ export const Teachers = () => {
                             alt="imagenes de los docentes"
                           />
                         </p>
-                        <h4 className="card-title mt-4 ">{item.firstName} </h4>
+                        <h4 className="mt-4 card-title ">{item.firstName} </h4>
                         <p className="card-text cursive"> "{item.eslogan}" </p>
                       </div>
                     </div>
                   </div>
                   <div className="backside">
                     <div className="card">
-                      <div className="card-body text-center mt-4">
+                      <div className="mt-4 text-center card-body">
                         <h6 className="font-w-600 title-card">
                           LANGUAGES THAT
                         </h6>
-                        <h4 className="card-title cursive mb-1">
+                        <h4 className="mb-1 card-title cursive">
                           {" "}
                           {item.firstName}{" "}
                         </h4>
@@ -72,15 +72,15 @@ export const Teachers = () => {
                             />
                           ))}
                         </div>
-                        <LinkSmooth
-                          to="/Prices"
+                        <PricesCart
+                          to="Prices"
                           className="btn__shop button-cart"
                           smooth={true}
-                          duration={500}
+                          duration={1000}
                           spy={true}
                         >
                           <IoCart color="white" size="25px"></IoCart>
-                        </LinkSmooth>
+                        </PricesCart>
 
                         <Link
                           to={`/ProfileTeachers/${item._id}`}
@@ -100,3 +100,9 @@ export const Teachers = () => {
     </>
   );
 };
+
+const PricesCart = styled(LinkSmooth)`
+  :hover {
+    cursor: pointer;
+  }
+`;

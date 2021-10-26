@@ -49,13 +49,13 @@ const HeaderHero = ({ isLogged, ActivarLoged }) => {
             <div className="hero-btns">
               {/* <!-- Hero Btn First --> */}
               <ButtonBuyaLesson
-                to="/Prices"
+                to="Prices"
                 smooth={true}
-                duration={500}
+                duration={1000}
                 spy={true}
               >
                 {" "}
-                <Icon></Icon> Buy a lesson Package{" "}
+                <Icon /> Buy a lesson Package
               </ButtonBuyaLesson>
               {/* <!-- Hero Btn Second --> */}
               {isLogged ? (

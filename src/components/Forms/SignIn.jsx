@@ -18,7 +18,7 @@ const SignIn = ({ history }) => {
   const [form, setValue] = useState({
     email: "",
   });
-  const { login } = useUser();
+  const { login, ActivarLoged } = useUser();
   //#################h################
   const dispatch = useDispatch();
 
@@ -38,7 +38,12 @@ const SignIn = ({ history }) => {
 
     login(form).then((res) => {
       if (res) {
-        return history.push("/private");
+        ActivarLoged({ res });
+        if (isAuth()) {
+          if (isAuth().rol === "admin") return history.push("/admin");
+          if (isAuth().rol === "teacher") return history.push("/teacherPage");
+          return history.push("/private");
+        }
       }
     });
 
@@ -78,6 +83,7 @@ const SignIn = ({ history }) => {
       })
       .then((res) => {
         informParent(res);
+        ActivarLoged({ res });
         dispatch(SignInGoogle());
       })
       .catch((err) => console.log("GOOGLE SIGNIN ERROR", err));
@@ -103,11 +109,11 @@ const SignIn = ({ history }) => {
     <>
       <div className="container ">
         {isAuth() ? <Redirect to="/" /> : null}
-        <h1 className="text-center mt-5">Bienvenido</h1>
+        <h1 className="mt-5 text-center">Bienvenido</h1>
         <div className="row ">
-          <div className="col-md-6   ">
-            <form className="bck-theme p-4" onSubmit={handleOnSubmit}>
-              <div className="row mt-4">
+          <div className="col-md-6 ">
+            <form className="p-4 bck-theme" onSubmit={handleOnSubmit}>
+              <div className="mt-4 row">
                 <div className="col-12 col-md-12 ">
                   <div className="form-group">
                     <label>E-mail</label>
@@ -131,7 +137,7 @@ const SignIn = ({ history }) => {
                     />
                   </div>
                 </div>
-                <div className="col-12 col-md-12 mb-1">
+                <div className="mb-1 col-12 col-md-12">
                   <Centrar>
                     <ButtonSubmit>Sign In</ButtonSubmit>
                   </Centrar>

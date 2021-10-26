@@ -133,7 +133,8 @@ export default function ModalPackage({ ShowModal, setShowModal }) {
 
   const handleMonth = useCallback(() => {
     setMonths({ value: InputMonths.current.value });
-  }, [Months]);
+  }, []);
+  // }, [Months]);
 
   // ##################################################################
 
@@ -191,7 +192,7 @@ export default function ModalPackage({ ShowModal, setShowModal }) {
 
                     {GroupClass && (
                       <ContentSelect>
-                        <TextLesson>Number persons</TextLesson>
+                        <TextLesson>Number of students </TextLesson>
                         {/* <NumberStudent /> */}
                         <MonthBuy
                           type="number"

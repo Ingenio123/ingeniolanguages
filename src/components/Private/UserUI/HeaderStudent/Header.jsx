@@ -79,7 +79,8 @@ export default function Header() {
 
   useEffect(() => {
     contextStudent.getStudent();
-    console.log("Header Student", teachers);
+    // console.log(contextStudent);
+    // console.log("Header Student", teachers);
   }, []);
 
   return (

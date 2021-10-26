@@ -6,8 +6,11 @@ import axios from "axios";
 import { FcGoogle } from "react-icons/fc";
 import { useHistory } from "react-router-dom";
 
+import useUser from "../../hooks/useUser";
+
 export default function GoogleButton({ contentSign, route }) {
   const history = useHistory();
+  const { ActivarLoged } = useUser();
   const responseGoogle = (res) => {
     sendGoogleToken(res.tokenId);
   };
@@ -17,8 +20,8 @@ export default function GoogleButton({ contentSign, route }) {
         idToken: tokenId,
       })
       .then((res) => {
+        ActivarLoged({ res });
         informParent(res);
-        // dispatch(SignInGoogle())
       })
       .catch((err) => console.log("GOOGLE SIGNIN ERROR", err));
   };
@@ -30,7 +33,8 @@ export default function GoogleButton({ contentSign, route }) {
         }
         if (isAuth().rol === "admin") return history.push("/admin");
         if (isAuth().rol === "teacher") return history.push("/teacherPage");
-        if (isAuth().rol === "user") return history.push("/private");
+        if (isAuth().rol === "user" || isAuth().rol === "student")
+          return history.push("/private");
       }
     });
   };
