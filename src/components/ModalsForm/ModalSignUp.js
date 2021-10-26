@@ -106,7 +106,7 @@ const ModalSignUp = ({ showSignUp, setSignUp }) => {
     <div>
       <Form onSubmit={handleSubmit((data) => SubmitData(data))}>
         <div className="row">
-          <div className="col-12 col-md-12">
+          <div className="col-12 col-md-6">
             <div
               className="form-group"
               style={{ margin: "0", fontSize: "18px" }}
@@ -125,9 +125,15 @@ const ModalSignUp = ({ showSignUp, setSignUp }) => {
                 })}
               />
               <span className="text-samall text-danger">
-               
                 {errors.username?.message}
               </span>
+            </div>
+          </div>
+          <div className="col-md-6">
+            <div
+              className="form-group"
+              style={{ margin: "0", fontSize: "18px" }}
+            >
               <Label>Last Name</Label>
               <Input
                 type="text"
@@ -145,48 +151,59 @@ const ModalSignUp = ({ showSignUp, setSignUp }) => {
                 {" "}
                 {errors.username?.message}{" "}
               </span>
-              <Label>Age</Label>
-              <Input
-                type="number"
-                className="form-control"
-                placeholder="Age"
-                {...register("age", {
-                  required: "Age is required",
-                  maxLength: {
-                    value: 2,
-                    message: "Age max NN",
-                  },
-                  min: {
-                    value: 6,
-                    message: "Age min 6 to 80",
-                  },
-                  max: {
-                    value: 80,
-                    message: "Age max 80",
-                  },
-                })}
-              />
-              <span className="text-small text-danger">
-                {" "}
-                {errors.age?.message}{" "}
-              </span>
-              {/* <Gender>Gender</Gender> */}
-              <BoxChecks>
-                {/* select */}
-                <div class="input-group">
-                  <Label className="mt-2">Gender</Label>
-                  <Gender
-                    class="form-control custom-select "
-                    {...register("Gender", {
-                      required: "Gender is Required",
-                    })}
-                  >
-                    <option value="Male">Male</option>
-                    <option value="Female">Female</option>
-                    <option value="Other">Other</option>
-                  </Gender>
-                </div>
-              </BoxChecks>
+            </div>
+          </div>
+        </div>
+        <div className="row">
+          <div className="col-6 col-md-6">
+            <Label>Age</Label>
+            <Input
+              type="number"
+              className="form-control"
+              placeholder="Age"
+              {...register("age", {
+                required: "Age is required",
+                maxLength: {
+                  value: 2,
+                  message: "Age max NN",
+                },
+                min: {
+                  value: 6,
+                  message: "Age min 6 to 80",
+                },
+                max: {
+                  value: 80,
+                  message: "Age max 80",
+                },
+              })}
+            />
+            <span className="text-small text-danger">
+              {" "}
+              {errors.age?.message}{" "}
+            </span>
+          </div>
+          <div className="col-6 col-md-6">
+            <BoxChecks>
+              {/* select */}
+              <div class="input-group">
+                <Label className="mt-2">Gender</Label>
+                <Gender
+                  class="form-control custom-select "
+                  {...register("Gender", {
+                    required: "Gender is Required",
+                  })}
+                >
+                  <option value="Male">Male</option>
+                  <option value="Female">Female</option>
+                  <option value="Other">Other</option>
+                </Gender>
+              </div>
+            </BoxChecks>
+          </div>
+        </div>
+        <div className="row">
+          <div className="col-12 col-md-6">
+            <div className="form-group">
               <Label>Country</Label>
               <br />
               <InputCountry
@@ -194,107 +211,100 @@ const ModalSignUp = ({ showSignUp, setSignUp }) => {
                 value="ec"
                 onChange={(val) => selectCountry(val)}
               />
-              {/* {value} */}
-              <PhoneInput
-                country={value}
-                value={valor.phone}
-                specialLabel={""}
-                onChange={(phone) => setValor({ phone })}
-              />
-              <Label>Email</Label>
+            </div>
+          </div>
+          <div className="col-12 col-md-6">
+            <PhoneInput
+              country={value}
+              value={valor.phone}
+              specialLabel={""}
+              onChange={(phone) => setValor({ phone })}
+            />
+          </div>
+        </div>
+        <div className="row">
+          <div className="col-12 col-md-12"></div>
+        </div>
+        <div className="row">
+          <div className="col-6 col-md-6">
+            <div className="form-group">
+              <Label>Password</Label>
               <InputWhithIcon>
                 <input
-                  type="email"
-                  placeholder="Email"
-                  {...register("email", { required: "Email is required" })}
+                  type={types ? "password" : "text"}
+                  className="form-control"
+                  {...register("password", {
+                    required: "password required",
+                    maxLength: {
+                      value: 20,
+                      message: "max length character is 8",
+                    },
+                    minLength: {
+                      value: 8,
+                      message: "min lingth character is 4",
+                    },
+                  })}
                 />
-                {/* icon */}
-                <i>
-                  <IoMailOutline />{" "}
+                <i style={{ top: "6px" }}>
+                  {" "}
+                  <IoLockClosedOutline />{" "}
                 </i>
-                <span className="text-small text-danger">
-                  {errors.email?.message}{" "}
-                </span>
+                {types ? (
+                  <Icon_i onClick={() => ShowPassword()} />
+                ) : (
+                  <Icon_i2 onClick={() => ShowPassword()} />
+                )}
               </InputWhithIcon>
-              <BoxFlex>
-                <div style={{ width: "100%" }}>
-                  <Label>Password</Label>
-                  <InputWhithIcon>
-                    <input
-                      type={types ? "password" : "text"}
-                      className="form-control"
-                      {...register("password", {
-                        required: "password required",
-                        maxLength: {
-                          value: 20,
-                          message: "max length character is 8",
-                        },
-                        minLength: {
-                          value: 8,
-                          message: "min lingth character is 4",
-                        },
-                      })}
-                    />
-                    <i style={{ top: "6px" }}>
-                      {" "}
-                      <IoLockClosedOutline />{" "}
-                    </i>
-                    {types ? (
-                      <Icon_i onClick={() => ShowPassword()} />
-                    ) : (
-                      <Icon_i2 onClick={() => ShowPassword()} />
-                    )}
-                  </InputWhithIcon>
-                  <span className="text-small text-danger">
-                    {errors.password?.message}{" "}
-                  </span>
-                </div>
-                <div style={{ width: "100%" }}>
-                  <Label>Confirm Password</Label>
-                  <InputWhithIcon>
-                    <Input
-                      type={types2 ? "password" : "text"}
-                      className="form-control"
-                      {...register("confirmPassword", {
-                        required: "Confirm password  is required",
-                        maxLength: {
-                          value: 20,
-                          message: "max length character is 20",
-                        },
-                        minLength: {
-                          value: 8,
-                          message: "min lingth character is 8",
-                        },
-                      })}
-                    />
-                    <i style={{ top: "6px" }}>
-                      {" "}
-                      <IoLockClosedOutline />{" "}
-                    </i>
-                    {types2 ? (
-                      <Icon_i onClick={() => ShowPassword(2)} />
-                    ) : (
-                      <Icon_i2 onClick={() => ShowPassword(2)} />
-                    )}
-                  </InputWhithIcon>
-                  {errors.ConfirmPassword && (
-                    <span className="text-small text-danger">
-                      {" "}
-                      {errors.ConfirmPassword.message}{" "}
-                    </span>
-                  )}
-                </div>
-              </BoxFlex>
-
-              <Centrar>
-                <ButtonSubmit mt={true} className="btn">
-                  Sign Up
-                </ButtonSubmit>
-              </Centrar>
+              <span className="text-small text-danger">
+                {errors.password?.message}{" "}
+              </span>
+            </div>
+          </div>
+          <div className="col-6 col-md-6">
+            <div className="form-group">
+              <Label>Confirm Password</Label>
+              <InputWhithIcon>
+                <Input
+                  type={types2 ? "password" : "text"}
+                  className="form-control"
+                  {...register("confirmPassword", {
+                    required: "Confirm password  is required",
+                    maxLength: {
+                      value: 20,
+                      message: "max length character is 20",
+                    },
+                    minLength: {
+                      value: 8,
+                      message: "min lingth character is 8",
+                    },
+                  })}
+                />
+                <i style={{ top: "6px" }}>
+                  {" "}
+                  <IoLockClosedOutline />{" "}
+                </i>
+                {types2 ? (
+                  <Icon_i onClick={() => ShowPassword(2)} />
+                ) : (
+                  <Icon_i2 onClick={() => ShowPassword(2)} />
+                )}
+              </InputWhithIcon>
+              {errors.ConfirmPassword && (
+                <span className="text-small text-danger">
+                  {" "}
+                  {errors.ConfirmPassword.message}{" "}
+                </span>
+              )}
             </div>
           </div>
         </div>
+        <Centrar>
+          <ButtonSubmit mt={true} className="btn">
+            Sign Up
+          </ButtonSubmit>
+        </Centrar>
       </Form>
+
       <LineCenter>Or Sign Up with</LineCenter>
       <Centrar>
         <GoogleButton contentSign={"Sign Up"} />

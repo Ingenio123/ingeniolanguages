@@ -244,7 +244,7 @@ const TitleModal = styled.h6`
   text-align: center;
   line-height: 1;
   margin-bottom: 0.5em !important;
-  font-weight: 200;
+  font-weight: 400;
 `;
 const HeaderWrapper = styled.div`
   width: 100%;
