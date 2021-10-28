@@ -14,6 +14,7 @@ import useUser from "../../hooks/useUser";
 import { useEffect } from "react";
 import SideBar from "../Private/UserUI/Sidebar";
 import { BiMenu } from "react-icons/bi";
+import { FiShoppingCart } from "react-icons/fi";
 
 const Navbar = ({ toggle, history, isLogged }) => {
   const { logout, init, isLoginLoading, hasLoginError, UserData } = useUser();
@@ -57,6 +58,10 @@ const Navbar = ({ toggle, history, isLogged }) => {
           <MenuBars onClick={toggle}>
             <BiMenu />
           </MenuBars>
+          <BoxIconCart>
+            {items.length > 0 && <div></div>}
+            <FiShoppingCart onClick={() => history.push("/orderSummary")} />
+          </BoxIconCart>
           <Espacio>
             <NavMenu>
               {location.pathname === "/" && (
@@ -209,5 +214,29 @@ const ImgPerfil = styled.img`
   border-radius: 50%;
   &:hover {
     cursor: pointer;
+  }
+`;
+
+const BoxIconCart = styled.div`
+  display: none;
+  @media screen and (max-width: 768px) {
+    height: 40px;
+    width: 40px;
+    font-size: 20px;
+    color: #314584;
+    position: absolute;
+    right: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    div {
+      position: absolute;
+      top: 6px;
+      right: 10px;
+      width: 6px;
+      height: 6px;
+      background-color: #ff5757;
+      border-radius: 50%;
+    }
   }
 `;

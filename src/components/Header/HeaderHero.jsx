@@ -16,6 +16,9 @@ import useUser from "../../hooks/useUser";
 const Icon = styled(AiOutlineShoppingCart)`
   height: 30px;
   width: 30px;
+  @media (max-width: 768px) {
+    display: none;
+  }
 `;
 
 const HeaderHero = ({ isLogged, ActivarLoged }) => {
@@ -86,9 +89,30 @@ const HeaderHero = ({ isLogged, ActivarLoged }) => {
 export default HeaderHero;
 
 const ButtonBuyaLesson = styled(LinkID)`
+  padding: 17px 30px;
   cursor: pointer;
-  font-size: 1.2rem !important;
+  font-size: 1.5rem;
   font-weight: 600;
+  @media (max-width: 768px) {
+    font-size: 1.2rem !important;
+    margin-bottom: 20px !important;
+    padding: 0.8rem 1rem;
+    :hover {
+      padding: 0.8rem 1rem;
+      font-size: 1.2rem !important;
+      margin-bottom: 20px !important;
+    }
+    :focus {
+      padding: 0.8rem 1rem;
+      font-size: 1.2rem !important;
+      margin-bottom: 20px !important;
+    }
+    :active {
+      padding: 0.8rem 1rem;
+      font-size: 1.2rem !important;
+      margin-bottom: 20px !important;
+    }
+  }
 `;
 const Button = styled.button`
   border: none;
@@ -97,6 +121,7 @@ const Button = styled.button`
   margin-left: 1rem;
   color: #314584;
   font-weight: 700;
+
   &:hover {
     color: #ff3946;
   }
