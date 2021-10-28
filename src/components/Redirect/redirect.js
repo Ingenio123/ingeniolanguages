@@ -57,10 +57,11 @@ export default function Redirect() {
 }
 
 const Centrar = styled.div`
+  height: 100vh;
+  width: 100vw;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 80vh;
 `;
 
 const CentrarBoxSmall = styled.div`
@@ -78,7 +79,7 @@ const Centrado_Data_Server = styled.div`
 `;
 
 const CardSuccess = styled.div`
-  width: 380px;
+  width: 50%;
 
   padding: 1rem 0;
   border: 1px solid silver;

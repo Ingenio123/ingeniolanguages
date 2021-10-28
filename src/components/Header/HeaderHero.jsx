@@ -33,7 +33,7 @@ const HeaderHero = ({ isLogged, ActivarLoged }) => {
         {/* <!-- HERO SECTION -->     */}
         <div className="container-fluid hero">
           <img src={imgHero} alt="" />
-          <div className="container" style={{ marginLeft: "80px" }}>
+          <div className="container">
             {/* <!-- Hero Title --> */}
             <h1>
               Learn a new language

@@ -5,15 +5,15 @@ import Bars from "../../assets/images/Bars.svg";
 import ingenio from "../../assets/images/IngenioLanguages.svg";
 import { useSelector } from "react-redux";
 import { authData } from "../../data/AuthData";
-import { withRouter, useLocation } from "react-router-dom";
+import { withRouter, useLocation, Link } from "react-router-dom";
 import { Link as LinkID } from "react-scroll";
-import { Link } from "react-router-dom";
 import { useGoogleLogin } from "react-use-googlelogin";
 import { useState } from "react";
 import "./style.css";
 import useUser from "../../hooks/useUser";
 import { useEffect } from "react";
 import SideBar from "../Private/UserUI/Sidebar";
+import { BiMenu } from "react-icons/bi";
 
 const Navbar = ({ toggle, history, isLogged }) => {
   const { logout, init, isLoginLoading, hasLoginError, UserData } = useUser();
@@ -54,7 +54,9 @@ const Navbar = ({ toggle, history, isLogged }) => {
           <LogoImage to="/">
             <img src={ingenio} alt="" />
           </LogoImage>
-          <MenuBars onClick={toggle} />
+          <MenuBars onClick={toggle}>
+            <BiMenu />
+          </MenuBars>
           <Espacio>
             <NavMenu>
               {location.pathname === "/" && (
@@ -135,14 +137,16 @@ const Nav = styled.nav`
 const MenuBars = styled.i`
   display: none;
   @media screen and (max-width: 768px) {
-    display: block;
-    background-image: url(${Bars});
-    background-size: contain;
-    height: 40px;
     width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 30px;
+    font-weight: 700;
     cursor: pointer;
     position: absolute;
-    top: 0;
+    top: 5px;
     right: 0;
     transform: translate(-50%, 25%);
   }

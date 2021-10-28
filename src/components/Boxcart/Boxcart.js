@@ -80,7 +80,7 @@ export default function Boxcart() {
   const handlePay = (valor) => {};
 
   return (
-    <div>
+    <>
       {ShowContent ? (
         ""
       ) : (
@@ -314,7 +314,7 @@ export default function Boxcart() {
           </div>
         </Content__Cart>
       </Content>
-    </div>
+    </>
   );
 }
 
@@ -351,6 +351,11 @@ const BoxCartIcon = styled.div`
     css`
       animation: 0.8s ${ButtonAnimation} ease-out infinite;
     `}
+  @media (min-width: 1024px) {
+  }
+  @media (max-width: 768px) {
+    display: none;
+  }
 `;
 
 const IconCart = styled(IoCart)`

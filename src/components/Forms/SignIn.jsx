@@ -107,7 +107,7 @@ const SignIn = ({ history }) => {
 
   return (
     <>
-      <div className="container ">
+      <Container className="container ">
         {isAuth() ? <Redirect to="/" /> : null}
         <h1 className="mt-5 text-center">Bienvenido</h1>
         <div className="row ">
@@ -176,7 +176,7 @@ const SignIn = ({ history }) => {
             <div className="card"></div>
           </div>
         </div>
-      </div>
+      </Container>
     </>
   );
 };
@@ -288,3 +288,7 @@ const LineCenter = styled.div`
   }
 `;
 //end line
+
+const Container = styled.div`
+  margin-top: 100px; ;
+`;

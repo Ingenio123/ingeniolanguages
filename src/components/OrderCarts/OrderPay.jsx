@@ -20,11 +20,14 @@ import PaypalButton from "../paypal/paypal";
 export default function OrderPay(props) {
   // States
   const { items } = useSelector((state) => state.package);
-
   // states   Modal
   const [ShowModal, setShowModal] = useState(false);
   // end State Modal
-
+  const [ClickPaypal, setClickPaypal] = useState({
+    click: false,
+    priceTotal: "",
+    datosArray: "",
+  });
   const dispatch = useDispatch();
   const ShowBanderas = (idiom) => {
     switch (idiom) {
@@ -77,10 +80,23 @@ export default function OrderPay(props) {
   };
 
   const HanldePay = async (valor) => {
-    const EndPoint = Url.url + "/paypal/createPayment";
-    const { data } = await axios.post(EndPoint, { priceTotal: valor });
-    console.log(data);
-    window.location.assign(data.link);
+    if (isAuth()) {
+      const EndPoint = Url.url + "/paypal/createPayment";
+      console.log("items:", items);
+      const { data } = await axios.post(EndPoint, {
+        priceTotal: valor,
+        datosArray: items,
+      });
+      console.log(data);
+      return window.location.assign(data.link);
+    }
+    setClickPaypal({
+      ...ClickPaypal,
+      click: true,
+      priceTotal: valor,
+      datosArray: items,
+    });
+    OpenModal();
     // console.log(data.data);
     // const ultime = data.data.links.filter((e) => {
     //   return e.rel === "approve";
@@ -146,7 +162,11 @@ export default function OrderPay(props) {
           </BoxPrices>
         </SectionOrder>
       </Container>
-      <ModalSignIn ShowModal={ShowModal} setShowModal={setShowModal} />
+      <ModalSignIn
+        ShowModal={ShowModal}
+        setShowModal={setShowModal}
+        ClickPaypal={ClickPaypal}
+      />
     </>
   );
 }

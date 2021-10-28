@@ -10,7 +10,8 @@ function DataServer({ Data }) {
               <ContentSubitem>
                 <TextBold>
                   <TextNumber>{item2.quantity}</TextNumber>
-                  <TextItem>{item2.name} </TextItem>
+                  <TextItem>{item2.description} </TextItem>
+                  <TextItem></TextItem>
                 </TextBold>
                 <TextBold>
                   <Usds>{item2.currency}</Usds>
@@ -98,4 +99,8 @@ const Usds = styled.span`
 const Total = styled.span`
   font-size: 1rem;
   font-weight: 700;
+`;
+
+const CardGrid = styled.div`
+  display: grid;
 `;
