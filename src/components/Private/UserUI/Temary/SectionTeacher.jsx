@@ -17,52 +17,48 @@ export default function SectionTeacher({ TeacherIdiom, idiom }) {
   };
   return (
     <div>
-      <ContenGrid>
-        <ModalCalendar
-          showModal={showModal}
-          setShowModal={setShowModal}
-          url_teacher={
-            "https://www.ingeniocalendar.com/libary%20m/30-min-lessons"
-          }
-        />
-        <ModalNotStudent
-          setNotStudent={setNotStudent}
-          notStudent={notStudent}
-        />
-        <TitleTeachers>Booking your {idiom} lesson now</TitleTeachers>
-        <ContentTeacherXl>
-          {TeacherIdiom ? (
-            <>
-              {TeacherIdiom.map((item, index) => {
-                return (
-                  <>
-                    <ContentTeacher key={index}>
-                      <Img src={item.img} />
-                      <ContenTextTeacher>
-                        <NombreTeacher>{item.firstName}</NombreTeacher>
-                        <TextTeacher>{item.eslogan}</TextTeacher>
-                        <ContentButton>
-                          <ButtonAgendarClass
-                            onClick={() => {
-                              studentState.student
-                                ? OpenModal()
-                                : UserNotStudent();
-                            }}
-                          >
-                            Book a lesson with me
-                          </ButtonAgendarClass>
-                        </ContentButton>
-                      </ContenTextTeacher>
-                    </ContentTeacher>
-                  </>
-                );
-              })}
-            </>
-          ) : (
-            ""
-          )}
-        </ContentTeacherXl>
-      </ContenGrid>
+      <ModalCalendar
+        showModal={showModal}
+        setShowModal={setShowModal}
+        url_teacher={
+          "https://www.ingeniocalendar.com/libary%20m/30-min-lessons"
+        }
+      />
+      <ModalNotStudent setNotStudent={setNotStudent} notStudent={notStudent} />
+      <TitleTeachers>Booking your {idiom} lesson now</TitleTeachers>
+      <ContentTeacherXl>
+        {TeacherIdiom ? (
+          <>
+            {TeacherIdiom.map((item, index) => {
+              return (
+                <>
+                  <ContentTeacher key={index}>
+                    <Img src={item.img} />
+                    <ContenTextTeacher>
+                      <NombreTeacher>{item.firstName}</NombreTeacher>
+                      <TextTeacher>{item.eslogan}</TextTeacher>
+                      <ContentButton>
+                        <ButtonAgendarClass
+                          onClick={() => {
+                            studentState.student
+                              ? OpenModal()
+                              : UserNotStudent();
+                          }}
+                        >
+                          Book a lesson with me
+                        </ButtonAgendarClass>
+                      </ContentButton>
+                    </ContenTextTeacher>
+                  </ContentTeacher>
+                </>
+              );
+            })}
+          </>
+        ) : (
+          ""
+        )}
+      </ContentTeacherXl>
+
       {/* <ContentCalendar
         src="https://www.ingeniocalendar.com/luis/reunion"
         frameborder="0"
@@ -79,21 +75,18 @@ const ContentCalendar = styled.iframe`
 `;
 
 const ContentTeacherXl = styled.div`
-  padding: 1rem;
-
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
 `;
-const ContenGrid = styled.div``;
 
 const ContentTeacher = styled.div`
-  width: 49%;
+  width: 100%;
   display: flex;
   background-color: #fff;
   padding: 0.8rem 1rem;
   border-radius: 0.5rem;
-  margin-bottom: 1rem;
-  margin-left: 0.5rem;
+
   box-shadow: 0px 7px 15px -1px rgba(0, 0, 0, 0.18);
   -webkit-box-shadow: 0px 7px 15px -1px rgba(0, 0, 0, 0.18);
   -moz-box-shadow: 0px 7px 15px -1px rgba(0, 0, 0, 0.18);

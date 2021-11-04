@@ -29,6 +29,4 @@ const PrivateRoute = ({ history }) => {
 };
 export default PrivateRoute;
 
-const BackgroundUser = styled.div`
-  background: #f8fafc !important;
-`;
+const BackgroundUser = styled.div``;

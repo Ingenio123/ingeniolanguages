@@ -34,6 +34,9 @@ import { UserContextProvider } from "./components/Context/UserContext";
 import redirectpage from "./components/Redirect/redirect";
 import UserSumary from "./components/Private/UserSumary";
 
+import TerminosCondiciones from "./components/TerminosCondiciones/TerminosCondiciones";
+import BookLesson from "./components/Private/UserUI/BookLesson";
+
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
@@ -59,11 +62,15 @@ ReactDOM.render(
             <Route exact path="/redirect" component={redirectpage} />
             <Route exact path="/createonetemary" component={FormTemary} />
             <Route exact path="/orderSummary" component={OrderSummary} />
-
+            <Route
+              exact
+              path="/TerminosCondiciones"
+              component={TerminosCondiciones}
+            />
             <PrivateRouter path="/private" exact component={UserPrivate} />
-            <PrivateRouter path="/me" exact component={UserSumary} />
+            <PrivateRouter path="/myprogress" exact component={UserSumary} />
             <PrivateRouter path="/temary" exact component={IndexTemary} />
-            {/* <PrivateRouter path="" exact  component={} />  */}
+            <PrivateRouter path="/booklesson" exact component={BookLesson} />
 
             <AdminRoute path="/admin" exact component={Admin} />
 

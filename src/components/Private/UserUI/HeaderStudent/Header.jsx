@@ -85,7 +85,7 @@ export default function Header() {
 
   return (
     <ContainerHeader>
-      <ContentCards className="container">
+      <ContentCards>
         {contextStudent.student ? (
           <>
             {contextStudent.student.QueryStudent.courses.map((item, index) => (
@@ -93,15 +93,10 @@ export default function Header() {
                 <CardCourse>
                   <ContentImage>
                     <Img url={imgs(item.idiom)} width="200px" alt="" />
-                    <ItemsDeCompra flex style={{ width: "100%" }}>
-                      <ButtonViewTemary
-                        onClick={() => {
-                          GetTeachers(item._id, item.idiom);
-                        }}
-                      >
-                        Book now
-                      </ButtonViewTemary>
-                    </ItemsDeCompra>
+                    <ItemsDeCompra
+                      flex
+                      style={{ width: "100%" }}
+                    ></ItemsDeCompra>
                   </ContentImage>
                   <div>
                     <CardHeader>
@@ -139,18 +134,15 @@ export default function Header() {
                 <CardCourse>
                   <ContentImage>
                     <Img url={imgs(item.idiom)} alt="" width="200px" />
-                    <ItemsDeCompra flex style={{ width: "100%" }}>
-                      <ButtonViewTemary
-                        onClick={() => GetTeachers(item.idIdiom, item.idiom)}
-                      >
-                        Book now
-                      </ButtonViewTemary>
-                    </ItemsDeCompra>
+                    <ItemsDeCompra
+                      flex
+                      style={{ width: "100%" }}
+                    ></ItemsDeCompra>
                   </ContentImage>
                   <div>
                     <CardHeader>
                       <span>{item.idiom}</span>
-                      <BuyNewCourse onClick={Home} title="Buy a now package" />
+                      {/* <BuyNewCourse onClick={Home} title="Buy a now package" /> */}
                     </CardHeader>
                     <DatosDeCompra>
                       <ItemsDeCompra>
@@ -190,10 +182,13 @@ const CardContent = styled.div`
   background-repeat: no-repeat;
   background-position: center;
   margin-right: 0.5rem;
+  height: 100%;
+  border-radius: 4px;
 `;
 const ContentCards = styled.div`
   display: flex;
   overflow: auto;
+  height: 147px;
   &::-webkit-scrollbar {
     height: 5px; /* Tamaño del scroll en horizontal */
   }
@@ -207,7 +202,6 @@ const ContentCards = styled.div`
   }
 `;
 const ContainerHeader = styled.div`
-  margin-top: 10px;
   display: flex;
 `;
 
@@ -237,6 +231,7 @@ const CardCourse = styled.div`
   );
   color: #fff;
   font-size: 0.8rem;
+  height: 100%;
   @media (max-width: 768px) {
     width: 312px;
     font-size: 12px;

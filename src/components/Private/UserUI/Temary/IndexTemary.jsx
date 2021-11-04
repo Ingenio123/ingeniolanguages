@@ -10,14 +10,7 @@ export default function IndexTemary() {
   const [TeacherIdiom, setTeacherIdiom] = useState([]);
   const { Teachers, idIdiom } = useTeacher();
 
-  return (
-    <Container>
-      <GridLayout>
-        <SectionTeacher idiom={idIdiom} TeacherIdiom={Teachers} />
-        <ColumGrid>{/* <Temary /> */}</ColumGrid>
-      </GridLayout>
-    </Container>
-  );
+  return <Temary />;
 }
 const Container = styled.div`
   background: #f1f5f9;
@@ -41,3 +34,9 @@ const ColumGrid = styled.aside`
   border-radius: 5px;
   background-color: #f1f5f9;
 `;
+// <Container>
+//   {/* <GridLayout>
+//       {/* <SectionTeacher idiom={idIdiom} TeacherIdiom={Teachers} /> */}
+//   {/* <ColumGrid></ColumGrid>
+//     </GridLayout> */}
+// </Container>

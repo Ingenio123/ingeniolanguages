@@ -2,31 +2,17 @@ import { BiBook, BiCog, BiHomeAlt } from "react-icons/bi";
 import { AiOutlineUser } from "react-icons/ai";
 export const Items = [
   {
-    item: "Home",
-    itemTeacher: "Home",
-    icon: <BiHomeAlt />,
-    url: "/",
-    urlTeacher: "/",
+    name: "Course content",
+    link: "/private",
   },
   {
-    item: "My Class",
-    itemTeacher: "Nada",
-    icon: <BiBook />,
-    url: "/private",
-    urlTeacher: "/teacherPage",
+    name: "Book a lesson",
   },
   {
-    item: "Me data",
-    itemTeacher: "Nada",
-    icon: <AiOutlineUser />,
-    url: "/me",
-    urlTeacher: "/teacherPage",
+    name: "My progress",
   },
-
   {
-    item: "Settings",
-    icon: <BiCog />,
-    url: "/settings",
-    urlTeacher: "/",
+    name: "Profile",
+    link: "/profile",
   },
 ];

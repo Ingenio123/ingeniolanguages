@@ -1,8 +1,8 @@
 import styled from "styled-components";
 import ingenio from "../../assets/images/IngenioLanguages.svg";
 import { Link as LinkFooter } from "react-scroll";
-
 import { Link } from "react-router-dom";
+import FooterBottom from "./NewFooter";
 
 export const Footer = () => {
   return (
@@ -50,9 +50,7 @@ export const Footer = () => {
           </TextPoliticas>
           <br />
           <br />
-          <TextPoliticas>
-            <b>Copyright © 2021</b>
-          </TextPoliticas>
+          <TextPoliticas></TextPoliticas>
         </PoliticaPriv>
 
         <BoxCenter>
@@ -61,10 +59,13 @@ export const Footer = () => {
           </HiperVinculo>
         </BoxCenter>
 
-        <PoliticaPriv>
-          <ItemsPoliticas>Terminos y Condiciones</ItemsPoliticas>
-        </PoliticaPriv>
+        <BoxCenter>
+          <HiperVinculo to="/TerminosCondiciones">
+            Terminos y condiciones
+          </HiperVinculo>
+        </BoxCenter>
       </TerminosCondiciones>
+      <FooterBottom />
     </>
   );
 };

@@ -35,97 +35,92 @@ export default function Cardssummary() {
           <span>Error - Intentalo mas tarde </span>
         </ComponentError>
       ) : (
-        <Flex>
-          {!course ? (
-            <>
-              <Cards
-                idiom="Spanish"
-                porcentaje="0"
-                color="#FEF9C3"
-                textColor="rgba(253, 224, 71,.5)"
-                primary="rgba(253, 224, 71,1)"
-                TimeLossons="0 minutes"
-              />
-              <Cards
-                idiom="French"
-                porcentaje="0"
-                color="#FECACA"
-                textColor="rgba(239, 68, 68,.5)"
-                primary="rgba(239, 68, 68,1)"
-                TimeLossons="0 minutes"
-              />
-              <Cards
-                idiom="English"
-                porcentaje="0"
-                color="#DBEAFE"
-                textColor="rgba(59, 130, 246,.5)"
-                primary="rgba(59, 130, 246,1)"
-                TimeLossons="0 minutes"
-              />
-              <Cards
-                idiom="Rusian"
-                porcentaje="0"
-                color="#FEE2E2"
-                textColor="rgba(239, 68, 68,.5)"
-                primary="rgba(239, 68, 68,1)"
-                TimeLossons="0 minutes"
-              />
-              <Cards
-                idiom="Germany"
-                porcentaje="0"
-                color="#FEF9C3"
-                textColor="rgba(253, 224, 71,.5)"
-                primary="rgba(253, 224, 71,1)"
-                TimeLossons="0 minutes"
-              />
-              <Cards
-                idiom="Korean"
-                porcentaje="0"
-                color="#F4F4F5"
-                textColor="rgba(113, 113, 122,.5)"
-                primary="rgba(113, 113, 122,1)"
-                TimeLossons="0 minutes"
-              />
-            </>
-          ) : (
-            <>
-              {Loading === true ? (
-                <ComponentComplet>
-                  <div className="bouncer">
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                  </div>
-                </ComponentComplet>
-              ) : (
-                <Flex>
-                  {course.courses.map((item, index) => (
-                    <Cards
-                      idiom={item.idiom}
-                      porcentaje="0"
-                      color="#FEF9C3"
-                      textColor="rgba(253, 224, 71,.5)"
-                      primary="rgba(253, 224, 71,1)"
-                      TimeLossons={item.TimeLossons}
-                    />
-                  ))}
-                </Flex>
-              )}
-            </>
-          )}
-        </Flex>
+        <GridLayout>
+          <Flex>
+            {!course ? (
+              <>
+                <Cards
+                  idiom="Spanish"
+                  porcentaje="0"
+                  color="#FEF9C3"
+                  textColor="rgba(253, 224, 71,.5)"
+                  primary="rgba(253, 224, 71,1)"
+                  TimeLossons="0 minutes"
+                />
+                <Cards
+                  idiom="French"
+                  porcentaje="0"
+                  color="#FECACA"
+                  textColor="rgba(239, 68, 68,.5)"
+                  primary="rgba(239, 68, 68,1)"
+                  TimeLossons="0 minutes"
+                />
+                <Cards
+                  idiom="English"
+                  porcentaje="0"
+                  color="#DBEAFE"
+                  textColor="rgba(59, 130, 246,.5)"
+                  primary="rgba(59, 130, 246,1)"
+                  TimeLossons="0 minutes"
+                />
+                <Cards
+                  idiom="Rusian"
+                  porcentaje="0"
+                  color="#FEE2E2"
+                  textColor="rgba(239, 68, 68,.5)"
+                  primary="rgba(239, 68, 68,1)"
+                  TimeLossons="0 minutes"
+                />
+                <Cards
+                  idiom="Germany"
+                  porcentaje="0"
+                  color="#FEF9C3"
+                  textColor="rgba(253, 224, 71,.5)"
+                  primary="rgba(253, 224, 71,1)"
+                  TimeLossons="0 minutes"
+                />
+                <Cards
+                  idiom="Korean"
+                  porcentaje="0"
+                  color="#F4F4F5"
+                  textColor="rgba(113, 113, 122,.5)"
+                  primary="rgba(113, 113, 122,1)"
+                  TimeLossons="0 minutes"
+                />
+              </>
+            ) : (
+              <>
+                {Loading === true ? (
+                  <ComponentComplet>
+                    <div className="bouncer">
+                      <div></div>
+                      <div></div>
+                      <div></div>
+                      <div></div>
+                    </div>
+                  </ComponentComplet>
+                ) : (
+                  <Flex>
+                    {course.courses.map((item, index) => (
+                      <Cards
+                        idiom={item.idiom}
+                        porcentaje="0"
+                        color="#FEF9C3"
+                        textColor="rgba(253, 224, 71,.5)"
+                        primary="rgba(253, 224, 71,1)"
+                        TimeLossons={item.TimeLossons}
+                      />
+                    ))}
+                  </Flex>
+                )}
+              </>
+            )}
+          </Flex>
+          <ContentCardFeedback>
+            <CardFeedBack />
+          </ContentCardFeedback>
+        </GridLayout>
       )}
-      {}
-
-      {}
-
-      <GridLayout>
-        <Temary />
-        <ContentCardFeedback>
-          <CardFeedBack />
-        </ContentCardFeedback>
-      </GridLayout>
     </div>
   );
 }
@@ -133,7 +128,7 @@ const Flex = styled.div`
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  justify-content: space-around;
+  justify-content: flex-start;
   @media screen and (max-width: 760px) {
     justify-content: center;
   }
@@ -143,6 +138,7 @@ const GridLayout = styled.main`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   column-gap: 15px;
+  margin-top: 30px;
   @media screen and (max-width: 760px) {
     grid-template-columns: 1fr;
   }

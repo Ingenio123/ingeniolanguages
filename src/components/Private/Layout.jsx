@@ -2,27 +2,19 @@ import styled from "styled-components";
 import HeaderStudent from "./UserUI/HeaderStudent/Header";
 import { SlideShow } from "./UserUI/Banner";
 import StudentState from "../../hooks/useStudent";
-import Banner from "../../assets/images/Banner2.png";
+
 import IndexTemary from "./UserUI/Temary/IndexTemary";
-import BannerResponsive from "../../assets/images/responsive.png";
 import { ProviderTeachers } from "../Context/TeacherContext";
 
 export default function Layout(props) {
   return (
     <StudentState>
       <ContainerLayout>
-        <SlideShow>
-          <Slide>
-            <picture>
-              <source srcset={BannerResponsive} media="(max-width: 300px)" />
-              <DivImg img={Banner} alt="img" />
-            </picture>
-          </Slide>
-        </SlideShow>
         <ProviderTeachers>
-          <HeaderStudent />
-          <hr />
-          <IndexTemary />
+          <ContentFlex>
+            <HeaderStudent />
+            <IndexTemary />
+          </ContentFlex>
         </ProviderTeachers>
         {props.children}
       </ContainerLayout>
@@ -30,11 +22,7 @@ export default function Layout(props) {
   );
 }
 
-const ContainerLayout = styled.div`
-  position: absolute;
-  top: -5px;
-  z-index: -1;
-`;
+const ContainerLayout = styled.div``;
 const Slide = styled.div`
   min-width: 100%;
   overflow: hidden;
@@ -58,4 +46,10 @@ const DivImg = styled.div`
   background-image: url(${(props) => props.img});
   background-repeat: no-repeat;
   background-size: cover;
+`;
+
+const ContentFlex = styled.div`
+  display: flex;
+  margin: 0 48px;
+  margin-top: 40px;
 `;

@@ -3,7 +3,7 @@ import { FiLogOut } from "react-icons/fi";
 import { AiOutlineUser } from "react-icons/ai";
 import "./Sidebar.css";
 import { useDispatch } from "react-redux";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { Logout } from "../../../redux/actions/authAction";
 import { useHistory, Link } from "react-router-dom";
 import { useGoogleLogin } from "react-use-googlelogin";
@@ -12,6 +12,10 @@ import { Items } from "./ListData";
 import Url from "../../Urls";
 import axios from "axios";
 import styled from "styled-components";
+import ingenio from "../../../assets/images/IngenioLanguages.svg";
+import UseStudent from "../../../hooks/useStudent";
+
+import studentContext from "../../Context/StudentContext";
 
 export default function Sidebar({ salir, isLogged }) {
   const dispatch = useDispatch();
@@ -19,6 +23,8 @@ export default function Sidebar({ salir, isLogged }) {
   const [Active, setActive] = useState("");
   const [Roles, setRoles] = useState(false);
   const [clickImgProfile, setClickImgProfile] = useState(false);
+  const [Click, setClick] = useState(false);
+  const contextStudent = useContext(studentContext);
 
   // states
   const [sidebar, setSidebar] = useState(false);
@@ -41,6 +47,7 @@ export default function Sidebar({ salir, isLogged }) {
   };
 
   useEffect(() => {
+    contextStudent.getStudent();
     var user = window.localStorage.getItem("user");
     if (user) {
       var data = JSON.parse(user);
@@ -70,14 +77,12 @@ export default function Sidebar({ salir, isLogged }) {
   const ActivaMenuProfile = () => {
     setClickImgProfile(!clickImgProfile);
   };
+
   return (
     <div>
       <header className="header" id="header">
         <div className="header__toggle">
-          <i id="header-toggle">
-            {" "}
-            <BiCodeCurly />{" "}
-          </i>
+          <img src={ingenio} alt="" />
         </div>
         <div class="header__img" onClick={ActivaMenuProfile}>
           <img src={isAuth() ? isAuth().picture : ""} alt="imge user" />
@@ -101,53 +106,64 @@ export default function Sidebar({ salir, isLogged }) {
           </NavIconUser>
         ) : null}
       </header>
-      <div>
-        <div className={sidebar ? "l-navbar show" : "l-navbar"} id="nav-bar">
-          <nav className="nav">
-            <div>
-              <a className="nav__logo" onClick={showSidebar}>
-                <i className=" nav__logo-icon">
-                  {" "}
-                  {sidebar ? <BiCaretLeft /> : <BiGridAlt />}{" "}
-                </i>
-                <span className="nav__logo-name">Ingenio Languages</span>
-              </a>
+      {/* Aqui empiza los cambios */}
 
-              <div className="nav__list">
-                {Items.map((item, index) => {
-                  const newLocal = Active === index;
-                  return (
-                    <Link
-                      key={index}
-                      to={Roles === "teacher" ? item.urlTeacher : item.url}
-                      onClick={() => itemActive(index)}
-                    >
-                      <a
-                        className={
-                          newLocal ? "nav__link activado" : "nav__link"
-                        }
-                      >
-                        <i className="nav__icon">{item.icon} </i>
-                        <span className="nav__name">
-                          {Roles === "teacher" ? item.itemTeacher : item.item}
-                        </span>
-                      </a>
-                    </Link>
-                  );
-                })}
-              </div>
-            </div>
-
-            <a className="nav__link" onClick={handleLogout}>
-              <i className="nav__icon">
-                {" "}
-                <BiLogOut />{" "}
-              </i>
-              <span className="nav__name">Log Out</span>
-            </a>
-          </nav>
-        </div>
-      </div>
+      <section className="l-navigation">
+        <nav className="navigation ml-5 ">
+          <ul>
+            {Items.map((item, index) => {
+              return (
+                <ItemsNav key={index} className="dropdown">
+                  <span className="items">
+                    {item.link ? (
+                      <LinkItems to={item.link}>{item.name}</LinkItems>
+                    ) : (
+                      item.name
+                    )}
+                    {item.name === "Book a lesson" && (
+                      <div className="dropdown-subitem">
+                        {contextStudent.student ? (
+                          <>
+                            {contextStudent.student.QueryStudent.courses.map(
+                              (item, index) => (
+                                <>
+                                  <Link
+                                    to={`/booklesson?idiom=${item.idiom}`}
+                                    key={index}
+                                  >
+                                    {item.idiom}
+                                  </Link>
+                                </>
+                              )
+                            )}
+                          </>
+                        ) : null}
+                      </div>
+                    )}
+                    {item.name === "My progress" && (
+                      <div className="dropdown-subitem">
+                        {contextStudent.student ? (
+                          <>
+                            {contextStudent.student.QueryStudent.courses.map(
+                              (item, index) => (
+                                <>
+                                  <Link to={`/myprogress`} key={index}>
+                                    {item.idiom}
+                                  </Link>
+                                </>
+                              )
+                            )}
+                          </>
+                        ) : null}
+                      </div>
+                    )}
+                  </span>
+                </ItemsNav>
+              );
+            })}
+          </ul>
+        </nav>
+      </section>
     </div>
   );
 }
@@ -214,3 +230,67 @@ const ItemsLink = styled(Link)`
     color: #3f3f46;
   }
 `;
+const ItemsNav = styled.li`
+  font-size: 1rem;
+  letter-spacing: 1px;
+  transition: all 0.3s ease;
+  padding: 0.5rem 0;
+  margin-right: 2rem;
+`;
+const LinkItems = styled(Link)`
+  color: rgba(255, 255, 255, 0.515);
+  transition: all 0.3s ease;
+
+  :hover {
+    color: #fff;
+  }
+  :focus {
+    color: rgb(255, 255, 255);
+  }
+`;
+
+{
+  /* <div>
+  <div className={sidebar ? "l-navbar show" : "l-navbar"} id="nav-bar">
+    <nav className="nav">
+      <div>
+        <a className="nav__logo" onClick={showSidebar}>
+          <i className=" nav__logo-icon">
+            {" "}
+            {sidebar ? <BiCaretLeft /> : <BiGridAlt />}{" "}
+          </i>
+          <span className="nav__logo-name">Ingenio Languages</span>
+        </a>
+
+        <div className="nav__list">
+          {Items.map((item, index) => {
+            const newLocal = Active === index;
+            return (
+              <Link
+                key={index}
+                to={Roles === "teacher" ? item.urlTeacher : item.url}
+                onClick={() => itemActive(index)}
+              >
+                <a className={newLocal ? "nav__link activado" : "nav__link"}>
+                  <i className="nav__icon">{item.icon} </i>
+                  <span className="nav__name">
+                    {Roles === "teacher" ? item.itemTeacher : item.item}
+                  </span>
+                </a>
+              </Link>
+            );
+          })}
+        </div>
+      </div>
+
+      <a className="nav__link" onClick={handleLogout}>
+        <i className="nav__icon">
+          {" "}
+          <BiLogOut />{" "}
+        </i>
+        <span className="nav__name">Log Out</span>
+      </a>
+    </nav>
+  </div>
+</div>; */
+}

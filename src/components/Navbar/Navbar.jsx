@@ -8,13 +8,15 @@ import { authData } from "../../data/AuthData";
 import { withRouter, useLocation, Link } from "react-router-dom";
 import { Link as LinkID } from "react-scroll";
 import { useGoogleLogin } from "react-use-googlelogin";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import "./style.css";
 import useUser from "../../hooks/useUser";
 import { useEffect } from "react";
 import SideBar from "../Private/UserUI/Sidebar";
 import { BiMenu } from "react-icons/bi";
 import { FiShoppingCart } from "react-icons/fi";
+
+import SdtudentState from "../../hooks/useStudent";
 
 const Navbar = ({ toggle, history, isLogged }) => {
   const { logout, init, isLoginLoading, hasLoginError, UserData } = useUser();
@@ -49,7 +51,9 @@ const Navbar = ({ toggle, history, isLogged }) => {
   return (
     <div id="home">
       {isLogged ? (
-        <SideBar isLogged={isLogged} salir={logout} />
+        <SdtudentState>
+          <SideBar isLogged={isLogged} salir={logout} />
+        </SdtudentState>
       ) : (
         <Nav NavBar={NavBar}>
           <LogoImage to="/">
