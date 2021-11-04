@@ -27,11 +27,13 @@ export default function PoliticasPrivacidad() {
         <Table>
           <BoxSubTable>
             <TitleTable>Content</TitleTable>
-            <TableItem activado={true}>Introduccion</TableItem>
-            <TableItem>Introduccion</TableItem>
-            <TableItem>Introduccion</TableItem>
-            <TableItem>Introduccion</TableItem>
-            <TableItem>Introduccion</TableItem>
+            <TableItem activado={true}>Valoramos tu privacidad</TableItem>
+            <TableItem>Recopilación y uso de datos</TableItem>
+            <TableItem>Derechos de autor de Ingenio Languages</TableItem>
+            <TableItem>Uso de cookies</TableItem>
+            <TableItem>Propiedad intelectual del contenido alojado</TableItem>
+            <TableItem>Protección de la información alojada</TableItem>
+            <TableItem>Contactos</TableItem>
           </BoxSubTable>
         </Table>
         <Title>Política de privacidad</Title>

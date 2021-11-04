@@ -38,14 +38,13 @@ export const Footer = () => {
             <b>Direccion: </b> Ecuador - Santo Domingo de los Tsachilas
           </TextPoliticas>
           <TextPoliticas>
-            Suggestion And Coments <br />{" "}
             <HiperVinculo
               to={{
                 pathname: "https://forms.gle/z3wtdBtqmXtY8N9t8",
               }}
               target="_blank"
             >
-              https://forms.gle/z3wtdBtqmXtY8N9t8
+              Suggestion And Coments
             </HiperVinculo>
           </TextPoliticas>
           <br />
@@ -156,10 +155,10 @@ const HiperVinculo = styled(Link)`
   line-height: 0;
   margin-top: 1rem;
   margin-bottom: 2rem;
-  &:hover {
-    color: #ff3946;
+  :hover {
+    color: #ff3946 !important;
   }
-  &:focus {
-    color: #ff3946;
+  :focus {
+    color: #ff3946 !important;
   }
 `;

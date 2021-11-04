@@ -178,20 +178,30 @@ const NavLink = css`
 `;
 
 const NavMenuLinks = styled(LinkID)`
-  ${NavLink}
+  ${NavLink};
   :active {
-    color: black;
+    color: #314584 !important;
+  }
+  :hover {
+    color: #314584 !important;
   }
   .active {
-    color: black;
+    color: #314584 !important;
   }
 `;
 const ItemUrl = styled(Link)`
-  ${NavLink}
+  ${NavLink};
+  :hover {
+    color: #314584 !important;
+  }
 `;
 
 const ItemAuth = styled(Link)`
-  ${NavLink}
+  ${NavLink};
+  color: #314584 !important;
+  :hover {
+    color: #314584 !important;
+  }
 `;
 
 const NaVBtn = styled.div`
