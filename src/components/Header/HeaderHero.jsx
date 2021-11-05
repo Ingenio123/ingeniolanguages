@@ -97,6 +97,9 @@ const ButtonBuyaLesson = styled(LinkID)`
   cursor: pointer;
   font-size: 1.5rem;
   font-weight: 600;
+  :hover {
+    color: #314584 !important;
+  }
   @media (max-width: 768px) {
     font-size: 1.2rem !important;
     margin-bottom: 20px !important;

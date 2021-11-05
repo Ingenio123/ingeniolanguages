@@ -22,7 +22,6 @@ export const Footer = () => {
             </SubItems>
             <SubItems to="">Contac Us</SubItems>
           </Items>
-          <CopyRight> Copyright © 2021 </CopyRight>
         </Container>
       </SectionFooter>
       {/* <TerminosCondiciones>
@@ -108,11 +107,11 @@ const TextPoliticas3 = styled.p`
 const SectionFooter = styled.footer`
   display: flex;
   width: 100%;
-  height: 100vh;
+  height: 70vh;
   justify-content: center;
 `;
 const Container = styled.div`
-  margin: auto 0;
+  margin: 0 auto;
 `;
 const ImgLogo = styled.img`
   width: 200px;

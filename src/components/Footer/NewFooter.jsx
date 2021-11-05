@@ -12,6 +12,12 @@ export default function NewFooter() {
       <ContentFooterBottom className="container">
         <div>Copyright © 2021</div>
         <ContentLinks>
+          <HiperVinculo to="/politicasPrivacidad">
+            Politicas de privacidad
+          </HiperVinculo>
+          <HiperVinculo to="/TerminosCondiciones">
+            Términos & Condiciones
+          </HiperVinculo>
           <HiperVinculo
             to={{
               pathname: "https://forms.gle/z3wtdBtqmXtY8N9t8",
@@ -19,12 +25,6 @@ export default function NewFooter() {
             target="_blank"
           >
             Suggestion And Coments
-          </HiperVinculo>
-          <HiperVinculo to="/politicasPrivacidad">
-            Politicas de privacidad
-          </HiperVinculo>
-          <HiperVinculo to="/TerminosCondiciones">
-            Términos & Condiciones
           </HiperVinculo>
         </ContentLinks>
         <ListIcons>
@@ -61,7 +61,15 @@ export default function NewFooter() {
             </LinkIcon>
           </ItemIcon>
           <ItemIcon>
-            <FaLinkedin />
+            <LinkIcon
+              to={{
+                pathname:
+                  "https://www.linkedin.com/company/ingeniolanguages/mycompany/",
+              }}
+              target="_blank"
+            >
+              <FaLinkedin />
+            </LinkIcon>
           </ItemIcon>
           <ItemIcon>
             <FaWhatsapp />
@@ -74,9 +82,12 @@ export default function NewFooter() {
 const FooterBottom = styled.div`
   background-color: #2b3d72;
   width: 100%;
-
+  height: 21vh;
   display: flex;
   align-items: center;
+  @media screen and (max-width: 767px) {
+    height: 25vh;
+  }
   /* border-top: 1px solid #2b3d7263; */
 `;
 
