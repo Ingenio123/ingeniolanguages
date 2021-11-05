@@ -1,8 +1,6 @@
 import styled from "styled-components";
-import { useRef, useEffect, useState } from "react";
+
 export default function PoliticasPrivacidad() {
-  const ItroduccionRef = useRef();
-  const [IntroducionContent, setIntroducion] = useState(false);
   // useEffect(() => {
   //   const handleScroll = () => {
   //     const introduccion = ItroduccionRef.current;
