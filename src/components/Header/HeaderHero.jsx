@@ -35,7 +35,11 @@ const HeaderHero = ({ isLogged, ActivarLoged }) => {
       <header>
         {/* <!-- HERO SECTION -->     */}
         <div className="container-fluid hero">
-          <img src={imgHero} alt="" />
+          <img
+            src={imgHero}
+            alt="Img Header "
+            className={isLogged ? "pt-50px" : "pt-100px"}
+          />
           <div className="container">
             {/* <!-- Hero Title --> */}
             <h1>

@@ -42,12 +42,16 @@ export const HeaderHero = ({ data }) => {
               <Icon></Icon> Buy a lesson Package
             </a>
           </p>
-          <div className="or">Or</div>
-          <p>
-            <button className="btn__demo" onClick={OpenModal}>
-              Reques a free demo lesson
-            </button>
-          </p>
+          {isLogged ? null : (
+            <>
+              <div className="or">Or</div>
+              <p>
+                <button className="btn__demo" onClick={OpenModal}>
+                  Reques a free demo lesson
+                </button>
+              </p>
+            </>
+          )}
         </div>
       </main>
       <div className="container eslogan">

@@ -29,10 +29,8 @@
 }
 .hero img {
   position: absolute;
-  top: 0;
   right: 0;
   z-index: -9;
-  margin: 50px 0px;
   width: 50%;
 }
 .hero h1 {
@@ -43,4 +41,11 @@
 }
 .imgStyle {
   width: 8rem;
+}
+
+.pt-100px {
+  top: -130px;
+}
+.pt-50px {
+  top: 50px;
 }
