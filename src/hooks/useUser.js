@@ -6,6 +6,7 @@ export default function useUser() {
   const { UserData, InformUser, setInformUser } = useContext(Context);
 
   const [state, setState] = useState({ loading: false, error: false });
+  const [MsgErr, setMsgErr] = useState("");
   // console.log(user);
 
   const InitialApp = useCallback(() => {
@@ -15,25 +16,35 @@ export default function useUser() {
     }
   }, [setInformUser]);
 
-  const login = useCallback(
-    async ({ email, password }) => {
-      setState({ loading: true, error: false });
+  const login = useCallback(async ({ email, password }) => {
+    setState({ loading: true, error: false });
 
+    try {
       const res = await LoginUser({ email, password });
-      console.log("Result", res.response);
-      if (res) {
-        console.log("Estas aqui", JSON.stringify(res.data.user));
-        window.localStorage.setItem("user", JSON.stringify(res.data.user));
+
+      if (res.success) {
+        console.log(res);
         setState({ loading: false, error: false });
-        setInformUser(res.data.user);
-        return true;
+        window.localStorage.setItem("user", JSON.stringify(res.user));
+        return res.user;
       }
-      window.localStorage.removeItem("user");
-      setState({ loading: false, error: true });
-      return false;
-    },
-    [setInformUser]
-  );
+      console.log(res);
+      setMsgErr(res.message);
+      return setState({ loading: false, error: true });
+    } catch (error) {
+      console.log(error);
+    }
+    // if (res) {
+    //   console.log("Estas aqui", JSON.stringify(res.data.user));
+    //   window.localStorage.setItem("user", JSON.stringify(res.data.user));
+    //   setState({ loading: false, error: false });
+    //   setInformUser(res.data.user);
+    //   return true;
+    // }
+    window.localStorage.removeItem("user");
+    setState({ loading: false, error: true });
+    return false;
+  }, []);
 
   const SignUp = useCallback(
     async ({ data, country, cellphone }) => {
@@ -53,7 +64,8 @@ export default function useUser() {
   );
 
   const ActivarLoged = useCallback(
-    ({ res }) => {
+    (res) => {
+      console.log("Activado", res);
       setInformUser(res);
     },
     [setInformUser]
@@ -79,5 +91,6 @@ export default function useUser() {
     SignUp,
     logout,
     VerifyUser,
+    messageError: MsgErr,
   };
 }

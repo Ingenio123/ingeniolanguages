@@ -18,7 +18,7 @@ const SignIn = ({ history }) => {
   const [form, setValue] = useState({
     email: "",
   });
-  const { login, ActivarLoged } = useUser();
+  const { login, ActivarLoged, hasLoginError, messageError } = useUser();
   //#################h################
   const dispatch = useDispatch();
 
@@ -105,6 +105,21 @@ const SignIn = ({ history }) => {
     formState: { errors },
   } = useForm();
 
+  const onSubmit = (data) => {
+    const { email, password } = data;
+    login({ email, password }).then((res) => {
+      if (res) {
+        console.log(res);
+        ActivarLoged(res);
+        if (isAuth()) {
+          if (isAuth().rol === "admin") return history.push("/admin");
+          if (isAuth().rol === "teacher") return history.push("/teacherPage");
+          return history.push("/private");
+        }
+      }
+    });
+  };
+  console.log(hasLoginError);
   return (
     <>
       <Container className="container ">
@@ -112,9 +127,14 @@ const SignIn = ({ history }) => {
         <h1 className="mt-5 text-center">Bienvenido</h1>
         <div className="row ">
           <div className="col-md-6 ">
-            <form className="p-4 bck-theme" onSubmit={handleOnSubmit}>
+            <form className="p-4 bck-theme" onSubmit={handleSubmit(onSubmit)}>
               <div className="mt-4 row">
                 <div className="col-12 col-md-12 ">
+                  {hasLoginError && (
+                    <MessageError>
+                      <span>{messageError}</span>
+                    </MessageError>
+                  )}
                   <div className="form-group">
                     <label>E-mail</label>
                     <input
@@ -122,8 +142,19 @@ const SignIn = ({ history }) => {
                       type="email"
                       className="form-control"
                       placeholder="Email@example.com"
-                      onChange={handleInput}
+                      {...register("email", {
+                        required: true,
+                        pattern: {
+                          value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                          message: "invalid email address",
+                        },
+                      })}
                     />
+                    {errors.email && (
+                      <span className="text-samall text-danger">
+                        {errors.email?.message}
+                      </span>
+                    )}
                   </div>
                 </div>
                 <div className="col-12 col-md-12">
@@ -133,7 +164,9 @@ const SignIn = ({ history }) => {
                       name="password"
                       type="password"
                       className="form-control"
-                      onChange={handleInput}
+                      {...register("password", {
+                        required: true,
+                      })}
                     />
                   </div>
                 </div>
@@ -291,4 +324,15 @@ const LineCenter = styled.div`
 
 const Container = styled.div`
   margin-top: 100px; ;
+`;
+
+const MessageError = styled.div`
+  text-align: center;
+  background-color: #fca5a5;
+  border-radius: 5px;
+  padding: 0.5rem 0;
+  margin-bottom: 0.5rem;
+  span {
+    font-size: 1rem;
+  }
 `;

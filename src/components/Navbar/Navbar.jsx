@@ -32,6 +32,7 @@ const Navbar = ({ toggle, history, isLogged }) => {
   });
   let usuario = "";
   useEffect(() => {
+    console.log(isLogged);
     if (isLogged) {
       usuario = window.localStorage.getItem("user");
       usuario = JSON.parse(usuario).picture;

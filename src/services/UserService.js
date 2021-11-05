@@ -8,11 +8,33 @@ export const LoginUser = async ({ email, password }) => {
   };
   const EndPoint = Url.url + "/data/userSignIn";
 
-  // const Body = JSON.stringify({ email, password });
+  const Body = JSON.stringify({ email, password });
+  // try {
+  //   const res = await axios.post(EndPoint, data);
+  //   console.log("Res", res);
+  //   return res;
+  // } catch (error) {
+  //   return error;
+  // }
+  // axios
+  //   .post(EndPoint, data)
+  //   .then((res) => {
+  //     // console.log(res);
+  //     return res;
+  //   })
+  //   .catch((error) => {
+  //     return error;
+  //   });
   try {
-    const res = await axios.post(EndPoint, data);
-    console.log("Res", res);
-    return res;
+    const res = await fetch(EndPoint, {
+      method: "POST",
+      body: Body,
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const data = await res.json();
+    return data;
   } catch (error) {
     return error;
   }
