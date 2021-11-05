@@ -71,6 +71,7 @@ export const SignUpUser = async ({ data, country, cellphone }) => {
   });
   try {
     const res = await axios.post(Enpoint, body, config);
+    console.log(res);
     if (!res) return false;
     return res;
   } catch (error) {

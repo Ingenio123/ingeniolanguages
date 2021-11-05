@@ -22,6 +22,7 @@ import axios from "axios";
 import { SignInGoogle } from "../../redux/actions/authAction";
 import { FcGoogle } from "react-icons/fc";
 import { SignUpUser } from "../../helpers/Requests";
+import useUser from "../../hooks/useUser";
 
 const SignUp = (props) => {
   const [value, setValue] = useState(null);
@@ -29,6 +30,19 @@ const SignUp = (props) => {
   const [types, setTypes] = useState(true);
   const [types2, setTypes2] = useState(true);
   const [ValueCountry, setValueCountry] = useState(null);
+  const {
+    ActivarLoged,
+    login,
+    SignUp,
+    logout,
+    VerifyUser,
+    messageError,
+    hasLoginError,
+    isLoginLoading,
+    isLogged,
+    init,
+    UserData,
+  } = useUser();
 
   const {
     register,
@@ -37,10 +51,17 @@ const SignUp = (props) => {
   } = useForm();
   const dispatch = useDispatch();
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     // dispatch(Register(data,value,valor.phone));
+    console.log(data);
 
-    const resultados = SignUpUser(data, value, valor.phone);
+    // const resultados = SignUpUser(data, value, valor.phone);
+    const resultados = await SignUp({
+      data,
+      country: value,
+      cellphone: valor.phone,
+    });
+    console.log(resultados);
 
     if (resultados) return props.history.push("/private");
 
@@ -105,10 +126,12 @@ const SignUp = (props) => {
                         },
                       })}
                     />
-                    <span className="text-samall text-danger">
-                      {" "}
-                      {errors.username?.message}{" "}
-                    </span>
+                    {errors.FirstName && (
+                      <span className="text-samall text-danger">
+                        {" "}
+                        {errors.FirstName?.message}{" "}
+                      </span>
+                    )}
                   </div>
                 </div>
                 <div className="col-12 col-md-6">
@@ -127,10 +150,11 @@ const SignUp = (props) => {
                         },
                       })}
                     />
-                    <span className="text-samall text-danger">
-                      {" "}
-                      {errors.username?.message}{" "}
-                    </span>
+                    {errors.LastName && (
+                      <span className="text-samall text-danger">
+                        {errors.LastName?.message}{" "}
+                      </span>
+                    )}
                   </div>
                 </div>
                 <div className="col-12 col-md-6">
@@ -156,10 +180,11 @@ const SignUp = (props) => {
                         },
                       })}
                     />
-                    <span className="text-small text-danger">
-                      {" "}
-                      {errors.age?.message}{" "}
-                    </span>
+                    {errors.age && (
+                      <span className="text-small text-danger">
+                        {errors.age?.message}{" "}
+                      </span>
+                    )}
                   </div>
                 </div>
                 <div className="col-12 col-md-6">
@@ -173,9 +198,11 @@ const SignUp = (props) => {
                     <option value="Female">Female</option>
                     <option value="Other">Other</option>
                   </SelectGender>
-                  <span className="text-small text-danger">
-                    {errors.Gender?.message}{" "}
-                  </span>
+                  {errors.Gender && (
+                    <span className="text-small text-danger">
+                      {errors.Gender?.message}{" "}
+                    </span>
+                  )}
                 </div>
                 <div className="col-12 col-md-5">
                   <label>Country</label>
@@ -287,10 +314,10 @@ const SignUp = (props) => {
                       />
                     )}
 
-                    {errors.ConfirmPassword && (
+                    {errors.confirmPassword && (
                       <span className="text-small text-danger">
                         {" "}
-                        {errors.ConfirmPassword.message}{" "}
+                        {errors.confirmPassword.message}{" "}
                       </span>
                     )}
                   </InputWhithIcon>
@@ -513,4 +540,13 @@ const SelectGender = styled.select`
 
 const Container = styled.div`
   margin-top: 100px;
+`;
+
+
+const MsgBox = styled.div`
+  background-color: #fca5a5;
+  padding:  .5rem;
+  span {
+    font-size:1rem;
+  }
 `;

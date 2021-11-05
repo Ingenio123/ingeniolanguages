@@ -2,6 +2,10 @@ import { BiBook, BiCog, BiHomeAlt } from "react-icons/bi";
 import { AiOutlineUser } from "react-icons/ai";
 export const Items = [
   {
+    name: "Home",
+    link: "/",
+  },
+  {
     name: "Course content",
     link: "/private",
   },

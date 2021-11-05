@@ -81,7 +81,7 @@ export default function Sidebar({ salir, isLogged }) {
   return (
     <div>
       <header className="header" id="header">
-        <div className="header__toggle">
+        <div className="header__toggle" onClick={() => history.push("/")}>
           <img src={ingenio} alt="" />
         </div>
         <div class="header__img" onClick={ActivaMenuProfile}>
