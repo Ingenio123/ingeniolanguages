@@ -52,6 +52,7 @@ a {
 .header__toggle {
 }
 .header__toggle img {
+  cursor: pointer;
   height: 50px;
 }
 
@@ -241,6 +242,7 @@ a {
   background-color: var(--first-color);
   color: rgba(255, 255, 255, 0.7);
   margin: 0 !important;
+  margin-bottom: 10px !important;
 }
 .navigation {
   display: flex;
@@ -255,7 +257,7 @@ a {
   display: flex;
   align-items: center;
   margin: 0;
-  width: 50%;
+  width: 100%;
 }
 
 .navigation ul .items {
