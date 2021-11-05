@@ -25,7 +25,7 @@ export const Footer = () => {
           <CopyRight> Copyright © 2021 </CopyRight>
         </Container>
       </SectionFooter>
-      <TerminosCondiciones>
+      {/* <TerminosCondiciones>
         <PoliticaPriv>
           <ItemsPoliticas>Contactos</ItemsPoliticas>
           <TextPoliticas>
@@ -63,7 +63,7 @@ export const Footer = () => {
             Terminos y condiciones
           </HiperVinculo>
         </BoxCenter>
-      </TerminosCondiciones>
+      </TerminosCondiciones> */}
       <FooterBottom />
     </>
   );
