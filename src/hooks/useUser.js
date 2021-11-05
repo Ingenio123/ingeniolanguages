@@ -20,6 +20,7 @@ export default function useUser() {
       setState({ loading: true, error: false });
 
       const res = await LoginUser({ email, password });
+      console.log("Result", res.response);
       if (res) {
         console.log("Estas aqui", JSON.stringify(res.data.user));
         window.localStorage.setItem("user", JSON.stringify(res.data.user));

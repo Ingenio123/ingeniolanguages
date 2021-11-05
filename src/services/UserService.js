@@ -9,8 +9,13 @@ export const LoginUser = async ({ email, password }) => {
   const EndPoint = Url.url + "/data/userSignIn";
 
   // const Body = JSON.stringify({ email, password });
-  const res = await axios.post(EndPoint, data);
-  return res;
+  try {
+    const res = await axios.post(EndPoint, data);
+    console.log("Res", res);
+    return res;
+  } catch (error) {
+    return error;
+  }
 };
 
 export const VerfyUser = async ({ id }) => {
