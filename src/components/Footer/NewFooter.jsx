@@ -72,7 +72,15 @@ export default function NewFooter() {
             </LinkIcon>
           </ItemIcon>
           <ItemIcon>
-            <FaWhatsapp />
+            <LinkIcon
+              to={{
+                pathname:
+                  "https://api.whatsapp.com/send?phone=593998546897&text=hola,%20qué%20tal",
+              }}
+              target="_blank"
+            >
+              <FaWhatsapp />
+            </LinkIcon>
           </ItemIcon>
         </ListIcons>
       </ContentFooterBottom>
