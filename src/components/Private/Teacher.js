@@ -6,6 +6,8 @@ import { Temary } from "../Private/UserUI/Temary/TemaryForTeachers";
 import styled from "styled-components";
 import { ProviderCalificacion } from "../Context/CalifcacionContext";
 import useCalificacion from "../../hooks/useCalificacion";
+import InputSearchElement from "../Search/Search";
+import { GetAllStudents } from "../../helpers/User";
 
 export const Teacher = () => {
   const [formData, setFormData] = useState({
@@ -13,9 +15,21 @@ export const Teacher = () => {
     email: "",
     picture: "",
   });
+  // states component Search
+  const [ListData, setListData] = useState([]);
+  const [search, setSearch] = useState("");
+  const [SearchResults, setSearchResults] = useState("");
+  // end states component Search
 
-  const [search, setSearch] = useState(null);
   const token = getCookie("token");
+
+  useEffect(() => {
+    const GetAllStudent = async () => {
+      const resultado = await GetAllStudents();
+      if (resultado && resultado.success) setListData(resultado.students);
+    };
+    GetAllStudent();
+  }, []);
 
   const loadPagage = async () => {
     axios
@@ -31,8 +45,24 @@ export const Teacher = () => {
       .catch((err) => console.log(`err ${err}`));
   };
 
-  const handleSearch = (data) => {
-    setSearch(data);
+  const searchHandler = (searchTerm) => {
+    setSearch(searchTerm);
+    console.log(ListData);
+    if (search !== "") {
+      const newContactList = ListData.filter((value) => {
+        // console.log("valore", value.FirstName);
+        // return value.FirstName.toLowerCase().includes(searchTerm.toLowerCase());
+        return Object.values(value)
+          .join(" ")
+          .toLowerCase()
+          .includes(searchTerm.toLowerCase());
+      });
+      setSearchResults(newContactList);
+      console.log("Exist", newContactList);
+    } else {
+      setSearchResults([]);
+      console.log("Mot Exist");
+    }
   };
   const calificacion = useCalificacion();
   const { Sublevel, Level, IdContent } = calificacion;
@@ -46,7 +76,12 @@ export const Teacher = () => {
           Level={Level}
           IdContent={IdContent}
         />
-        <SearchStudent handleSearch={handleSearch} />
+        <SearchStudent handleSearch={searchHandler} />
+        {/* <InputSearchElement
+          term={search}
+          searchKeyword={searchHandler}
+          listStudent={search.length < 1 ? [] : SearchResults}
+        /> */}
       </Grid>
       <div className="dflex"></div>
     </ProviderCalificacion>

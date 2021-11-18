@@ -1,30 +1,30 @@
 import styled from "styled-components";
-import { useRef, useEffect, useState } from "react";
+
 export default function PoliticasPrivacidad() {
-  const ItroduccionRef = useRef();
-  const [IntroducionContent, setIntroducion] = useState(false);
-  useEffect(() => {
-    const handleScroll = () => {
-      const introduccion = ItroduccionRef.current;
-      const { y } = introduccion.getBoundingClientRect();
-      const active = y <= 0 ? true : false;
+  // const ItroduccionRef = useRef();
+  // const [IntroducionContent, setIntroducion] = useState(false);
+  // useEffect(() => {
+  // const handleScroll = () => {
+  //   const introduccion = ItroduccionRef.current;
+  //   const { y } = introduccion.getBoundingClientRect();
+  //   const active = y <= 0 ? true : false;
 
-      if (active) {
-        setIntroducion(!IntroducionContent);
-        console.log(IntroducionContent);
-      }
-    };
-    window.addEventListener("scroll", handleScroll);
+  //   if (active) {
+  //     setIntroducion(!IntroducionContent);
+  //     console.log(IntroducionContent);
+  //   }
+  // };
+  // window.addEventListener("scroll", handleScroll);
 
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
+  // return () => {
+  //   window.removeEventListener("scroll", handleScroll);
+  // };
+  // }, []);
 
   return (
     <div className="container mt-5 ">
       <Wrapper>
-        <Table>
+        {/* <Table>
           <BoxSubTable>
             <TitleTable>Content</TitleTable>
             <TableItem activado={true}>Valoramos tu privacidad</TableItem>
@@ -35,7 +35,7 @@ export default function PoliticasPrivacidad() {
             <TableItem>Protección de la información alojada</TableItem>
             <TableItem>Contactos</TableItem>
           </BoxSubTable>
-        </Table>
+        </Table> */}
         <Title>Política de privacidad</Title>
         <Content_Subtitle>
           <SubTitle>Valoramos tu privacidad</SubTitle>
@@ -59,7 +59,7 @@ export default function PoliticasPrivacidad() {
         </Content_Subtitle>
         <Content>
           <BoxContent>
-            <ItemsContent ref={ItroduccionRef}>
+            <ItemsContent>
               Protección de datos personales según la LOPD (Ley Orgánica de
               Protección de Datos Personales de Ecuador)
             </ItemsContent>

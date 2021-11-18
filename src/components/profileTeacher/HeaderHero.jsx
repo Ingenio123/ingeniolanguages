@@ -5,6 +5,7 @@ import "../../assets/components/ResponsiveTeachers.css";
 import ModalFreeClass from "../Header/ModalRequesFreeClass";
 import { useState } from "react";
 import useUser from "../../hooks/useUser";
+import { Link as LinKId } from "react-scroll";
 
 export const HeaderHero = ({ data }) => {
   const { SignUp, isLogged } = useUser();
@@ -38,9 +39,15 @@ export const HeaderHero = ({ data }) => {
 
         <div className="bnt__teacher">
           <p>
-            <a className="btn__buy">
+            <LinKId
+              to="Prices"
+              smooth={true}
+              duration={1000}
+              spy={true}
+              className="btn__buy"
+            >
               <Icon></Icon> Buy a lesson Package
-            </a>
+            </LinKId>
           </p>
           {isLogged ? null : (
             <>

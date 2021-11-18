@@ -22,15 +22,6 @@ export default function PoliticasPrivacidad() {
   return (
     <div className="container mt-5 ">
       <Wrapper>
-        <Table>
-          <BoxSubTable>
-            <TitleTable>Content</TitleTable>
-            <TableItem>Clases en línea</TableItem>
-            <TableItem>Derechos y limites</TableItem>
-            <TableItem>Gastos de cancelación</TableItem>
-            <TableItem>Delitos prohibibles</TableItem>
-          </BoxSubTable>
-        </Table>
         <Title>Términos y condiciones</Title>
         <Content_Subtitle>
           <SubTitle>Clases en línea - Proveedor</SubTitle>

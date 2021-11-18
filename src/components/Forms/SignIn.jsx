@@ -83,7 +83,8 @@ const SignIn = ({ history }) => {
       })
       .then((res) => {
         informParent(res);
-        ActivarLoged({ res });
+        console.log("RestAuth", res);
+        ActivarLoged(res.data.user);
         dispatch(SignInGoogle());
       })
       .catch((err) => console.log("GOOGLE SIGNIN ERROR", err));
@@ -228,6 +229,9 @@ const ButtonSignIn = styled(Link)`
   font-size: 1rem;
   font-weight: 700;
   color: #314584;
+  :hover {
+    color: #ff3946 !important;
+  }
 `;
 const ButtonIcon = styled.button`
   padding: 0.5rem 1rem;

@@ -1,4 +1,4 @@
-import { BiGridAlt, BiLogOut, BiCodeCurly, BiCaretLeft } from "react-icons/bi";
+import { BiLogOut, BiUser, BiBook } from "react-icons/bi";
 import { FiLogOut } from "react-icons/fi";
 import { AiOutlineUser } from "react-icons/ai";
 import "./Sidebar.css";
@@ -47,13 +47,13 @@ export default function Sidebar({ salir, isLogged }) {
   };
 
   useEffect(() => {
-    contextStudent.getStudent();
-    var user = window.localStorage.getItem("user");
-    if (user) {
-      var data = JSON.parse(user);
-      setRoles(data.rol);
-      GetUser(data);
-    }
+    // contextStudent.getStudent();
+    // var user = window.localStorage.getItem("user");
+    // if (user) {
+    //   var data = JSON.parse(user);
+    //   setRoles(data.rol);
+    //   GetUser(data);
+    // }
   }, []);
 
   async function GetUser(data) {
@@ -73,7 +73,9 @@ export default function Sidebar({ salir, isLogged }) {
     salir();
     return history.push("/");
   };
-
+  const CourseContent = () => {
+    return history.push("/private");
+  };
   const ActivaMenuProfile = () => {
     setClickImgProfile(!clickImgProfile);
   };
@@ -84,10 +86,35 @@ export default function Sidebar({ salir, isLogged }) {
         <div className="header__toggle" onClick={() => history.push("/")}>
           <img src={ingenio} alt="" />
         </div>
-        <div class="header__img" onClick={ActivaMenuProfile}>
+        {/* onClick={ActivaMenuProfile} */}
+        <div class="header__img">
           <img src={isAuth() ? isAuth().picture : ""} alt="imge user" />
+          <div className="dropdown__img">
+            <div className="dropdown__items">
+              <ul>
+                <li>
+                  <i>
+                    <BiUser />
+                  </i>
+                  <span>Profile</span>
+                </li>
+                <li onClick={CourseContent}>
+                  <i>
+                    <BiBook />
+                  </i>
+                  <span>Course content</span>
+                </li>
+                <li className="--line" onClick={logout}>
+                  <i>
+                    <BiLogOut />
+                  </i>
+                  <span>Salir</span>
+                </li>
+              </ul>
+            </div>
+          </div>
         </div>
-        {clickImgProfile ? (
+        {/* {clickImgProfile ? (
           <NavIconUser>
             <div>
               <ul>
@@ -104,7 +131,7 @@ export default function Sidebar({ salir, isLogged }) {
               </ul>
             </div>
           </NavIconUser>
-        ) : null}
+        ) : null} */}
       </header>
       {/* Aqui empiza los cambios */}
 

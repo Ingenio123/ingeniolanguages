@@ -208,7 +208,6 @@ const ModalSignUp = ({ showSignUp, setSignUp }) => {
               <br />
               <InputCountry
                 valueType="short"
-                value="ec"
                 onChange={(val) => selectCountry(val)}
               />
             </div>

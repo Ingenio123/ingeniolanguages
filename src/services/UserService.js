@@ -1,6 +1,21 @@
 import axios from "axios";
 import Url from "../components/Urls";
 
+export const GetDataUserDemoClass = async (token) => {
+  const res = await fetch(`${Url.url}/getdataDemoclass`, {
+    method: "GET",
+    headers: {
+      authorization: `Bearer ${token}`,
+    },
+  });
+  const data = await res.json();
+  console.log(data);
+  // const { addData, democlass } = data;
+  // const { FirstName, email } = data.data;
+  // return { addData, democlass, FirstName, email };
+  return data;
+};
+
 export const LoginUser = async ({ email, password }) => {
   const data = {
     email,
@@ -93,4 +108,82 @@ export const GetCourseStudent = async ({ token }) => {
     console.log("hay un error", error.status);
     return false;
   }
+};
+
+export const SendDataDemoClass = async ({ Gender, Phone, Country, Token }) => {
+  try {
+    const Body = {
+      Gender,
+      Phone,
+      Country,
+    };
+
+    const res = await fetch(`${Url.url}/addDataDemo`, {
+      method: "POST",
+      body: JSON.stringify(Body),
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Bearer ${Token}`,
+      },
+    }).catch((err) => {
+      console.log("Error", err.response.data);
+    });
+    return res;
+  } catch (error) {
+    console.log("Error", error);
+  }
+};
+
+export const SendDataDemoClassOne = async ({ SecondEmail, Token }) => {
+  const Body = {
+    SecondEmail,
+  };
+  // =================== Fetch ====================== //
+  // fetch(`${Url.url}/addDataDemoOne`, {
+  //   method: "POST",
+  //   body: JSON.stringify(Body),
+  //   headers: {
+  //     "Content-Type": "application/json",
+  //     authorization: `Bearer ${Token}`,
+  //   },
+  // })
+  //   .then((res) => {
+  //     // --------------> STATUS 400 ERR  -------------------- //
+  //     if (res.status >= 400 || res.status < 500) {
+  //       console.log(res);
+  //       console.log("Error ", res.status);
+  //       res.json().then((data) => {
+  //         return data;
+  //       });
+  //       return;
+  //     }
+  //     // --------------> STATUS 500 ERR  -------------------- //
+  //     if (res.status >= 500) {
+  //       console.log("Error Server: ", res.status);
+  //       res.json().then((data) => {
+  //         return data;
+  //       });
+  //     }
+  //     // ---------------> STATUS 200 SUCCESS -----------------//
+  //     res.json().then((data) => {
+  //       console.log(data);
+  //       return data;
+  //     });
+  //   })
+  //   // ---------------------> Catch <---------------------- //
+  //   .catch((err) => {
+  //     console.log("Error", err);
+  //   });
+
+  const res = await fetch(`${Url.url}/addDataDemoOne`, {
+    method: "POST",
+    body: JSON.stringify(Body),
+    headers: {
+      "Content-Type": "application/json",
+      authorization: `Bearer ${Token}`,
+    },
+  }).catch((err) => {
+    console.log(err.response.data);
+  });
+  return res;
 };

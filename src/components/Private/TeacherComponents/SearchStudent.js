@@ -9,6 +9,9 @@ import Url from "../../Urls";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import useCalficicaion from "../../../hooks/useCalificacion";
+import ComponentSearch from "../../Search/Search";
+import { GetAllStudents } from "../../../helpers/User";
+
 const initialForm = {
   student: "",
 };
@@ -31,6 +34,40 @@ function SearchStudent({ handleSearch }) {
   const [Comments, setComments] = useState("");
   const [valorSelect, setValorSelect] = useState({});
   const [ChooseCourse, setChooseCourse] = useState("");
+  // states del Component Search
+  const [search, setSearch] = useState("");
+  const [SearchResults, setSearchResults] = useState("");
+  const [ListData, setListData] = useState([]);
+
+  // effect  get Students
+  useEffect(() => {
+    const GetStudents = async () => {
+      const resultado = await GetAllStudents();
+      if (resultado && resultado.success) setListData(resultado.students);
+    };
+    GetStudents();
+    // loadStudents();
+  }, []);
+  // fUNCTION SEARCH  DEL COMPONENT SEARCH
+  const searchHandler = (searchTerm) => {
+    setSearch(searchTerm);
+    console.log(ListData);
+    if (search !== "") {
+      const newContactList = ListData.filter((value) => {
+        // console.log("valore", value.FirstName);
+        // return value.FirstName.toLowerCase().includes(searchTerm.toLowerCase());
+        return Object.values(value)
+          .join(" ")
+          .toLowerCase()
+          .includes(searchTerm.toLowerCase());
+      });
+      setSearchResults(newContactList);
+      console.log("Exist", newContactList);
+    } else {
+      setSearchResults([]);
+      console.log("Mot Exist");
+    }
+  };
 
   // #####################################
 
@@ -54,18 +91,25 @@ function SearchStudent({ handleSearch }) {
     return setDataStudents(null);
   };
   // #################################################
-  const onChangeHandler = (text) => {
-    let matches = [];
-    if (text.length > 0) {
-      matches = DataStudents.filter((student) => {
-        const regex = new RegExp(`${text}`, "gi");
-
-        return student.FirstName.match(regex);
-      });
-    }
-    setSuggestion(matches);
-    setText(text);
-  };
+  // const searchHandler = (searchTerm) => {
+  //   setSearch(searchTerm);
+  //   console.log(ListData);
+  //   if (search !== "") {
+  //     const newContactList = ListData.filter((value) => {
+  //       // console.log("valore", value.FirstName);
+  //       // return value.FirstName.toLowerCase().includes(searchTerm.toLowerCase());
+  //       return Object.values(value)
+  //         .join(" ")
+  //         .toLowerCase()
+  //         .includes(searchTerm.toLowerCase());
+  //     });
+  //     setSearchResults(newContactList);
+  //     console.log("Exist", newContactList);
+  //   } else {
+  //     setSearchResults([]);
+  //     console.log("Mot Exist");
+  //   }
+  // };
   // #################################################
   const onSuggestHandler = (text) => {
     setDataOneStudent({
@@ -85,7 +129,6 @@ function SearchStudent({ handleSearch }) {
   };
   // #########################
   function showData(courses) {
-    
     if (courses.length > 1) {
       const cursos = courses.map((item) => (
         <Options key={item._id} value={item.idiom}>
@@ -116,9 +159,6 @@ function SearchStudent({ handleSearch }) {
     return "";
   }
 
-  useEffect(() => {
-    loadStudents();
-  }, []);
   const handleChangeSummary = (e) => {
     setSummaryInput(e.target.value);
   };
@@ -167,32 +207,27 @@ function SearchStudent({ handleSearch }) {
   // ########################################
   return (
     <div>
-      <Form onSubmit={handleSubmit}>
-        <SearchBox>
-          <Input
-            type="text"
-            placeholder="Student's Name"
-            onChange={(e) => onChangeHandler(e.target.value)}
-            value={text}
-          />
-          <Button type="submit ">
-            <IconSearch />
-          </Button>
-        </SearchBox>
-      </Form>
+      <SearchBox>
+        <ComponentSearch
+          placeholder="Student's Name"
+          listStudent={search.length < 1 ? [] : SearchResults}
+          term={search}
+          searchKeyword={searchHandler}
+        />
+      </SearchBox>
+
       <br />
 
-      {suggestion &&
+      {/* {suggestion &&
         suggestion.map((suggestion, i) => (
           <BoxFatter>
             <BoxSearch>
               <ItemsSearch key={i} onClick={() => onSuggestHandler(suggestion)}>
-                {" "}
                 {suggestion.FirstName}{" "}
               </ItemsSearch>
             </BoxSearch>
           </BoxFatter>
-        ))}
+        ))} */}
 
       <BoxExample>
         <BoxCardStudent>
@@ -419,15 +454,23 @@ const Form = styled.form`
   justify-content: flex-end;
 `;
 
+// const SearchBox = styled.div`
+//   position: relative;
+//   border: 1px solid red;
+//   display: flex;
+//   justify-content: space-between;
+//   align-items: center;
+//   width: 250px;
+//   background: #314584;
+//   padding: 4px;
+//   padding-right: 0;
+//   border-radius: 30px;
+// `;
+
 const SearchBox = styled.div`
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 250px;
-  background: #314584;
-  padding: 4px;
-  padding-right: 0;
-  border-radius: 30px;
+  flex-direction: column;
+  background: transparent;
 `;
 
 const Input = styled.input`

@@ -9,6 +9,7 @@ const Home = () => {
   return (
     <>
       {/* <Modal /> */}
+
       <Boxcart />
       <Headerhero isLogged={isLogged} ActivarLoged={ActivarLoged} />
       <Footer />

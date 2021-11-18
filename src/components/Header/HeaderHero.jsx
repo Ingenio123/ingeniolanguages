@@ -1,8 +1,9 @@
+import Images from "../DemoClass/ReviewClass";
 import "../../assets/components/HeaderHero.css";
 import imgHero from "../../assets/images/LibaryPortada.png";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import styled from "styled-components";
-import { useEffect, useState } from "react";
+import { useState, useEffect, useContext } from "react";
 
 import { Teachers } from "../SectionTeachers/Teachers";
 import { PriceSection } from "../priceSection/PriceSection";
@@ -10,8 +11,18 @@ import { Link as LinkID } from "react-scroll";
 
 import "./HeaderStyle.scss";
 import ModalRequesFreeClass from "./ModalRequesFreeClass";
-
 import useUser from "../../hooks/useUser";
+import DemoClass from "../DemoClass/ModalDemoClass";
+import FormDatas from "../DemoClass/Formdatas";
+import FormDataOne from "../DemoClass/FormDemoUser";
+import Url from "../Urls";
+import userContext from "../Context/UserContext";
+
+import useUserData from "../../hooks/useUserData";
+import DataUserContext from "../Context/userDataContext";
+import { useDispatch, useSelector } from "react-redux";
+
+import { GetDataUser } from "../../redux/actions/UserData";
 
 const Icon = styled(AiOutlineShoppingCart)`
   height: 30px;
@@ -21,14 +32,42 @@ const Icon = styled(AiOutlineShoppingCart)`
   }
 `;
 
+// import Formtreedata  from "../DemoClass/Formdatas";
+
 const HeaderHero = ({ isLogged, ActivarLoged }) => {
   const [ShowForm, setShowForm] = useState(false);
+  const [ShowFormData, setShowFormData] = useState(false);
+  const dataUserContext = useContext(DataUserContext);
+  const { GetData, DataUser, Loading } = useUserData();
+  const [Load, setLoading] = useState(true);
+
   const { SignUp } = useUser();
+  const UerData = useSelector((state) => state.UerData.data);
+  const dispatch = useDispatch();
+
+  // async function GetDataUserFunct() {
+  //   dispatch(GetDataUser());
+  //   setLoading(false);
+  // }
+
+  useEffect(() => {
+    if (isLogged) {
+      console.log(Object.keys(UerData).length);
+      return dispatch(GetDataUser());
+    }
+  }, []);
 
   const OpenModal = () => {
     console.log("Open");
     setShowForm((prev) => !prev);
   };
+
+  // >>--------------------------- OPEN MODAL DEMO ---------------------------------<<
+  const OnpenModalDemo = () => {
+    setShowFormData(!ShowFormData);
+    console.log(UerData);
+  };
+  // >>--------------------------- OPEN MODAL DEMO END ---------------------------------<<
 
   return (
     <>
@@ -61,12 +100,16 @@ const HeaderHero = ({ isLogged, ActivarLoged }) => {
                 duration={1000}
                 spy={true}
               >
-                {" "}
                 <Icon /> Buy a lesson Package
               </ButtonBuyaLesson>
               {/* <!-- Hero Btn Second --> */}
               {isLogged ? (
-                ""
+                <Button
+                  className="request-free-class"
+                  onClick={() => OnpenModalDemo()}
+                >
+                  Request Free Demo Lesson
+                </Button>
               ) : (
                 <Button
                   onClick={() => OpenModal()}
@@ -79,6 +122,26 @@ const HeaderHero = ({ isLogged, ActivarLoged }) => {
           </div>
         </div>
       </header>
+
+      {isLogged && Object.keys(UerData).length > 0 && (
+        <DemoClass
+          mostrarModal={ShowFormData}
+          modificadorModal={setShowFormData}
+          title={
+            UerData.democlass !== false
+              ? "Ya has requerido una demo class"
+              : "Verifica los datos"
+          }
+          addData={UerData.addData}
+          FirstName={UerData.FirstName}
+          Email={UerData.email}
+        >
+          {UerData.addData === 3 && <FormDatas />}
+          {UerData.addData === 1 && <FormDataOne />}
+          {UerData.addData === 0 && <Images />}
+        </DemoClass>
+      )}
+
       <ModalRequesFreeClass
         ShowForm={ShowForm}
         setShowForm={setShowForm}
@@ -132,4 +195,13 @@ const Button = styled.button`
   &:hover {
     color: #ff3946;
   }
+`;
+
+const Form = styled.form``;
+const FormGroup = styled.div`
+  display: flex;
+`;
+const FormInput = styled.input`
+  padding: 0.5rem;
+  border: 1px solid silver;
 `;

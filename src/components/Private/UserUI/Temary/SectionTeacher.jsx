@@ -1,13 +1,15 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect, useCallback } from "react";
 import styled from "styled-components";
 import ModalCalendar from "../ModalCalendar";
 import Student from "../../../Context/StudentContext";
 import ModalNotStudent from "./NotStudent";
 
 export default function SectionTeacher({ TeacherIdiom, idiom }) {
-  const studentState = useContext(Student);
+  const studentContext = useContext(Student);
   const [showModal, setShowModal] = useState(false);
   const [notStudent, setNotStudent] = useState(false);
+  const [state, setstate] = useState(false);
+  const [ValorCalendar, setValorCalendar] = useState({});
 
   const OpenModal = () => {
     setShowModal((prev) => !prev);
@@ -15,15 +17,58 @@ export default function SectionTeacher({ TeacherIdiom, idiom }) {
   const UserNotStudent = () => {
     setNotStudent((prev) => !prev);
   };
+
+  async function GetStudent() {
+    await studentContext.getStudent();
+    return;
+  }
+
+  useEffect(() => {
+    GetStudent();
+  }, []);
+
+  /*
+  --------------------------------------------------------------------
+                          useCallback(()=>{},[])
+  --------------------------------------------------------------------
+  */
+  const valores = useCallback((param) => {
+    // console.log(RecorreArray(studentContext.student.QueryStudent.courses));
+    // da como resultado un numero int ->  entero  ===>  RecorreArray(student.QueryStudent.courses)
+    // console.log(studentContext.student.QueryStudent.courses);
+    function RecorreArray(param) {
+      const datos = param.map((item, index) => {
+        return item.TimeLossons;
+      });
+      return parseInt(datos[0].slice(0, 2));
+    }
+    const val = param.filter(
+      (item) =>
+        item.time === RecorreArray(studentContext.student.QueryStudent.courses)
+    );
+    setValorCalendar(val[0]);
+  }, []);
+  const ShowTypeModal = (param) => {
+    if (studentContext.student) {
+      valores(param);
+      setstate(true);
+      OpenModal();
+      return;
+    } else {
+      setstate(false);
+      UserNotStudent();
+    }
+  };
+
   return (
     <div>
-      <ModalCalendar
-        showModal={showModal}
-        setShowModal={setShowModal}
-        url_teacher={
-          "https://www.ingeniocalendar.com/libary%20m/30-min-lessons"
-        }
-      />
+      {state && (
+        <ModalCalendar
+          showModal={showModal}
+          setShowModal={setShowModal}
+          url_teacher={ValorCalendar.urlCalendar}
+        />
+      )}
       <ModalNotStudent setNotStudent={setNotStudent} notStudent={notStudent} />
       <TitleTeachers>Booking your {idiom} lesson now</TitleTeachers>
       <ContentTeacherXl>
@@ -39,11 +84,7 @@ export default function SectionTeacher({ TeacherIdiom, idiom }) {
                       <TextTeacher>{item.eslogan}</TextTeacher>
                       <ContentButton>
                         <ButtonAgendarClass
-                          onClick={() => {
-                            studentState.student
-                              ? OpenModal()
-                              : UserNotStudent();
-                          }}
+                          onClick={() => ShowTypeModal(item.calendar)}
                         >
                           Book a lesson with me
                         </ButtonAgendarClass>

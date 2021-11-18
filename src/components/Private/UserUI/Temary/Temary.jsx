@@ -14,7 +14,7 @@ export const Temary = () => {
     const Enpoint = "https://www.ingenioapi.com/temary/getTemary";
 
     const res = await axios.get(Enpoint);
-    console.log(res.data.temary);
+
     setValor(res.data.temary);
   };
 
@@ -36,8 +36,6 @@ export const Temary = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("estas en el submit");
-    console.log(FormRef);
   };
   return (
     <TemaryLayout className="l-section s-border md-pxy brd-radius">
@@ -184,4 +182,5 @@ const InputSearch = styled.input`
 `;
 const TemaryLayout = styled.div`
   padding: 0 1rem;
+  /* margin-bottom: 1rem; */
 `;

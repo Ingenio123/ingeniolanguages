@@ -1,12 +1,16 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { useLocation } from "react-router-dom";
 import SectionTeachersCard from "../Temary/SectionTeacher";
 import URI from "../../../Urls";
 import styled from "styled-components";
+// getStudent  context
+import Student from "../../../Context/StudentContext";
 
 export default function Index() {
   const query = QueryLocation();
   const [Datas, setDatas] = useState(null);
+  const studentContext = useContext(Student);
+
   const hanleTeachers = async () => {
     const Endpoint = URI.url;
     const res = await fetch(
@@ -16,13 +20,22 @@ export default function Index() {
     console.log(data);
     setDatas(data.datos);
   };
+
+  async function GetStudent() {
+    await studentContext.getStudent();
+  }
   useEffect(() => {
     hanleTeachers();
+    GetStudent();
   }, []);
 
   return (
     <Content>
-      <SectionTeachersCard idiom={query.get("idiom")} TeacherIdiom={Datas} />
+      <SectionTeachersCard
+        idiom={query.get("idiom")}
+        TeacherIdiom={Datas}
+        student={studentContext.student}
+      />
     </Content>
   );
 }

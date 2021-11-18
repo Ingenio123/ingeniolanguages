@@ -21,6 +21,7 @@ const StudentState = (props) => {
       });
       const data = res.data;
       dispatch({ type: "GET_STUDENT", payload: data });
+      return;
     } catch (error) {
       if (error.response.status || error)
         return dispatch({ type: "ERROR_STUDENT" });

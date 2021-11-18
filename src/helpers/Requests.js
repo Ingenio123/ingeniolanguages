@@ -2,7 +2,7 @@ import axios from "axios";
 
 import Url from "../components/Urls";
 export const getData = async (id) => {
-  await axios.get(`http://localhost:4000/data/teacher/${id}`);
+  await axios.get(`${Url.url}/data/teacher/${id}`);
 };
 
 export const SignUpUser = async (data, country, phone) => {
@@ -58,6 +58,7 @@ const setLocalStorage = (key, value) => {
 export const IsAuth = () => {
   if (window !== "undefined") {
     const data = window.localStorage.getItem("user");
+
     if (data) {
       const user = JSON.parse(data);
       return user;

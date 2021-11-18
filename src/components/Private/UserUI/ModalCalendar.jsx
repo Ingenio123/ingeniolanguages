@@ -8,7 +8,7 @@ export default function ModalCalendar({
   url_teacher,
 }) {
   const ModalRef = useRef();
-
+  console.log(url_teacher);
   const Close = (e) => {
     if (ModalRef.current === e.target) {
       setShowModal(false);

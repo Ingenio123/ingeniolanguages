@@ -50,6 +50,5 @@ const DivImg = styled.div`
 
 const ContentFlex = styled.div`
   display: flex;
-  margin: 0 48px;
-  margin-top: 40px;
+  margin: 40px 48px;
 `;

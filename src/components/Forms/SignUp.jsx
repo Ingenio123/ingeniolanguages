@@ -215,7 +215,7 @@ const SignUp = (props) => {
                   {/* {value} */}
                 </div>
 
-                <div className="col-12 col-md-7">
+                <div className="col-12 col-md-7 mt-3">
                   <PhoneInput
                     country={ValueCountry}
                     value={valor.phone}
@@ -505,6 +505,9 @@ const ButtonSignIn = styled(Link)`
   font-size: 1rem;
   font-weight: 700;
   color: #314584;
+  :hover {
+    color: #ff3946 !important;
+  }
 `;
 
 const Gender = styled.p`
@@ -542,11 +545,10 @@ const Container = styled.div`
   margin-top: 100px;
 `;
 
-
 const MsgBox = styled.div`
   background-color: #fca5a5;
-  padding:  .5rem;
+  padding: 0.5rem;
   span {
-    font-size:1rem;
+    font-size: 1rem;
   }
 `;

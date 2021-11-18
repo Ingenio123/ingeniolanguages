@@ -87,7 +87,7 @@ export default function NewFooter() {
     </FooterBottom>
   );
 }
-const FooterBottom = styled.div`
+const FooterBottom = styled.footer`
   background-color: #2b3d72;
   width: 100%;
   height: 21vh;
