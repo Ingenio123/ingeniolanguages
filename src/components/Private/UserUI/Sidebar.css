@@ -37,7 +37,8 @@ ul {
 }
 
 img {
-  max-width: 100% !important;
+  max-width: 100%;
+  height: 100%;
 }
 
 /* ===== HEADER ===== */
@@ -118,7 +119,7 @@ img {
 .dropdown__img {
   display: none;
   position: absolute;
-  top: 45px;
+  top: 39px;
   right: -20px;
   padding: 0.5rem 0;
   background-color: #fff;
@@ -157,6 +158,7 @@ img {
 
 .header__img img {
   width: 45px;
+  height: 100%;
 }
 
 /*===== NAV =====*/
@@ -271,6 +273,7 @@ img {
 
   .header__img img {
     width: 45px;
+    height: 100%;
   }
 
   .l-navbar {
