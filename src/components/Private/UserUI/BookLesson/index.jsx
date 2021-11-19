@@ -1,4 +1,4 @@
-import { useEffect, useState, useContext } from "react";
+import { useEffect, useState, useContext, useCallback } from "react";
 import { useLocation } from "react-router-dom";
 import SectionTeachersCard from "../Temary/SectionTeacher";
 import URI from "../../../Urls";
@@ -11,7 +11,7 @@ export default function Index() {
   const [Datas, setDatas] = useState(null);
   const studentContext = useContext(Student);
 
-  const hanleTeachers = async () => {
+  const hanleTeachers = useCallback(async () => {
     const Endpoint = URI.url;
     const res = await fetch(
       `${Endpoint}/data/courses?idiom=${query.get("idiom")}`
@@ -19,7 +19,7 @@ export default function Index() {
     const data = await res.json();
     console.log(data);
     setDatas(data.datos);
-  };
+  }, []);
 
   async function GetStudent() {
     await studentContext.getStudent();
@@ -28,6 +28,8 @@ export default function Index() {
     hanleTeachers();
     GetStudent();
   }, []);
+
+  
 
   return (
     <Content>

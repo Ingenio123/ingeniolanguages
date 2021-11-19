@@ -15,7 +15,7 @@ import Paypal from "../../assets/images/svgs/paypal.svg";
 import axios from "axios";
 import Url from "../Urls";
 import { Redirect } from "react-router-dom";
-import PaypalButton from "../paypal/paypal";
+import ProgressStetpBar from "../modalsPackage/ProgressStetpBar";
 
 export default function OrderPay(props) {
   // States
@@ -109,8 +109,7 @@ export default function OrderPay(props) {
     <>
       <Container>
         <SectionOrder>
-          <TextOrder>Order Summary</TextOrder>
-
+          <ProgressStetpBar />
           {items.map((item, index) => (
             <div key={index}>
               <BoxContentOrderSummary>
@@ -124,7 +123,7 @@ export default function OrderPay(props) {
                     </ItemListContent>
                     <ItemListContent>
                       {" "}
-                      <TextFuerte>Lesson type:</TextFuerte> Individual.{" "}
+                      <TextFuerte>Lesson type:</TextFuerte> Individual.
                     </ItemListContent>
                     <ItemListContent>
                       <TextFuerte>Number of lessons: </TextFuerte>
@@ -195,6 +194,7 @@ const BoxContentOrderSummary = styled.div`
   align-items: center;
   border-radius: 10px;
   transition: 0.3s ease;
+  margin: 20px 0;
   &:hover {
     background: rgb(227, 242, 253);
   }

@@ -156,7 +156,7 @@ export default function ModalRequesFreeClass({
                   </div>
                   <div>
                     <PhoneInput
-                      country={value}
+                      country={value || "us"}
                       specialLabel={""}
                       value={valorPhone.phone}
                       onChange={(phone) => setValorPhone({ phone })}
@@ -400,7 +400,6 @@ const SelectCountry = styled(CountryDropdown)`
   color: #495057;
   border-radius: 5px;
   width: 100%;
-  margin-top: 0.9rem;
 `;
 const Icon = styled(IoEyeOutline)`
   position: absolute;

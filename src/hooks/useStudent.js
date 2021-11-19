@@ -14,17 +14,24 @@ const StudentState = (props) => {
     try {
       var Token = window.localStorage.getItem("user");
       Token = JSON.parse(Token).token;
-      const res = await axios.get(EndPoint, {
+      const res = await fetch(EndPoint, {
         headers: {
           authorization: `Bearer ${Token}`,
         },
       });
-      const data = res.data;
-      dispatch({ type: "GET_STUDENT", payload: data });
-      return;
-    } catch (error) {
-      if (error.response.status || error)
+      if (res.status >= 400) {
         return dispatch({ type: "ERROR_STUDENT" });
+      }
+      const data = await res.json();
+      dispatch({ type: "GET_STUDENT", payload: data });
+      // const res = await axios.get(EndPoint, {
+      //   headers: {
+      //     authorization: `Bearer ${Token}`,
+      //   },
+      // });
+      // const data = res.data;
+    } catch (error) {
+      console.log("Err student", error);
     }
   };
   return (

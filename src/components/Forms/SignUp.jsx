@@ -106,6 +106,7 @@ const SignUp = (props) => {
     <>
       <Container className="container">
         {IsAuth() ? <Redirect to="/" /> : null}
+        <h1 className="text-center">Welcome</h1>
         <div className="row">
           <div className="col-md-6">
             <form className="bck-theme p-4" onSubmit={handleSubmit(onSubmit)}>
@@ -210,6 +211,7 @@ const SignUp = (props) => {
                   <InputCountry
                     valueType="short"
                     value={value}
+                    defaultOptionLabel="Select Country"
                     onChange={(val) => selectCountry(val)}
                   />
                   {/* {value} */}
@@ -217,7 +219,7 @@ const SignUp = (props) => {
 
                 <div className="col-12 col-md-7 mt-3">
                   <PhoneInput
-                    country={ValueCountry}
+                    country={ValueCountry || "us"}
                     value={valor.phone}
                     specialLabel={""}
                     onChange={(phone) => setValor({ phone })}
@@ -357,13 +359,6 @@ const SignUp = (props) => {
           <div className="col-md-6 text-center"></div>
         </div>
       </Container>
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
     </>
   );
 };
@@ -541,9 +536,7 @@ const SelectGender = styled.select`
   }
 `;
 
-const Container = styled.div`
-  margin-top: 100px;
-`;
+const Container = styled.div``;
 
 const MsgBox = styled.div`
   background-color: #fca5a5;

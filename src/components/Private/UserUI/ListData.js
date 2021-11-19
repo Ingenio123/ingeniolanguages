@@ -20,3 +20,25 @@ export const Items = [
     link: "/profile",
   },
 ];
+export const ItemsNotStudent = [
+  {
+    nameItem: "Englsish",
+    idiom: "English",
+  },
+  {
+    nameItem: "Spanish",
+    idiom: "Spanish",
+  },
+  {
+    nameItem: "French",
+    idiom: "French",
+  },
+  {
+    nameItem: "Germany",
+    idiom: "Germany",
+  },
+  {
+    nameItem: "Korean",
+    idiom: "Korean",
+  },
+];

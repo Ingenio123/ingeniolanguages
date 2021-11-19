@@ -2,18 +2,22 @@ import axios from "axios";
 import Url from "../components/Urls";
 
 export const GetDataUserDemoClass = async (token) => {
-  const res = await fetch(`${Url.url}/getdataDemoclass`, {
-    method: "GET",
-    headers: {
-      authorization: `Bearer ${token}`,
-    },
-  });
-  const data = await res.json();
-  console.log(data);
-  // const { addData, democlass } = data;
-  // const { FirstName, email } = data.data;
-  // return { addData, democlass, FirstName, email };
-  return data;
+  try {
+    const res = await fetch(`${Url.url}/getdataDemoclass`, {
+      method: "GET",
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
+    });
+    const data = await res.json();
+    console.log(data);
+    // const { addData, democlass } = data;
+    // const { FirstName, email } = data.data;
+    // return { addData, democlass, FirstName, email };
+    return data;
+  } catch (error) {
+    return false;
+  }
 };
 
 export const LoginUser = async ({ email, password }) => {

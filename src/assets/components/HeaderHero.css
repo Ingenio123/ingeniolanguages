@@ -30,6 +30,7 @@
 .hero img {
   position: absolute;
   right: 0;
+  top: 8px;
   z-index: -9;
   width: 50%;
 }

@@ -12,6 +12,7 @@ import { SendDataPayClient } from "./AxiosFormPay";
 import DatafastPay from "./FormPayDatafast";
 import { isAuth } from "../../helpers/Auth";
 import BoxVerify from "./BoxVerify";
+import ProgressStetpBar from "../modalsPackage/ProgressStetpBar";
 
 function CheckOut(props) {
   const dispatch = useDispatch();
@@ -113,19 +114,23 @@ function CheckOut(props) {
   return (
     <div>
       <Section className="container">
-        <IconsArrow>
-          <IconsArrowLeft onClick={() => handleArrowLeft()} />
-        </IconsArrow>
         <FormCheck>
           <BoxForm onSubmit={handleSubmit((data) => HandleData(data))}>
+            <Text>
+              <h5>
+                Complete your information to complete your purchase process
+              </h5>
+            </Text>
             <FormCheckOut>
+              <ProgressStetpBar />
+
               <Box_input>
-                <label htmlFor="firstName">First Name</label>
+                <TextLabel htmlFor="firstName">First Name</TextLabel>
                 <Input
                   id="firstName"
                   type="text"
                   {...register("firstName", {
-                    required: "Second Name is required",
+                    required: "First Name  required",
                     maxLength: {
                       value: 15,
                       message: "maximum characters is 15",
@@ -145,12 +150,12 @@ function CheckOut(props) {
                 </span>
               </Box_input>
               <Box_input>
-                <label htmlFor="SecondName">Middle Name (Optional)</label>
+                <TextLabel htmlFor="SecondName">Middle Name </TextLabel>
                 <Input
                   id="SecondName"
                   type="text"
                   {...register("secondName", {
-                    required: "Second Name is required",
+                    required: "Middle Name  required",
                     maxLength: {
                       value: 15,
                       message: "maximum characters is 15",
@@ -170,15 +175,15 @@ function CheckOut(props) {
                 </span>
               </Box_input>
               <Box_input>
-                <label htmlFor="LastName">Last Name</label>
+                <TextLabel htmlFor="LastName">Last Name</TextLabel>
                 <Input
                   id="LastName"
                   type="text"
                   {...register("lastName", {
-                    required: "last Name is required",
+                    required: "Last Name  required",
                     maxLength: {
                       value: 15,
-                      message: "maximum characters is 15",
+                      message: "maximum charact",
                     },
                     minLength: {
                       value: 2,
@@ -196,12 +201,12 @@ function CheckOut(props) {
                 </span>
               </Box_input>
               <Box_input>
-                <label htmlFor="Cedula">ID / Passport Number </label>
+                <TextLabel htmlFor="Cedula">ID / Passport Number </TextLabel>
                 <Input
                   id="Cedula"
                   type="text"
                   {...register("numberCedula", {
-                    required: "identification number is required",
+                    required: "ID  /  Passport Number  required",
                     maxLength: {
                       value: 10,
                       message: "maximum characters is 20",
@@ -212,7 +217,7 @@ function CheckOut(props) {
                     },
                     pattern: {
                       value: /^[0-9]+$/,
-                      message: "ERR SOLO NUMEROS NO ESPACIOS",
+                      message: "ERROR SOLO NUMEROS NO ESPACIOS",
                     },
                   })}
                 />
@@ -222,12 +227,12 @@ function CheckOut(props) {
                 </span>
               </Box_input>
               <Box_input>
-                <label htmlFor="NumeroCell">Phone Number </label>
+                <TextLabel htmlFor="NumeroCell">Phone Number </TextLabel>
                 <Input
                   id="NumeroCell"
                   type="text"
                   {...register("numberCellPhone", {
-                    required: "Number Cell is Required",
+                    required: "Phone number  required",
                     maxLength: {
                       value: 15,
                       message: "maximum characters is 15",
@@ -247,12 +252,12 @@ function CheckOut(props) {
                 </span>
               </Box_input>
               <Box_input>
-                <label htmlFor="Country">Country</label>
+                <TextLabel htmlFor="Country">Country</TextLabel>
                 <Input
                   id="Country"
                   type="text"
                   {...register("Country", {
-                    required: "Country is Required",
+                    required: "Country  required",
                     maxLength: {
                       value: 2,
                       message: "maximum characters is 2",
@@ -272,12 +277,12 @@ function CheckOut(props) {
                 </span>
               </Box_input>
               <Box_input>
-                <label htmlFor="City">City</label>
+                <TextLabel htmlFor="City">City</TextLabel>
                 <Input
                   id="City"
                   type="text"
                   {...register("City", {
-                    required: "City is Required",
+                    required: "City  Required",
                     maxLength: {
                       value: 40,
                       message: "maximum characters is 15",
@@ -293,15 +298,15 @@ function CheckOut(props) {
                   })}
                 />
                 <span className="text-danger text-small">
-                  {errors.numberCellPhone?.message}{" "}
+                  {errors.City?.message}{" "}
                 </span>
               </Box_input>
               <Box_input>
-                <label htmlFor="PostCode">Code Postal</label>
+                <TextLabel htmlFor="PostCode">Postal / Zip</TextLabel>
                 <Input
                   id="PostCode"
                   {...register("PostCode", {
-                    required: "Is Required",
+                    required: "Postal / Zip  required",
                     maxLength: {
                       value: 10,
                       message: "maximum characters is 15",
@@ -465,7 +470,7 @@ const ItemsOrder = styled.div`
   justify-content: ${(props) => (props.end ? "flex-end" : "space-between")};
   align-items: center;
   font-size: 20px;
-  color: #535966;
+  color: #2e384d;
 `;
 
 const Order_total = styled.span`
@@ -475,8 +480,6 @@ const Order_total = styled.span`
 // ##########################################
 
 const Section = styled.section`
-  width: 100vw;
-  height: 88.5vh;
   position: relative;
 `;
 
@@ -530,4 +533,23 @@ const IconsArrowLeft = styled(IoArrowBackCircle)`
   &:hover {
     cursor: pointer;
   }
+`;
+
+const Text = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  background-color: #314584;
+  padding: 1rem 0;
+  border-radius: 5px;
+  margin-bottom: 1rem;
+  h5 {
+    font-size: 1.2rem;
+    margin: 0;
+    color: #fff;
+  }
+`;
+const TextLabel = styled.label`
+  color: #2e384d !important;
 `;

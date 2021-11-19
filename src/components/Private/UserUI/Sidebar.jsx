@@ -8,7 +8,7 @@ import { Logout } from "../../../redux/actions/authAction";
 import { useHistory, Link } from "react-router-dom";
 import { useGoogleLogin } from "react-use-googlelogin";
 import { isAuth } from "../../../helpers/Auth";
-import { Items } from "./ListData";
+import { Items, ItemsNotStudent } from "./ListData";
 import Url from "../../Urls";
 import axios from "axios";
 import styled from "styled-components";
@@ -47,6 +47,7 @@ export default function Sidebar({ salir, isLogged }) {
   };
 
   useEffect(() => {
+    window.document.body.style.paddingTop = "0";
     contextStudent.getStudent();
     var user = window.localStorage.getItem("user");
     if (user) {
@@ -162,7 +163,18 @@ export default function Sidebar({ salir, isLogged }) {
                               )
                             )}
                           </>
-                        ) : null}
+                        ) : (
+                          <>
+                            {ItemsNotStudent.map((names, index) => (
+                              <Link
+                                key={index}
+                                to={`/booklesson?idiom=${names.idiom}`}
+                              >
+                                {names.nameItem}
+                              </Link>
+                            ))}
+                          </>
+                        )}
                       </div>
                     )}
                     {item.name === "My progress" && (

@@ -38,6 +38,7 @@ export default function ProgressStetpBar() {
 
 const Centrador = styled.div`
   width: 100%;
+  grid-column: 1 / span 2;
   display: flex;
   justify-content: center;
   align-items: center;

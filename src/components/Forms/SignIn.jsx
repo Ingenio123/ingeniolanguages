@@ -120,12 +120,12 @@ const SignIn = ({ history }) => {
       }
     });
   };
-  console.log(hasLoginError);
+
   return (
     <>
       <Container className="container ">
         {isAuth() ? <Redirect to="/" /> : null}
-        <h1 className="mt-5 text-center">Bienvenido</h1>
+        <h1 className="text-center">Welcome</h1>
         <div className="row ">
           <div className="col-md-6 ">
             <form className="p-4 bck-theme" onSubmit={handleSubmit(onSubmit)}>
@@ -326,9 +326,7 @@ const LineCenter = styled.div`
 `;
 //end line
 
-const Container = styled.div`
-  margin-top: 100px; ;
-`;
+const Container = styled.div``;
 
 const MessageError = styled.div`
   text-align: center;

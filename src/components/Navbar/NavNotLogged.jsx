@@ -1,46 +1,28 @@
-import styled, { css } from "styled-components";
-
-import { Button } from "./Button";
-import Bars from "../../assets/images/Bars.svg";
-
-import { useSelector } from "react-redux";
-import { authData } from "../../data/AuthData";
-import { withRouter, useLocation, Link } from "react-router-dom";
-import { Link as LinkID } from "react-scroll";
-import { useGoogleLogin } from "react-use-googlelogin";
-import { useState, useContext } from "react";
-import "./style.css";
-import useUser from "../../hooks/useUser";
-import { useEffect } from "react";
-import SideBar from "../Private/UserUI/Sidebar";
+import ingenio from "../../assets/images/IngenioLanguages.svg";
 import { BiMenu } from "react-icons/bi";
 import { FiShoppingCart } from "react-icons/fi";
+import styled, { css } from "styled-components";
+import { Link, useLocation, useHistory } from "react-router-dom";
+import { Link as LinkID } from "react-scroll";
+import { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
+import { MenuData } from "../../data/MenuData";
+import { useGoogleLogin } from "react-use-googlelogin";
+import { authData } from "../../data/AuthData";
+import { Button } from "./Button";
 
-import SdtudentState from "../../hooks/useStudent";
-import NavBarNotLogged from "./NavNotLogged";
-
-const Navbar = ({ toggle, history, isLogged }) => {
-  const { logout, init, isLoginLoading, hasLoginError, UserData } = useUser();
+function NavNotLogged({ toggle, isLogged, logout }) {
   const auth = useSelector((state) => state.auth);
   const { items } = useSelector((state) => state.package);
   const [NavBar, setNavBar] = useState(false);
   const [Picture, setPicture] = useState("");
   const location = useLocation();
-
+  const history = useHistory();
+  //
   const { signOut } = useGoogleLogin({
     clientId:
       "669011089415-8gtepgk9pivth0itvut5tom96kn9r7i1.apps.googleusercontent.com",
   });
-  let usuario = "";
-  useEffect(() => {
-    console.log(isLogged);
-    if (isLogged) {
-      usuario = window.localStorage.getItem("user");
-      usuario = JSON.parse(usuario).picture;
-      console.log(usuario);
-      setPicture(usuario);
-    }
-  }, [isLogged]);
   const handleLogout = () => {
     signOut();
     logout();
@@ -49,20 +31,80 @@ const Navbar = ({ toggle, history, isLogged }) => {
   const profileUser = () => {
     return history.push("/Private");
   };
-
+  useEffect(() => {
+    window.document.body.style.paddingTop = "60px";
+  }, []);
   return (
-    <div id="home">
-      {isLogged ? (
-        <SdtudentState>
-          <SideBar isLogged={isLogged} salir={logout} />
-        </SdtudentState>
-      ) : (
-        <NavBarNotLogged toggle={toggle} isLogged={isLogged} logout={logout} />
-      )}
+    <div>
+      <Nav NavBar={NavBar}>
+        <LogoImage to="/">
+          <img src={ingenio} alt="" />
+        </LogoImage>
+        <MenuBars onClick={toggle}>
+          <BiMenu />
+        </MenuBars>
+        <BoxIconCart>
+          {items.length > 0 && <div></div>}
+          <FiShoppingCart onClick={() => history.push("/orderSummary")} />
+        </BoxIconCart>
+        <Espacio>
+          <NavMenu>
+            {location.pathname === "/" && (
+              <>
+                {MenuData.map((item, index) => {
+                  return (
+                    <NavMenuLinks
+                      to={item.Link}
+                      key={index}
+                      smooth={true}
+                      duration={1000}
+                      spy={true}
+                    >
+                      {item.title}
+                    </NavMenuLinks>
+                  );
+                })}
+              </>
+            )}
+            {location.pathname !== "/" && <ItemUrl to="/">Home</ItemUrl>}
+
+            {isLogged ? (
+              <NavMenuLinks onClick={handleLogout}> Logo Ut </NavMenuLinks>
+            ) : (
+              ""
+            )}
+            {isLogged ? (
+              <ImgPerfil onClick={profileUser} src={Picture} alt={auth.email} />
+            ) : (
+              authData.map((item, index) => (
+                <ItemAuth to={item.link} key={index}>
+                  {item.title}
+                </ItemAuth>
+              ))
+            )}
+          </NavMenu>
+        </Espacio>
+        {isLogged ? (
+          ""
+        ) : (
+          <NaVBtn>
+            <Link to="/orderSummary">
+              <Button
+                primary="true"
+                big="true"
+                disabled={items.length > 0 ? false : true}
+              >
+                View cart
+              </Button>
+            </Link>
+          </NaVBtn>
+        )}
+      </Nav>
     </div>
   );
-};
-export default withRouter(Navbar);
+}
+
+export default NavNotLogged;
 
 const Nav = styled.nav`
   height: 60px;
