@@ -153,14 +153,12 @@ export default function Sidebar({ salir, isLogged }) {
                           <>
                             {contextStudent.student.QueryStudent.courses.map(
                               (item, index) => (
-                                <>
-                                  <Link
-                                    to={`/booklesson?idiom=${item.idiom}`}
-                                    key={index}
-                                  >
-                                    {item.idiom}
-                                  </Link>
-                                </>
+                                <Link
+                                  to={`/booklesson?idiom=${item.idiom}`}
+                                  key={index}
+                                >
+                                  {item.idiom}
+                                </Link>
                               )
                             )}
                           </>
@@ -173,11 +171,9 @@ export default function Sidebar({ salir, isLogged }) {
                           <>
                             {contextStudent.student.QueryStudent.courses.map(
                               (item, index) => (
-                                <>
-                                  <Link to={`/myprogress`} key={index}>
-                                    {item.idiom}
-                                  </Link>
-                                </>
+                                <Link to={`/myprogress`} key={index}>
+                                  {item.idiom}
+                                </Link>
                               )
                             )}
                           </>
