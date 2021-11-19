@@ -47,13 +47,13 @@ export default function Sidebar({ salir, isLogged }) {
   };
 
   useEffect(() => {
-    // contextStudent.getStudent();
-    // var user = window.localStorage.getItem("user");
-    // if (user) {
-    //   var data = JSON.parse(user);
-    //   setRoles(data.rol);
-    //   GetUser(data);
-    // }
+    contextStudent.getStudent();
+    var user = window.localStorage.getItem("user");
+    if (user) {
+      var data = JSON.parse(user);
+      setRoles(data.rol);
+      GetUser(data);
+    }
   }, []);
 
   async function GetUser(data) {

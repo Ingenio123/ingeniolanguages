@@ -55,6 +55,7 @@ import Pruebas from "./pruebas";
 // -----------components Teacher  ------------------------
 import PrivateTeacher from "./Teacher/private";
 
+import Notificacion from "./pages/Notificacion";
 // i18next.init({
 //   interpolation: {
 //     escapeValue: false,
@@ -105,7 +106,11 @@ ReactDOM.render(
               />
               <Route exact path="/SignIn" component={SignIn} />
               <Route exact path="/SignUp" component={SignUp} />
-
+              <PrivateRouter
+                path="/notificacion"
+                exact
+                component={Notificacion}
+              />
               <PrivateRouter path="/private" exact component={UserPrivate} />
               <PrivateRouter path="/myprogress" exact component={UserSumary} />
               <StudentState>
