@@ -2,7 +2,7 @@ import { useState } from "react";
 import styled from "styled-components";
 import { IoSearch, IoCheckmarkSharp } from "react-icons/io5";
 import { BsFillUnlockFill, BsLockFill } from "react-icons/bs";
-import { useEffect } from "react";
+import { useEffect, useContext } from "react";
 import axios from "axios";
 import { getCookie } from "../../../helpers/Auth";
 import Url from "../../Urls";
@@ -11,6 +11,8 @@ import "react-datepicker/dist/react-datepicker.css";
 import useCalficicaion from "../../../hooks/useCalificacion";
 import ComponentSearch from "../../Search/Search";
 import { GetAllStudents } from "../../../helpers/User";
+import ContextCourse from "../../Context/CoursesContext";
+import ComponentSelect from "../../ComponentTeachers/Calificacion";
 
 const initialForm = {
   student: "",
@@ -18,7 +20,6 @@ const initialForm = {
 
 function SearchStudent({ handleSearch }) {
   const { NumLevel, SumSublevel, idContent } = useCalficicaion();
-
   const [form, setForm] = useState(initialForm);
   const [DataStudents, setDataStudents] = useState([]);
   const [text, setText] = useState("");
@@ -39,6 +40,8 @@ function SearchStudent({ handleSearch }) {
   const [SearchResults, setSearchResults] = useState("");
   const [ListData, setListData] = useState([]);
 
+  const courseContext = useContext(ContextCourse);
+  const { course } = courseContext;
   // effect  get Students
   useEffect(() => {
     const GetStudents = async () => {
@@ -206,17 +209,16 @@ function SearchStudent({ handleSearch }) {
   };
   // ########################################
   return (
-    <div>
+    <Content>
       <SearchBox>
         <ComponentSearch
+          context={courseContext}
           placeholder="Student's Name"
           listStudent={search.length < 1 ? [] : SearchResults}
           term={search}
           searchKeyword={searchHandler}
         />
       </SearchBox>
-
-      <br />
 
       {/* {suggestion &&
         suggestion.map((suggestion, i) => (
@@ -242,36 +244,24 @@ function SearchStudent({ handleSearch }) {
           <ItemsCard block>
             <p>
               {" "}
-              <TextBold>Nombre:</TextBold> {DataOneStudent.Name}
+              <TextBold>Nombre or email:</TextBold>
+              {course ? course.FirstName || course.email : null}
             </p>
             <p>
-              <TextBold>Idioma: </TextBold>{" "}
-              {DataOneStudent.courses ? showData(DataOneStudent.courses) : null}{" "}
-            </p>
-            <p>
-              <TextBold>Number Months: </TextBold>
-              {ChooseCourse.NumberMonths} months
-            </p>
-            <p>
-              <TextBold>Time lesson: </TextBold>
-              {ChooseCourse.TimeLossons}{" "}
-            </p>
-            <p>
-              <TextBold>Plan Active: </TextBold> {ChooseCourse.lessonsTotal}{" "}
-              class
-            </p>
-            <p>
-              <TextBold>Cuanto le queda: </TextBold>
-              {ChooseCourse.lessonsRestantes} class
+              {course && course.courses && (
+                <>
+                  <TextBold>
+                    {course.courses.length > 1 ? "Select Package" : null}
+                  </TextBold>
+                  <ComponentSelect data={course.courses} />
+                </>
+              )}
             </p>
           </ItemsCard>
           {/* end Datos Estaticos */}
 
           <ItemsCard block={true}>
-            {" "}
-            <ResumenLabel htmlFor="resumen">
-              Class summary
-            </ResumenLabel> <br />{" "}
+            <ResumenLabel htmlFor="resumen">Class summary</ResumenLabel> <br />{" "}
             <TextLarge
               id="resumen"
               cols="45"
@@ -344,7 +334,7 @@ function SearchStudent({ handleSearch }) {
           </ItemsCard>
         </BoxCardStudent>
       </BoxExample>
-    </div>
+    </Content>
   );
 }
 
@@ -538,7 +528,7 @@ const BoxExample = styled.div`
   width:100%;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  margin-left: 10px;
+  margin-top: 40px;
 `;
 
 const BoxCardStudent = styled.div`
@@ -662,4 +652,8 @@ const DateText = styled.span`
   line-height: 1;
   font-size: 1rem;
   font-weight: 700;
+`;
+
+const Content = styled.div`
+  position: relative;
 `;

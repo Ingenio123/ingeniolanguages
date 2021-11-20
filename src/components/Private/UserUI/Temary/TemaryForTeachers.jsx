@@ -4,7 +4,7 @@ import { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import styled from "styled-components";
 import useCalificacion from "../../../../hooks/useCalificacion";
-export const Temary = () => {
+export const Temary = ({ margin, column }) => {
   const [Valor, setValor] = useState([]);
   const [ClickPrimary, setClickPrimary] = useState(false);
   const [ClickSecondary, setClickSecondary] = useState(false);
@@ -34,7 +34,10 @@ export const Temary = () => {
   };
   const { Level, Sublevel, IdContent } = useCalificacion();
   return (
-    <TemaryLayout className="l-section s-border md-pxy brd-radius">
+    <TemaryLayout
+      margin={margin}
+      className="l-section s-border md-pxy brd-radius"
+    >
       <div className="dgrid m-grid-2 al-center header_temary">
         <h2 className="mb-0">Course content</h2>
         <div>
@@ -166,4 +169,5 @@ const InputSearch = styled.input`
 `;
 const TemaryLayout = styled.div`
   padding: 0 1rem;
+  margin: ${(props) => props.margin} !important;
 `;

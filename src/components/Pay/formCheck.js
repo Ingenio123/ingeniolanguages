@@ -16,6 +16,8 @@ import ProgressStetpBar from "../modalsPackage/ProgressStetpBar";
 
 import PhoneInput from "react-phone-input-2";
 
+import { CountryDropdown } from "react-country-region-selector";
+
 function CheckOut(props) {
   const dispatch = useDispatch();
   const {
@@ -123,7 +125,7 @@ function CheckOut(props) {
           <BoxForm onSubmit={handleSubmit((data) => HandleData(data))}>
             <Text>
               <h5>
-                Complete your information to complete your purchase process
+                We need your information to complete your purchase process
               </h5>
             </Text>
             <FormCheckOut>
@@ -138,15 +140,16 @@ function CheckOut(props) {
                     required: "First Name  required",
                     maxLength: {
                       value: 15,
-                      message: "maximum characters is 15",
+                      message: "Maximum characters: 15",
                     },
                     minLength: {
                       value: 2,
-                      message: "minimum of characters is 2",
+                      message: "Minimum of characters is 2",
                     },
                     pattern: {
                       value: /^[a-zA-Z]*$/,
-                      message: "No se Aceptan Espacios ni caracteres numericos",
+                      value: /[A-Za-z -äöüÄÖÜßéÉèÈêÊ...]{2,}/,
+                      message: "Please enter your first name only",
                     },
                   })}
                 />
@@ -163,14 +166,14 @@ function CheckOut(props) {
                     required: "Middle Name  required",
                     maxLength: {
                       value: 15,
-                      message: "maximum characters is 15",
+                      message: "Maximum characters: 15",
                     },
                     minLength: {
                       value: 2,
                       message: "minimum of characters is 2",
                     },
                     pattern: {
-                      value: /^[a-zA-Z]*$/,
+                      value: /[A-Za-z -äöüÄÖÜßéÉèÈêÊ...]{2,}/,
                       message: "No se Aceptan Espacios ni caracteres numericos",
                     },
                   })}
@@ -188,14 +191,14 @@ function CheckOut(props) {
                     required: "Last Name  required",
                     maxLength: {
                       value: 15,
-                      message: "maximum charact",
+                      message: "Maximum characters: 15",
                     },
                     minLength: {
                       value: 2,
-                      message: "minimum of characters is 2",
+                      message: "Minimum characters: 2",
                     },
                     pattern: {
-                      value: /^[a-zA-Z]*$/,
+                      value: /[A-Za-z -äöüÄÖÜßéÉèÈêÊ...]{2,}/,
                       message: "No se Aceptan Espacios ni caracteres numericos",
                     },
                   })}
@@ -214,20 +217,46 @@ function CheckOut(props) {
                     required: "ID  /  Passport Number  required",
                     maxLength: {
                       value: 10,
-                      message: "maximum characters is 20",
+                      message: "Maximum characters: 10",
                     },
                     minLength: {
                       value: 2,
-                      message: "minimum of characters is 2",
+                      message: "Minimum  characters: 2",
                     },
                     pattern: {
-                      value: /^[0-9]+$/,
-                      message: "ERROR SOLO NUMEROS NO ESPACIOS",
+                      value: /^[0-9a-zA-Z]+$/,
+                      message: "Error. solo numero y letras  ",
                     },
                   })}
                 />
                 <span className="text-danger text-small">
                   {errors.numberCedula?.message}
+                </span>
+              </Box_input>
+
+              <Box_input>
+                <TextLabel htmlFor="Country">Country</TextLabel>
+                <Input
+                  id="Country"
+                  type="text"
+                  {...register("Country", {
+                    required: "Country  required",
+                    maxLength: {
+                      value: 2,
+                      message: "Maximum characters is 2",
+                    },
+                    minLength: {
+                      value: 1,
+                      message: "minimum characters is 1",
+                    },
+                    pattern: {
+                      value: /^[A-Z]+$/,
+                      message: "SOLO LETRAS MAYUSCULAS NO ESPACIOS ",
+                    },
+                  })}
+                />
+                <span className="text-danger text-small">
+                  {errors.Country?.message}{" "}
                 </span>
               </Box_input>
               <Box_input>
@@ -246,7 +275,7 @@ function CheckOut(props) {
                     required: "Phone number  required",
                     maxLength: {
                       value: 15,
-                      message: "maximum characters is 15",
+                      message: "Maximum characters is 15",
                     },
                     minLength: {
                       value: 2,
@@ -263,31 +292,6 @@ function CheckOut(props) {
                 </span> */}
               </Box_input>
               <Box_input>
-                <TextLabel htmlFor="Country">Country</TextLabel>
-                <Input
-                  id="Country"
-                  type="text"
-                  {...register("Country", {
-                    required: "Country  required",
-                    maxLength: {
-                      value: 2,
-                      message: "maximum characters is 2",
-                    },
-                    minLength: {
-                      value: 1,
-                      message: "minimum characters is 1",
-                    },
-                    pattern: {
-                      value: /^[A-Z]+$/,
-                      message: "SOLO LETRAS MAYUSCULAS NO ESPACIOS ",
-                    },
-                  })}
-                />
-                <span className="text-danger text-small">
-                  {errors.Country?.message}{" "}
-                </span>
-              </Box_input>
-              <Box_input>
                 <TextLabel htmlFor="City">City</TextLabel>
                 <Input
                   id="City"
@@ -296,7 +300,7 @@ function CheckOut(props) {
                     required: "City  Required",
                     maxLength: {
                       value: 40,
-                      message: "maximum characters is 15",
+                      message: "Maximum characters is 15",
                     },
                     minLength: {
                       value: 2,
@@ -320,7 +324,7 @@ function CheckOut(props) {
                     required: "Postal / Zip  required",
                     maxLength: {
                       value: 10,
-                      message: "maximum characters is 15",
+                      message: "Maximum characters is 15",
                     },
                     minLength: {
                       value: 2,
@@ -328,7 +332,7 @@ function CheckOut(props) {
                     },
                     pattern: {
                       value: /^[0-9\s]+$/,
-                      message: "Solo numeros",
+                      message: "Only numbers",
                     },
                   })}
                 />
@@ -563,4 +567,13 @@ const Text = styled.div`
 `;
 const TextLabel = styled.label`
   color: #2e384d !important;
+`;
+
+const InputCounty = styled(CountryDropdown)`
+  border: 1px solid silver;
+  padding: 0.4rem 0.75rem;
+  font-size: 1rem;
+  color: #495057;
+  border-radius: 5px;
+  width: 100%;
 `;

@@ -108,7 +108,7 @@ export default function Boxcart() {
             </Link>
             <Link to="/payclient">
               <Button_ProccedPay pay={true}>
-                Procced to paymenth
+                Procced to payment
               </Button_ProccedPay>
             </Link>
 

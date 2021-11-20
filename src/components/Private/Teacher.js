@@ -1,6 +1,6 @@
 import axios from "axios";
 import { isAuth, getCookie } from "../../helpers/Auth";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import SearchStudent from "./TeacherComponents/SearchStudent";
 import { Temary } from "../Private/UserUI/Temary/TemaryForTeachers";
 import styled from "styled-components";
@@ -8,6 +8,7 @@ import { ProviderCalificacion } from "../Context/CalifcacionContext";
 import useCalificacion from "../../hooks/useCalificacion";
 import InputSearchElement from "../Search/Search";
 import { GetAllStudents } from "../../helpers/User";
+import { ProviderCourses } from "../Context/CoursesContext";
 
 export const Teacher = () => {
   const [formData, setFormData] = useState({
@@ -70,18 +71,28 @@ export const Teacher = () => {
   return (
     <ProviderCalificacion>
       <Grid className="container">
-        <Temary
+        {/* <Temary
           UseTeacher={true}
           Sublevel={Sublevel}
           Level={Level}
           IdContent={IdContent}
-        />
-        <SearchStudent handleSearch={searchHandler} />
+        /> */}
+        <ProviderCourses>
+          <SearchStudent handleSearch={searchHandler} />
+        </ProviderCourses>
         {/* <InputSearchElement
           term={search}
           searchKeyword={searchHandler}
           listStudent={search.length < 1 ? [] : SearchResults}
         /> */}
+        <Temary
+          margin="0 0 0 0"
+          column={true}
+          // UseTeacher={true}
+          // Sublevel={Sublevel}
+          // Level={Level}
+          // IdContent={IdContent}
+        />
       </Grid>
       <div className="dflex"></div>
     </ProviderCalificacion>
@@ -90,7 +101,8 @@ export const Teacher = () => {
 
 const Grid = styled.div`
   display: grid;
-  grid-template-columns: 60% 40%;
+  grid-template-columns: 50% 50%;
+  column-gap: 10px;
   @media screen and (max-width: 768px) {
     grid-template-columns: 1fr;
   }
