@@ -11,7 +11,8 @@ export const SendDataPayClient = async (
   SumaPrices,
   items,
   id,
-  email
+  email,
+  phone
 ) => {
   const {
     City,
@@ -20,7 +21,6 @@ export const SendDataPayClient = async (
     firstName,
     lastName,
     numberCedula,
-    numberCellPhone,
     secondName,
   } = shippingData;
   const ipClient = await getIpClient();
@@ -31,7 +31,7 @@ export const SendDataPayClient = async (
     firstName,
     lastName,
     numberCedula,
-    numberCellPhone,
+    numberCellPhone: phone,
     secondName,
     ipClient,
     Cobrar,
@@ -40,7 +40,7 @@ export const SendDataPayClient = async (
     id,
     email,
   };
-  console.log(url);
+  // console.log(url);
   const EndPoint = url + "/payIngenioLanguages";
   // const res = await  axios.post('https://www.ingenioapi.com/payIngenioLanguages',data)
   const res = await axios.post(EndPoint, data);

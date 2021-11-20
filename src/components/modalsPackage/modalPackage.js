@@ -163,7 +163,7 @@ export default function ModalPackage({ ShowModal, setShowModal }) {
                       activado={IndividualClass}
                       onClick={OnClickIndividual}
                     >
-                      Individual lessons
+                      One-to-One
                     </ButoonIndividual>
                     <ButoonIndividual
                       activado={GroupClass}

@@ -14,6 +14,8 @@ import { isAuth } from "../../helpers/Auth";
 import BoxVerify from "./BoxVerify";
 import ProgressStetpBar from "../modalsPackage/ProgressStetpBar";
 
+import PhoneInput from "react-phone-input-2";
+
 function CheckOut(props) {
   const dispatch = useDispatch();
   const {
@@ -28,7 +30,9 @@ function CheckOut(props) {
   const [ActiveButton, setActiveButton] = useState(true);
   const [Show, setShow] = useState(false);
   const [IdCheck, setIdCheck] = useState("");
-
+  const [Valor, setValor] = useState({
+    phone: null,
+  });
   let res = 0;
 
   if (items) {
@@ -89,7 +93,8 @@ function CheckOut(props) {
         res,
         items,
         userData._id,
-        userData.email
+        userData.email,
+        Valor.phone
       );
       setIdCheck(resultadoFunction.resultados.id);
       setShow(true);
@@ -222,12 +227,18 @@ function CheckOut(props) {
                   })}
                 />
                 <span className="text-danger text-small">
-                  {" "}
-                  {errors.numberCedula?.message}{" "}
+                  {errors.numberCedula?.message}
                 </span>
               </Box_input>
               <Box_input>
                 <TextLabel htmlFor="NumeroCell">Phone Number </TextLabel>
+                <PhoneInput
+                  country="us"
+                  value={Valor.phone}
+                  specialLabel={""}
+                  onChange={(phone) => setValor({ phone })}
+                />
+                {/* <TextLabel htmlFor="NumeroCell">Phone Number </TextLabel>
                 <Input
                   id="NumeroCell"
                   type="text"
@@ -249,7 +260,7 @@ function CheckOut(props) {
                 />
                 <span className="text-danger text-small">
                   {errors.numberCellPhone?.message}{" "}
-                </span>
+                </span> */}
               </Box_input>
               <Box_input>
                 <TextLabel htmlFor="Country">Country</TextLabel>

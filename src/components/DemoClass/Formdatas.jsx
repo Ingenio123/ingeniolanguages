@@ -77,7 +77,7 @@ export default function FormDatas() {
             onChange={(val) => selectCountry(val)}
           />
           <InputPhone
-            country={value}
+            country={value || "us"}
             value={valor.phone}
             specialLabel={""}
             onChange={(phone) => setValor({ phone })}
