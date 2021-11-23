@@ -130,6 +130,7 @@ img {
 }
 .header__img:hover .dropdown__img {
   display: block;
+  z-index: 9;
 }
 
 .dropdown__img .dropdown__items {

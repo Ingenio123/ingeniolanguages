@@ -150,12 +150,12 @@ export default function OrderPay(props) {
             <div>
               <TextPrices>$ {res} </TextPrices>
               <br />
-              <ProceedPay onClick={VerifyIsAuth}>
+              <ProceedPay onClick={items.length > 0 ? VerifyIsAuth : null}>
                 <IconsCard /> Debit or Credit card
               </ProceedPay>
             </div>
             {/* <PaypalButton valorPago={res} /> */}
-            <Paypaypal onClick={() => HanldePay(res)}>
+            <Paypaypal onClick={items.length > 0 ? () => HanldePay(res) : null}>
               <img src={Paypal} alt="Paypal" />
             </Paypaypal>
           </BoxPrices>

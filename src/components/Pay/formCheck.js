@@ -27,7 +27,8 @@ function CheckOut(props) {
   } = useForm();
   const { items } = useSelector((state) => state.package);
   const { valorDescuento } = useSelector((state) => state.itemPackage);
-
+  const [ValueCountry, setValueCountry] = useState(null);
+  const [value, setValue] = useState(null);
   const [Loader, setLoader] = useState(false);
   const [ActiveButton, setActiveButton] = useState(true);
   const [Show, setShow] = useState(false);
@@ -117,6 +118,12 @@ function CheckOut(props) {
     var total = res - calculos;
     return parseFloat(total).toFixed(2);
   }
+
+  const selectCountry = (val) => {
+    console.log(val);
+    setValue(val);
+    setValueCountry(val.toLowerCase());
+  };
 
   return (
     <div>
@@ -235,7 +242,14 @@ function CheckOut(props) {
               </Box_input>
 
               <Box_input>
-                <TextLabel htmlFor="Country">Country</TextLabel>
+                <TextLabel htmlFor="">Select Country </TextLabel>
+                <InputCounty
+                  valueType="short"
+                  value={value}
+                  defaultOptionLabel="Select Country"
+                  onChange={(val) => selectCountry(val)}
+                />
+                {/* <TextLabel htmlFor="Country">Country</TextLabel>
                 <Input
                   id="Country"
                   type="text"
@@ -257,12 +271,12 @@ function CheckOut(props) {
                 />
                 <span className="text-danger text-small">
                   {errors.Country?.message}{" "}
-                </span>
+                </span> */}
               </Box_input>
               <Box_input>
                 <TextLabel htmlFor="NumeroCell">Phone Number </TextLabel>
                 <PhoneInput
-                  country="us"
+                  country={ValueCountry || "us"}
                   value={Valor.phone}
                   specialLabel={""}
                   onChange={(phone) => setValor({ phone })}
@@ -354,9 +368,9 @@ function CheckOut(props) {
                 <BoxVerify />
                 <Line />
                 <BoxOrder>
-                  <OrderSumary>Order Sumary</OrderSumary>
+                  <OrderSumary>Order Summary</OrderSumary>
                   <ItemsOrder end={true}>
-                    <span>items: {items ? items.length : "0"} </span>
+                    <span>Lesson packages: {items ? items.length : "0"} </span>
                   </ItemsOrder>
 
                   <ItemsOrder>
@@ -369,10 +383,17 @@ function CheckOut(props) {
                   <ItemsOrder>
                     <span>Taxes +12%: </span> <span>$ {ValorTotal()} </span>
                   </ItemsOrder>
-
+                  {valorDescuento !== 1 && (
+                    <ItemsOrder>
+                      <span>Discount -{parseFloat(valorDescuento) * 100}%</span>
+                      <span>
+                        $ {parseFloat(ValorTotales() - res).toFixed(2)}
+                      </span>
+                    </ItemsOrder>
+                  )}
                   <Line mb={true} />
                   <ItemsOrder>
-                    <Order_total>Order Total</Order_total>{" "}
+                    <Order_total>Total</Order_total>{" "}
                     <Order_total>
                       $ {res !== 0 ? ValorTotales() : 0}{" "}
                     </Order_total>

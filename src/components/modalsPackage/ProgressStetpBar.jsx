@@ -85,5 +85,5 @@ const Circle = styled.div`
   transition: 0.4s ease;
   color: ${(props) => (props.active ? " #283593" : " silver")};
   background: white;
-  z-index: 999;
+  z-index: 9;
 `;

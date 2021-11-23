@@ -3,18 +3,21 @@ import axios from "axios";
 import { IoTrashSharp, IoCart, IoChevronDownSharp } from "react-icons/io5";
 import { useEffect, useState } from "react";
 import "./style.css";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { Delete_Package } from "../../redux/actions/packageAction";
 import Inglaterra from "../../assets/images/svgs/Inglaterra.svg";
 import Espanish from "../../assets/images/svgs/Espanish.svg";
 import Francia from "../../assets/images/svgs/French.svg";
+import { isAuth } from "../../helpers/Auth";
+import Modal from "../ModalsForm/ModalSignIn";
 
 export default function Boxcart() {
   const [ShowContent, setShowContent] = useState(false);
   const { items } = useSelector((state) => state.package);
   const { addCart } = useSelector((state) => state.itemPackage);
-
+  const [ShowModal, setShowModal] = useState(false);
+  const history = useHistory();
   const dispatch = useDispatch();
 
   //   const English = items.find((x) => x.idiom === "English");
@@ -77,8 +80,17 @@ export default function Boxcart() {
    * axios  peticion al server
    */
 
-  const handlePay = (valor) => {};
+  const handlePay = async (valor) => {
+    if (isAuth()) {
+      return history.push("/payclient");
+    }
 
+    OpenModal();
+  };
+  const OpenModal = () => {
+    console.log("Open");
+    setShowModal((prev) => !prev);
+  };
   return (
     <>
       {ShowContent ? (
@@ -106,11 +118,15 @@ export default function Boxcart() {
                 Cart details
               </Button_ProccedPay>
             </Link>
-            <Link to="/payclient">
-              <Button_ProccedPay pay={true}>
-                Procced to payment
-              </Button_ProccedPay>
-            </Link>
+            <Button_ProccedPay
+              pay={true}
+              disabled={items.length > 0 ? false : true}
+              onClick={handlePay}
+            >
+              Procced to payment
+            </Button_ProccedPay>
+            {/* <Link to="/payclient"> */}
+            {/* </Link> */}
 
             <Separador />
             <Text_Subtotal>Order Summary</Text_Subtotal>
@@ -314,6 +330,7 @@ export default function Boxcart() {
           </div>
         </Content__Cart>
       </Content>
+      <Modal ShowModal={ShowModal} setShowModal={setShowModal} />
     </>
   );
 }
