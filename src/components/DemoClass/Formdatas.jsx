@@ -138,6 +138,7 @@ const ButtonSubmit = styled.input`
 const Message = styled.div`
   background-color: ${(props) => (props.status ? "#FECACA" : "#BBF7D0")};
   color: #1a1a1a;
+  font-size: 1rem;
   border-radius: 4px;
   padding: 0.5rem 1rem;
   width: 100%;

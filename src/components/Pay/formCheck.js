@@ -151,7 +151,7 @@ function CheckOut(props) {
                     },
                     minLength: {
                       value: 2,
-                      message: "Minimum of characters is 2",
+                      message: "Minimum characters: 2",
                     },
                     pattern: {
                       value: /^[a-zA-Z]*$/,
@@ -177,7 +177,7 @@ function CheckOut(props) {
                     },
                     minLength: {
                       value: 2,
-                      message: "minimum of characters is 2",
+                      message: "minimum characters: 2",
                     },
                     pattern: {
                       value: /[A-Za-z -äöüÄÖÜßéÉèÈêÊ...]{2,}/,

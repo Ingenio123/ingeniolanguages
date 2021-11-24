@@ -18,6 +18,7 @@ import {
 } from "react-icons/io5";
 
 export default function ModalRequesFreeClass({
+  route,
   ShowForm,
   setShowForm,
   SignUp,
@@ -80,6 +81,9 @@ export default function ModalRequesFreeClass({
 
     if (res) {
       if (isAuth()) {
+        if (route === "democlass") {
+          return history.push("/democlass");
+        }
         if (isAuth().rol === "admin") return history.push("/admin");
         if (isAuth().rol === "teacher") return history.push("/teacherPage");
         if (isAuth().rol === "user" || isAuth().rol === "student") {
@@ -109,18 +113,28 @@ export default function ModalRequesFreeClass({
                     <InputForm
                       type="text"
                       {...register("FirstName", {
-                        require: "First Name is Required",
+                        required: "First Name Required",
                       })}
                     />
+                    {errors.FirstName && (
+                      <span className="text-small text-danger">
+                        {errors.FirstName?.message}
+                      </span>
+                    )}
                   </div>
                   <div>
                     <Content__Label>Last Name</Content__Label>
                     <InputForm
                       type="text"
                       {...register("LastName", {
-                        required: "Last Name is Required",
+                        required: "Last Name  Required",
                       })}
                     />
+                    {errors.LastName && (
+                      <span className="text-small text-danger">
+                        {errors.LastName?.message}{" "}
+                      </span>
+                    )}
                   </div>
                 </Form__Content>
                 <Form__Content>
@@ -129,21 +143,34 @@ export default function ModalRequesFreeClass({
                     <InputForm
                       type="number"
                       {...register("age", {
-                        required: "Age is Required",
+                        required: "Age  Required",
                       })}
                     />
+                    {errors.age && (
+                      <span className="text-small text-danger">
+                        {" "}
+                        {errors.age?.message}{" "}
+                      </span>
+                    )}
                   </div>
+
                   <div>
                     <label htmlFor="">Gender</label>
                     <SelectGender
                       {...register("Gender", {
-                        required: "Gender is required",
+                        required: "Gender  required",
                       })}
                     >
                       <option value="Male">Male</option>
                       <option value="Female">Female</option>
                       <option value="Other">Other</option>
                     </SelectGender>
+                    {errors.Gender && (
+                      <span className="text-small text-danger">
+                        {" "}
+                        {errors.Gender?.message}{" "}
+                      </span>
+                    )}
                   </div>
                 </Form__Content>
                 <Form__Content>
@@ -170,9 +197,14 @@ export default function ModalRequesFreeClass({
                       icons={true}
                       type="email"
                       {...register("email", {
-                        require: "E-mail is required",
+                        required: "E-mail  required",
                       })}
                     />
+                    {errors.email && (
+                      <span className="text-small text-danger">
+                        {errors.email?.message}
+                      </span>
+                    )}
                     <IconMail />
                   </ContenedorRelativo>
                 </Content__Email>
@@ -183,9 +215,22 @@ export default function ModalRequesFreeClass({
                       icons={true}
                       type={ShowPassword ? "password" : "text"}
                       {...register("password", {
-                        required: "Password is required",
+                        required: "Password  required",
+                        maxLength: {
+                          value: 20,
+                          message: "Maxiumn character: 20",
+                        },
+                        minLength: {
+                          value: 4,
+                          message: "Miniumn character: 4",
+                        },
                       })}
                     />
+                    {errors.password && (
+                      <span className="text-small text-danger">
+                        {errors.password?.message}{" "}
+                      </span>
+                    )}
                     <div onClick={() => OnclickShowpassword()}>
                       {ShowPassword ? <DontShow /> : <Icon />}
                     </div>
@@ -197,9 +242,22 @@ export default function ModalRequesFreeClass({
                       icons={true}
                       type={ShowConfirmPassword ? "password" : "text"}
                       {...register("confirmPassword", {
-                        required: "Confirm password is required",
+                        required: "Confirm password  required",
+                        maxLength: {
+                          value: 20,
+                          message: "Maxiumn character: 20",
+                        },
+                        minLength: {
+                          value: 4,
+                          message: "Miniumn character: 4",
+                        },
                       })}
                     />
+                    {errors.confirmPassword && (
+                      <span className="text-small text-danger">
+                        {errors.confirmPassword?.message}
+                      </span>
+                    )}
                     <div onClick={() => OnclickShowConfirmPassword()}>
                       {ShowConfirmPassword ? <DontShow /> : <Icon />}
                     </div>
@@ -212,7 +270,10 @@ export default function ModalRequesFreeClass({
               </Form>
               <LineCenter>Or</LineCenter>
               <Centrar>
-                <GoogleButton contentSign={"Sign Up with Google"} />
+                <GoogleButton
+                  contentSign={"Sign Up with Google"}
+                  route="democlass"
+                />
               </Centrar>
               <IconClose onClick={() => setShowForm((prev) => !prev)} />
             </ContainerForm>

@@ -51,7 +51,11 @@ export default function Form1({ modificadorModal }) {
             },
           })}
         />
-        {errors.SecondEmail && <span>{errors.SecondEmail.message} </span>}
+        {errors.SecondEmail && (
+          <span className="text-small text-danger">
+            {errors.SecondEmail?.message}{" "}
+          </span>
+        )}
       </FormInput>
       <FormInput center>
         <ButtonSubmit type="submit" value="Send" />
@@ -60,7 +64,9 @@ export default function Form1({ modificadorModal }) {
   );
 }
 
-const Form = styled.form``;
+const Form = styled.form`
+  width: 100%;
+`;
 const FormInput = styled.div`
   display: flex;
   justify-content: ${(props) => (props.center ? "center" : "flex-start")};
@@ -103,7 +109,7 @@ const MessageResponse = styled.div`
   font-size: 1rem;
   font-weight: 600;
   color: #1a1a1a;
-  padding: ${({ status }) => (status ? ".5rem" : "0")};
+  padding: ${({ status }) => (status ? ".5rem" : ".5rem")};
   display: flex;
   justify-content: center;
   border-radius: 5px;

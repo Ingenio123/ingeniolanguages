@@ -31,6 +31,9 @@ export default function GoogleButton({ contentSign, route }) {
         if (route === "clientPay") {
           return history.push("/payclient");
         }
+        if (route === "democlass") {
+          return history.push("/democlass");
+        }
         if (isAuth().rol === "admin") return history.push("/admin");
         if (isAuth().rol === "teacher") return history.push("/teacherPage");
         if (isAuth().rol === "user" || isAuth().rol === "student")

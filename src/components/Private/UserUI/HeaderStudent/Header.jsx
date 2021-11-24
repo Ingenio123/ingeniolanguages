@@ -85,95 +85,87 @@ export default function Header() {
   }, []);
 
   return (
-    <ContainerHeader>
-      <ContentCards>
-        {contextStudent.student ? (
-          <>
-            {contextStudent.student.QueryStudent.courses.map((item, index) => (
-              <CardContent key={index} img={imgFondo(item.idiom)}>
-                <CardCourse>
-                  <ContentImage>
-                    <Img url={imgs(item.idiom)} width="200px" alt="" />
-                    <ItemsDeCompra
-                      flex
-                      style={{ width: "100%" }}
-                    ></ItemsDeCompra>
-                  </ContentImage>
-                  <div>
-                    <CardHeader>
-                      <span>{item.idiom}</span>
-                      <BuyNewCourse onClick={Home} title="Buy a now package" />
-                    </CardHeader>
-                    <DatosDeCompra>
-                      <ItemsDeCompra>
-                        <IconTime />
-                        <ItemContent>
-                          Duration of each lesson: {item.TimeLossons}
-                          {/* Time de cada lessons: 40 min lessons */}
-                        </ItemContent>
-                      </ItemsDeCompra>
-                      <ItemsDeCompra>
-                        <IconNumberLessons />
-                        <ItemContent>
-                          Number of lessons: {item.lessonsTotal} lessons
-                        </ItemContent>
-                      </ItemsDeCompra>
-                      <ItemsDeCompra>
-                        <IconCalendar />
-                        <ItemContent>Dias de expiracion</ItemContent>
-                      </ItemsDeCompra>
-                    </DatosDeCompra>
-                  </div>
-                </CardCourse>
-              </CardContent>
-            ))}
-          </>
-        ) : (
-          <>
-            {CardList.map((item, index) => (
-              <CardContent key={index} img={imgFondo(item.idiom)}>
-                <CardCourse>
-                  <ContentImage>
-                    <Img url={imgs(item.idiom)} alt="" width="200px" />
-                    <ItemsDeCompra
-                      flex
-                      style={{ width: "100%" }}
-                    ></ItemsDeCompra>
-                  </ContentImage>
-                  <div>
-                    <CardHeader>
-                      <span>{item.idiom}</span>
-                      {/* <BuyNewCourse onClick={Home} title="Buy a now package" /> */}
-                    </CardHeader>
-                    <DatosDeCompra>
-                      <ItemsDeCompra>
-                        <IconTime />
-                        <ItemContent>
-                          Duration of each lesson: {item.timeLesson}
-                          {/* Time de cada lessons: 40 min lessons */}
-                        </ItemContent>
-                      </ItemsDeCompra>
-                      <ItemsDeCompra>
-                        <IconNumberLessons />
-                        <ItemContent>
-                          Number of lessons: {item.lessonTotal} lessons
-                        </ItemContent>
-                      </ItemsDeCompra>
-                      <ItemsDeCompra>
-                        <IconCalendar />
-                        <ItemContent>
-                          Lessons package expiration: 22/22/21
-                        </ItemContent>
-                      </ItemsDeCompra>
-                    </DatosDeCompra>
-                  </div>
-                </CardCourse>
-              </CardContent>
-            ))}
-          </>
-        )}
-      </ContentCards>
-    </ContainerHeader>
+    <ContentCards>
+      {contextStudent.student ? (
+        <>
+          {contextStudent.student.QueryStudent.courses.map((item, index) => (
+            <CardContent key={index} img={imgFondo(item.idiom)}>
+              <CardCourse>
+                <ContentImage>
+                  <Img url={imgs(item.idiom)} width="200px" alt="" />
+                  <ItemsDeCompra flex style={{ width: "100%" }}></ItemsDeCompra>
+                </ContentImage>
+                <div>
+                  <CardHeader>
+                    <span>{item.idiom}</span>
+                    <BuyNewCourse onClick={Home} title="Buy a now package" />
+                  </CardHeader>
+                  <DatosDeCompra>
+                    <ItemsDeCompra>
+                      <IconTime />
+                      <ItemContent>
+                        Duration of each lesson: {item.TimeLossons}
+                        {/* Time de cada lessons: 40 min lessons */}
+                      </ItemContent>
+                    </ItemsDeCompra>
+                    <ItemsDeCompra>
+                      <IconNumberLessons />
+                      <ItemContent>
+                        Number of lessons: {item.lessonsTotal} lessons
+                      </ItemContent>
+                    </ItemsDeCompra>
+                    <ItemsDeCompra>
+                      <IconCalendar />
+                      <ItemContent>Dias de expiracion</ItemContent>
+                    </ItemsDeCompra>
+                  </DatosDeCompra>
+                </div>
+              </CardCourse>
+            </CardContent>
+          ))}
+        </>
+      ) : (
+        <>
+          {CardList.map((item, index) => (
+            <CardContent key={index} img={imgFondo(item.idiom)}>
+              <CardCourse>
+                <ContentImage>
+                  <Img url={imgs(item.idiom)} alt="" width="200px" />
+                  <ItemsDeCompra flex style={{ width: "100%" }}></ItemsDeCompra>
+                </ContentImage>
+                <div>
+                  <CardHeader>
+                    <span>{item.idiom}</span>
+                    {/* <BuyNewCourse onClick={Home} title="Buy a now package" /> */}
+                  </CardHeader>
+                  <DatosDeCompra>
+                    <ItemsDeCompra>
+                      <IconTime />
+                      <ItemContent>
+                        Duration of each lesson: {item.timeLesson}
+                        {/* Time de cada lessons: 40 min lessons */}
+                      </ItemContent>
+                    </ItemsDeCompra>
+                    <ItemsDeCompra>
+                      <IconNumberLessons />
+                      <ItemContent>
+                        Number of lessons: {item.lessonTotal} lessons
+                      </ItemContent>
+                    </ItemsDeCompra>
+                    <ItemsDeCompra>
+                      <IconCalendar />
+                      <ItemContent>
+                        Lessons package expiration: 22/22/21
+                      </ItemContent>
+                    </ItemsDeCompra>
+                  </DatosDeCompra>
+                </div>
+              </CardCourse>
+            </CardContent>
+          ))}
+        </>
+      )}
+    </ContentCards>
   );
 }
 
@@ -187,6 +179,13 @@ const CardContent = styled.div`
   border-radius: 4px;
 `;
 const ContentCards = styled.div`
+  width: 490px;
+  row-gap: 1rem;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+`;
+const ContentCard = styled.div`
   display: flex;
   overflow: auto;
   height: 147px;
@@ -201,9 +200,6 @@ const ContentCards = styled.div`
     background-color: silver;
     cursor: pointer;
   }
-`;
-const ContainerHeader = styled.div`
-  display: flex;
 `;
 
 const BuyNewCourse = styled(FaCartPlus)`

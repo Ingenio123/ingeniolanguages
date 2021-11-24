@@ -10,7 +10,7 @@ import { store } from "./redux/store";
 import SignIn from "./components/Forms/SignIn";
 import SignUp from "./components/Forms/SignUp";
 import PrivateRouter from "./Routes/PrivateRoute";
-import UserPrivate from "./components/Private/UserPrivate";
+// import UserPrivate from "./components/Private/UserPrivate";
 import formCheckOutPay from "./components/Pay/formCheck";
 import Home from "./home";
 
@@ -49,13 +49,17 @@ import Footer from "./components/Footer/NewFooter";
 import StudentState from "./hooks/useStudent";
 
 // component pruebas
-
 import Pruebas from "./pruebas";
 
 // -----------components Teacher  ------------------------
 import PrivateTeacher from "./Teacher/private";
 
 import Notificacion from "./pages/Notificacion";
+import Democlass from "./pages/verifyclassdemo";
+
+import UserPrivate from "./pages/Private_pages/UserOrStudent/userprivate";
+
+import StudentProvider from "./hooks/useStudent";
 // i18next.init({
 //   interpolation: {
 //     escapeValue: false,
@@ -111,8 +115,11 @@ ReactDOM.render(
                 exact
                 component={Notificacion}
               />
-              <PrivateRouter path="/private" exact component={UserPrivate} />
+              <StudentProvider>
+                <PrivateRouter path="/private" exact component={UserPrivate} />
+              </StudentProvider>
               <PrivateRouter path="/myprogress" exact component={UserSumary} />
+              <PrivateRouter path="/democlass" exact component={Democlass} />
               <StudentState>
                 <PrivateRouter path="/temary" exact component={IndexTemary} />
                 <PrivateRouter

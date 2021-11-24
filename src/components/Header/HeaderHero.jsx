@@ -143,6 +143,7 @@ const HeaderHero = ({ isLogged, ActivarLoged }) => {
       )}
 
       <ModalRequesFreeClass
+        route="democlass"
         ShowForm={ShowForm}
         setShowForm={setShowForm}
         SignUp={SignUp}
