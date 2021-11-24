@@ -39,7 +39,7 @@ export default function Form1({ modificadorModal }) {
         </MessageResponse>
       )}
       <FormInput>
-        <Label>Second E-mail</Label>
+        <Label>Confirm your E-mail</Label>
         <Input
           type="email"
           placeholder="Email"

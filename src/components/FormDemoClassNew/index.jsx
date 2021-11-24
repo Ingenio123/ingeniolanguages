@@ -11,7 +11,7 @@ export default function Index({ children }) {
         </ContentFormsLogo>
         <ContentFormsText>
           <h5>Complete with the rest of your information</h5>
-          <p>We will need them to contact you about your free demo class</p>
+          <p>We will need it to contact you about your free demo class</p>
         </ContentFormsText>
         <ContentFormstFormulario>{children}</ContentFormstFormulario>
         <ContentFormsAvisoLegal>
