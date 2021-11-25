@@ -5,7 +5,11 @@ import Context from "../components/Context/UserContext";
 export default function useUser() {
   const { UserData, InformUser, setInformUser } = useContext(Context);
 
-  const [state, setState] = useState({ loading: false, error: false });
+  const [state, setState] = useState({
+    loading: false,
+    error: false,
+    message: "",
+  });
   const [MsgErr, setMsgErr] = useState("");
   // console.log(user);
 
@@ -23,12 +27,10 @@ export default function useUser() {
       const res = await LoginUser({ email, password });
 
       if (res.success) {
-        console.log(res);
         setState({ loading: false, error: false });
         window.localStorage.setItem("user", JSON.stringify(res.user));
         return res.user;
       }
-      console.log(res);
       setMsgErr(res.message);
       return setState({ loading: false, error: true });
     } catch (error) {
@@ -50,15 +52,19 @@ export default function useUser() {
     async ({ data, country, cellphone }) => {
       setState({ loading: true, error: false });
       const res = await SignUpUser({ data, country, cellphone });
-      if (res) {
-        window.localStorage.setItem("user", JSON.stringify(res.data.user));
+
+      if (res.success) {
+        window.localStorage.setItem("user", JSON.stringify(res.user));
         setState({ loading: false, error: false });
-        setInformUser(res.data.user);
+        setInformUser(res.user);
         return true;
       }
       window.localStorage.removeItem("user");
-      setState({ loading: false, error: true });
-      return false;
+      setState({ loading: false, error: true, message: res.message });
+      return {
+        success: res.success,
+        message: res.message,
+      };
     },
     [setInformUser]
   );

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useRef, useCallback, useEffect, useState } from "react";
+import { useRef, useCallback, useEffect, useState, useContext } from "react";
 import { MdClose } from "react-icons/md";
 import ImageFrench from "../../assets/images/frenchImg.jpg";
 import OptionValues from "./OptionsValues";
@@ -8,18 +8,19 @@ import { useSelector, useDispatch } from "react-redux";
 import { RESET_PRICES } from "../../redux/actions/types";
 import { GroupPersons } from "../../redux/actions/ItemOnePackageAction";
 import { Select_Package } from "../../redux/actions/packageAction";
-import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import LesonMonth from "./lessonMonth";
 import ProgressStetpBar from "./ProgressStetpBar";
 import img3d from "../../assets/images/img3d.png";
 import calendar from "../../assets/images/calendar.png";
-
+import ModalContext from "../Context/modlaContext";
+import { isAuth } from "../../helpers/Auth";
 export default function ModalPackageFrench({
   ShowModalFrench,
   setShowModalFrench,
 }) {
   const modalRef = useRef();
-
+  const modalContext = useContext(ModalContext);
   const CalculoPrices = useSelector(
     (state) => state.itemPackage.calculatePrices
   );
@@ -37,6 +38,7 @@ export default function ModalPackageFrench({
   const [Valores, setValores] = useState(false);
   const [Months, setMonths] = useState({ value: 1 });
   const InputMonths = useRef(0);
+  const history = useHistory();
 
   const OnClickValores = () => {
     setValores(!Valores);
@@ -108,7 +110,7 @@ export default function ModalPackageFrench({
     dispatch({ type: "ADD_CART" });
     dispatch({
       type: "AddCart",
-      payload: 50,
+      payload: 25,
     });
     setShowModalFrench(false);
   };
@@ -118,6 +120,26 @@ export default function ModalPackageFrench({
     setMonths({ value: InputMonths.current.value });
   }, [Months]);
 
+  const handleProcced = () => {
+    dispatch(Select_Package(CalculoPrices, "French", LessonsMonth, time));
+    if (isAuth()) {
+      return history.push("/payclient");
+    }
+    setShowModalFrench(false);
+    //               -------->!modalcontext.ModalState
+    return modalContext.setModalState(true);
+    // console.log(packageItems);
+    // const items = packageItems.items.find((x) => x.idiom === "English");
+    // console.log(items){
+    // }
+    // dispatch({
+    //   type: "PROCCED_TO_PAY",
+    //   payload: {
+    //     price: itemPackage.calculatePrices,
+    //     items:   1,
+    //   },
+    // });
+  };
   return (
     <>
       {ShowModalFrench ? (
@@ -194,9 +216,14 @@ export default function ModalPackageFrench({
                       <Buttons Cart title="add to cart" onClick={handleCart}>
                         add to cart
                       </Buttons>
-                      <Link to="/payclient">
-                        <Buttons title="Procced to pay">Procced to pay</Buttons>
-                      </Link>
+                      <Buttons
+                        title="Procced to pay"
+                        opacity={CalculoPrices > 0 ? false : true}
+                        disabled={CalculoPrices > 0 ? false : true}
+                        onClick={handleProcced}
+                      >
+                        Procced to pay
+                      </Buttons>
                     </div>
                   </MonthPrices>
                 </InformContent>
@@ -315,6 +342,7 @@ const Buttons = styled.button`
   background: ${({ Cart }) => (Cart ? "#ff3946" : "#314584")};
   border-radius: 6px;
   margin-left: 5px;
+  opacity: ${({ opacity }) => (opacity ? 0.5 : 1)};
 `;
 const MonthBuy = styled.input`
   background: transparent;

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-
+import { useEffect } from "react";
 export default function PoliticasPrivacidad() {
   // useEffect(() => {
   //   const handleScroll = () => {
@@ -18,7 +18,19 @@ export default function PoliticasPrivacidad() {
   //     window.removeEventListener("scroll", handleScroll);
   //   };
   // }, []);
-
+  useEffect(() => {
+    try {
+      // trying to use new API - https://developer.mozilla.org/en-US/docs/Web/API/Window/scrollTo
+      window.scroll({
+        top: 0,
+        left: 0,
+        behavior: "smooth",
+      });
+    } catch (error) {
+      // just a fallback for older browsers
+      window.scrollTo(0, 0);
+    }
+  }, []);
   return (
     <div className="container mt-5 ">
       <Wrapper>

@@ -1,9 +1,11 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useContext } from "react";
 import styled from "styled-components";
 import "../../assets/components/SectionPrices.css";
 import ModalPackage from "../modalsPackage/modalPackage";
 import ModalPackageFrench from "../modalsPackage/ModalPackageFrench";
 import ModalPackageSpanish from "../modalsPackage/ModalPackageSpanish";
+import ModalContext from "../Context/modlaContext";
+import ModalForms from "../ModalsForm/ModalSignIn";
 
 export const PriceSection = () => {
   const [ShowModal, setShowModal] = useState(false);
@@ -20,7 +22,7 @@ export const PriceSection = () => {
   const OpenModalSpanish = () => {
     setShowModalSpanish((prev) => !prev);
   };
-
+  const modalContext = useContext(ModalContext);
   return (
     // ref={price}
     <>
@@ -50,21 +52,31 @@ export const PriceSection = () => {
           <div className="col-md-4">
             <div className="">
               <div className="image_card spanish" onClick={OpenModalSpanish}>
-                {" "}
                 <TitleCard className="text-center">Spanish</TitleCard>{" "}
               </div>
             </div>
           </div>
         </div>
       </section>
-      <ModalPackage ShowModal={ShowModal} setShowModal={setShowModal} />
+
+      <ModalPackage
+        ShowModal={ShowModal}
+        setShowModal={setShowModal}
+        modalcontext={modalContext}
+      />
       <ModalPackageFrench
         ShowModalFrench={ShowModalFrench}
         setShowModalFrench={setShowModalFrench}
+        modalcontext={modalContext}
       />
       <ModalPackageSpanish
         ShowModalSpanish={ShowModalSpanish}
         setShowModalSpanish={setShowModalSpanish}
+        modalcontext={modalContext}
+      />
+      <ModalForms
+        ShowModal={modalContext.ModalState}
+        setShowModal={modalContext.setModalState}
       />
     </>
   );

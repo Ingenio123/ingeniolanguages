@@ -1,7 +1,7 @@
 import "../../assets/components/ImageForm.css";
 import { FcGoogle } from "react-icons/fc";
 import styled from "styled-components";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Login } from "../../redux/actions/authAction";
 import { useDispatch, useSelector } from "react-redux";
 import { withRouter, Redirect, Link } from "react-router-dom";
@@ -21,6 +21,20 @@ const SignIn = ({ history }) => {
   const { login, ActivarLoged, hasLoginError, messageError } = useUser();
   //#################h################
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    try {
+      // trying to use new API - https://developer.mozilla.org/en-US/docs/Web/API/Window/scrollTo
+      window.scroll({
+        top: 0,
+        left: 0,
+        behavior: "smooth",
+      });
+    } catch (error) {
+      // just a fallback for older browsers
+      window.scrollTo(0, 0);
+    }
+  }, []);
 
   const auth = useSelector((state) => state.auth);
 

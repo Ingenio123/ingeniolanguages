@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 
 import { FormCheck, BoxForm, FormCheckOut, Box_input, Input } from "./styles";
 import { useSelector } from "react-redux";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { IoArrowBackCircle } from "react-icons/io5";
 import { SHIPPING_DATA, CANCEL_SHIPPING_DATA } from "../../redux/actions/types";
 import { useDispatch } from "react-redux";
@@ -37,6 +37,20 @@ function CheckOut(props) {
     phone: null,
   });
   let res = 0;
+
+  useEffect(() => {
+    try {
+      // trying to use new API - https://developer.mozilla.org/en-US/docs/Web/API/Window/scrollTo
+      window.scroll({
+        top: 0,
+        left: 0,
+        behavior: "smooth",
+      });
+    } catch (error) {
+      // just a fallback for older browsers
+      window.scrollTo(0, 0);
+    }
+  }, []);
 
   if (items) {
     const arrayPrices = [];

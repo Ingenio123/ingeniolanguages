@@ -1,7 +1,7 @@
 import { HeaderHero } from "./HeaderHero";
 import { useParams } from "react-router-dom";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 // import ModalPackageFrench from "../modalsPackage/ModalPackageFrench";
 // import ModalPackageSpanish from "../modalsPackage/ModalPackageSpanish";
 // import ModalPackageEnglish from "../modalsPackage/modalPackage";
@@ -12,12 +12,13 @@ import styled from "styled-components";
 
 export const Profile = () => {
   const { idTeacher } = useParams();
-  // --------------------- STATE  ------------------------------ //
+  // --------------------- STATE  ---------------------------------- //
   const [Data, setData] = useState([]);
   const [Flags, setFlags] = useState([]);
   const [ShowModalSpanish, setShowModalSpanish] = useState(false);
   const [ShowModalEnglish, setShowModalEnglish] = useState(false);
   const [ShowModalFrench, setShowModalFrench] = useState(false);
+
   // --------------------- END STATE  ------------------------------ //
 
   const getData = () => {
@@ -32,11 +33,25 @@ export const Profile = () => {
   useEffect(() => {
     getData();
   }, [idTeacher]);
+  useEffect(() => {
+    try {
+      // trying to use new API - https://developer.mozilla.org/en-US/docs/Web/API/Window/scrollTo
+      window.scroll({
+        top: 0,
+        left: 0,
+        behavior: "smooth",
+      });
+    } catch (error) {
+      // just a fallback for older browsers
+      window.scrollTo(0, 0);
+    }
+  }, []);
+
   return (
     <>
       <HeaderHero data={Data} />
 
-      <div className="container">
+      <div className="container  ">
         <section className="presentation">
           <p>{Data.description} </p>
         </section>

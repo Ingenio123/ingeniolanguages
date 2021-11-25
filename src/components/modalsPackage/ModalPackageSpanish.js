@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useRef, useCallback, useEffect, useState } from "react";
+import { useRef, useCallback, useEffect, useState, useContext } from "react";
 import { MdClose } from "react-icons/md";
 import ImageFrench from "../../assets/images/SpainImage.jpg";
 import OptionValues from "./OptionsValues";
@@ -8,10 +8,11 @@ import { useSelector, useDispatch } from "react-redux";
 import { RESET_PRICES } from "../../redux/actions/types";
 import { GroupPersons } from "../../redux/actions/ItemOnePackageAction";
 import { Select_Package } from "../../redux/actions/packageAction";
-import { Link } from "react-router-dom";
 import ProgressStetpBar from "./ProgressStetpBar";
 import LessonMonths from "./lessonMonth";
-
+import ModalContext from "../Context/modlaContext";
+import { Link, useHistory } from "react-router-dom";
+import { isAuth } from "../../helpers/Auth";
 /**
  * @function_React
  */
@@ -25,12 +26,15 @@ export default function ModalPackageFrench({
   const CalculoPrices = useSelector(
     (state) => state.itemPackage.calculatePrices
   );
+  const history = useHistory();
   const LessonsMonth = useSelector(
     (state) => state.itemPackage.lessonMonth.label
   );
   const time = useSelector((state) => state.itemPackage.timeLesson.label);
-
   const dispatch = useDispatch();
+
+  //  context modal
+  const modalContext = useContext(ModalContext);
 
   const [GroupClass, setGroupClass] = useState(false);
   const [IndividualClass, setIndividualClass] = useState(true);
@@ -109,7 +113,7 @@ export default function ModalPackageFrench({
     dispatch({ type: "ADD_CART" });
     dispatch({
       type: "AddCart",
-      payload: 50,
+      payload: 25,
     });
     setShowModalSpanish(false);
   };
@@ -117,7 +121,27 @@ export default function ModalPackageFrench({
   const handleMonth = useCallback(() => {
     setMonths({ value: InputMonths.current.value });
   }, []);
+  const handleProcced = () => {
+    dispatch(Select_Package(CalculoPrices, "Spanish", LessonsMonth, time));
+    if (isAuth()) {
+      return history.push("/payclient");
+    }
+    setShowModalSpanish(false);
+    //               -------->!modalcontext.ModalState
 
+    return modalContext.setModalState(true);
+    // console.log(packageItems);
+    // const items = packageItems.items.find((x) => x.idiom === "English");
+    // console.log(items){
+    // }
+    // dispatch({
+    //   type: "PROCCED_TO_PAY",
+    //   payload: {
+    //     price: itemPackage.calculatePrices,
+    //     items:   1,
+    //   },
+    // });
+  };
   return (
     <>
       {ShowModalSpanish ? (
@@ -198,9 +222,14 @@ export default function ModalPackageFrench({
                       <Buttons Cart title="add to cart" onClick={handleCart}>
                         add to cart
                       </Buttons>
-                      <Link to="/payclient">
-                        <Buttons title="Procced to pay">Procced to pay</Buttons>
-                      </Link>
+                      <Buttons
+                        opacity={CalculoPrices > 0 ? false : true}
+                        disabled={CalculoPrices > 0 ? false : true}
+                        title="Procced to pay"
+                        onClick={handleProcced}
+                      >
+                        Procced to pay
+                      </Buttons>
                     </div>
                   </MonthPrices>
                 </InformContent>
@@ -324,6 +353,7 @@ const Buttons = styled.button`
   background: ${({ Cart }) => (Cart ? "#ff3946" : "#314584")};
   border-radius: 6px;
   margin-left: 5px;
+  opacity: ${({ opacity }) => (opacity ? 0.5 : 1)};
 `;
 const MonthBuy = styled.input`
   background: transparent;

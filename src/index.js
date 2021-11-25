@@ -60,6 +60,9 @@ import Democlass from "./pages/verifyclassdemo";
 import UserPrivate from "./pages/Private_pages/UserOrStudent/userprivate";
 
 import StudentProvider from "./hooks/useStudent";
+
+import { ModalContextProvider } from "./components/Context/modlaContext";
+
 // i18next.init({
 //   interpolation: {
 //     escapeValue: false,
@@ -102,12 +105,14 @@ ReactDOM.render(
             <Route path="/pruebas" component={Pruebas} />
             <TeacherRoutes path="/teacherPage" exact component={Teacher} />
             <UserProvider>
-              <Route exact path="/" component={Home} />
-              <Route
-                exact
-                path="/ProfileTeachers/:idTeacher"
-                component={Profile}
-              />
+              <ModalContextProvider>
+                <Route exact path="/" component={Home} />
+                <Route
+                  exact
+                  path="/ProfileTeachers/:idTeacher"
+                  component={Profile}
+                />
+              </ModalContextProvider>
               <Route exact path="/SignIn" component={SignIn} />
               <Route exact path="/SignUp" component={SignUp} />
               <PrivateRouter

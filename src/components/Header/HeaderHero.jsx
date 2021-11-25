@@ -38,7 +38,7 @@ const HeaderHero = ({ isLogged, ActivarLoged }) => {
   const [ShowForm, setShowForm] = useState(false);
   const [ShowFormData, setShowFormData] = useState(false);
   const dataUserContext = useContext(DataUserContext);
-  const { GetData, DataUser, Loading } = useUserData();
+  const { GetData, DataUser, Loading, hasLoginError } = useUserData();
   const [Load, setLoading] = useState(true);
 
   const { SignUp } = useUser();
@@ -51,6 +51,17 @@ const HeaderHero = ({ isLogged, ActivarLoged }) => {
   // }
 
   useEffect(() => {
+    try {
+      // trying to use new API - https://developer.mozilla.org/en-US/docs/Web/API/Window/scrollTo
+      window.scroll({
+        top: 0,
+        left: 0,
+        behavior: "smooth",
+      });
+    } catch (error) {
+      // just a fallback for older browsers
+      window.scrollTo(0, 0);
+    }
     if (isLogged) {
       console.log(Object.keys(UerData).length);
       return dispatch(GetDataUser());
@@ -148,6 +159,7 @@ const HeaderHero = ({ isLogged, ActivarLoged }) => {
         setShowForm={setShowForm}
         SignUp={SignUp}
         isLogged={isLogged}
+        hasLoginError={hasLoginError}
       />
       <Teachers />
       <PriceSection />

@@ -8,12 +8,17 @@ import { useSelector, useDispatch } from "react-redux";
 import { RESET_PRICES } from "../../redux/actions/types";
 import { GroupPersons } from "../../redux/actions/ItemOnePackageAction";
 import { Select_Package } from "../../redux/actions/packageAction";
-import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import LessonMonths from "./lessonMonth";
-
 import ProgressStetpBar from "./ProgressStetpBar";
+import { isAuth } from "../../helpers/Auth";
 
-export default function ModalPackage({ ShowModal, setShowModal }) {
+export default function ModalPackage({
+  ShowModal,
+  setShowModal,
+  modalcontext,
+}) {
+  const history = useHistory();
   const modalRef = useRef();
   const InputMonths = useRef(0);
   const MonthsNumber = useSelector((state) => state.itemPackage.numberMonts);
@@ -126,7 +131,7 @@ export default function ModalPackage({ ShowModal, setShowModal }) {
     setShowModal(false);
     dispatch({
       type: "AddCart",
-      payload: 50,
+      payload: 25,
     });
   };
   //     ======>  realizar aqui   de los meses    <=====
@@ -134,6 +139,32 @@ export default function ModalPackage({ ShowModal, setShowModal }) {
   const handleMonth = useCallback(() => {
     setMonths({ value: InputMonths.current.value });
   }, []);
+
+  // const packageItems = useSelector((state) => state.package);
+
+  // -------------------------- handle procced to payment ----------------------
+  const handleProcced = () => {
+    dispatch(
+      Select_Package(CalculoPrices, "English", LessonsMonth, time, MonthsNumber)
+    );
+    if (isAuth()) {
+      return history.push("/payclient");
+    }
+    setShowModal(false);
+    //               -------->!modalcontext.ModalState
+    return modalcontext.setModalState(true);
+    // console.log(packageItems);
+    // const items = packageItems.items.find((x) => x.idiom === "English");
+    // console.log(items){
+    // }
+    // dispatch({
+    //   type: "PROCCED_TO_PAY",
+    //   payload: {
+    //     price: itemPackage.calculatePrices,
+    //     items:   1,
+    //   },
+    // });
+  };
   // }, [Months]);
 
   // ##################################################################
@@ -183,7 +214,7 @@ export default function ModalPackage({ ShowModal, setShowModal }) {
                     </ContentSelect>
 
                     <ContentSelect>
-                      <TextLesson sson>Duration of each lesson</TextLesson>
+                      <TextLesson>Duration of each lesson</TextLesson>
                       <OptionTime
                         valor={OnClickValores}
                         GroupLessons={GroupClass}
@@ -221,9 +252,16 @@ export default function ModalPackage({ ShowModal, setShowModal }) {
                       <Buttons Cart title="add to cart" onClick={handleCart}>
                         add to cart
                       </Buttons>
-                      <Link to="/payclient">
-                        <Buttons title="Procced to pay">Procced to pay</Buttons>
-                      </Link>
+                      <Buttons
+                        opacity={CalculoPrices > 0 ? false : true}
+                        title="Procced to pay"
+                        disabled={CalculoPrices > 0 ? false : true}
+                        onClick={handleProcced}
+                      >
+                        Procced to pay
+                      </Buttons>
+                      {/* <Link to="/payclient">
+                      </Link> */}
                     </Content_Buttons>
                   </MonthPrices>
                 </InformContent>
@@ -335,6 +373,8 @@ const Buttons = styled.button`
   background: ${({ Cart }) => (Cart ? "#ff3946" : "#314584")};
   border-radius: 6px;
   margin-left: 5px;
+  /* opacity: 0.5; */
+  opacity: ${({ opacity }) => (opacity ? 0.5 : 1)};
 `;
 const MonthBuy = styled.input`
   background: transparent;

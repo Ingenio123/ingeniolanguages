@@ -23,6 +23,7 @@ export default function ModalRequesFreeClass({
   setShowForm,
   SignUp,
   isLogged,
+  hasLoginError,
 }) {
   const modalRef = useRef();
   const [ShowPassword, setShowPassword] = useState(true);
@@ -79,7 +80,7 @@ export default function ModalRequesFreeClass({
     const cellphone = valorPhone.phone;
     const res = await SignUp({ data, country, cellphone });
 
-    if (res) {
+    if (res.success) {
       if (isAuth()) {
         if (route === "democlass") {
           return history.push("/democlass");
@@ -105,6 +106,7 @@ export default function ModalRequesFreeClass({
       {ShowForm ? (
         <div className="windowModal" onClick={CloseModal} ref={modalRef}>
           <ModalWrapper>
+            {/* {Object.keys(error).length > 0 && <span>{error.message}</span>} */}
             <ContainerForm>
               <Form onSubmit={handleSubmit((e) => SendData(e))}>
                 <Form__Content>

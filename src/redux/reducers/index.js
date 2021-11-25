@@ -6,6 +6,7 @@ import temary from "./temaryReducer";
 import itemPackage from "./ItemPackageReducer";
 import stepProgress from "./StepProgress";
 import UserDataRedux from "./UserData";
+import Proced_to_pay from "./procedTopayment";
 export default combineReducers({
   auth: authReducer,
   package: packageReducer,
@@ -15,4 +16,5 @@ export default combineReducers({
   temary,
   itemPackage,
   stepProgress,
+  ProcedToPay: Proced_to_pay,
 });

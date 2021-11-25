@@ -89,11 +89,26 @@ export const SignUpUser = async ({ data, country, cellphone }) => {
     phone,
   });
   try {
-    const res = await axios.post(Enpoint, body, config);
-    console.log(res);
-    if (!res) return false;
-    return res;
+    const res = await fetch(Enpoint, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body,
+    });
+    // const res = await axios.post(Enpoint, body, config);
+    // console.log(res);
+    if (res.status >= 400) {
+      const data = await res.json();
+      return {
+        success: data.succes,
+        message: data.message,
+      };
+    }
+    const data = await res.json();
+    return data;
   } catch (error) {
+    console.log(error);
     return false;
   }
 };

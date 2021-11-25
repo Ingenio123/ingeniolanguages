@@ -3,11 +3,12 @@ import { AiOutlineShoppingCart } from "react-icons/ai";
 import styled from "styled-components";
 import "../../assets/components/ResponsiveTeachers.css";
 import ModalFreeClass from "../Header/ModalRequesFreeClass";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import useUser from "../../hooks/useUser";
 import { Link as LinKId } from "react-scroll";
 
 export const HeaderHero = ({ data }) => {
+  const TopRef = useRef(null);
   const { SignUp, isLogged } = useUser();
   const Icon = styled(AiOutlineShoppingCart)`
     height: 30px;
@@ -24,7 +25,11 @@ export const HeaderHero = ({ data }) => {
 
   return (
     <>
-      <main className="container about" style={{ marginTop: "70px" }}>
+      <main
+        className="container about"
+        style={{ marginTop: "70px" }}
+        ref={TopRef}
+      >
         <div className="spaces">
           <figure className="about__image__teacher">
             <img src={data.imageUrl} alt="nada" />
