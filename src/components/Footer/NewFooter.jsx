@@ -75,7 +75,7 @@ export default function NewFooter() {
             <LinkIcon
               to={{
                 pathname:
-                  "https://api.whatsapp.com/send?phone=593998546897&text=hola,%20qué%20tal",
+                  "https://api.whatsapp.com/send?phone=593998546897&text=Hello!%20I%20would%20like%20to%20know%20more%20about%20your%20language%20programs.",
               }}
               target="_blank"
             >

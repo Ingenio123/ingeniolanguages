@@ -22,7 +22,7 @@ export const Items = [
 ];
 export const ItemsNotStudent = [
   {
-    nameItem: "Englsish",
+    nameItem: "English",
     idiom: "English",
   },
   {

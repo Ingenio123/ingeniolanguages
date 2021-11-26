@@ -3,10 +3,11 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { IoClose } from "react-icons/io5";
 import OpsImage from "../../../../assets/images/ops.png";
+import { useHistory } from "react-router-dom";
 
 export default function NotStudent({ notStudent, setNotStudent }) {
   const BackgroundRef = useRef();
-
+  const history = useHistory();
   const keyPress = useCallback(
     (e) => {
       if (e.key === "Escape" && notStudent) {
@@ -40,7 +41,9 @@ export default function NotStudent({ notStudent, setNotStudent }) {
                 <DivText start>
                   <Button>Buy a lesson</Button>
                   <TextSm>Or</TextSm>
-                  <Button free>Request free lesson</Button>
+                  <Button free to="/democlass">
+                    Request free lesson
+                  </Button>
                 </DivText>
               </GridText>
             </Content>

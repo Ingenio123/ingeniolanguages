@@ -3,29 +3,57 @@ import styled from "styled-components";
 import ModalCalendar from "../ModalCalendar";
 import Student from "../../../Context/StudentContext";
 import ModalNotStudent from "./NotStudent";
+import { useLocation } from "react-router-dom";
+import { useSelector } from "react-redux";
 
-export default function SectionTeacher({ TeacherIdiom, idiom }) {
+import Url from "../../../Urls";
+
+function QueryLocation() {
+  return new URLSearchParams(useLocation().search);
+}
+// { TeacherIdiom, idiom }
+export default function SectionTeacher() {
   const studentContext = useContext(Student);
   const [showModal, setShowModal] = useState(false);
   const [notStudent, setNotStudent] = useState(false);
   const [state, setstate] = useState(false);
   const [ValorCalendar, setValorCalendar] = useState({});
-
+  const [Data, setData] = useState(null);
+  const [DataIdiom, setDataIdiom] = useState({
+    data: [],
+    idiom: null,
+  });
+  const query = QueryLocation();
   const OpenModal = () => {
     setShowModal((prev) => !prev);
   };
   const UserNotStudent = () => {
     setNotStudent((prev) => !prev);
   };
-
-  async function GetStudent() {
-    await studentContext.getStudent();
-    return;
-  }
+  const { idiom } = useSelector((state) => state.GetIdiomReducer);
 
   useEffect(() => {
-    GetStudent();
-  }, []);
+    return setDataIdiom({
+      data: idiom.datos,
+      idiom: idiom.idiom,
+    });
+  }, [idiom]);
+  // useEffect(() => {
+  //   GetStudent();
+  // }, []);
+
+  // useEffect(() => {
+  //   console.log(`${query.get("idiom")}`);
+  //   const EndPoint = Url.url;
+  //   const GetData = async () => {
+  //     const res = await fetch(
+  //       `${EndPoint}/data/courses?idiom=${query.get("idiom")}`
+  //     );
+  //     const data = await res.json();
+  //     return setData(data);
+  //   };
+  //   GetData();
+  // }, [query]);
 
   /*
   --------------------------------------------------------------------
@@ -48,6 +76,7 @@ export default function SectionTeacher({ TeacherIdiom, idiom }) {
     );
     setValorCalendar(val[0]);
   }, []);
+
   const ShowTypeModal = (param) => {
     if (studentContext.student) {
       valores(param);
@@ -70,11 +99,12 @@ export default function SectionTeacher({ TeacherIdiom, idiom }) {
         />
       )}
       <ModalNotStudent setNotStudent={setNotStudent} notStudent={notStudent} />
-      <TitleTeachers>Booking your {idiom} lesson now</TitleTeachers>
+      <TitleTeachers>Booking your {DataIdiom.idiom} lesson now</TitleTeachers>
+
       <ContentTeacherXl>
-        {TeacherIdiom ? (
+        {DataIdiom.idiom ? (
           <>
-            {TeacherIdiom.map((item, index) => {
+            {DataIdiom.data.map((item, index) => {
               return (
                 <>
                   <ContentTeacher key={index}>

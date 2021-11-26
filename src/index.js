@@ -63,6 +63,9 @@ import StudentProvider from "./hooks/useStudent";
 
 import { ModalContextProvider } from "./components/Context/modlaContext";
 
+// Navbar statete -> idiom
+import NavbarState from "./context/NavbarContext";
+
 // i18next.init({
 //   interpolation: {
 //     escapeValue: false,
@@ -87,7 +90,7 @@ ReactDOM.render(
           <App />
           <Switch>
             <Route exact path="/payclient" component={formCheckOutPay} />
-            <Route exact path="/results/" component={resultDatafast} />
+            <Route exact path="/results" component={resultDatafast} />
             <Route
               exact
               path="/politicasPrivacidad"
@@ -122,16 +125,16 @@ ReactDOM.render(
               />
               <StudentProvider>
                 <PrivateRouter path="/private" exact component={UserPrivate} />
-              </StudentProvider>
-              <PrivateRouter path="/myprogress" exact component={UserSumary} />
-              <PrivateRouter path="/democlass" exact component={Democlass} />
-              <StudentState>
-                <PrivateRouter path="/temary" exact component={IndexTemary} />
                 <PrivateRouter
                   path="/booklesson"
                   exact
                   component={BookLesson}
                 />
+              </StudentProvider>
+              <PrivateRouter path="/myprogress" exact component={UserSumary} />
+              <PrivateRouter path="/democlass" exact component={Democlass} />
+              <StudentState>
+                <PrivateRouter path="/temary" exact component={IndexTemary} />
               </StudentState>
             </UserProvider>
           </Switch>

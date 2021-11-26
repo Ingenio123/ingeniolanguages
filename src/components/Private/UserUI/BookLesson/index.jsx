@@ -5,36 +5,61 @@ import URI from "../../../Urls";
 import styled from "styled-components";
 // getStudent  context
 import Student from "../../../Context/StudentContext";
+// import NavbarContext from "../../../../context/NavbarContext";
+import NavbarState from "../../../../context/NavbarContext";
 
 export default function Index() {
-  const query = QueryLocation();
   const [Datas, setDatas] = useState(null);
   const studentContext = useContext(Student);
+  // const GetIdiom = useCallback(async () => {
+  //   const Endpoint = URI.url;
+  //   const res = await fetch(
+  //     `${Endpoint}/data/courses?idiom=${query.get("idiom")}`
+  //   );
+  //   const data = await res.json();
+  //   console.log(`Get item: ${query.get("idiom")}`);
+  //   return setDatas(data.datos);
+  // }, []);
 
-  const hanleTeachers = useCallback(async () => {
-    const Endpoint = URI.url;
-    const res = await fetch(
-      `${Endpoint}/data/courses?idiom=${query.get("idiom")}`
-    );
-    const data = await res.json();
-    console.log(data);
-    setDatas(data.datos);
-  }, []);
+  // useEffect(() => {
+  //   const getIdiom = async () => {
+  //     const Endpoint = URI.url;
+  //     const res = await fetch(
+  //       `${Endpoint}/data/courses?idiom=${query.get("idiom")}`
+  //     );
+  //     const data = await res.json();
+  //     console.log(`Get item: ${query.get("idiom")}`);
+  //     return setDatas(data.datos);
+  //   };
+  //   getIdiom();
+  // }, [getIdiom]);
+
+  // const hanleTeachers = useCallback(async () => {
+  //   const Endpoint = URI.url;
+  //   const res = await fetch(
+  //     `${Endpoint}/data/courses?idiom=${query.get("idiom")}`
+  //   );
+  //   const data = await res.json();
+  //   // console.log("Data idiom:", data);
+  //   setDatas(data.datos);
+  // }, [query]);
 
   async function GetStudent() {
     await studentContext.getStudent();
   }
+
   useEffect(() => {
-    hanleTeachers();
     GetStudent();
   }, []);
 
-  
+  // useEffect(() => {
+  //   GetIdiom();
+  // }, [GetIdiom]);
 
   return (
     <Content>
       <SectionTeachersCard
-        idiom={query.get("idiom")}
+        idiom={"English"}
         TeacherIdiom={Datas}
         student={studentContext.student}
       />

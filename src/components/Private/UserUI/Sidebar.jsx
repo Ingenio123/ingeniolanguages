@@ -3,8 +3,9 @@ import { FiLogOut } from "react-icons/fi";
 import { AiOutlineUser } from "react-icons/ai";
 import "./Sidebar.css";
 import { useDispatch } from "react-redux";
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext, useCallback } from "react";
 import { Logout } from "../../../redux/actions/authAction";
+import { GetIdiomAction } from "../../../redux/actions/getIdiomAction";
 import { useHistory, Link } from "react-router-dom";
 import { useGoogleLogin } from "react-use-googlelogin";
 import { isAuth } from "../../../helpers/Auth";
@@ -13,9 +14,10 @@ import Url from "../../Urls";
 import axios from "axios";
 import styled from "styled-components";
 import ingenio from "../../../assets/images/IngenioLanguages.svg";
-import UseStudent from "../../../hooks/useStudent";
 
 import studentContext from "../../Context/StudentContext";
+// context navbar idiom -
+import ContextNavbar from "../../../context/NavbarContext";
 
 export default function Sidebar({ salir, isLogged }) {
   const dispatch = useDispatch();
@@ -25,7 +27,8 @@ export default function Sidebar({ salir, isLogged }) {
   const [clickImgProfile, setClickImgProfile] = useState(false);
   const [Click, setClick] = useState(false);
   const contextStudent = useContext(studentContext);
-
+  // useContext -> Navbar  -> Function getIdiom() - Atributo idiom: null
+  const contextNavbar = useContext(ContextNavbar);
   // states
   const [sidebar, setSidebar] = useState(false);
 
@@ -80,6 +83,16 @@ export default function Sidebar({ salir, isLogged }) {
   const ActivaMenuProfile = () => {
     setClickImgProfile(!clickImgProfile);
   };
+
+  const handleClikcBook = useCallback(
+    async (idiom) => {
+      dispatch(GetIdiomAction(idiom));
+      return history.push("/booklesson");
+      // contextNavbar.getIdiom(idiom);
+      // // return history.push();
+    },
+    [dispatch]
+  );
 
   return (
     <div>
@@ -166,12 +179,13 @@ export default function Sidebar({ salir, isLogged }) {
                         ) : (
                           <>
                             {ItemsNotStudent.map((names, index) => (
-                              <Link
+                              <ItemsClick
                                 key={index}
-                                to={`/booklesson?idiom=${names.idiom}`}
+                                // to={`/booklesson?idiom=${names.idiom}`}
+                                onClick={() => handleClikcBook(names.idiom)}
                               >
                                 {names.nameItem}
-                              </Link>
+                              </ItemsClick>
                             ))}
                           </>
                         )}
@@ -283,7 +297,14 @@ const LinkItems = styled(Link)`
     color: rgb(255, 255, 255);
   }
 `;
-
+const ItemsClick = styled.li`
+  color: #bdbdbd;
+  font-size: 1rem;
+  :hover {
+    cursor: pointer;
+    color: #fff;
+  }
+`;
 {
   /* <div>
   <div className={sidebar ? "l-navbar show" : "l-navbar"} id="nav-bar">
