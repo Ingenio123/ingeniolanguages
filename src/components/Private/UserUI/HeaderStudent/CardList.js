@@ -34,7 +34,7 @@ const CardList = [
   {
     img: "https://i.pinimg.com/474x/c9/88/03/c98803dababf408a24a23ffead108692.jpg",
     urltemary: "/temary",
-    idiom: "Germany",
+    idiom: "German",
     timeLesson: "0",
     lessonTotal: "0",
     idIdiom: "6170cc9608370b9faec085a8",

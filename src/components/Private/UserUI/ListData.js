@@ -34,7 +34,7 @@ export const ItemsNotStudent = [
     idiom: "French",
   },
   {
-    nameItem: "Germany",
+    nameItem: "German",
     idiom: "Germany",
   },
   {
