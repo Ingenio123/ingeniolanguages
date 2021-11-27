@@ -35,7 +35,7 @@ import redirectpage from "./components/Redirect/redirect";
 import UserSumary from "./components/Private/UserSumary";
 
 import TerminosCondiciones from "./components/TerminosCondiciones/TerminosCondiciones";
-import BookLesson from "./components/Private/UserUI/BookLesson";
+// import BookLesson from "./components/Private/UserUI/BookLesson";
 
 import { UserProvider } from "./components/Context/userDataContext";
 
@@ -64,7 +64,10 @@ import StudentProvider from "./hooks/useStudent";
 import { ModalContextProvider } from "./components/Context/modlaContext";
 
 // Navbar statete -> idiom
-import NavbarState from "./context/NavbarContext";
+import NavbarState from "./hooks/useNavbar";
+
+// ######################################### PAGES ########################################## //
+import BookLesson from "./pages/Private_pages/BookLesson";
 
 // i18next.init({
 //   interpolation: {
@@ -125,11 +128,13 @@ ReactDOM.render(
               />
               <StudentProvider>
                 <PrivateRouter path="/private" exact component={UserPrivate} />
-                <PrivateRouter
-                  path="/booklesson"
-                  exact
-                  component={BookLesson}
-                />
+                <NavbarState>
+                  <PrivateRouter
+                    path="/booklesson"
+                    exact
+                    component={BookLesson}
+                  />
+                </NavbarState>
               </StudentProvider>
               <PrivateRouter path="/myprogress" exact component={UserSumary} />
               <PrivateRouter path="/democlass" exact component={Democlass} />

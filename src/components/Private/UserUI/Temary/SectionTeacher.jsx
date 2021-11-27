@@ -4,25 +4,20 @@ import ModalCalendar from "../ModalCalendar";
 import Student from "../../../Context/StudentContext";
 import ModalNotStudent from "./NotStudent";
 import { useLocation } from "react-router-dom";
-import { useSelector } from "react-redux";
 
 import Url from "../../../Urls";
 
 function QueryLocation() {
   return new URLSearchParams(useLocation().search);
 }
-// { TeacherIdiom, idiom }
-export default function SectionTeacher() {
+
+export default function SectionTeacher({ TeacherIdiom, idiom }) {
   const studentContext = useContext(Student);
   const [showModal, setShowModal] = useState(false);
   const [notStudent, setNotStudent] = useState(false);
   const [state, setstate] = useState(false);
   const [ValorCalendar, setValorCalendar] = useState({});
   const [Data, setData] = useState(null);
-  const [DataIdiom, setDataIdiom] = useState({
-    data: [],
-    idiom: null,
-  });
   const query = QueryLocation();
   const OpenModal = () => {
     setShowModal((prev) => !prev);
@@ -30,14 +25,7 @@ export default function SectionTeacher() {
   const UserNotStudent = () => {
     setNotStudent((prev) => !prev);
   };
-  const { idiom } = useSelector((state) => state.GetIdiomReducer);
 
-  useEffect(() => {
-    return setDataIdiom({
-      data: idiom.datos,
-      idiom: idiom.idiom,
-    });
-  }, [idiom]);
   // useEffect(() => {
   //   GetStudent();
   // }, []);
@@ -99,12 +87,11 @@ export default function SectionTeacher() {
         />
       )}
       <ModalNotStudent setNotStudent={setNotStudent} notStudent={notStudent} />
-      <TitleTeachers>Booking your {DataIdiom.idiom} lesson now</TitleTeachers>
-
+      <TitleTeachers>Booking your {idiom} lesson now</TitleTeachers>
       <ContentTeacherXl>
-        {DataIdiom.idiom ? (
+        {TeacherIdiom ? (
           <>
-            {DataIdiom.data.map((item, index) => {
+            {TeacherIdiom.map((item, index) => {
               return (
                 <>
                   <ContentTeacher key={index}>

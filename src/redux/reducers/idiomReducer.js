@@ -4,7 +4,8 @@ const Reducer = (state, action) => {
     case "GET_IDIOM":
       return {
         ...state,
-        idiom: payload,
+        idiom: payload.res,
+        load: payload.load,
       };
     case "ERROR_IDIOM":
       return {

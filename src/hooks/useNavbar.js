@@ -6,17 +6,22 @@ import { getIdiom as get } from "../services/idioms";
 const NavBarState = (props) => {
   const initalState = {
     idiom: null,
+    load: true,
   };
   const [state, dispatch] = useReducer(IdiomReducer, initalState);
 
   //
+
   const getIdiom = async (idiom) => {
     try {
       const res = await get(idiom);
       if (res.success) {
         return dispatch({
           type: "GET_IDIOM",
-          payload: res,
+          payload: {
+            load: false,
+            res,
+          },
         });
       }
       return dispatch({
@@ -32,6 +37,7 @@ const NavBarState = (props) => {
     <NavbarContext.Provider
       value={{
         idiom: state.idiom,
+        load: state.load,
         getIdiom,
       }}
     >

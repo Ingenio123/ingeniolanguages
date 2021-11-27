@@ -27,8 +27,7 @@ export default function Sidebar({ salir, isLogged }) {
   const [clickImgProfile, setClickImgProfile] = useState(false);
   const [Click, setClick] = useState(false);
   const contextStudent = useContext(studentContext);
-  // useContext -> Navbar  -> Function getIdiom() - Atributo idiom: null
-  const contextNavbar = useContext(ContextNavbar);
+  // useContext -> Navbar  -> Function getIdiom() - Atributo idiom: nul
   // states
   const [sidebar, setSidebar] = useState(false);
 
@@ -83,16 +82,6 @@ export default function Sidebar({ salir, isLogged }) {
   const ActivaMenuProfile = () => {
     setClickImgProfile(!clickImgProfile);
   };
-
-  const handleClikcBook = useCallback(
-    async (idiom) => {
-      dispatch(GetIdiomAction(idiom));
-      return history.push("/booklesson");
-      // contextNavbar.getIdiom(idiom);
-      // // return history.push();
-    },
-    [dispatch]
-  );
 
   return (
     <div>
@@ -179,13 +168,13 @@ export default function Sidebar({ salir, isLogged }) {
                         ) : (
                           <>
                             {ItemsNotStudent.map((names, index) => (
-                              <ItemsClick
+                              <Link
                                 key={index}
-                                // to={`/booklesson?idiom=${names.idiom}`}
-                                onClick={() => handleClikcBook(names.idiom)}
+                                to={`/booklesson?idiom=${names.idiom}`}
+                                // onClick={() => handleClikcBook(names.idiom)}
                               >
                                 {names.nameItem}
-                              </ItemsClick>
+                              </Link>
                             ))}
                           </>
                         )}

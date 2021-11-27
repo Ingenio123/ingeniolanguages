@@ -41,7 +41,7 @@ const imgs = (idiom) => {
       return Ruso;
     case "Korean":
       return korea;
-    case "Germany":
+    case "German":
       return Germany;
     default:
       return English;
@@ -61,7 +61,7 @@ const imgFondo = (idiom) => {
       return KoreaImg;
     case "Aleman":
       return Alemania;
-    case "Germany":
+    case "German":
       return Alemania;
     default:
       return English;
