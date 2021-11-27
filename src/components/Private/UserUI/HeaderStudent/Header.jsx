@@ -11,6 +11,8 @@ import {
   IoDocumentTextOutline,
 } from "react-icons/io5";
 
+import { BiChevronRight } from "react-icons/bi";
+
 import { FaCartPlus } from "react-icons/fa";
 import studentContext from "../../../Context/StudentContext";
 import CardList from "./CardList";
@@ -71,8 +73,7 @@ const imgFondo = (idiom) => {
 export default function Header() {
   const history = useHistory();
   const contextStudent = useContext(studentContext);
-  const teachers = useTeacher();
-  const { GetTeachers } = teachers;
+
   const Home = () => {
     history.push("/");
   };
@@ -128,6 +129,9 @@ export default function Header() {
         <>
           {CardList.map((item, index) => (
             <CardContent key={index} img={imgFondo(item.idiom)}>
+              <ButtonNext>
+                <BiChevronRight size="1.3rem" />
+              </ButtonNext>
               <CardCourse>
                 <ContentImage>
                   <Img url={imgs(item.idiom)} alt="" width="200px" />
@@ -155,7 +159,7 @@ export default function Header() {
                     <ItemsDeCompra>
                       <IconCalendar />
                       <ItemContent>
-                        Lessons package expiration: 22/22/21
+                        Lessons package expiration: 00/00/00
                       </ItemContent>
                     </ItemsDeCompra>
                   </DatosDeCompra>
@@ -169,6 +173,29 @@ export default function Header() {
   );
 }
 
+// const Icons = styled(BiChevronRight)`
+//   font-size:
+// `;
+
+const ButtonNext = styled.button`
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  border: none;
+  width: 25px;
+  height: 25px;
+  background-color: #fff;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.3s ease;
+  opacity: 0.8;
+  :hover {
+    opacity: 1;
+  }
+`;
+
 const CardContent = styled.div`
   background-image: url(${(props) => props.img});
   background-size: cover;
@@ -177,6 +204,7 @@ const CardContent = styled.div`
   margin-right: 0.5rem;
   height: 100%;
   border-radius: 4px;
+  position: relative;
 `;
 const ContentCards = styled.div`
   width: 490px;
@@ -215,7 +243,7 @@ const BuyNewCourse = styled(FaCartPlus)`
 
 const CardCourse = styled.div`
   display: grid;
-  grid-template-columns: 150px 280px;
+  grid-template-columns: 150px 290px;
   border-radius: 5px;
   padding: 1rem 1rem 0.8rem 0.2rem;
   /* background: rgba(0, 0, 0, 0.1);

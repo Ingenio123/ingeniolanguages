@@ -6,13 +6,10 @@ import { Temary } from "../../../components/Private/UserUI/Temary/Temary";
 export default function UserPrivate({ children }) {
   return (
     <Container>
-      {/* <CardList></CardList> */}
-      <ProviderTeachers>
-        <ContentTemary>
-          <CardLists />
-          <Temary />
-        </ContentTemary>
-      </ProviderTeachers>
+      <ContentTemary>
+        <CardLists />
+        <Temary />
+      </ContentTemary>
     </Container>
   );
 }
@@ -28,7 +25,8 @@ const Container = styled.main`
 const ContentTemary = styled.div`
   width: 100%;
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: 485px 1fr;
+  column-gap: 1rem;
 `;
 
 // const CardList = styled.div`
