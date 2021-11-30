@@ -76,8 +76,8 @@ export default function Sidebar({ salir, isLogged }) {
     salir();
     return history.push("/");
   };
-  const CourseContent = () => {
-    return history.push("/private");
+  const Redirect = (param) => {
+    return history.push(param);
   };
   const ActivaMenuProfile = () => {
     setClickImgProfile(!clickImgProfile);
@@ -101,11 +101,17 @@ export default function Sidebar({ salir, isLogged }) {
                   </i>
                   <span>Profile</span>
                 </li>
-                <li onClick={CourseContent}>
+                <li onClick={() => Redirect("/private")}>
                   <i>
                     <BiBook />
                   </i>
                   <span>Course content</span>
+                </li>
+                <li onClick={() => Redirect("/progress")}>
+                  <i>
+                    <BiBook />
+                  </i>
+                  <span>my progress</span>
                 </li>
                 <li className="--line" onClick={logout}>
                   <i>
@@ -157,7 +163,7 @@ export default function Sidebar({ salir, isLogged }) {
                             {contextStudent.student.QueryStudent.courses.map(
                               (item, index) => (
                                 <Link
-                                  to={`/booklesson?idiom=${item.idiom}`}
+                                  to={`/booklesson?language=${item.idiom}`}
                                   key={index}
                                 >
                                   {item.idiom}
@@ -170,7 +176,7 @@ export default function Sidebar({ salir, isLogged }) {
                             {ItemsNotStudent.map((names, index) => (
                               <Link
                                 key={index}
-                                to={`/booklesson?idiom=${names.idiom}`}
+                                to={`/booklesson?language=${names.idiom}`}
                                 // onClick={() => handleClikcBook(names.idiom)}
                               >
                                 {names.nameItem}
@@ -178,21 +184,6 @@ export default function Sidebar({ salir, isLogged }) {
                             ))}
                           </>
                         )}
-                      </div>
-                    )}
-                    {item.name === "My progress" && (
-                      <div className="dropdown-subitem">
-                        {contextStudent.student ? (
-                          <>
-                            {contextStudent.student.QueryStudent.courses.map(
-                              (item, index) => (
-                                <Link to={`/myprogress`} key={index}>
-                                  {item.idiom}
-                                </Link>
-                              )
-                            )}
-                          </>
-                        ) : null}
                       </div>
                     )}
                   </span>

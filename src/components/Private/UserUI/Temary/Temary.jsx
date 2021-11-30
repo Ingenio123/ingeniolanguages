@@ -1,15 +1,16 @@
 import "./Temary.scss";
 import { BiChevronUp, BiCheckCircle } from "react-icons/bi";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, useContext } from "react";
 import axios from "axios";
 import styled from "styled-components";
+import { ContextCardIdiom } from "../../../../context/CardIdiomContext";
 
 export const Temary = () => {
   const [Valor, setValor] = useState([]);
   const [ClickPrimary, setClickPrimary] = useState(false);
   const [ClickSecondary, setClickSecondary] = useState(false);
   const FormRef = useRef();
-
+  const { Student } = useContext(ContextCardIdiom);
   const GetDataTemary = async () => {
     const Enpoint = "https://www.ingenioapi.com/temary/getTemary";
 
@@ -40,7 +41,7 @@ export const Temary = () => {
   return (
     <TemaryLayout className="l-section s-border md-pxy brd-radius">
       <div className="dgrid m-grid-2 al-center header_temary">
-        <h2 className="mb-0">Course content</h2>
+        <h2 className="mb-0">{Student || "Spanish"} course content </h2>
         <div>
           <InputSearch
             type="search"

@@ -68,6 +68,7 @@ import NavbarState from "./hooks/useNavbar";
 
 // ######################################### PAGES ########################################## //
 import BookLesson from "./pages/Private_pages/BookLesson";
+import Progress from "./pages/Private_pages/UserOrStudent/progress";
 
 // i18next.init({
 //   interpolation: {
@@ -136,7 +137,7 @@ ReactDOM.render(
                   />
                 </NavbarState>
               </StudentProvider>
-              <PrivateRouter path="/myprogress" exact component={UserSumary} />
+              <PrivateRouter path="/progress" exact component={Progress} />
               <PrivateRouter path="/democlass" exact component={Democlass} />
               <StudentState>
                 <PrivateRouter path="/temary" exact component={IndexTemary} />

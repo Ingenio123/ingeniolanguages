@@ -31,6 +31,9 @@ import KoreaImg from "../../../../assets/images/svgs/Korea.png";
 import Francia from "../../../../assets/images/svgs/Francia.png";
 import Inglaterra from "../../../../assets/images/svgs/Inglaterra.png";
 
+//
+import useCardIdiom from "../../../../hooks/useCardIdiom";
+
 const imgs = (idiom) => {
   switch (idiom) {
     case "French":
@@ -73,7 +76,7 @@ const imgFondo = (idiom) => {
 export default function Header() {
   const history = useHistory();
   const contextStudent = useContext(studentContext);
-
+  const { getIdiom } = useCardIdiom();
   const Home = () => {
     history.push("/");
   };
@@ -85,6 +88,17 @@ export default function Header() {
     // console.log("Header Student", teachers);
   }, []);
 
+  //
+
+  const handleClickCardIdiom = (param) => {
+    getIdiom(param);
+    window.scroll({
+      top: 104,
+      left: 0,
+      behavior: "smooth",
+    });
+  };
+  //
   return (
     <ContentCards>
       {contextStudent.student ? (
@@ -129,7 +143,7 @@ export default function Header() {
         <>
           {CardList.map((item, index) => (
             <CardContent key={index} img={imgFondo(item.idiom)}>
-              <ButtonNext>
+              <ButtonNext onClick={() => handleClickCardIdiom(item.idiom)}>
                 <BiChevronRight size="1.3rem" />
               </ButtonNext>
               <CardCourse>

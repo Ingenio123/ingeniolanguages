@@ -24,18 +24,22 @@
   --mb-0: 0;
 
   --vertical-block-space: 2rem;
-  --gap: 2rem;
+  --gap: 1rem;
   --radius-line: 2rem;
   --size-line: 0.25rem;
 
   --heading-line-height: 1.3;
   --title-color: var(--gray-700);
   --h3-font-size: 1.25rem;
+
+  --grid-column-header: 400px 1fr;
 }
 // base
 h2 {
   font-size: 2rem;
   font-weight: 400;
+  line-height: normal;
+  letter-spacing: normal;
 }
 h3 {
   line-height: var(--heading-line-height);
@@ -206,6 +210,7 @@ h4 {
 // header_temary
 .header_temary {
   // border:1px solid var(--green-400);
+  grid-template-columns: var(--grid-column-header);
 }
 
 .s-cross-center {

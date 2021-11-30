@@ -1,0 +1,50 @@
+[
+  {
+    "idiom": "Spanish",
+    "color": "#FEF08A",
+    "TimeLossons": "0 minutes",
+    "textColor": "#FACC15",
+    "primary": "#F59E0B",
+    "porcentaje": "0"
+  },
+  {
+    "idiom": "French",
+    "color": "#D8B4FE",
+    "TimeLossons": "0 minutes",
+    "textColor": "#7C3AED",
+    "primary": "#7E22CE",
+    "porcentaje": "0"
+  },
+  {
+    "idiom": "English",
+    "color": "#BFDBFE",
+    "TimeLossons": "0 minutes",
+    "textColor": "#2563EB",
+    "primary": "#1D4ED8",
+    "porcentaje": "0"
+  },
+  {
+    "idiom": "Russian",
+    "color": "#FECACA",
+    "TimeLossons": "0 minutes",
+    "textColor": "#DC2626",
+    "primary": "#B91C1C",
+    "porcentaje": "0"
+  },
+  {
+    "idiom": "German",
+    "color": "#BBF7D0",
+    "TimeLossons": "0 minutes",
+    "textColor": "#22C55E",
+    "primary": "#059669",
+    "porcentaje": "0"
+  },
+  {
+    "idiom": "Korean",
+    "color": "#DBEAFE",
+    "TimeLossons": "#2563EB",
+    "textColor": "#2563EB",
+    "primary": "#1D4ED8",
+    "porcentaje": "0"
+  }
+]

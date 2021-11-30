@@ -14,6 +14,7 @@ export const Items = [
   },
   {
     name: "My progress",
+    link: "/progress",
   },
   {
     name: "Profile",
