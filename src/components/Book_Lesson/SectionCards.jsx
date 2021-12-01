@@ -1,13 +1,21 @@
 import styled from "styled-components";
 import PropsTypes from "prop-types";
-const SectionCards = ({ image_url, idiom, name_teacher, eslogan }) => (
+const SectionCards = ({
+  image_url,
+  idiom,
+  name_teacher,
+  eslogan,
+  clickModal,
+}) => (
   <ContentCards>
     <Img src={image_url} alt={idiom} />
     <ContenTextTeacher>
       <NombreTeacher>{name_teacher}</NombreTeacher>
       <TextTeacher>{eslogan}</TextTeacher>
       <ContentButton>
-        <ButtonAgendarClass>Book a lesson with me</ButtonAgendarClass>
+        <ButtonAgendarClass onClick={() => clickModal()}>
+          Book a lesson with me
+        </ButtonAgendarClass>
       </ContentButton>
     </ContenTextTeacher>
   </ContentCards>

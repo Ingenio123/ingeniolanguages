@@ -67,7 +67,7 @@ import { ModalContextProvider } from "./components/Context/modlaContext";
 import NavbarState from "./hooks/useNavbar";
 
 // ######################################### PAGES ########################################## //
-import BookLesson from "./pages/Private_pages/BookLesson";
+import BookLesson from "./pages/Private_pages/UserOrStudent/bookLesson";
 import Progress from "./pages/Private_pages/UserOrStudent/progress";
 
 // i18next.init({

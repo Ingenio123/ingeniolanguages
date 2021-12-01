@@ -131,7 +131,7 @@ export default function Header() {
                     </ItemsDeCompra>
                     <ItemsDeCompra>
                       <IconCalendar />
-                      <ItemContent>Dias de expiracion</ItemContent>
+                      <ItemContent>Dias de expiracion 00/00/00</ItemContent>
                     </ItemsDeCompra>
                   </DatosDeCompra>
                 </div>
@@ -219,6 +219,7 @@ const CardContent = styled.div`
   height: 100%;
   border-radius: 4px;
   position: relative;
+  max-height: 145px;
 `;
 const ContentCards = styled.div`
   width: 490px;

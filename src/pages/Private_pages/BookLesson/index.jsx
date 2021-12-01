@@ -3,7 +3,6 @@ import BookLessonTitleComponent from "../../../components/Book_Lesson/Title";
 import SectionCardComponent from "../../../components/Book_Lesson/SectionCards";
 import Grid from "../../../components/Book_Lesson/Grid";
 import NavbarContext from "../../../context/NavbarContext";
-
 import { Link } from "react-router-dom";
 // hooks
 import { useEffect, useContext } from "react";

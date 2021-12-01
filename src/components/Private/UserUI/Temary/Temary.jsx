@@ -4,6 +4,7 @@ import { useEffect, useState, useRef, useContext } from "react";
 import axios from "axios";
 import styled from "styled-components";
 import { ContextCardIdiom } from "../../../../context/CardIdiomContext";
+import ContextStudent from "../../../Context/StudentContext";
 
 export const Temary = () => {
   const [Valor, setValor] = useState([]);
@@ -11,6 +12,7 @@ export const Temary = () => {
   const [ClickSecondary, setClickSecondary] = useState(false);
   const FormRef = useRef();
   const { Student } = useContext(ContextCardIdiom);
+  const StudentContext = useContext(ContextStudent);
   const GetDataTemary = async () => {
     const Enpoint = "https://www.ingenioapi.com/temary/getTemary";
 
@@ -21,6 +23,7 @@ export const Temary = () => {
 
   useEffect(() => {
     GetDataTemary();
+    console.log(StudentContext);
   }, []);
   const togglePrimary = (index) => {
     if (ClickPrimary === index) {
@@ -41,6 +44,14 @@ export const Temary = () => {
   return (
     <TemaryLayout className="l-section s-border md-pxy brd-radius">
       <div className="dgrid m-grid-2 al-center header_temary">
+        {/* {StudentContext.student.QueryStudent.courses[0].idiom ? (
+          <h2 className="mb-0">
+            {StudentContext.student.QueryStudent.courses[0].idiom} course
+            content
+          </h2>
+        ) : (
+          <h2 className="mb-0">{Student || "Spanish"} course content </h2>
+        )} */}
         <h2 className="mb-0">{Student || "Spanish"} course content </h2>
         <div>
           <InputSearch

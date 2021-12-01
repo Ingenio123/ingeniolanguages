@@ -1,12 +1,19 @@
 import styled from "styled-components";
+//components
 import BookLessonTitleComponent from "../../../components/Book_Lesson/Title";
 import SectionCardComponent from "../../../components/Book_Lesson/SectionCards";
 import Grid from "../../../components/Book_Lesson/Grid";
-import NavbarContext from "../../../context/NavbarContext";
+import ModalComponent from "../../../components/Book_Lesson/Modal";
 
-import { Link } from "react-router-dom";
+//
+
+//context
+import NavbarContext from "../../../context/NavbarContext";
+//
+
 // hooks
-import { useEffect, useContext } from "react";
+import { Link } from "react-router-dom";
+import { useEffect, useContext, useState } from "react";
 import { useLocation } from "react-router-dom";
 
 function Index() {
@@ -14,12 +21,15 @@ function Index() {
   const location = useLocation();
   const queryLocation = location.search;
   const contextNavbar = useContext(NavbarContext);
+  const [ShowModal, setShowModal] = useState(false);
   //
-
+  const handleClickModal = () => {
+    return setShowModal(true);
+  };
   //
   useEffect(() => {
     // console.log(queryLocation);
-    console.log(contextNavbar);
+    // console.log(contextNavbar);
     contextNavbar.getIdiom(queryLocation);
   }, [queryLocation]);
 
@@ -32,7 +42,10 @@ function Index() {
         ) : (
           <>
             {/* component title Book a lesson  */}
-
+            <ModalComponent
+              notStudent={ShowModal}
+              setNotStudent={setShowModal}
+            />
             <BookLessonTitleComponent
               text="Book your"
               idiom={contextNavbar.idiom.idiom}
@@ -51,6 +64,7 @@ function Index() {
                   name_teacher={item.firstName}
                   idom="idiom"
                   eslogan={item.eslogan}
+                  clickModal={handleClickModal}
                 />
               ))}
             </Grid>
