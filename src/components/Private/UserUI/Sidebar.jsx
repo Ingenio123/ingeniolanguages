@@ -1,4 +1,4 @@
-import { BiLogOut, BiUser, BiBook } from "react-icons/bi";
+import { BiLogOut, BiUser, BiBook, BiPieChart } from "react-icons/bi";
 import { FiLogOut } from "react-icons/fi";
 import { AiOutlineUser } from "react-icons/ai";
 import "./Sidebar.css";
@@ -109,7 +109,7 @@ export default function Sidebar({ salir, isLogged }) {
                 </li>
                 <li onClick={() => Redirect("/progress")}>
                   <i>
-                    <BiBook />
+                    <BiPieChart />
                   </i>
                   <span>my progress</span>
                 </li>
@@ -145,7 +145,7 @@ export default function Sidebar({ salir, isLogged }) {
       {/* Aqui empiza los cambios */}
 
       <section className="l-navigation">
-        <nav className="navigation ml-5 ">
+        <nav className="ml-5 navigation ">
           <ul>
             {Items.map((item, index) => {
               return (
