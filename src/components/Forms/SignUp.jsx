@@ -107,8 +107,8 @@ const SignUp = (props) => {
       <Container className="container">
         {IsAuth() ? <Redirect to="/" /> : null}
         <h1 className="text-center">Welcome</h1>
-        <div className="row">
-          <div className="col-md-6">
+        <ContentRow>
+          <div className="">
             <form className="bck-theme p-4" onSubmit={handleSubmit(onSubmit)}>
               <div className="row mt-4">
                 <div className="col-12 col-md-6">
@@ -332,7 +332,11 @@ const SignUp = (props) => {
               </Centrar>
             </form>
           </div>
-        </div>
+          {/* image  right */}
+          <ContentImg className="">
+            <Img></Img>
+          </ContentImg>
+        </ContentRow>
         <div className="row">
           <div className="col-md-6 text-center">
             <LineCenter>Or</LineCenter>
@@ -356,7 +360,6 @@ const SignUp = (props) => {
               <ButtonSignIn to="/SignIn">Sign In</ButtonSignIn>
             </div>
           </div>
-          <div className="col-md-6 text-center"></div>
         </div>
       </Container>
     </>
@@ -544,4 +547,21 @@ const MsgBox = styled.div`
   span {
     font-size: 1rem;
   }
+`;
+const ContentRow = styled.div`
+  display: grid;
+  width: 100%;
+  grid-template-columns: repeat(2, 1fr);
+  column-gap: 1rem;
+`;
+const ContentImg = styled.div`
+  margin-left: 10px;
+`;
+const Img = styled.div`
+  width: 100%;
+  height: 562px;
+  background-image: url("https://images.unsplash.com/photo-1524508762098-fd966ffb6ef9?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80");
+  background-position: center;
+  background-size: cover;
+  border-radius: 5px;
 `;

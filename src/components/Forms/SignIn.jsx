@@ -140,8 +140,8 @@ const SignIn = ({ history }) => {
       <Container className="container ">
         {isAuth() ? <Redirect to="/" /> : null}
         <h1 className="text-center">Welcome</h1>
-        <div className="row ">
-          <div className="col-md-6 ">
+        <ContentRow>
+          <div>
             <form className="p-4 bck-theme" onSubmit={handleSubmit(onSubmit)}>
               <div className="mt-4 row">
                 <div className="col-12 col-md-12 ">
@@ -220,10 +220,10 @@ const SignIn = ({ history }) => {
             </div>
           </div>
 
-          <div className="col-md-6 ">
-            <div className="card"></div>
+          <div>
+            <ContentImg></ContentImg>
           </div>
-        </div>
+        </ContentRow>
       </Container>
     </>
   );
@@ -351,4 +351,18 @@ const MessageError = styled.div`
   span {
     font-size: 1rem;
   }
+`;
+const ContentRow = styled.div`
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  width: 100%;
+  column-gap: 1rem;
+`;
+const ContentImg = styled.div`
+  width: 100%;
+  height: 416px;
+  border-radius: 5px;
+  background-image: url("https://images.unsplash.com/photo-1581547848400-c2d06d641a65?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80");
+  background-position: center;
+  background-size: cover;
 `;
