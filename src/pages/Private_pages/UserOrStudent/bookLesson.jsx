@@ -100,7 +100,7 @@ function Index() {
             {/* component de las cards  */}
             <Grid
               width="100%"
-              column="2,1fr"
+              column="3,1fr"
               column_gap=".5rem"
               row_gap=".5rem"
             >
@@ -119,7 +119,7 @@ function Index() {
           </>
         )}
       </div>
-      <ContentBox>
+      {/* <ContentBox>
         <Card>
           <h2>You cant't schedule a class yet </h2>
           <p>To shedule your lesson</p>
@@ -131,7 +131,7 @@ function Index() {
             </Button>
           </div>
         </Card>
-      </ContentBox>
+      </ContentBox> */}
     </Container>
   );
 }
