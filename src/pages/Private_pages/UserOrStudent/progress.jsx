@@ -1,29 +1,51 @@
-import { useLocation } from "react-router-dom";
+//librerias
+import styled from "styled-components";
+// librerias
+// hooks
+import { useContext } from "react";
+//  end hooks
 //components
 import CardProgress from "../../../components/Progress_Lesson/CardsChart";
 import CardFeedback from "../../../components/Progress_Lesson/CardFeedback";
 //end components
+import ContextStudent from "../../../components/Context/StudentContext";
 //data Json
 import Data from "./dataprogress.json";
 //end  data Json
-import styled from "styled-components";
 
 function Progress() {
-  const location = useLocation();
+  const studentContext = useContext(ContextStudent);
 
   return (
     <GridColumns>
       <ContentFlex>
-        {Data.map((val) => (
-          <CardProgress
-            idiom={val.idiom}
-            color={val.color}
-            TimeLossons={val.TimeLossons}
-            textColor={val.textColor}
-            primary={val.primary}
-            porcentaje={val.porcentaje}
-          />
-        ))}
+        {studentContext.student ? (
+          <>
+            {studentContext.student.QueryStudent.courses.map((item, index) => (
+              <CardProgress
+                idiom={item.idiom}
+                color={"#fef08a"}
+                TimeLossons={item.TimeLossons}
+                textColor={"#e4d038"}
+                primary={"#c4b22f"}
+                porcentaje={20}
+              />
+            ))}
+          </>
+        ) : (
+          <>
+            {Data.map((val) => (
+              <CardProgress
+                idiom={val.idiom}
+                color={val.color}
+                TimeLossons={val.TimeLossons}
+                textColor={val.textColor}
+                primary={val.primary}
+                porcentaje={val.porcentaje}
+              />
+            ))}
+          </>
+        )}
       </ContentFlex>
       <CardFeedback />
     </GridColumns>

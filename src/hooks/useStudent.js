@@ -1,6 +1,6 @@
 import StudentContext from "../components/Context/StudentContext";
 import axios from "axios";
-import { useReducer } from "react";
+import { useReducer, useEffect } from "react";
 import ReducerStudent from "../redux/reducers/Student";
 import { url } from "../components/Urls";
 
@@ -10,6 +10,7 @@ const StudentState = (props) => {
     student: null,
   };
   const [state, dispatch] = useReducer(ReducerStudent, initialState);
+
   const getStudent = async () => {
     try {
       var Token = window.localStorage.getItem("user");
@@ -34,6 +35,9 @@ const StudentState = (props) => {
       console.log("Err student", error);
     }
   };
+  useEffect(() => {
+    getStudent();
+  }, []);
   return (
     <StudentContext.Provider
       value={{

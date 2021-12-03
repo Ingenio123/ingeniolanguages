@@ -4,16 +4,17 @@ import BookLessonTitleComponent from "../../../components/Book_Lesson/Title";
 import SectionCardComponent from "../../../components/Book_Lesson/SectionCards";
 import Grid from "../../../components/Book_Lesson/Grid";
 import ModalComponent from "../../../components/Book_Lesson/Modal";
-
+import ModalCalendar from "../../../components/Private/UserUI/ModalCalendar";
 //
 
 //context
 import NavbarContext from "../../../context/NavbarContext";
-//
+import StudentContext from "../../../components/Context/StudentContext";
+//end context
 
 // hooks
 import { Link } from "react-router-dom";
-import { useEffect, useContext, useState } from "react";
+import { useEffect, useContext, useState, useCallback } from "react";
 import { useLocation } from "react-router-dom";
 
 function Index() {
@@ -21,7 +22,10 @@ function Index() {
   const location = useLocation();
   const queryLocation = location.search;
   const contextNavbar = useContext(NavbarContext);
+  const contextStudent = useContext(StudentContext);
   const [ShowModal, setShowModal] = useState(false);
+  const [state, setstate] = useState(false);
+  const [ValorCalendar, setValorCalendar] = useState("");
   //
   const handleClickModal = () => {
     return setShowModal(true);
@@ -32,7 +36,42 @@ function Index() {
     // console.log(contextNavbar);
     contextNavbar.getIdiom(queryLocation);
   }, [queryLocation]);
+  const UserNotStudent = () => {
+    setShowModal((prev) => !prev);
+  };
+  const OpenModal = () => {
+    setShowModal((prev) => !prev);
+  };
+  const valores = useCallback((param) => {
+    console.log("param:", param.calendar);
+    // console.log(RecorreArray(studentContext.student.QueryStudent.courses));
+    // da como resultado un numero int ->  entero  ===>  RecorreArray(student.QueryStudent.courses)
+    // console.log(studentContext.student.QueryStudent.courses);
+    function RecorreArray(param) {
+      const datos = param.map((item, index) => {
+        return item.TimeLossons;
+      });
+      return parseInt(datos[0].slice(0, 2));
+    }
+    const val = param.calendar.filter(
+      (item) =>
+        item.time === RecorreArray(contextStudent.student.QueryStudent.courses)
+    );
+    console.log("valor", val);
+    setValorCalendar(val[0]);
+  }, []);
 
+  const ShowTypeModal = (param) => {
+    if (contextStudent.student) {
+      valores(param);
+      setstate(true);
+      OpenModal();
+      return;
+    } else {
+      setstate(false);
+      UserNotStudent();
+    }
+  };
   return (
     <Container>
       <div>
@@ -41,6 +80,13 @@ function Index() {
           <h2>Loading...</h2>
         ) : (
           <>
+            {state && (
+              <ModalCalendar
+                showModal={ShowModal}
+                setShowModal={setShowModal}
+                url_teacher={ValorCalendar.urlCalendar}
+              />
+            )}
             {/* component title Book a lesson  */}
             <ModalComponent
               notStudent={ShowModal}
@@ -64,7 +110,9 @@ function Index() {
                   name_teacher={item.firstName}
                   idom="idiom"
                   eslogan={item.eslogan}
-                  clickModal={handleClickModal}
+                  clickModal={ShowTypeModal}
+                  calendar={item.calendar}
+                  // shwoTypeModal={ShowTypeModal()}
                 />
               ))}
             </Grid>

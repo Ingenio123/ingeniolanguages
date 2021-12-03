@@ -6,6 +6,7 @@ const SectionCards = ({
   name_teacher,
   eslogan,
   clickModal,
+  calendar,
 }) => (
   <ContentCards>
     <Img src={image_url} alt={idiom} />
@@ -13,7 +14,7 @@ const SectionCards = ({
       <NombreTeacher>{name_teacher}</NombreTeacher>
       <TextTeacher>{eslogan}</TextTeacher>
       <ContentButton>
-        <ButtonAgendarClass onClick={() => clickModal()}>
+        <ButtonAgendarClass onClick={() => clickModal({ calendar })}>
           Book a lesson with me
         </ButtonAgendarClass>
       </ContentButton>
@@ -93,7 +94,8 @@ const ButtonAgendarClass = styled.button`
   font-size: 1rem;
   border-radius: 4px;
   margin-top: auto;
-  &:hover {
+  :hover {
     background-color: rgb(67, 56, 202);
+    cursor: pointer !important;
   }
 `;
