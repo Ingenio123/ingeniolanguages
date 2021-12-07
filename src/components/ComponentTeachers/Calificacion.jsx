@@ -15,11 +15,22 @@ export default function Calificacion({ data }) {
       )}
       {data && data.length === 1 && (
         <>
-          <p>Idiom: {data[0].idiom} </p>
-          <p>Number months: {data[0].NumberMonths} </p>
-          <p>Time lesson: {data[0].TimeLossons} </p>
-          <p>Plan Active: {data[0].lessonsTotal} class </p>
-          <p>Cuanto le queda: {data[0].lessonsRestantes} class</p>
+          <Text>
+            <Textbold> Idiom:</Textbold> {data[0].idiom}
+          </Text>
+          <Text>
+            <Textbold>Number months:</Textbold> {data[0].NumberMonths}
+          </Text>
+          <Text>
+            <Textbold>Time lesson:</Textbold> {data[0].TimeLossons}
+          </Text>
+          <Text>
+            <Textbold>Plan Active:</Textbold> {data[0].lessonsTotal} class
+          </Text>
+          <Text>
+            <Textbold>Cuanto le queda: </Textbold>
+            {data[0].lessonsRestantes} class
+          </Text>
         </>
       )}
     </>
@@ -34,4 +45,17 @@ const Select = styled.select`
   option {
     color: #314584;
   }
+`;
+
+const Text = styled.p`
+  margin: 0;
+  color: #314584;
+  line-height: normal;
+  margin-bottom: 0.5rem;
+`;
+const Textbold = styled.span`
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #314584;
+  line-height: normal;
 `;

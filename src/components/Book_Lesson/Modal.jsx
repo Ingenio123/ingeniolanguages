@@ -27,6 +27,9 @@ export default function NotStudent({ notStudent, setNotStudent }) {
       setNotStudent(false);
     }
   };
+  const handleClickHome = () => {
+    return history.push("/");
+  };
   return (
     <>
       {notStudent ? (
@@ -40,7 +43,9 @@ export default function NotStudent({ notStudent, setNotStudent }) {
                   <TextSm>To schedule your lessons</TextSm>
                 </DivText>
                 <DivText start>
-                  <Button>Buy a lesson</Button>
+                  <Button onClick={() => handleClickHome()}>
+                    Buy a lesson
+                  </Button>
                   <TextSm>Or</TextSm>
                   <Button free to="/democlass">
                     Request free lesson

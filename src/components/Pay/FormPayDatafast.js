@@ -7,7 +7,8 @@ export default function FormPayDatafast(props) {
   useEffect(() => {
     const scriptTag = document.createElement("script");
     // scriptTag.src = `https://test.oppwa.com/v1/paymentWidgets.js?checkoutId=${props.id}`;
-    scriptTag.src = `https://oppwa.com/v1/paymentWidgets.js?checkoutId=${props.id}`;
+    console.log(props.id);
+    scriptTag.src = `https://test.oppwa.com/v1/paymentWidgets.js?checkoutId=${props.id}`;
     scriptTag.addEventListener("load", () => setLoaderForm(true));
     document.body.appendChild(scriptTag);
 

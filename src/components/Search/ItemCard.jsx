@@ -4,13 +4,15 @@ export default function ItemCard(props) {
   const { FirstName, email } = props.data;
   const handleClickItemStudent = (data) => {
     props.courseContext.setcourse(data);
-    console.log(data);
   };
   return (
     <ItemList>
-      <Item onClick={() => handleClickItemStudent(props.data)}>
-        {FirstName || email}
-      </Item>
+      {FirstName ||
+        (email && (
+          <Item onClick={() => handleClickItemStudent(props.data)}>
+            {FirstName || email}
+          </Item>
+        ))}
     </ItemList>
   );
 }

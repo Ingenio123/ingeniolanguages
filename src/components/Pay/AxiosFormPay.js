@@ -12,17 +12,12 @@ export const SendDataPayClient = async (
   items,
   id,
   email,
+  Country,
   phone
 ) => {
-  const {
-    City,
-    Country,
-    PostCode,
-    firstName,
-    lastName,
-    numberCedula,
-    secondName,
-  } = shippingData;
+  console.log(Country);
+  const { City, PostCode, firstName, lastName, numberCedula, secondName } =
+    shippingData;
   const ipClient = await getIpClient();
   const data = {
     City,

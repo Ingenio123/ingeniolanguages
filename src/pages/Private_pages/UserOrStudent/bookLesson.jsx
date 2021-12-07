@@ -49,7 +49,7 @@ function Index() {
     // console.log(studentContext.student.QueryStudent.courses);
     function RecorreArray(param) {
       const datos = param.map((item, index) => {
-        return item.TimeLossons;
+        return item.time;
       });
       return parseInt(datos[0].slice(0, 2));
     }

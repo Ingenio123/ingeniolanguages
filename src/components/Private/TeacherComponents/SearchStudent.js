@@ -65,7 +65,7 @@ function SearchStudent({ handleSearch }) {
           .includes(searchTerm.toLowerCase());
       });
       setSearchResults(newContactList);
-      console.log("Exist", newContactList);
+      // console.log("Exist", newContactList);
     } else {
       setSearchResults([]);
       console.log("Mot Exist");
@@ -207,18 +207,19 @@ function SearchStudent({ handleSearch }) {
     const data = await res.json();
     console.log(data);
   };
+
   // ########################################
+  const resetInput = () => {};
   return (
     <Content>
-      <SearchBox>
-        <ComponentSearch
-          context={courseContext}
-          placeholder="Student's Name"
-          listStudent={search.length < 1 ? [] : SearchResults}
-          term={search}
-          searchKeyword={searchHandler}
-        />
-      </SearchBox>
+      <ComponentSearch
+        context={courseContext}
+        placeholder="Student's Name"
+        listStudent={search.length < 1 ? [] : SearchResults}
+        term={search}
+        searchKeyword={searchHandler}
+        resetInput={resetInput}
+      />
 
       {/* {suggestion &&
         suggestion.map((suggestion, i) => (
@@ -244,7 +245,7 @@ function SearchStudent({ handleSearch }) {
           <ItemsCard block>
             <p>
               {" "}
-              <TextBold>Nombre or email:</TextBold>
+              <TextBold>Nombre or email: </TextBold>
               {course ? course.FirstName || course.email : null}
             </p>
             <p>
@@ -635,13 +636,14 @@ const Options = styled.option``;
 
 const DatePickerStyle = styled(DatePicker)`
   margin-left: 10px;
-  padding: 0.4rem 0;
+  padding: 0.5rem 0;
   padding-right: 1rem;
   padding-left: 0.5rem;
   color: #455a64;
   border: 1px solid #b0bec5;
+  font-size: 1rem;
   line-height: 1;
-
+  border-radius: 0.2rem;
   &:focus {
     outline: none;
     border: 1px solid #1565c0;

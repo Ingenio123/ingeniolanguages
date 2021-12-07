@@ -111,6 +111,7 @@ function CheckOut(props) {
         items,
         userData._id,
         userData.email,
+        value,
         Valor.phone
       );
       setIdCheck(resultadoFunction.resultados.id);
