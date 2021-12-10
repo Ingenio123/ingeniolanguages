@@ -1,9 +1,15 @@
-import { BiLogOut, BiUser, BiBook, BiPieChart } from "react-icons/bi";
+import {
+  BiLogOut,
+  BiUser,
+  BiBook,
+  BiPieChart,
+  BiDotsVerticalRounded,
+} from "react-icons/bi";
 import { FiLogOut } from "react-icons/fi";
 import { AiOutlineUser } from "react-icons/ai";
 import "./Sidebar.css";
 import { useDispatch } from "react-redux";
-import { useState, useEffect, useContext, useCallback } from "react";
+import { useState, useEffect, useContext, useCallback, useRef } from "react";
 import { Logout } from "../../../redux/actions/authAction";
 import { GetIdiomAction } from "../../../redux/actions/getIdiomAction";
 import { useHistory, Link } from "react-router-dom";
@@ -14,8 +20,10 @@ import Url from "../../Urls";
 import axios from "axios";
 import styled from "styled-components";
 import ingenio from "../../../assets/images/IngenioLanguages.svg";
-
 import studentContext from "../../Context/StudentContext";
+//component
+import CardRight from "../../SideBar/CardRight";
+
 // context navbar idiom -
 import ContextNavbar from "../../../context/NavbarContext";
 
@@ -26,6 +34,10 @@ export default function Sidebar({ salir, isLogged }) {
   const [Roles, setRoles] = useState(false);
   const [clickImgProfile, setClickImgProfile] = useState(false);
   const [Click, setClick] = useState(false);
+  const [Card, setClickCard] = useState(false);
+  //ref
+  const PropsRef = useRef();
+
   const contextStudent = useContext(studentContext);
   // useContext -> Navbar  -> Function getIdiom() - Atributo idiom: nul
   // states
@@ -83,6 +95,15 @@ export default function Sidebar({ salir, isLogged }) {
     setClickImgProfile(!clickImgProfile);
   };
 
+  const ClickCard = useCallback(() => {
+    if (Card) {
+      setClickCard(false);
+      return (PropsRef.current.style.transform = "translate(100%)");
+    }
+    setClickCard(true);
+    return (PropsRef.current.style.transform = "translate(0)");
+  }, [Card]);
+
   return (
     <div>
       <header className="header" id="header">
@@ -90,39 +111,51 @@ export default function Sidebar({ salir, isLogged }) {
           <img src={ingenio} alt="" />
         </div>
         {/* onClick={ActivaMenuProfile} */}
-        <div class="header__img">
-          <img src={isAuth() ? isAuth().picture : ""} alt="imge user" />
-          <div className="dropdown__img">
-            <div className="dropdown__items">
-              <ul>
-                <li>
-                  <i>
-                    <BiUser />
-                  </i>
-                  <span>Profile</span>
-                </li>
-                <li onClick={() => Redirect("/private")}>
-                  <i>
-                    <BiBook />
-                  </i>
-                  <span>Course content</span>
-                </li>
-                <li onClick={() => Redirect("/progress")}>
-                  <i>
-                    <BiPieChart />
-                  </i>
-                  <span>my progress</span>
-                </li>
-                <li className="--line" onClick={logout}>
-                  <i>
-                    <BiLogOut />
-                  </i>
-                  <span>Salir</span>
-                </li>
-              </ul>
-            </div>
+        <FlexBox>
+          <div class="header__img" onClick={ClickCard}>
+            <img src={isAuth() ? isAuth().picture : ""} alt="imge user" />
+            {/* <div className="dropdown__img">
+              <div className="dropdown__items">
+                <ul>
+                  <li>
+                    <i>
+                      <BiUser />
+                    </i>
+                    <span>Profile</span>
+                  </li>
+                  <li onClick={() => Redirect("/private")}>
+                    <i>
+                      <BiBook />
+                    </i>
+                    <span>Course content</span>
+                  </li>
+                  <li onClick={() => Redirect("/progress")}>
+                    <i>
+                      <BiPieChart />
+                    </i>
+                    <span>my progress</span>
+                  </li>
+                  <li className="--line" onClick={logout}>
+                    <i>
+                      <BiLogOut />
+                    </i>
+                    <span>Salir</span>
+                  </li>
+                </ul>
+              </div>
+            </div> */}
           </div>
-        </div>
+
+          <CardRight
+            state={Card}
+            cardRef={PropsRef}
+            clickCard={ClickCard}
+            clickRedirect={Redirect}
+            logout={logout}
+            picture={isAuth().picture}
+          />
+        </FlexBox>
+
         {/* {clickImgProfile ? (
           <NavIconUser>
             <div>
@@ -228,6 +261,18 @@ const NavIconUser = styled.nav`
     }
   }
 `;
+const FlexBox = styled.div`
+  display: flex;
+  align-items: center;
+`;
+const IconConfiguration = styled(BiDotsVerticalRounded)`
+  font-size: 2rem;
+  line-height: normal;
+  :hover {
+    cursor: pointer;
+  }
+`;
+
 const IconLogout = styled(FiLogOut)`
   color: #dc2626;
 `;
