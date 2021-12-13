@@ -1,64 +1,111 @@
 import styled from "styled-components";
 import { BiCamera, BiX } from "react-icons/bi";
 //hooks
-import { useRef, useEffect, useState } from "react";
+import { useRef, useEffect, useState, useCallback, useContext } from "react";
+// custom hooks
+import useImageProfile from "../../hooks/useImage";
 
 //component
 import CardEdit from "./EditComponent";
 import ItemsComponent from "./CardItemContent";
 import SalirComponent from "./SalirComponent";
+import ButtonSend from "./ButtonSendComponent";
+// librerias
+// services
+//context
+import { ImageContex } from "../../context/imageContext";
 
 const CardRigth = (props) => {
   // state
   const [ImgPrev, setImgPrev] = useState();
   const [preview, setPreview] = useState();
+  const [stateImg, setStateImg] = useState("");
+  const [Stado, setStado] = useState(1);
   //end state
+  // context
+  const { state, setState } = useContext(ImageContex);
+  // end context
   //refs
   const hiddenFileInput = useRef();
+  //
   const handleClick = () => {
     hiddenFileInput.current.click();
   };
-  const handleChange = (event) => {
-    // const data = new FormData();
-    // data.append("photo", event.target.files[0]);
-    // data.append("name", "Test Name");
-    // data.append("desc", "Test description");
-    // const fileUploaded = event.target.files[0];
-    setImgPrev(event.target.files[0]);
-    // const formData = new FormData();
-    // formData.append("File", fileUploaded);
-    // console.log(fileUploaded);
-    // console.log(data);
-    // props.handleFile(fileUploaded);
-  };
 
+  const handleChange = (event) => {
+    setImgPrev(event.target.files[0]);
+  };
+  // hooks
+  const { updateImage } = useImageProfile();
+  //
   useEffect(() => {
+    setState(1);
     if (ImgPrev) {
       const reader = new FileReader();
       reader.onloadend = () => {
         setPreview(reader.result);
       };
+      reader.readAsDataURL(ImgPrev);
     } else {
       setPreview(null);
     }
   }, [ImgPrev]);
+  //
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const formData = new FormData();
+    formData.append("file", ImgPrev);
+
+    await updateImage({
+      formData,
+      id: "614602dbc1432533bc008c23",
+    });
+    // try {
+    //   setStado(2);
+    //   await axios.post(
+    //     "http://localhost:4000/data/user/updateImage/614602dbc1432533bc008c23",
+    //     formData,
+    //     {
+    //       headers: {
+    //         "Content-Type": "multipart/form-data",
+    //       },
+    //     }
+    //   );
+    //   setStado(3);
+    //   setInterval(() => {
+    //     setStado(4);
+    //   }, [2000]);
+    // } catch (error) {
+    //   if (error.response.status === 500) {
+    //     console.log("Error en el server ");
+    //   } else {
+    //     console.log("Error 400");
+    //   }
+    // }
+  };
 
   return (
     <Card ref={props.cardRef}>
       <BtnClose onClick={() => props.clickCard()} />
-      <ContentImg onClick={handleClick}>
-        <img src={preview ? preview : props.picture} alt="images" />
-        <CardImgProfile>
-          <IconCamera />
-          <Text>change picture</Text>
-        </CardImgProfile>
+      <form onSubmit={(e) => handleSubmit(e)} id="form">
+        <ContentImg onClick={handleClick}>
+          <img src={preview ? preview : props.picture} alt="images" />
+          <CardImgProfile>
+            <IconCamera />
+            <Text>change picture</Text>
+          </CardImgProfile>
+        </ContentImg>
         <input
           type="file"
           onChange={handleChange}
           ref={hiddenFileInput}
+          name="image"
           style={{ display: "none" }}
         />
-      </ContentImg>
+        {/* {preview && <ButtonSend newimg={stateImg} estado={state} />} */}
+        <ButtonSend newimg={stateImg} estado={state} />
+      </form>
       <CardEdit />
       <ItemsComponent
         clickCard={props.clickCard}
@@ -75,18 +122,25 @@ const Card = styled.div`
   position: absolute;
   top: 60px;
   right: 0;
-  width: 25%;
+  width: 345.605px;
+  height: 368px;
   z-index: 99;
   display: flex;
   align-items: center;
   flex-direction: column;
-  padding: 20px 0;
+  padding: 16px;
   background-color: #fff;
   border: 1px solid #d4d4d8;
+  border-radius: 0.375rem;
   transition: all 0.5s ease;
   border-radius: 4px;
   transform: translate(100%);
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  form {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+  }
 `;
 const ContentImg = styled.div`
   position: relative;

@@ -23,9 +23,11 @@ import ingenio from "../../../assets/images/IngenioLanguages.svg";
 import studentContext from "../../Context/StudentContext";
 //component
 import CardRight from "../../SideBar/CardRight";
+import ImgComponent from "../../SideBar/image";
 
-// context navbar idiom -
+// context -
 import ContextNavbar from "../../../context/NavbarContext";
+import ContextImageProfile from "../.../../../../context/imageContext";
 
 export default function Sidebar({ salir, isLogged }) {
   const dispatch = useDispatch();
@@ -50,15 +52,12 @@ export default function Sidebar({ salir, isLogged }) {
       "669011089415-8gtepgk9pivth0itvut5tom96kn9r7i1.apps.googleusercontent.com",
   });
 
-  const handleLogout = () => {
-    signOut();
-    dispatch(Logout());
-    logout();
-    return history.push("/");
-  };
-  const itemActive = (index) => {
-    setActive(index);
-  };
+  // const handleLogout = () => {
+  //   signOut();
+  //   dispatch(Logout());
+  //   logout();
+  //   return history.push("/");
+  // };
 
   useEffect(() => {
     window.document.body.style.paddingTop = "0";
@@ -91,9 +90,6 @@ export default function Sidebar({ salir, isLogged }) {
   const Redirect = (param) => {
     return history.push(param);
   };
-  const ActivaMenuProfile = () => {
-    setClickImgProfile(!clickImgProfile);
-  };
 
   const ClickCard = useCallback(() => {
     if (Card) {
@@ -112,48 +108,20 @@ export default function Sidebar({ salir, isLogged }) {
         </div>
         {/* onClick={ActivaMenuProfile} */}
         <FlexBox>
-          <div class="header__img" onClick={ClickCard}>
-            <img src={isAuth() ? isAuth().picture : ""} alt="imge user" />
-            {/* <div className="dropdown__img">
-              <div className="dropdown__items">
-                <ul>
-                  <li>
-                    <i>
-                      <BiUser />
-                    </i>
-                    <span>Profile</span>
-                  </li>
-                  <li onClick={() => Redirect("/private")}>
-                    <i>
-                      <BiBook />
-                    </i>
-                    <span>Course content</span>
-                  </li>
-                  <li onClick={() => Redirect("/progress")}>
-                    <i>
-                      <BiPieChart />
-                    </i>
-                    <span>my progress</span>
-                  </li>
-                  <li className="--line" onClick={logout}>
-                    <i>
-                      <BiLogOut />
-                    </i>
-                    <span>Salir</span>
-                  </li>
-                </ul>
-              </div>
-            </div> */}
-          </div>
+          <ContextImageProfile>
+            <div class="header__img" onClick={ClickCard}>
+              <ImgComponent />
+            </div>
 
-          <CardRight
-            state={Card}
-            cardRef={PropsRef}
-            clickCard={ClickCard}
-            clickRedirect={Redirect}
-            logout={logout}
-            picture={isAuth().picture}
-          />
+            <CardRight
+              state={Card}
+              cardRef={PropsRef}
+              clickCard={ClickCard}
+              clickRedirect={Redirect}
+              logout={logout}
+              picture={isAuth().picture}
+            />
+          </ContextImageProfile>
         </FlexBox>
 
         {/* {clickImgProfile ? (
@@ -176,7 +144,6 @@ export default function Sidebar({ salir, isLogged }) {
         ) : null} */}
       </header>
       {/* Aqui empiza los cambios */}
-
       <section className="l-navigation">
         <nav className="ml-5 navigation ">
           <ul>
@@ -330,48 +297,84 @@ const ItemsClick = styled.li`
     color: #fff;
   }
 `;
-{
-  /* <div>
-  <div className={sidebar ? "l-navbar show" : "l-navbar"} id="nav-bar">
-    <nav className="nav">
-      <div>
-        <a className="nav__logo" onClick={showSidebar}>
-          <i className=" nav__logo-icon">
-            {" "}
-            {sidebar ? <BiCaretLeft /> : <BiGridAlt />}{" "}
-          </i>
-          <span className="nav__logo-name">Ingenio Languages</span>
-        </a>
+// codigo de dropdown click image
+//  {
+//    /* <div className="dropdown__img">
+//               <div className="dropdown__items">
+//                 <ul>
+//                   <li>
+//                     <i>
+//                       <BiUser />
+//                     </i>
+//                     <span>Profile</span>
+//                   </li>
+//                   <li onClick={() => Redirect("/private")}>
+//                     <i>
+//                       <BiBook />
+//                     </i>
+//                     <span>Course content</span>
+//                   </li>
+//                   <li onClick={() => Redirect("/progress")}>
+//                     <i>
+//                       <BiPieChart />
+//                     </i>
+//                     <span>my progress</span>
+//                   </li>
+//                   <li className="--line" onClick={logout}>
+//                     <i>
+//                       <BiLogOut />
+//                     </i>
+//                     <span>Salir</span>
+//                   </li>
+//                 </ul>
+//               </div>
+//             </div> */
+//  }
 
-        <div className="nav__list">
-          {Items.map((item, index) => {
-            const newLocal = Active === index;
-            return (
-              <Link
-                key={index}
-                to={Roles === "teacher" ? item.urlTeacher : item.url}
-                onClick={() => itemActive(index)}
-              >
-                <a className={newLocal ? "nav__link activado" : "nav__link"}>
-                  <i className="nav__icon">{item.icon} </i>
-                  <span className="nav__name">
-                    {Roles === "teacher" ? item.itemTeacher : item.item}
-                  </span>
-                </a>
-              </Link>
-            );
-          })}
-        </div>
-      </div>
+// end codigo de dropdown click image
 
-      <a className="nav__link" onClick={handleLogout}>
-        <i className="nav__icon">
-          {" "}
-          <BiLogOut />{" "}
-        </i>
-        <span className="nav__name">Log Out</span>
-      </a>
-    </nav>
-  </div>
-</div>; */
-}
+// {
+//   /* <div>
+//   <div className={sidebar ? "l-navbar show" : "l-navbar"} id="nav-bar">
+//     <nav className="nav">
+//       <div>
+//         <a className="nav__logo" onClick={showSidebar}>
+//           <i className=" nav__logo-icon">
+//             {" "}
+//             {sidebar ? <BiCaretLeft /> : <BiGridAlt />}{" "}
+//           </i>
+//           <span className="nav__logo-name">Ingenio Languages</span>
+//         </a>
+
+//         <div className="nav__list">
+//           {Items.map((item, index) => {
+//             const newLocal = Active === index;
+//             return (
+//               <Link
+//                 key={index}
+//                 to={Roles === "teacher" ? item.urlTeacher : item.url}
+//                 onClick={() => itemActive(index)}
+//               >
+//                 <a className={newLocal ? "nav__link activado" : "nav__link"}>
+//                   <i className="nav__icon">{item.icon} </i>
+//                   <span className="nav__name">
+//                     {Roles === "teacher" ? item.itemTeacher : item.item}
+//                   </span>
+//                 </a>
+//               </Link>
+//             );
+//           })}
+//         </div>
+//       </div>
+
+//       <a className="nav__link" onClick={handleLogout}>
+//         <i className="nav__icon">
+//           {" "}
+//           <BiLogOut />{" "}
+//         </i>
+//         <span className="nav__name">Log Out</span>
+//       </a>
+//     </nav>
+//   </div>
+// </div>; */
+// }

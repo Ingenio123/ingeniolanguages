@@ -1,5 +1,3 @@
-import { BiBook, BiCog, BiHomeAlt } from "react-icons/bi";
-import { AiOutlineUser } from "react-icons/ai";
 export const Items = [
   {
     name: "Home",
@@ -15,10 +13,6 @@ export const Items = [
   {
     name: "My progress",
     link: "/progress",
-  },
-  {
-    name: "Profile",
-    link: "/profile",
   },
 ];
 export const ItemsNotStudent = [
