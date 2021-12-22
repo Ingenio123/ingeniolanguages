@@ -2,7 +2,7 @@ import styled, { css } from "styled-components";
 import { Link } from "react-router-dom";
 import IngeioIcoSvg from "../../assets/images/svgs/IngeioIcoSvg.svg";
 
-export default function Index({ children }) {
+export default function Index({ children, addData }) {
   return (
     <ContentModal>
       <ContentForms>
@@ -10,8 +10,17 @@ export default function Index({ children }) {
           <img src={IngeioIcoSvg} alt="Logo ingenio languages" />
         </ContentFormsLogo>
         <ContentFormsText>
-          <h5>Complete with the rest of your information</h5>
-          <p>We will need it to contact you about your free demo class</p>
+          {addData === 0 ? (
+            <>
+              <h5>Ya has requerido una free demo class</h5>
+              <p>Revisa tu correo E-mail y agenda tu demo class </p>
+            </>
+          ) : (
+            <>
+              <h5>Complete with the rest of your information</h5>
+              <p>We will need it to contact you about your free demo class</p>
+            </>
+          )}
         </ContentFormsText>
         <ContentFormstFormulario>{children}</ContentFormstFormulario>
         <ContentFormsAvisoLegal>

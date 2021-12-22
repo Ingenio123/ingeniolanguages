@@ -7,6 +7,8 @@ import FormDatas from "../../components/DemoClass/Formdatas";
 import { useSelector, useDispatch } from "react-redux";
 import userState from "../../hooks/useUser";
 import { GetDataUser } from "../../redux/actions/UserData";
+// import RequireClass from "../../components/FormDemoClassNew/RequiredClass";
+import Images from "../../components/DemoClass/ReviewClass";
 export default function Index() {
   const UerData = useSelector((state) => state.UerData.data);
 
@@ -22,9 +24,11 @@ export default function Index() {
   console.log(UerData);
   return (
     <Container className="container">
-      <ModalDemoClass>
+      {/* <RequireClass></RequireClass> */}
+      <ModalDemoClass addData={UerData.addData}>
         {UerData.addData === 1 && <FormData />}
         {UerData.addData === 3 && <FormDatas />}
+        {UerData.addData === 0 && <Images />}
       </ModalDemoClass>
     </Container>
   );
