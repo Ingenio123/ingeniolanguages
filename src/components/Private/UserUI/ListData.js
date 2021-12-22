@@ -36,4 +36,8 @@ export const ItemsNotStudent = [
     nameItem: "Korean",
     idiom: "Korean",
   },
+  {
+    nameItem: "Russian",
+    idiom: "Russian",
+  },
 ];
