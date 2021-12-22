@@ -11,6 +11,7 @@ import Espanish from "../../assets/images/svgs/Espanish.svg";
 import Francia from "../../assets/images/svgs/French.svg";
 import { isAuth } from "../../helpers/Auth";
 import Modal from "../ModalsForm/ModalSignIn";
+import { BsCart2 } from "react-icons/bs";
 
 export default function Boxcart() {
   const [ShowContent, setShowContent] = useState(false);
@@ -115,16 +116,19 @@ export default function Boxcart() {
             <SubTotal>${res}</SubTotal>
             <Link to="/orderSummary">
               <Button_ProccedPay disabled={items.length > 0 ? false : true}>
-                Cart details
+                <ContentIcon>
+                  <BsCart2 />
+                </ContentIcon>
+                Cart
               </Button_ProccedPay>
             </Link>
-            <Button_ProccedPay
+            {/* <Button_ProccedPay
               pay={true}
               disabled={items.length > 0 ? false : true}
               onClick={handlePay}
             >
               Procced to payment
-            </Button_ProccedPay>
+            </Button_ProccedPay> */}
             {/* <Link to="/payclient"> */}
             {/* </Link> */}
 
@@ -437,12 +441,19 @@ const Button_ProccedPay = styled.button`
   background: ${(props) => (props.pay ? "#FF3946" : "#314584")};
   padding: 4px 8px;
   color: white;
-  font-size: 1rem;
   border-radius: 15px;
-  margin-top: 5px;
   margin-left: ${(props) => (props.pay ? "8px" : "40px")};
-  &:hover {
+  font-size: 1rem;
+  line-height: normal;
+  margin: 0 auto;
+  margin-top: 5px;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 100px;
+  :hover {
     background-color: ${(props) => (props.pay ? "#FF4C58" : "#455790")};
+    cursor: pointer;
   }
 `;
 const Separador = styled.hr`
@@ -512,4 +523,15 @@ const ItemsCart = styled.div`
   color: white;
   box-shadow: 0px 0px 8px 6px rgba(0, 0, 0, 0.08);
   margin-right: 10px;
+`;
+
+const ContentIcon = styled.div`
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.2rem;
+  background-color: #49509c;
+  border-radius: 0.2rem;
+  font-size: 1.2rem;
 `;
