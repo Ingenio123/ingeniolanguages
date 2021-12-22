@@ -147,12 +147,12 @@ export default function ModalPackage({
     dispatch(
       Select_Package(CalculoPrices, "English", LessonsMonth, time, MonthsNumber)
     );
-    if (isAuth()) {
-      return history.push("/payclient");
-    }
     setShowModal(false);
+    return history.push("/orderSummary");
+    // if (isAuth()) {
+    // }
     //               -------->!modalcontext.ModalState
-    return modalcontext.setModalState(true);
+    // return modalcontext.setModalState(true);
     // console.log(packageItems);
     // const items = packageItems.items.find((x) => x.idiom === "English");
     // console.log(items){

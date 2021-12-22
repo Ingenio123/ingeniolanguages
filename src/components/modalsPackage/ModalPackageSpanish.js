@@ -123,13 +123,14 @@ export default function ModalPackageFrench({
   }, []);
   const handleProcced = () => {
     dispatch(Select_Package(CalculoPrices, "Spanish", LessonsMonth, time));
-    if (isAuth()) {
-      return history.push("/payclient");
-    }
     setShowModalSpanish(false);
+    return history.push("/orderSummary");
+    // if (isAuth()) {
+    //   return history.push("/payclient");
+    // }
     //               -------->!modalcontext.ModalState
 
-    return modalContext.setModalState(true);
+    // return modalContext.setModalState(true);
     // console.log(packageItems);
     // const items = packageItems.items.find((x) => x.idiom === "English");
     // console.log(items){

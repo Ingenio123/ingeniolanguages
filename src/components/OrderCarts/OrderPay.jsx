@@ -17,6 +17,9 @@ import Url from "../Urls";
 import { Redirect } from "react-router-dom";
 import ProgressStetpBar from "../modalsPackage/ProgressStetpBar";
 
+// type tarjets
+import marcasTarjetas from "../../assets/images/marcas-tarjetas.png";
+
 export default function OrderPay(props) {
   // States
   const { items } = useSelector((state) => state.package);
@@ -146,19 +149,27 @@ export default function OrderPay(props) {
               <hr style={{ margin: "0" }} />
             </div>
           ))}
-          <BoxPrices>
-            <div>
+          <Box>
+            <BoxPrices>
               <TextPrices>$ {res} </TextPrices>
-              <br />
+              <img
+                src={marcasTarjetas}
+                alt="iumages"
+                style={{ width: "196px", marginBottom: ".5rem" }}
+              />
               <ProceedPay onClick={items.length > 0 ? VerifyIsAuth : null}>
                 <IconsCard /> Debit or Credit card
               </ProceedPay>
-            </div>
-            {/* <PaypalButton valorPago={res} /> */}
-            <Paypaypal onClick={items.length > 0 ? () => HanldePay(res) : null}>
-              <img src={Paypal} alt="Paypal" />
-            </Paypaypal>
-          </BoxPrices>
+              <span className="or">or</span>
+              <Paypaypal
+                onClick={items.length > 0 ? () => HanldePay(res) : null}
+              >
+                <img src={Paypal} alt="Paypal" />
+              </Paypaypal>
+
+              {/* <PaypalButton valorPago={res} /> */}
+            </BoxPrices>
+          </Box>
         </SectionOrder>
       </Container>
       <ModalSignIn
@@ -249,6 +260,13 @@ const BoxPrices = styled.div`
   flex-direction: column;
   align-items: flex-end;
   margin-right: 2rem;
+
+  .or {
+    margin: 0 auto;
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: #71717a;
+  }
 `;
 const TextPrices = styled.span`
   font-size: 40px;
@@ -262,7 +280,7 @@ const ProceedPay = styled.button`
   font-size: 1rem;
   line-height: 1;
   font-weight: 400;
-  margin-bottom: 1rem;
+
   display: flex;
   align-items: center;
 `;
@@ -278,4 +296,10 @@ const Paypaypal = styled.button`
 const IconsCard = styled(IoCardSharp)`
   color: white;
   margin-right: 2px;
+`;
+
+const Box = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
 `;
