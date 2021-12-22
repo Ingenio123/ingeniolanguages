@@ -147,7 +147,8 @@ function CheckOut(props) {
           <BoxForm onSubmit={handleSubmit((data) => HandleData(data))}>
             <Text>
               <h5>
-                We need your information to complete your purchase process
+                Please, enter the information of the CARDHOLDER to complete the
+                purchase process
               </h5>
             </Text>
             <FormCheckOut>
@@ -596,7 +597,8 @@ const Text = styled.div`
   border-radius: 5px;
   margin-bottom: 1rem;
   h5 {
-    font-size: 1.2rem;
+    font-size: 1.05rem;
+    letter-spacing: -0px;
     margin: 0;
     color: #fff;
   }
