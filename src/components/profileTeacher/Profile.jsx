@@ -2,6 +2,10 @@ import { HeaderHero } from "./HeaderHero";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import { useEffect, useState, useRef } from "react";
+//component cart
+
+import BoxCart from "../Boxcart/Boxcart";
+
 // import ModalPackageFrench from "../modalsPackage/ModalPackageFrench";
 // import ModalPackageSpanish from "../modalsPackage/ModalPackageSpanish";
 // import ModalPackageEnglish from "../modalsPackage/modalPackage";
@@ -49,6 +53,7 @@ export const Profile = () => {
 
   return (
     <>
+      <BoxCart />
       <HeaderHero data={Data} />
 
       <div className="container  ">
