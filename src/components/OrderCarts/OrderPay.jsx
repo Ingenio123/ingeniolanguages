@@ -86,10 +86,20 @@ export default function OrderPay(props) {
     if (isAuth()) {
       const EndPoint = Url.url + "/paypal/createPayment";
       console.log("items:", items);
-      const { data } = await axios.post(EndPoint, {
-        priceTotal: valor,
-        datosArray: items,
-      });
+      
+      const { token } = JSON.parse(window.localStorage.getItem("user"));
+      const { data } = await axios.post(
+        EndPoint,
+        {
+          priceTotal: valor,
+          datosArray: items,
+        },
+        {
+          headers: {
+            authorization: `Bearer ${token}`,
+          },
+        }
+      );
       console.log(data);
       return window.location.assign(data.link);
     }

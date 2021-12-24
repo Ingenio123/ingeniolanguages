@@ -7,6 +7,7 @@ import DataServer from "./DataServer";
 import { IoArrowForwardCircle } from "react-icons/io5";
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import Spinner from "react-loader-spinner";
+import { url } from "../Urls";
 
 export default function Redirect() {
   const [Data, setData] = useState({});
@@ -15,8 +16,13 @@ export default function Redirect() {
   const queryLocation = location.search;
 
   useEffect(() => {
-    const Enpoint = "http://localhost:4000/paypal/sucess" + queryLocation;
-    fetch(Enpoint)
+    const Enpoint = `${url}/paypal/sucess` + queryLocation;
+    const { token } = JSON.parse(window.localStorage.getItem("user"));
+    fetch(Enpoint, {
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
+    })
       .then((res) => res.json())
       .then((data) => {
         console.log(data);

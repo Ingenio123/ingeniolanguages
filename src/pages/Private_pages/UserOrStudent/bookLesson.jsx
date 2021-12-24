@@ -48,16 +48,18 @@ function Index() {
     // da como resultado un numero int ->  entero  ===>  RecorreArray(student.QueryStudent.courses)
     // console.log(studentContext.student.QueryStudent.courses);
     function RecorreArray(param) {
+      console.log("Recorrer Array param", param);
       const datos = param.map((item, index) => {
         return item.time;
       });
+      console.log(parseInt(datos[0].slice(0, 2)));
       return parseInt(datos[0].slice(0, 2));
     }
     const val = param.calendar.filter(
       (item) =>
         item.time === RecorreArray(contextStudent.student.QueryStudent.courses)
     );
-    console.log("valor", val);
+    //console.log("valor", val);
     setValorCalendar(val[0]);
   }, []);
 
