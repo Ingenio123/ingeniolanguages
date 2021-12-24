@@ -170,7 +170,7 @@ function CheckOut(props) {
                       message: "Minimum characters: 2",
                     },
                     pattern: {
-                      value: /^[a-zA-Z]*$/,
+                      // value: /^[a-zA-Z]*$/,
                       value: /[A-Za-z -äöüÄÖÜßéÉèÈêÊ...]{2,}/,
                       message: "Please enter your first name only",
                     },

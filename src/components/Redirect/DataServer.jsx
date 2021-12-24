@@ -9,7 +9,8 @@ function DataServer({ Data }) {
             <div key={index2}>
               <ContentSubitem>
                 <TextBold>
-                  <TextNumber>{item2.quantity}</TextNumber>
+                  {/* <TextNumber>{item2.quantity}</TextNumber> */}
+                  <div></div>
                   <TextItem>{item2.description} </TextItem>
                   <TextItem></TextItem>
                 </TextBold>
