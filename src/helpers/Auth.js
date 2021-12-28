@@ -35,6 +35,28 @@ export const removeLocalStorage = (key) => {
     localStorage.removeItem(key);
   }
 };
+
+// getLocalStorage
+export const GetLocalStorage = () => {
+  if (window !== "undefined") {
+    return JSON.parse(localStorage.getItem("user"));
+    // if (localStorage.getItem("user")) {
+    //   console.log(JSON.parse(localStorage.getItem("user")));
+    // }
+  }
+};
+
+// verify refresh token
+export const VerifyRefreshToken = () => {
+  if (window !== "undefined") {
+    const { refreshToken } = JSON.parse(window.localStorage.getItem("user"));
+    if (!refreshToken) {
+      return false;
+    }
+    return true;
+  }
+};
+
 // Auth enticate user by passing data to cookie and localstorage during signin
 export const authenticate = (response, next) => {
   console.log("AUTHENTICATE HELPER ON SIGNIN RESPONSE", response);
@@ -73,4 +95,19 @@ export const updateUser = (response, next) => {
     localStorage.setItem("user", JSON.stringify(auth));
   }
   next();
+};
+
+export const updateToken = (newtoken) => {
+  console.log("UPDATE TOKEN", newtoken);
+  if (typeof window !== "undefined") {
+    let auth = JSON.parse(localStorage.getItem("user"));
+    auth = {
+      email: auth.email,
+      picture: auth.picture,
+      rol: auth.rol,
+      _id: auth._id,
+      token: newtoken,
+    };
+    localStorage.setItem("user", JSON.stringify(auth));
+  }
 };

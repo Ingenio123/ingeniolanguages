@@ -105,6 +105,9 @@ export default function Header() {
         <>
           {contextStudent.student.QueryStudent.courses.map((item, index) => (
             <CardContent key={index} img={imgFondo(item.idiom)}>
+              <ButtonNext onClick={() => handleClickCardIdiom(item.idiom)}>
+                <BiChevronRight size="1.3rem" />
+              </ButtonNext>
               <CardCourse>
                 <ContentImage>
                   <Img url={imgs(item.idiom)} width="200px" alt="" />
@@ -113,7 +116,6 @@ export default function Header() {
                 <div>
                   <CardHeader>
                     <span>{item.idiom}</span>
-                    <BuyNewCourse onClick={Home} title="Buy a now package" />
                   </CardHeader>
                   <DatosDeCompra>
                     <ItemsDeCompra>

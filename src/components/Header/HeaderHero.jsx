@@ -43,6 +43,7 @@ const HeaderHero = ({ isLogged, ActivarLoged }) => {
 
   const { SignUp } = useUser();
   const UerData = useSelector((state) => state.UerData.data);
+  console.log(UerData);
   const dispatch = useDispatch();
 
   // async function GetDataUserFunct() {
@@ -133,8 +134,8 @@ const HeaderHero = ({ isLogged, ActivarLoged }) => {
           </div>
         </div>
       </header>
-
-      {isLogged && Object.keys(UerData).length > 0 && (
+      {/* Object.keys(UerData).length > 0 */}
+      {isLogged && (
         <DemoClass
           mostrarModal={ShowFormData}
           modificadorModal={setShowFormData}

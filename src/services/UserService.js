@@ -1,6 +1,11 @@
 import axios from "axios";
 import Url from "../components/Urls";
-
+import {
+  GetLocalStorage,
+  VerifyRefreshToken,
+  updateToken,
+} from "../helpers/Auth";
+import { RefreshToken } from "./refreshtoken.service";
 export const GetDataUserDemoClass = async (token) => {
   try {
     const res = await fetch(`${Url.url}/getdataDemoclass`, {
@@ -9,8 +14,15 @@ export const GetDataUserDemoClass = async (token) => {
         authorization: `Bearer ${token}`,
       },
     });
+    if (res.status >= 400) {
+      if (VerifyRefreshToken) {
+        const user = JSON.parse(window.localStorage.getItem("user"));
+        const newtoken = await RefreshToken(user.refreshToken);
+        console.log("RESPONSE DEL SERVER:", newtoken);
+        updateToken(newtoken.token);
+      }
+    }
     const data = await res.json();
-    console.log(data);
     // const { addData, democlass } = data;
     // const { FirstName, email } = data.data;
     // return { addData, democlass, FirstName, email };

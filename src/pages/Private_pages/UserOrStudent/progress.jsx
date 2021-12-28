@@ -25,10 +25,10 @@ function Progress() {
               <CardProgress
                 idiom={item.idiom}
                 color={"#fef08a"}
-                TimeLossons={item.TimeLossons}
+                TimeLossons={item.time}
                 textColor={"#e4d038"}
                 primary={"#c4b22f"}
-                porcentaje={20}
+                porcentaje={0}
               />
             ))}
           </>

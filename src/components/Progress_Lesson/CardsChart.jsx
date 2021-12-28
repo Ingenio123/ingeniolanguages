@@ -112,7 +112,7 @@ const Card_Spinner = styled.div`
 `;
 const Icon = styled(HiOutlineViewGridAdd)`
   color: white;
-  font-size: 3rem;
+  font-size: 1.5rem;
 `;
 const ButtonSumary = styled.button`
   width: 60%;
