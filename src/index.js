@@ -69,7 +69,7 @@ import NavbarState from "./hooks/useNavbar";
 // ######################################### PAGES ########################################## //
 import BookLesson from "./pages/Private_pages/UserOrStudent/bookLesson";
 import Progress from "./pages/Private_pages/UserOrStudent/progress";
-
+import Prices from "./pages/prices/Prices";
 // i18next.init({
 //   interpolation: {
 //     escapeValue: false,
@@ -93,6 +93,7 @@ ReactDOM.render(
         <Router>
           <App />
           <Switch>
+            <Route exact path="/prices" component={Prices} />
             <Route exact path="/payclient" component={formCheckOutPay} />
             <Route exact path="/results" component={resultDatafast} />
             <Route
@@ -107,9 +108,9 @@ ReactDOM.render(
               path="/TerminosCondiciones"
               component={TerminosCondiciones}
             />
+            <Route path="/pruebas" component={Pruebas} />
             <Route exact path="/createonetemary" component={FormTemary} />
             <AdminRoute path="/admin" exact component={Admin} />
-            <Route path="/pruebas" component={Pruebas} />
             <TeacherRoutes path="/teacherPage" exact component={Teacher} />
             <UserProvider>
               <ModalContextProvider>

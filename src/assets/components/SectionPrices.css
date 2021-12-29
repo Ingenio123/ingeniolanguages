@@ -29,3 +29,23 @@
   margin-top: 20px !important ;
   margin-bottom: 30px !important;
 }
+
+.viewmore {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  margin: 1rem 0;
+}
+.btn-view {
+  background-color: #314584;
+  color: #fff;
+}
+
+.btn-view:hover {
+  color: #fff !important;
+  background-color: #374d95;
+}
+
+.mr-405 {
+  margin-right: 2.3rem;
+}

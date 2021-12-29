@@ -6,6 +6,7 @@ import ModalPackageFrench from "../modalsPackage/ModalPackageFrench";
 import ModalPackageSpanish from "../modalsPackage/ModalPackageSpanish";
 import ModalContext from "../Context/modlaContext";
 import ModalForms from "../ModalsForm/ModalSignIn";
+import { Link } from "react-router-dom";
 
 export const PriceSection = () => {
   const [ShowModal, setShowModal] = useState(false);
@@ -56,6 +57,11 @@ export const PriceSection = () => {
               </div>
             </div>
           </div>
+        </div>
+        <div className="viewmore">
+          <Link to="/prices" className="btn btn-view mr-405">
+            view more
+          </Link>
         </div>
       </section>
 

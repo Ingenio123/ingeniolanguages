@@ -152,7 +152,7 @@ const HeaderHero = ({ isLogged, ActivarLoged }) => {
           {UerData.addData === 1 && <FormDataOne />}
           {UerData.addData === 0 && <Images />}
         </DemoClass>
-      )}
+      ) }
 
       <ModalRequesFreeClass
         route="democlass"
