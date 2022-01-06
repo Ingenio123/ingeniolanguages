@@ -46,7 +46,7 @@ const PaypalOrder = () => {
       const { data } = await axios.post(
         EndPoint,
         {
-          priceTotal: 20,
+          priceTotal: valor,
           datosArray: items,
         },
         {
@@ -128,7 +128,7 @@ const PaypalOrder = () => {
           </ItemsOrder>
         </BoxOrder>
         <div className="content_button">
-          <button className="btn checkout" onClick={HanldePay}>
+          <button className="btn checkout" onClick={() => HanldePay(res)}>
             Checkout
           </button>
           <div className="pagoSeguro">
