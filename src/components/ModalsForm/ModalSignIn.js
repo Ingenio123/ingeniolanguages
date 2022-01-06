@@ -26,9 +26,11 @@ import {
 } from "./styles";
 import SignUpForm from "./ModalSignUp";
 
+import { useSelector } from "react-redux";
+
 function ModalSignIn({ history, ShowModal, setShowModal }) {
   const [SignUp, setSignUp] = useState(false);
-
+  const state = useSelector((state) => state.Method);
   const {
     register,
     handleSubmit,

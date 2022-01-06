@@ -8,6 +8,7 @@ import stepProgress from "./StepProgress";
 import UserDataRedux from "./UserData";
 import Proced_to_pay from "./procedTopayment";
 import GetIdiomReducer from "./getIdiomReducer";
+import Method from "./method";
 export default combineReducers({
   auth: authReducer,
   package: packageReducer,
@@ -19,4 +20,5 @@ export default combineReducers({
   stepProgress,
   ProcedToPay: Proced_to_pay,
   GetIdiomReducer,
+  Method,
 });

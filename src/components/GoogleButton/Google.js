@@ -7,9 +7,11 @@ import { FcGoogle } from "react-icons/fc";
 import { useHistory } from "react-router-dom";
 
 import useUser from "../../hooks/useUser";
+import { useSelector } from "react-redux";
 
 export default function GoogleButton({ contentSign, route }) {
   const history = useHistory();
+  const Method = useSelector((state) => state.Method);
   const { ActivarLoged } = useUser();
   const responseGoogle = (res) => {
     sendGoogleToken(res.tokenId);
@@ -29,7 +31,8 @@ export default function GoogleButton({ contentSign, route }) {
     authenticate(response, () => {
       if (isAuth()) {
         if (route === "clientPay") {
-          return history.push("/payclient");
+          if (Method.method !== "paypal") return history.push("/payclient");
+          return history.push("/paypalorder");
         }
         if (route === "democlass") {
           return history.push("/democlass");
