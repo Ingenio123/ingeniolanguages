@@ -88,6 +88,7 @@ const ButtonVerify = styled.button`
   background-color: rgba(49, 69, 132, 1);
   color: white;
   margin-left: 6px;
+  min-width: 100px;
   &:hover {
     color: white;
     background: #405aaf;

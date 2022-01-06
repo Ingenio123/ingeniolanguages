@@ -9,6 +9,9 @@ import { Delete_Package } from "../../redux/actions/packageAction";
 import Inglaterra from "../../assets/images/svgs/Inglaterra.svg";
 import Espanish from "../../assets/images/svgs/Espanish.svg";
 import Francia from "../../assets/images/svgs/French.svg";
+import Rusia from "../../assets/images/svgs/russia.svg";
+import Korea from "../../assets/images/svgs/korea.svg";
+import Alemania from "../../assets/images/svgs/germany.svg";
 import { isAuth } from "../../helpers/Auth";
 import Modal from "../ModalsForm/ModalSignIn";
 import { BsCart2 } from "react-icons/bs";
@@ -62,6 +65,24 @@ export default function Boxcart() {
           <>
             {" "}
             <img src={Francia} width="25" height="25" /> <sppan>French</sppan>{" "}
+          </>
+        );
+      case "Russian":
+        return (
+          <>
+            <img src={Rusia} width="25" height="25" /> <span>Russian</span>
+          </>
+        );
+      case "Korean":
+        return (
+          <>
+            <img src={Korea} width="25" height="25" /> <span>Korean</span>
+          </>
+        );
+      case "Germany":
+        return (
+          <>
+            <img src={Alemania} width="25" height="25" /> <span>Germany</span>
           </>
         );
       default:

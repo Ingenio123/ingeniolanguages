@@ -12,10 +12,11 @@ export const SendDataPayClient = async (
   items,
   id,
   email,
+  emailCustom,
   Country,
   phone
 ) => {
-  console.log(Country);
+  console.log(emailCustom);
   const { City, PostCode, firstName, lastName, numberCedula, secondName } =
     shippingData;
   const ipClient = await getIpClient();
@@ -34,6 +35,7 @@ export const SendDataPayClient = async (
     items,
     id,
     email,
+    emailCustom,
   };
   // console.log(url);
   const EndPoint = url + "/payIngenioLanguages";

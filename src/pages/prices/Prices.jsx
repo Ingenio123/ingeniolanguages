@@ -6,10 +6,13 @@ import Data from "./data.json";
 // components
 import CardC from "../../components/prices/card";
 import ModalC from "../../components/prices/Modal";
+import BoxCart from "../../components/Boxcart/Boxcart";
 const PricesPage = () => {
-  const [ClickModal, setClickModal] = useState(true);
+  const [ClickModal, setClickModal] = useState(false);
+  const [Datas, setDatas] = useState({});
   return (
     <>
+      <BoxCart />
       <Container className="container">
         <ContentGrid>
           {Data.map((item) => (
@@ -17,14 +20,18 @@ const PricesPage = () => {
               key={item._id}
               idiom={item.nameCourse}
               imgUrl={item.imgUrl}
+              setClickModal={setClickModal}
+              setData={setDatas}
             />
           ))}
         </ContentGrid>
       </Container>
       <ModalC
+        Datas={Datas}
         open={ClickModal}
-        img="https://proyectoviajero.com/wp-content/uploads/2021/05/plaza-roja-moscu.jpg"
-        nameCourse="Russian"
+        img={Datas.imgUrl}
+        nameCourse={Datas.idiom}
+        setClickModal={setClickModal}
       />
     </>
   );

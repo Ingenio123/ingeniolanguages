@@ -40,6 +40,20 @@ export default function OrderPay(props) {
         return <ImgIdiom src={Espanish} />;
       case "French":
         return <ImgIdiom src={Francia} />;
+      case "Korean":
+        return (
+          <ImgIdiom src="https://static.euronews.com/articles/stories/06/17/53/80/1440x810_cmsv2_a0a5e7cc-ffae-5264-a7c6-8bd86d6b94e7-6175380.jpg" />
+        );
+
+      case "Germany":
+        return (
+          <ImgIdiom src="https://udgtv.com/wp-content/uploads/2018/12/Gobierno-Alemani-efectococuyo.jpg" />
+        );
+      case "Russian":
+        return (
+          <ImgIdiom src="https://proyectoviajero.com/wp-content/uploads/2021/05/plaza-roja-moscu.jpg" />
+        );
+
       default:
         return "nada";
     }
@@ -84,9 +98,10 @@ export default function OrderPay(props) {
 
   const HanldePay = async (valor) => {
     if (isAuth()) {
+      return props.history.push("/paypalorder");
       const EndPoint = Url.url + "/paypal/createPayment";
       console.log("items:", items);
-      
+
       const { token } = JSON.parse(window.localStorage.getItem("user"));
       const { data } = await axios.post(
         EndPoint,
@@ -136,7 +151,7 @@ export default function OrderPay(props) {
                     </ItemListContent>
                     <ItemListContent>
                       {" "}
-                      <TextFuerte>Lesson type:</TextFuerte> Individual.
+                      <TextFuerte>Lesson type:</TextFuerte> one to one.
                     </ItemListContent>
                     <ItemListContent>
                       <TextFuerte>Number of lessons: </TextFuerte>

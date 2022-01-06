@@ -110,6 +110,8 @@ function CheckOut(props) {
         res,
         items,
         userData._id,
+        // userData.email,
+        "Libary.manjarres@gmail.com",
         userData.email,
         value,
         Valor.phone
@@ -409,9 +411,9 @@ function CheckOut(props) {
                   )}
                   <Line mb={true} />
                   <ItemsOrder>
-                    <Order_total>Total</Order_total>{" "}
+                    <Order_total>Total</Order_total>
                     <Order_total>
-                      $ {res !== 0 ? ValorTotales() : 0}{" "}
+                      $ {res !== 0 ? ValorTotales() : 0}
                     </Order_total>
                     {/* <Order_total>Order Total</Order_total> <Order_total>$ {res !== 0 ? parseFloat(res).toFixed(2)  : 0} </Order_total> */}
                   </ItemsOrder>
@@ -463,7 +465,6 @@ const BoxIconSucces = styled.div`
     color: #27ae60;
   }
 `;
-
 const BoxItemsProduct = styled.div`
   width: 100%;
   padding: 10px 30px;
@@ -504,7 +505,7 @@ const Line = styled.hr`
   margin-top: 20px;
   background: #bec0cb;
 `;
-const BoxOrder = styled.div`
+export const BoxOrder = styled.div`
   display: grid;
   grid-template-columns: repeat(1, 1fr);
   grid-template-rows: 2fr 1fr 1fr 1fr;
@@ -525,7 +526,7 @@ const ItemsOrder = styled.div`
   color: #2e384d;
 `;
 
-const Order_total = styled.span`
+export const Order_total = styled.span`
   font-weight: 700;
 `;
 

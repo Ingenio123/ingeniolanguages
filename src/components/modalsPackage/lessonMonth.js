@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { Months_lesson } from "../../redux/actions/packageAction";
 
-function LessonMonth({ handleMonth, InputMonths, Months }) {
+function LessonMonth({ handleMonth, InputMonths, Months, size }) {
   const dispatch = useDispatch();
   const Opcion = useSelector((state) => state.itemPackage.optionClass);
 
@@ -13,7 +13,7 @@ function LessonMonth({ handleMonth, InputMonths, Months }) {
   }, [Months]);
 
   return (
-    <Content>
+    <Content size={size}>
       <TextLesson>Number of months</TextLesson>
       <MonthBuy
         onChange={handleMonth}
@@ -29,7 +29,9 @@ function LessonMonth({ handleMonth, InputMonths, Months }) {
 export default memo(LessonMonth);
 
 const Content = styled.div`
-  width: calc(50% - 39px);
+  /* width: calc(50% - 39px);
+   */
+  width: ${({ size }) => (size ? "100%" : "calc(50% - 39px)")};
 `;
 
 const TextLesson = styled.span`

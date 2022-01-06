@@ -1,7 +1,11 @@
 import styled from "styled-components";
 const Card = (props) => {
   const hanldeClick = () => {
-    alert("click");
+    props.setClickModal(true);
+    props.setData({
+      idiom: props.idiom,
+      imgUrl: props.imgUrl,
+    });
   };
   return (
     <Cards img={props.imgUrl} onClick={hanldeClick}>

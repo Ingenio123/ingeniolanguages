@@ -70,6 +70,8 @@ import NavbarState from "./hooks/useNavbar";
 import BookLesson from "./pages/Private_pages/UserOrStudent/bookLesson";
 import Progress from "./pages/Private_pages/UserOrStudent/progress";
 import Prices from "./pages/prices/Prices";
+import PaypalOrder from "./pages/PaypalOrder/paypalorder";
+
 // i18next.init({
 //   interpolation: {
 //     escapeValue: false,
@@ -110,6 +112,8 @@ ReactDOM.render(
             />
             <Route path="/pruebas" component={Pruebas} />
             <Route exact path="/createonetemary" component={FormTemary} />
+            {/*  */}
+            <Route path="/paypalorder" component={PaypalOrder} />
             <AdminRoute path="/admin" exact component={Admin} />
             <TeacherRoutes path="/teacherPage" exact component={Teacher} />
             <UserProvider>

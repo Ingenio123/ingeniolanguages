@@ -1,85 +1,239 @@
 import styled from "styled-components";
+//icons
 import { IoCloseSharp, IoPersonSharp, IoPeopleSharp } from "react-icons/io5";
 import { BsCart2, BsCreditCard } from "react-icons/bs";
+// librerias
+import { useState, useCallback, useRef } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
+//actions
+import { Select_Package } from "../../redux/actions/packageAction";
+//components
+import OptionTime from "../modalsPackage/Optiontime";
+import OptionValues from "../modalsPackage/OptionsValues";
+import LessonMonth from "../modalsPackage/lessonMonth";
+
 const Modal = (props) => {
+  const history = useHistory();
+  const dispatch = useDispatch();
+  const InputMonths = useRef(0);
+  const [Months, setMonths] = useState({ value: 1 });
+  const [Valores, setValores] = useState(false);
+  const [IndividualClass, setIndividualClass] = useState(true);
+  const [GroupClass, setGroupClass] = useState(false);
+  //selectors
+  const CalculoPrices = useSelector(
+    (state) => state.itemPackage.calculatePrices
+  );
+  const LessonsMonth = useSelector(
+    (state) => state.itemPackage.lessonMonth.label
+  );
+  const time = useSelector((state) => state.itemPackage.timeLesson.label);
+  const MonthsNumber = useSelector((state) => state.itemPackage.numberMonts);
+  //end selectors
+  //click marque el inputa que hizo click y cuando haga click en input anterior deje de marcarse
+  /**
+   * -> click input 1 setState(1)
+   * -> click input 2 setState(2)
+   * <- input 1 false
+   */
+  const OnClickValores = () => {
+    setValores(!Valores);
+  };
+
+  const close = () => {
+    props.setClickModal(false);
+  };
+
+  const handleMonth = useCallback(() => {
+    setMonths({ value: InputMonths.current.value });
+  }, []);
+  /**
+   *
+   *
+   */
+
+  const OnClickIndividual = () => {
+    setIndividualClass(true);
+    setGroupClass(false);
+
+    InputMonths.current.value = 1;
+    dispatch({
+      type: "RESET_PRICES",
+    });
+    dispatch({
+      type: "GROUP_CLASS",
+      payload: 1,
+    });
+  };
+
+  const OnClickGroup = () => {
+    setGroupClass(true);
+    setIndividualClass(false);
+
+    dispatch({
+      type: "RESET_PRICES",
+    });
+
+    InputMonths.current.value = 1;
+
+    dispatch({
+      type: "GROUP_CLASS",
+      payload: 2,
+    });
+  };
+
+  /**
+   *
+   */
+  const handleProcced = () => {
+    dispatch(
+      Select_Package(
+        CalculoPrices,
+        props.nameCourse,
+        LessonsMonth,
+        time,
+        MonthsNumber
+      )
+    );
+    props.setClickModal(false);
+    return history.push("/orderSummary");
+    // if (isAuth()) {
+    // }
+    //               -------->!modalcontext.ModalState
+    // return modalcontext.setModalState(true);
+    // console.log(packageItems);
+    // const items = packageItems.items.find((x) => x.idiom === "English");
+    // console.log(items){
+    // }
+    // dispatch({
+    //   type: "PROCCED_TO_PAY",
+    //   payload: {
+    //     price: itemPackage.calculatePrices,
+    //     items:   1,
+    //   },
+    // });
+  };
+
+  const handleCart = () => {
+    //price , idiom , lesson
+    dispatch(
+      Select_Package(
+        CalculoPrices,
+        props.nameCourse,
+        LessonsMonth,
+        time,
+        MonthsNumber
+      )
+    );
+
+    dispatch({ type: "ADD_CART" });
+    props.setClickModal(false);
+    dispatch({
+      type: "AddCart",
+      payload: 25,
+    });
+  };
+
   return (
     <>
       {props.open && (
         <Content>
+          {/* onMouseDown={() => console.log("alert")} */}
           <Card>
             <ImageContent img={props.img} />
             <CardContent>
               <Title>{props.nameCourse} lesson</Title>
               <PricesBox>
-                <h4>$0</h4>
+                <h4>${CalculoPrices}</h4>
               </PricesBox>
               {/* Icons */}
               <ContentIcon>
                 <Tooltip>
-                  <IndividualI active={true} />
+                  <IndividualI active={true} onClick={OnClickIndividual} />
                   <span className="tooltip-box">One to one</span>
                 </Tooltip>
                 <Tooltip>
-                  <GroupI active={false} />
+                  <GroupI active={false} onClick={OnClickGroup} />
                   <span className="tooltip-box-group">Group lessons</span>
                 </Tooltip>
               </ContentIcon>
-              {/* End Icons */}
               <ContentGrid>
-                {/* Dropdowns start  */}
-                <Dropdown>
-                  <TextBox
-                    type="text"
-                    placeholder="lesson per month"
-                    readOnly
-                  />
-                  <Options className="options">
-                    {[1, 4, 8, 12].map((item) => (
-                      <div>{item} lessons</div>
-                    ))}
-                  </Options>
-                </Dropdown>
-                {/* Dropdowns end */}
-                {/* Dropdowns start  */}
-                <Dropdown>
-                  <TextBox
-                    type="text"
-                    placeholder="lesson per month"
-                    readOnly
-                  />
-                  <Options className="options">
-                    {[1, 4, 8, 12].map((item) => (
-                      <div>{item} lessons</div>
-                    ))}
-                  </Options>
-                </Dropdown>
-                {/* Dropdowns end */}
+                <ContentSelect>
+                  <span>Lessons per month</span>
+                  <OptionValues valor={OnClickValores} />
+                </ContentSelect>
+                <ContentSelect>
+                  <span>Duration of each lesson</span>
+                  <OptionTime valor={OnClickValores} />
+                </ContentSelect>
               </ContentGrid>
-
-              {/* Buttons */}
-              <ContentButton>
-                <Btn bg="#ff3946">
-                  <BtnIcon bg="#fe6f6f">
-                    <CartPlusI />
-                  </BtnIcon>
-                  Add to Cart
-                </Btn>
-                <Btn bg="#7D90CF">
-                  <BtnIcon bg="#314584">
-                    <CardI />
-                  </BtnIcon>
-                  Procced to pay
-                </Btn>
-              </ContentButton>
-              {/* End Buttons */}
+              <ContentGrid>
+                {GroupClass && (
+                  <ContentSelect>
+                    <LessonMonth
+                      Months={Months}
+                      size="true"
+                      InputMonths={InputMonths}
+                      handleMonth={handleMonth}
+                    />
+                  </ContentSelect>
+                )}
+                <ContentSelect>
+                  <LessonMonth
+                    Months={Months}
+                    size="true"
+                    InputMonths={InputMonths}
+                    handleMonth={handleMonth}
+                  />
+                </ContentSelect>
+              </ContentGrid>
+              {/* End Icons */}
+              <ContentButtonFlex>
+                {/* Buttons */}
+                <ContentButton>
+                  <BtnCart
+                    bg={CalculoPrices > 0 && "#ff3946"}
+                    disabled={CalculoPrices > 0 ? false : true}
+                    onClick={handleCart}
+                    // bg="#ff3946"
+                  >
+                    <BtnIcon bg="#ff3946">
+                      <CartPlusI />
+                    </BtnIcon>
+                    Add to Cart
+                  </BtnCart>
+                  <Btn
+                    bg={CalculoPrices > 0 && "#314584"}
+                    // bg="#d4d9e9"
+                    disabled={CalculoPrices > 0 ? false : true}
+                    onClick={handleProcced}
+                  >
+                    <BtnIcon bg="#314584">
+                      <CardI />
+                    </BtnIcon>
+                    Procced to pay
+                  </Btn>
+                </ContentButton>
+                {/* End Buttons */}
+              </ContentButtonFlex>
             </CardContent>
-            <BtnClose />
+            <BtnClose onClick={() => close()} />
           </Card>
         </Content>
       )}
     </>
   );
 };
+
+const ContentButtonFlex = styled.div`
+  position: absolute;
+  bottom: 1rem;
+  right: 1rem;
+  margin-top: 2rem;
+  display: flex;
+  justify-content: flex-end;
+`;
 
 const Content = styled.main`
   width: 100%;
@@ -225,10 +379,27 @@ const ContentGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   column-gap: 1rem;
+  margin-top: 1rem;
 `;
-const ContentButton = styled.div``;
+const ContentButton = styled.div`
+  display: flex;
+  column-gap: 1rem;
+`;
 const Btn = styled.button`
-  background-color: ${(props) => props.bg};
+  background-color: ${(props) => (props.bg ? props.bg : "#c1c9e3")};
+  color: #fff;
+  font-size: 1.05rem;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  padding: 0.3rem 0.5rem;
+  border-radius: 0.2rem;
+  column-gap: 0.2rem;
+  /* width: 135px; */
+`;
+//disabled={CalculoPrices > 0 ? false : true}
+const BtnCart = styled.button`
+  background-color: ${(props) => (props.bg ? props.bg : "#ff8088")};
   color: #fff;
   font-size: 1.05rem;
   display: flex;
@@ -257,35 +428,53 @@ const CartPlusI = styled(BsCart2)`
 const CardI = styled(BsCreditCard)`
   font-size: 1.25rem;
 `;
+const ContentSelect = styled.div`
+  span {
+    font-size: 1rem;
+    font-weight: 600;
+  }
+`;
 
 const Dropdown = styled.div`
   position: relative;
   width: 100%;
   height: 35px;
-  input {
+  label {
     position: absolute;
     top: 0;
+    font-size: 1rem;
+    font-weight: 600;
+  }
+  input {
+    position: absolute;
+    top: 25px;
     left: 0;
     width: 100%;
     height: 100%;
     cursor: pointer;
     background-color: #fff;
-    border: none;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+    border: 1px solid silver;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.125);
     padding: 0.5rem 1rem;
-    border-radius: 10px;
+    border-radius: 0.2rem;
     font-size: 1rem;
   }
   .options {
     position: absolute;
-    top: 40px;
+    top: 65px;
     width: 100%;
     background-color: #fff;
     box-shadow: 0 30px 30px rgba(0, 0, 0, 0.3);
     border-radius: 10px;
     overflow: hidden;
     font-size: 1rem;
-    display: none;
+    z-index: 999;
+    overflow: auto;
+    height: auto;
+    max-height: 182px;
+    /* display: none; */
+    /* display: ${(props) => (props.show ? "block" : "none")}; */
+    /* ${(props) => props.show && "display:block;"} */
   }
   .options div {
     padding: 0.2rem 1rem;
@@ -297,6 +486,8 @@ const Dropdown = styled.div`
   }
 `;
 const TextBox = styled.input``;
-const Options = styled.div``;
+const Options = styled.div`
+  display: ${(props) => (props.show ? "block" : "none")};
+`;
 
 export default Modal;
