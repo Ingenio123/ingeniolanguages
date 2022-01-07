@@ -3,105 +3,70 @@ function DataServer({ Data }) {
   console.log(Data);
   return (
     <DatosServer>
-      {Data.payment.transactions.map((subItem, SubIndex) => (
-        <div key={SubIndex}>
-          {subItem.item_list.items.map((item2, index2) => (
-            <div key={index2}>
-              <ContentSubitem>
-                <TextBold>
-                  {/* <TextNumber>{item2.quantity}</TextNumber> */}
-                  <div></div>
-                  <TextItem>{item2.description} </TextItem>
-                  <TextItem></TextItem>
-                </TextBold>
-                <TextBold>
-                  <Usds>{item2.currency}</Usds>
-                  <Usds>{item2.price}</Usds>
-                </TextBold>
-              </ContentSubitem>
-            </div>
-          ))}
-          <hr />
-          <ContentSubitem>
-            <Subtotal>SUBTOTAL</Subtotal>
-            <TextBold>{subItem.amount.details.subtotal}</TextBold>
-          </ContentSubitem>
-          <ContentSubitem>
-            <Total>TOTAL</Total>
-            <TextBold>
-              <Usds>{subItem.amount.currency}</Usds>
-              {subItem.amount.total}
-            </TextBold>
-          </ContentSubitem>
-        </div>
-      ))}
+      <h3>
+        {Data.data.purchase_units[0].payments.captures[0].amount.currency_code}
+      </h3>
+      <h2 style={{ fontSize: "3rem", margin: 0 }}>
+        $ {Data.data.purchase_units[0].payments.captures[0].amount.value}
+      </h2>
+      <h3>{Data.data.purchase_units[0].payments.captures[0].status}</h3>
     </DatosServer>
   );
 }
 
-export default DataServer;
-
-const Subtotal = styled.span`
-  font-size: 0.8rem;
-  font-weight: 650;
-  margin-bottom: 0.5rem;
-  color: #52525b;
-`;
-
 const DatosServer = styled.div`
   width: 80%;
-
-  margin-bottom: 0.5rem;
   color: #52525b;
-`;
-
-const TextNumber = styled.span`
-  font-size: 1rem;
-  margin-right: 0.2rem;
-  color: #52525b;
-`;
-const TextItem = styled.span`
-  font-size: 0.8rem;
-  font-weight: 650;
-  color: #52525b;
-`;
-
-const ContentSubitem = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-  width: 100%;
-  color: #52525b;
-`;
+  flex-direction: column;
+  row-gap: 0.5rem;
 
-const Subtitle = styled.span`
-  font-size: 1rem;
+  h3 {
+    font-size: 1.2rem;
+    color: #314584;
+    margin: 0;
+  }
+`;
+const TextH2 = styled.h2`
+  font-size: 3.5rem;
   font-weight: 600;
-  color: #52525b;
+  margin: 0;
 `;
+export default DataServer;
 
-const TextBoldSmall = styled.span`
-  font-weight: 700;
-  font-size: 0.8rem;
-  text-transform: uppercase;
-  color: #52525b;
-`;
-
-const TextBold = styled.span`
-  font-weight: 700;
-  font-size: 1rem;
-  text-transform: uppercase;
-`;
-const Usds = styled.span`
-  font-weight: 700;
-  margin-right: 0.3rem;
-`;
-
-const Total = styled.span`
-  font-size: 1rem;
-  font-weight: 700;
-`;
-
-const CardGrid = styled.div`
-  display: grid;
-`;
+// {
+//   Data.payment.transactions.map((subItem, SubIndex) => (
+//     <div key={SubIndex}>
+//       {subItem.item_list.items.map((item2, index2) => (
+//         <div key={index2}>
+//           <ContentSubitem>
+//             <TextBold>
+//               {/* <TextNumber>{item2.quantity}</TextNumber> */}
+//               <div></div>
+//               <TextItem>{item2.description} </TextItem>
+//               <TextItem></TextItem>
+//             </TextBold>
+//             <TextBold>
+//               <Usds>{item2.currency}</Usds>
+//               <Usds>{item2.price}</Usds>
+//             </TextBold>
+//           </ContentSubitem>
+//         </div>
+//       ))}
+//       <hr />
+//       <ContentSubitem>
+//         <Subtotal>SUBTOTAL</Subtotal>
+//         <TextBold>{subItem.amount.details.subtotal}</TextBold>
+//       </ContentSubitem>
+//       <ContentSubitem>
+//         <Total>TOTAL</Total>
+//         <TextBold>
+//           <Usds>{subItem.amount.currency}</Usds>
+//           {subItem.amount.total}
+//         </TextBold>
+//       </ContentSubitem>
+//     </div>
+//   ));
+// }

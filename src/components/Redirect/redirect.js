@@ -25,19 +25,17 @@ export default function Redirect() {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         setData(data);
         setLoader(true);
       });
   }, [queryLocation]);
 
-  const handleClick = () => {};
   return (
     <Centrar className="container">
       <CardSuccess>
         <CentrarBoxSmall column={true}>
           <ImgSuccess src={Success} alt="Success" />
-          <h2 onClick={handleClick}>Compra Exictosamente</h2>
+          <h2>Compra Exictosamente</h2>
         </CentrarBoxSmall>
         <ContentDataServer>
           {!Loader ? (
@@ -75,13 +73,10 @@ const CentrarBoxSmall = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: ${(props) => (props.column ? "column" : "row")};
-`;
-
-const Centrado_Data_Server = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 0.5rem;
+  h2 {
+    margin: 0;
+    margin: 0.5rem 0;
+  }
 `;
 
 const CardSuccess = styled.div`
@@ -99,10 +94,20 @@ const ImgSuccess = styled.img`
   height: 20%;
 `;
 const Button = styled(Link)`
-  color: #415884;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
   line-height: 1;
-  font-weight: 700;
+  font-weight: 500;
   font-size: 1.2rem;
+  margin: 0.5rem 0;
+  background-color: #22c55e;
+  padding: 0.5rem 1rem;
+  transition: all 0.3s ease;
+  :hover {
+    background-color: #16a34a;
+  }
 `;
 
 const ContentDataServer = styled.div`

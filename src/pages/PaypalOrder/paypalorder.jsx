@@ -41,7 +41,7 @@ const PaypalOrder = () => {
       //   return props.history.push("/paypalorder");
       const EndPoint = Url.url + "/paypal/createPayment";
       //   console.log("items:", items);
-
+      console.log(valor);
       const { token } = JSON.parse(window.localStorage.getItem("user"));
       const { data } = await axios.post(
         EndPoint,
@@ -55,7 +55,7 @@ const PaypalOrder = () => {
           },
         }
       );
-      //   console.log(data);
+      console.log(data);
       return window.location.assign(data.link);
     }
     // setClickPaypal({
@@ -128,7 +128,10 @@ const PaypalOrder = () => {
           </ItemsOrder>
         </BoxOrder>
         <div className="content_button">
-          <button className="btn checkout" onClick={() => HanldePay(res)}>
+          <button
+            className="btn checkout"
+            onClick={() => HanldePay(ValorTotales())}
+          >
             Checkout
           </button>
           <div className="pagoSeguro">
