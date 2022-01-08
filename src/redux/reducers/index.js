@@ -9,6 +9,9 @@ import UserDataRedux from "./UserData";
 import Proced_to_pay from "./procedTopayment";
 import GetIdiomReducer from "./getIdiomReducer";
 import Method from "./method";
+import MenuIdiom from "./menuIdiom";
+//
+//
 export default combineReducers({
   auth: authReducer,
   package: packageReducer,
@@ -21,4 +24,5 @@ export default combineReducers({
   ProcedToPay: Proced_to_pay,
   GetIdiomReducer,
   Method,
+  Menu: MenuIdiom,
 });

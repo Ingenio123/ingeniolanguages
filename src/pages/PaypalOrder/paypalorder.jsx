@@ -55,7 +55,6 @@ const PaypalOrder = () => {
           },
         }
       );
-      console.log(data);
       return window.location.assign(data.link);
     }
     // setClickPaypal({

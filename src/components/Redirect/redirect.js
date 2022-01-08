@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import styled from "styled-components";
+import { useDispatch } from "react-redux";
 import Success from "../../assets/images/Success.svg";
 import { Link } from "react-router-dom";
 import DataServer from "./DataServer";
@@ -9,12 +10,15 @@ import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import Spinner from "react-loader-spinner";
 import { url } from "../Urls";
 
+// actions
+import { GetCourses } from "../../redux/actions/getMenuIdiom";
+
 export default function Redirect() {
   const [Data, setData] = useState({});
   const location = useLocation();
   const [Loader, setLoader] = useState(undefined);
   const queryLocation = location.search;
-
+  const dispatch = useDispatch();
   useEffect(() => {
     const Enpoint = `${url}/paypal/sucess` + queryLocation;
     const { token } = JSON.parse(window.localStorage.getItem("user"));
@@ -25,6 +29,7 @@ export default function Redirect() {
     })
       .then((res) => res.json())
       .then((data) => {
+        dispatch(GetCourses());
         setData(data);
         setLoader(true);
       });
@@ -35,7 +40,7 @@ export default function Redirect() {
       <CardSuccess>
         <CentrarBoxSmall column={true}>
           <ImgSuccess src={Success} alt="Success" />
-          <h2>Compra Exictosamente</h2>
+          <h2>Payment completed successfully</h2>
         </CentrarBoxSmall>
         <ContentDataServer>
           {!Loader ? (
