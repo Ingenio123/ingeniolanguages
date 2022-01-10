@@ -199,7 +199,7 @@ export default function ModalRequesFreeClass({
                       icons={true}
                       type="email"
                       {...register("email", {
-                        required: "E-mail  required",
+                        required: "E-mail  required", 
                       })}
                     />
                     {errors.email && (

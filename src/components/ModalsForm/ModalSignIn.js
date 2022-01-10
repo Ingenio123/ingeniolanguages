@@ -12,7 +12,7 @@ import {
   IoEyeOutline,
 } from "react-icons/io5";
 import { LOGIN_SUCCESS } from "../../redux/actions/types";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useRef, useCallback, useEffect, useState } from "react";
 import GoogleButton from "../GoogleButton/Google";
 import {
@@ -26,16 +26,18 @@ import {
 } from "./styles";
 import SignUpForm from "./ModalSignUp";
 
-import { useSelector } from "react-redux";
+// custom hooks
+import useUser from "../../hooks/useUser";
 
 function ModalSignIn({ history, ShowModal, setShowModal }) {
   const [SignUp, setSignUp] = useState(false);
-  const state = useSelector((state) => state.Method);
+  const { method } = useSelector((state) => state.Method);
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
+  const { login, ActivarLoged, hasLoginError, messageError } = useUser();
 
   const dispatch = useDispatch();
 
@@ -58,12 +60,25 @@ function ModalSignIn({ history, ShowModal, setShowModal }) {
 
     const EndPoint = Url.url + "/data/userSignIn";
     const res = await axios.post(EndPoint, datos);
+    /**
+     *
+     *
+     */
 
     authenticate(res, () => {
-      history.push("/payclient");
+      if (method === "paypal") {
+        console.log(res.data);
+        ActivarLoged(res.data);
+        dispatch({
+          type: LOGIN_SUCCESS,
+        });
+        return history.push("/paypalorder");
+      }
+      ActivarLoged(res.data);
       dispatch({
         type: LOGIN_SUCCESS,
       });
+      return history.push("/payclient");
     });
   }
 

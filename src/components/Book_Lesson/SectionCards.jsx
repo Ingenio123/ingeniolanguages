@@ -26,7 +26,7 @@ SectionCards.propTypes = {
   image_url: PropsTypes.string,
   idiom: PropsTypes.string,
   name_teacher: PropsTypes.string,
-  eslogan: PropsTypes.string,
+  eslogan: PropsTypes.string.isRequired,
 };
 SectionCards.defaultProps = {
   image_url:

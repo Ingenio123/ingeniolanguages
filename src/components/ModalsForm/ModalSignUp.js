@@ -12,7 +12,6 @@ import {
   LineCenter,
   TextGray,
   Button,
-  CentrarVerticalmente,
   Label,
 } from "./styles";
 import { useForm } from "react-hook-form";
@@ -21,13 +20,16 @@ import PhoneInput from "react-phone-input-2";
 import { IoMailOutline, IoLockClosedOutline } from "react-icons/io5";
 import GoogleButton from "../GoogleButton/Google";
 import { useDispatch, useSelector } from "react-redux";
-import { Register } from "../../redux/actions/authAction";
+
 import { useHistory } from "react-router-dom";
 import axios from "axios";
 import Url from "../Urls";
 import { REGISTER_SUCCESS } from "../../redux/actions/types";
 import { authenticate } from "../../helpers/Auth";
 import styled from "styled-components";
+
+//
+import useUser from "../../hooks/useUser";
 
 const ModalSignUp = ({ showSignUp, setSignUp }) => {
   const {
@@ -42,6 +44,11 @@ const ModalSignUp = ({ showSignUp, setSignUp }) => {
   const [types2, setTypes2] = useState(true);
   const dispatch = useDispatch();
   const history = useHistory();
+  /**
+   *
+   */
+  const { method } = useSelector((state) => state.Method);
+  const { ActivarLoged } = useUser();
 
   const selectCountry = (val) => {
     setValue(val.toLowerCase());
@@ -94,6 +101,14 @@ const ModalSignUp = ({ showSignUp, setSignUp }) => {
     const res = await axios.post(Endpoint, body, config);
 
     authenticate(res, () => {
+      if (method === "paypal") {
+        ActivarLoged(res.data);
+        dispatch({
+          type: REGISTER_SUCCESS,
+          payload: res.data,
+        });
+        return history.push("/paypalorder");
+      }
       dispatch({
         type: REGISTER_SUCCESS,
         payload: res.data,
@@ -222,7 +237,25 @@ const ModalSignUp = ({ showSignUp, setSignUp }) => {
           </div>
         </div>
         <div className="row">
-          <div className="col-12 col-md-12"></div>
+          <div className="col-12 col-md-12">
+            <label for="Email">Email</label>
+            <InputWhithIcon>
+              <input
+                type="email"
+                placeholder="Email"
+                {...register("email", {
+                  required: "Email is required",
+                })}
+              />
+              {/* icon */}
+              <i style={{ top: "-8px" }}>
+                <IoMailOutline />{" "}
+              </i>
+              <span className="text-small text-danger">
+                {errors.email?.message}{" "}
+              </span>
+            </InputWhithIcon>
+          </div>
         </div>
         <div className="row">
           <div className="col-6 col-md-6">
