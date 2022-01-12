@@ -13,6 +13,7 @@ import ComponentSearch from "../../Search/Search";
 import { GetAllStudents } from "../../../helpers/User";
 import ContextCourse from "../../Context/CoursesContext";
 import ComponentSelect from "../../ComponentTeachers/Calificacion";
+import { Qualification } from "../../../services/teacherqualification";
 
 const initialForm = {
   student: "",
@@ -39,6 +40,7 @@ function SearchStudent({ handleSearch }) {
   const [search, setSearch] = useState("");
   const [SearchResults, setSearchResults] = useState("");
   const [ListData, setListData] = useState([]);
+  const [Idiom, setIdiom] = useState("");
 
   const courseContext = useContext(ContextCourse);
   const { course } = courseContext;
@@ -180,32 +182,15 @@ function SearchStudent({ handleSearch }) {
   // #######################################
 
   const handleSend = async () => {
-    const Endpoint = Url.url + "/teacher/summary";
-    const user = window.localStorage.getItem("user");
-    const token = JSON.parse(user).token;
     const value = {
+      date: DateCalendar,
       SummaryInput,
       Comments,
-      Name: DataOneStudent.Name,
-      "Lesson-Restatntes": DataOneStudent.lessonsRestantes,
-      b: DataOneStudent.lessonsTotal,
-      date: DateCalendar,
-      Level: NumLevel,
-      SubLevel: SumSublevel,
-      Content: idContent,
+      Name: course ? course.FirstName || course.email : null,
+      idiom: Idiom,
     };
-    const res = await fetch(Endpoint, {
-      method: "POST",
-      mode: "cors",
-      cache: "no-cache",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify(value),
-    });
-    const data = await res.json();
-    console.log(data);
+    // const data = await Qualification(value);
+    await Qualification(value);
   };
 
   // ########################################
@@ -254,7 +239,7 @@ function SearchStudent({ handleSearch }) {
                   <TextBold>
                     {course.courses.length > 1 ? "Select Package" : null}
                   </TextBold>
-                  <ComponentSelect data={course.courses} />
+                  <ComponentSelect data={course.courses} setIdiom={setIdiom} />
                 </>
               )}
             </p>

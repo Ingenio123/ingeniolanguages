@@ -88,6 +88,7 @@ const Card = styled.div`
   margin-right: 10px;
   margin-bottom: 10px;
   border: ${(props) => (props.border ? `1px solid ${props.border}` : "none")};
+  max-height: 130px;
 `;
 
 const CardCol = styled.div`

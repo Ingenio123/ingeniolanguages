@@ -1,11 +1,13 @@
 import styled from "styled-components";
 
-export default function Calificacion({ data }) {
-  console.log(data);
+export default function Calificacion({ data, setIdiom }) {
+  const hanldeSelect = (e) => {
+    setIdiom(e.target.value);
+  };
   return (
     <>
       {data && data.length > 1 && (
-        <Select>
+        <Select onChange={(e) => hanldeSelect(e)}>
           {data.map((item) => (
             <option key={item._id} value={item.idiom}>
               {item.idiom}
