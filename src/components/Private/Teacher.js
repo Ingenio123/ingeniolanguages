@@ -59,12 +59,13 @@ export const Teacher = () => {
           .includes(searchTerm.toLowerCase());
       });
       setSearchResults(newContactList);
-      console.log("Exist", newContactList);
+      console.log("Exist", SearchResults);
     } else {
       setSearchResults([]);
       console.log("Mot Exist");
     }
   };
+  //
   const calificacion = useCalificacion();
   const { Sublevel, Level, IdContent } = calificacion;
 

@@ -9,7 +9,14 @@ export default function Cards(props) {
       <CardCol>
         <Card_text>{props.idiom}</Card_text>
         <Text_base>lesson of {props.TimeLossons} </Text_base>
-        <ButtonSumary textColor={props.textColor} primary={props.primary}>
+        <ButtonSumary
+          textColor={props.textColor}
+          primary={props.primary}
+          onClick={() => {
+            // props.setLangauge(props.idiom);
+            props.click(props.idiom);
+          }}
+        >
           <Icon />
           Sumary
         </ButtonSumary>

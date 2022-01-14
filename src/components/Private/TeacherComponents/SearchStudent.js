@@ -67,7 +67,7 @@ function SearchStudent({ handleSearch }) {
           .includes(searchTerm.toLowerCase());
       });
       setSearchResults(newContactList);
-      // console.log("Exist", newContactList);
+      console.log("Exist", SearchResults);
     } else {
       setSearchResults([]);
       console.log("Mot Exist");
@@ -188,6 +188,7 @@ function SearchStudent({ handleSearch }) {
       Comments,
       Name: course ? course.FirstName || course.email : null,
       idiom: Idiom,
+      email: course ? course.email : null,
     };
     // const data = await Qualification(value);
     await Qualification(value);
@@ -229,7 +230,6 @@ function SearchStudent({ handleSearch }) {
           {/* start Datos Estaticos  */}
           <ItemsCard block>
             <p>
-              {" "}
               <TextBold>Nombre or email: </TextBold>
               {course ? course.FirstName || course.email : null}
             </p>

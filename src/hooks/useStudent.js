@@ -6,8 +6,11 @@ import { url } from "../components/Urls";
 
 const StudentState = (props) => {
   const EndPoint = url + "/data/verifyIstudent";
+
   const initialState = {
     student: null,
+    loading: true,
+    error: null,
   };
   const [state, dispatch] = useReducer(ReducerStudent, initialState);
 
@@ -15,6 +18,7 @@ const StudentState = (props) => {
     try {
       var Token = window.localStorage.getItem("user");
       Token = JSON.parse(Token).token;
+      dispatch({ type: "LOADING_STUDENT" });
       const res = await fetch(EndPoint, {
         headers: {
           authorization: `Bearer ${Token}`,
@@ -25,12 +29,6 @@ const StudentState = (props) => {
       }
       const data = await res.json();
       dispatch({ type: "GET_STUDENT", payload: data });
-      // const res = await axios.get(EndPoint, {
-      //   headers: {
-      //     authorization: `Bearer ${Token}`,
-      //   },
-      // });
-      // const data = res.data;
     } catch (error) {
       console.log("Err student", error);
     }
@@ -42,6 +40,8 @@ const StudentState = (props) => {
     <StudentContext.Provider
       value={{
         student: state.student,
+        loading: state.loading,
+        error: state.error,
         getStudent,
       }}
     >

@@ -37,9 +37,11 @@ export const removeLocalStorage = (key) => {
 };
 
 // getLocalStorage
+// esto no vale
 export const GetLocalStorage = () => {
   if (window !== "undefined") {
-    return JSON.parse(localStorage.getItem("user"));
+    const datos = JSON.parse(localStorage.getItem("user"));
+    return datos;
     // if (localStorage.getItem("user")) {
     //   console.log(JSON.parse(localStorage.getItem("user")));
     // }

@@ -5,11 +5,22 @@ const Reducer = (state, action) => {
       return {
         ...state,
         student: payload,
+        error: false,
+        loading: false,
       };
     case "ERROR_STUDENT":
       return {
         ...state,
-        student: false,
+        student: null,
+        error: true,
+        loading: false,
+      };
+    case "LOADING_STUDENT":
+      return {
+        ...state,
+        loading: true,
+        student: null,
+        error: false,
       };
     default:
       return {
