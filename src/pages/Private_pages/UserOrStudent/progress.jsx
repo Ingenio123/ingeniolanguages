@@ -13,6 +13,7 @@ import ContextStudent from "../../../components/Context/StudentContext";
 //data Json
 import Data from "./dataprogress.json";
 //end  data Json
+import Url from "../../../components/Urls";
 
 function Progress() {
   const studentContext = useContext(ContextStudent);
@@ -23,7 +24,7 @@ function Progress() {
     async function GetData(Language) {
       const user = JSON.parse(window.localStorage.getItem("user"));
       const resp = await axios.get(
-        `http://localhost:4000/student/summary?language=${Language}`,
+        `${Url.url}/student/summary?language=${Language}`,
         {
           headers: {
             Authorization: `Bearer ${user.token}`,
