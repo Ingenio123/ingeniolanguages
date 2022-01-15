@@ -24,8 +24,8 @@ const StudentState = (props) => {
           authorization: `Bearer ${Token}`,
         },
       });
-      if (res.status >= 400) {
-        return dispatch({ type: "ERROR_STUDENT" });
+      if (res.status >= 400 && res.status < 500) {
+        return dispatch({ type: "NOT_STUDENT" });
       }
       const data = await res.json();
       dispatch({ type: "GET_STUDENT", payload: data });

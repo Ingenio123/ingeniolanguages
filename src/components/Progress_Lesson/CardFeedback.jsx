@@ -1,8 +1,8 @@
-import styled, { css } from "styled-components";
+import styled, { css, keyframes } from "styled-components";
 import { BiCalendarWeek, BiChevronDown } from "react-icons/bi";
 import { useState } from "react";
 
-export default function CardFeedBack({ Summary }, props) {
+export default function CardFeedBack({ Summary, loading }, props) {
   const [Click, setClick] = useState(false);
   const [ClickToggle, setToggle] = useState(false);
   const SubToggle = (index) => {
@@ -22,120 +22,86 @@ export default function CardFeedBack({ Summary }, props) {
         </TextCardNotStudent>
       </CardNotStudent> */}
       <ContentFeddBack>
-        {Summary &&
-          Summary.map((item, index) => (
-            <Card key={index}>
-              <ContentHeader>
-                <ContentTeacher>
-                  <img src={item.teacher.picture} alt="imge teacher" />
-                  <Text>
-                    <h3>Teacher</h3>
-                    <h2>{item.teacher.email || item.teacher.name}</h2>
-                  </Text>
-                </ContentTeacher>
-                <Fecha>
-                  <div>
-                    <Icon style={{ marginRight: ".5rem" }} />
-                    <span> 1/12/2022</span>
-                  </div>
-                  <IconArrowHeader
-                    bottom={true}
-                    giro={ClickToggle === index ? true : false}
-                    onClick={() => Toggle(index)}
-                  />
-                </Fecha>
-              </ContentHeader>
-              {ClickToggle === index && (
-                <>
-                  <Acordion onClick={() => SubToggle(index)}>
-                    <div className="content">
-                      <span className="text">Class Summary</span>
-                      <IconArrow />
-                    </div>
-                    {Click === index && (
-                      <div className="content_two">
-                        <hr />
-                        <p>{item.content.classSummary}</p>
-                      </div>
-                    )}
-                  </Acordion>
-                  <Acordion onClick={() => SubToggle(index + 1)}>
-                    <div className="content">
-                      <span className="text">Comments </span>
-                      <IconArrow />
-                    </div>
-                    {Click === index + 1 && (
-                      <div className="content_two">
-                        <hr />
-                        <p>{item.content.comments}</p>
-                      </div>
-                    )}
-                  </Acordion>
-                </>
-              )}
-            </Card>
-          ))}
-        <Card>
-          <ContentHeader>
-            <ContentTeacher>
-              <img
-                src="https://res.cloudinary.com/ingenio/image/upload/v1622676035/ss00syeesa1gowaquynf.png"
-                alt="imge teacher"
-              />
-              <Text>
-                <h3>Teacher</h3>
-                <h2>Milena S</h2>
-              </Text>
-            </ContentTeacher>
-            <Fecha>
-              <div>
-                <Icon style={{ marginRight: ".5rem" }} />
-                <span> 1/12/2022</span>
+        {loading ? (
+          <CardSkeleton>
+            <div className="content--flex">
+              <div className="avatar"></div>
+              <div className="text">
+                <div className="text__teacher"></div>
+                <div className="text__name"></div>
               </div>
-              <IconArrowHeader
-                bottom={true}
-                giro={ClickToggle === 2 ? true : false}
-                onClick={() => Toggle(2)}
-              />
-            </Fecha>
-          </ContentHeader>
-          {ClickToggle === 2 && (
-            <>
-              <Acordion onClick={() => SubToggle(3)}>
-                <div className="content">
-                  <span className="text">Class Summary</span>
-                  <IconArrow />
-                </div>
-                {Click === 3 && (
-                  <div className="content_two">
-                    <hr />
-                    <p>
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                      Ipsa quia beatae illum eos aperiam modi mollitia et, eius
-                      magni similique.
-                    </p>
-                  </div>
-                )}
-              </Acordion>
-              <Acordion onClick={() => SubToggle(4)}>
-                <div className="content">
-                  <span className="text">Comments </span>
-                  <IconArrow />
-                </div>
-                {Click === 4 && (
-                  <div className="content_two">
-                    <hr />
-                    <p>
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                      Ipsa quia beatae illum eos aperiam modi mollitia et, eius
-                      magni similique.
-                    </p>
-                  </div>
-                )}
-              </Acordion>
-            </>
-          )}
-        </Card>
+            </div>
+            <div className="contenttwo">
+              <div className="date"></div>
+            </div>
+          </CardSkeleton>
+        ) : (
+          <>
+            {!Summary ? (
+              <CardNotStudent>
+                <TextCardNotStudent>
+                  In this Section, you will be able to view your teachers
+                  feedback of the lessons you have had
+                </TextCardNotStudent>
+              </CardNotStudent>
+            ) : (
+              <>
+                {Summary.map((item, index) => (
+                  <Card key={index}>
+                    <ContentHeader>
+                      <ContentTeacher>
+                        <img src={item.teacher.picture} alt="imge teacher" />
+                        <Text>
+                          <h3>Teacher</h3>
+                          <h2>{item.teacher.email || item.teacher.name}</h2>
+                        </Text>
+                      </ContentTeacher>
+                      <Fecha>
+                        <div>
+                          <Icon style={{ marginRight: ".5rem" }} />
+                          <span> 1/12/2022</span>
+                        </div>
+                        <IconArrowHeader
+                          bottom={true}
+                          giro={ClickToggle === index ? true : false}
+                          onClick={() => Toggle(index)}
+                        />
+                      </Fecha>
+                    </ContentHeader>
+                    {ClickToggle === index && (
+                      <>
+                        <Acordion onClick={() => SubToggle(index)}>
+                          <div className="content">
+                            <span className="text">Class Summary</span>
+                            <IconArrow />
+                          </div>
+                          {Click === index && (
+                            <div className="content_two">
+                              <hr />
+                              <p>{item.content.classSummary}</p>
+                            </div>
+                          )}
+                        </Acordion>
+                        <Acordion onClick={() => SubToggle(index + 1)}>
+                          <div className="content">
+                            <span className="text">Comments </span>
+                            <IconArrow />
+                          </div>
+                          {Click === index + 1 && (
+                            <div className="content_two">
+                              <hr />
+                              <p>{item.content.comments}</p>
+                            </div>
+                          )}
+                        </Acordion>
+                      </>
+                    )}
+                  </Card>
+                ))}
+              </>
+            )}
+          </>
+        )}
       </ContentFeddBack>
     </>
   );
@@ -280,3 +246,222 @@ const IconArrowHeader = styled(BiChevronDown)`
     color: #6e6e74;
   }
 `;
+
+const shimmer = keyframes`
+  100% {
+      transform: translateX(100%);
+    }
+`;
+
+const CardSkeleton = styled.div`
+  position: relative;
+  width: 100%;
+  height: 100px;
+  padding: 1rem;
+  background-color: #a1a1aa;
+  border-radius: 0.5rem;
+  margin: 0;
+  margin-bottom: 0.3rem;
+  .content {
+    border: 1px solid blue;
+    &--flex {
+      display: flex;
+    }
+  }
+  .avatar {
+    height: 50px;
+    width: 50px;
+    background-color: #b3b3b3;
+    border-radius: 50%;
+    position: relative;
+    overflow: hidden;
+    &::after {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      transform: translateX(-100%);
+      background-image: linear-gradient(
+        90deg,
+        rgba(255, 255, 255, 0.3) 0,
+        rgba(255, 255, 255, 0.5) 20%,
+        rgba(255, 255, 255, 0.1) 60%,
+        rgba(255, 255, 255, 0.6)
+      );
+      animation-name: ${shimmer};
+      animation-duration: 0.8s;
+      animation-iteration-count: infinite;
+      content: "";
+    }
+  }
+  .text {
+    &__teacher {
+      margin: 0;
+      margin-left: 0.3rem;
+      position: absolute;
+      top: 40px;
+      width: 70px;
+      height: 15px;
+      background-color: #b3b3b3;
+      position: relative;
+      overflow: hidden;
+      &::after {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        transform: translateX(-100%);
+        background-image: linear-gradient(
+          90deg,
+          rgba(255, 255, 255, 0.3) 0,
+          rgba(255, 255, 255, 0.5) 20%,
+          rgba(255, 255, 255, 0.1) 60%,
+          rgba(255, 255, 255, 0.6)
+        );
+        animation-name: ${shimmer};
+        animation-duration: 0.8s;
+        animation-iteration-count: infinite;
+        content: "";
+      }
+    }
+    &__name {
+      margin: 0;
+      margin-left: 0.3rem;
+      margin-right: 1rem;
+      width: 150px;
+      height: 15px;
+      background-color: #b3b3b3;
+      position: relative;
+      overflow: hidden;
+      &::after {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        transform: translateX(-100%);
+        background-image: linear-gradient(
+          90deg,
+          rgba(255, 255, 255, 0.3) 0,
+          rgba(255, 255, 255, 0.5) 20%,
+          rgba(255, 255, 255, 0.1) 60%,
+          rgba(255, 255, 255, 0.6)
+        );
+        animation-name: ${shimmer};
+        animation-duration: 0.8s;
+        animation-iteration-count: infinite;
+        content: "";
+      }
+    }
+  }
+  .contenttwo {
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 100%;
+
+    .date {
+      margin-top: 1rem;
+      margin-right: 1rem;
+      width: 100px;
+      height: 20px;
+      background-color: #b3b3b3;
+      position: relative;
+      overflow: hidden;
+      &::after {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        transform: translateX(-100%);
+        background-image: linear-gradient(
+          90deg,
+          rgba(255, 255, 255, 0.3) 0,
+          rgba(255, 255, 255, 0.5) 20%,
+          rgba(255, 255, 255, 0.1) 60%,
+          rgba(255, 255, 255, 0.6)
+        );
+        animation-name: ${shimmer};
+        animation-duration: 0.8s;
+        animation-iteration-count: infinite;
+        content: "";
+      }
+    }
+  }
+`;
+// &::after {
+//   position: absolute;
+//   top: 0;
+//   right: 0;
+//   bottom: 0;
+//   left: 0;
+//   transform: translateX(-100%);
+//   background-image: linear-gradient(
+//     90deg,
+//     rgba(255,255,255, .3) 0,
+//     rgba(255,255,255, .5) 20%,
+//     rgba(255,255,255, .1) 60%,
+//     rgba(255,255,255, .6)
+//   );
+//   animation-name: ${shimmer};
+//   animation-duration: .8s;
+//   animation-iteration-count: infinite;
+//   content: '';
+
+// {
+//     Summary.map((item, index) => (
+//       <Card key={index}>
+//         <ContentHeader>
+//           <ContentTeacher>
+//             <img src={item.teacher.picture} alt="imge teacher" />
+//             <Text>
+//               <h3>Teacher</h3>
+//               <h2>{item.teacher.email || item.teacher.name}</h2>
+//             </Text>
+//           </ContentTeacher>
+//           <Fecha>
+//             <div>
+//               <Icon style={{ marginRight: ".5rem" }} />
+//               <span> 1/12/2022</span>
+//             </div>
+//             <IconArrowHeader
+//               bottom={true}
+//               giro={ClickToggle === index ? true : false}
+//               onClick={() => Toggle(index)}
+//             />
+//           </Fecha>
+//         </ContentHeader>
+//         {ClickToggle === index && (
+//           <>
+//             <Acordion onClick={() => SubToggle(index)}>
+//               <div className="content">
+//                 <span className="text">Class Summary</span>
+//                 <IconArrow />
+//               </div>
+//               {Click === index && (
+//                 <div className="content_two">
+//                   <hr />
+//                   <p>{item.content.classSummary}</p>
+//                 </div>
+//               )}
+//             </Acordion>
+//             <Acordion onClick={() => SubToggle(index + 1)}>
+//               <div className="content">
+//                 <span className="text">Comments </span>
+//                 <IconArrow />
+//               </div>
+//               {Click === index + 1 && (
+//                 <div className="content_two">
+//                   <hr />
+//                   <p>{item.content.comments}</p>
+//                 </div>
+//               )}
+//             </Acordion>
+//           </>
+//         )}
+//       </Card>
+//     ));
+// }

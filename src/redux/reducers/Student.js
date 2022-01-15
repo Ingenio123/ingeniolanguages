@@ -15,6 +15,13 @@ const Reducer = (state, action) => {
         error: true,
         loading: false,
       };
+    case "NOT_STUDENT":
+      return {
+        ...state,
+        student: null,
+        error: false,
+        loading: false,
+      };
     case "LOADING_STUDENT":
       return {
         ...state,
