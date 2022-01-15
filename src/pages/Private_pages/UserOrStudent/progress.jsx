@@ -34,7 +34,7 @@ function Progress() {
       setSummary(resp.data.data);
     }
     // GetData();
-    if (studentContext.loading !== true && !studentContext.error) {
+    if (studentContext.student) {
       console.log(studentContext.student.QueryStudent.courses[0].idiom);
       GetData(studentContext.student.QueryStudent.courses[0].idiom);
     }
