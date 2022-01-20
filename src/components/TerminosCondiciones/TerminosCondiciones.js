@@ -34,272 +34,247 @@ export default function PoliticasPrivacidad() {
   return (
     <div className="container mt-5 ">
       <Wrapper>
-        <Title>Términos y condiciones</Title>
+        <Title>Terms and Conditions</Title>
         <Content_Subtitle>
-          <SubTitle>Clases en línea - Proveedor</SubTitle>
+          <SubTitle>Online Classes - Provider</SubTitle>
           <ContentSubtitle>
-            Ingenio Languages es una plataforma proporcionada por Ingenio
-            Online. Las clases online son impartidas por Ingenio Languages
-            Ubicada en Ecuador en Santo Domingo de los Colorados, Urb. Ciudad
-            Verde 106-12. Sitios web: www. Ingeniolanguages.com y www.
-            Ingenioonline.com Número de teléfono: +593 998546897
+            Ingenio Languages is a platform provided by Ingenio Online. Online
+            classes are taught by Ingenio Languages Located in Ecuador in Santo
+            Domingo de los Colorados, Urb. Ciudad Verde 106- 12. Websites: www.
+            Ingeniolanguages.com and www. Ingenioonline.com Phone number: +593
+            998546897
           </ContentSubtitle>
         </Content_Subtitle>
         <Content>
           <BoxContent>
-            <ItemsContent>Elegibilidad de servicios</ItemsContent>
+            <ItemsContent>Services Eligibility</ItemsContent>
             <ItemsSubContent>
-              Los servicios de Ingenio Languages están disponibles y solo pueden
-              ser utilizados por personas mayores de 18 años que puedan celebrar
-              contratos legalmente vinculantes según la ley aplicable. Las
-              personas menores de 18 años pueden usar nuestros servicios solo
-              junto con y bajo la supervisión de su representante legal. En este
-              caso, el representante legal es responsable de todas y cada una de
-              las actividades del estudiante
+              Ingenio Languages services are available to and may only be used
+              by persons over the age of 18 who can enter into legally binding
+              contracts under applicable law. Persons under the age of 18 may
+              use our services only together with and under the supervision of
+              their legal representative. In this case, the legal representative
+              is responsible for each and every one of the student's activities.
             </ItemsSubContent>
           </BoxContent>
           <BoxContent>
-            <ItemsContent Bold>DERECHOS Y LIMITES</ItemsContent>
-            <ItemsContent>Su licencia para hablar español</ItemsContent>
+            <ItemsContent Bold>RIGHTS AND LIMITS</ItemsContent>
+            <ItemsContent>Your license to Ingenio Languages</ItemsContent>
             <ItemsSubContent>
-              Ingenio Languages le otorga un derecho limitado, no transferible,
-              no sublicenciable, no exclusivo y para acceder y utilizar los
-              servicios y el software únicamente para su uso personal y no
-              comercial, y sujeto a las políticas y restricciones publicadas en
-              nuestro sitio web.
+              Ingenio Languages grants you a limited, non-transferable,
+              non-sublicensable, non-exclusive right to access and use the
+              services and software solely for your personal, non-commercial
+              use, and subject to the policies and restrictions posted on our
+              website.
             </ItemsSubContent>
           </BoxContent>
           <BoxContent>
-            <ItemsContent>Representaciones y garantías</ItemsContent>
+            <ItemsContent>Representations and Warranties</ItemsContent>
             <ItemsSubContent>
-              Si utiliza el sitio web como estudiante o padre, (i) acepta
-              cumplir con los compromisos que hace con un tutor a través del
-              sitio web; (ii) acepta que no eludirá ni manipulará nuestra
-              estructura de tarifas, el proceso de facturación o las tarifas
-              adeudadas a Ingenio Languages o al tutor; no entregar el pago de
-              los artículos comprados por usted a los tutores; y (iii) acepta
-              hacer esfuerzos de buena fe para interactuar con el tutor en línea
-              durante la Sesión de Tutor.
+              If you use the Website as a student or parent, (i) you agree to
+              honor any commitments you make to a tutor through the Website;
+              (ii) agree that you will not circumvent or manipulate our fee
+              structure, billing process, or fees owed to Ingenio Languages or
+              the tutor; failing to deliver payment for items purchased by you
+              to guardians; and (iii) you agree to make good faith efforts to
+              interact with the online tutor during the Tutor Session.
             </ItemsSubContent>
           </BoxContent>
           <BoxContent>
-            <ItemsContent>Limites</ItemsContent>
+            <ItemsContent>Limits</ItemsContent>
             <ItemsSubContent>
-              Mientras utiliza los servicios, acepta:
+              While using the Services, you agree to:
             </ItemsSubContent>
             <ItemsSubContent>
-              cumplir con todas las leyes aplicables, incluidas, entre otras,
-              las leyes de privacidad, las leyes de propiedad intelectual, las
-              leyes contra el correo no deseado, las leyes fiscales, etc.
+              A. comply with all applicable laws, including, but not limited to,
+              privacy laws, copyright laws, anti-spam laws, tax laws, etc.
             </ItemsSubContent>
             <ItemsSubContent>
-              proporcionarnos información precisa y mantenerla actualizada.
+              B. provide us with accurate information and keep it up to date;
             </ItemsSubContent>
             <ItemsSubContent>
-              utilizar los servicios y el sitio web de una manera legal,
-              relevante y adecuada a las leyes aplicables.
+              C. use the services and the website in a legal, relevant and
+              adequate manner to the applicable laws.
             </ItemsSubContent>
             <ItemsSubContent>
-              Cualquier uso del sitio web que Ingenio Languages, a su entera
-              discreción, considere inapropiado y / u ofensivo puede resultar en
-              la suspensión y / o terminación de un usuario con o sin previo
-              aviso.
+              Any use of the website that Ingenio Languages, in its sole
+              discretion, deems inappropriate and/or offensive may result in the
+              suspension and/or termination of a user with or without notice.
             </ItemsSubContent>
           </BoxContent>
           <BoxContent>
-            <ItemsContent>Métodos de pago</ItemsContent>
+            <ItemsContent>The reservation process</ItemsContent>
             <ItemsSubContent>
-              Puede pagar mediante tarjeta de crédito o PayPal pulsando el botón
-              de pago en la parte inferior del carrito de compras.
+              Clients are entitled to a free demo class. For which, they must
+              fill out a complete online registration form, requesting the free
+              trial class on our website: www.ingeniolanguages.coms
             </ItemsSubContent>
             <ItemsSubContent>
-              Todos nuestros precios ya incluyen IVA (Impuesto al Valor
-              Agregado). El desglose del IVA se reflejará al momento de realizar
-              el pago, y es del 12% del valor de la compra según la Ley de
-              Régimen Tributario Interno del Ecuador
-            </ItemsSubContent>
-          </BoxContent>
-          <BoxContent>
-            <ItemsContent Bold>Gastos de cancelación</ItemsContent>
-            <ItemsContent>Clases particulares de tutores en línea</ItemsContent>
-            <ItemsSubContent>
-              Ofrecemos una garantía de devolución del dinero del 100% en la
-              primera lección. Si no está satisfecho con sus lecciones, puede
-              comunicarse con nosotros dentro de la primera semana para recibir
-              un reembolso completo (o elegir otro maestro).
-            </ItemsSubContent>
-            <ItemsSubContent>
-              Cada vez que se cancela una lección, puede reprogramar la clase
-              para otro día y hora.
-            </ItemsSubContent>
-            <ItemsSubContent>
-              Si usted o nosotros cancelamos una lección por cualquier motivo,
-              le reembolsaremos esa lección si no desea reprogramarla.
-            </ItemsSubContent>
-            <ItemsSubContent>
-              Las cancelaciones deben realizarse al menos 24 horas antes de la
-              clase. De lo contrario, la tarifa de la clase no se reprogramará
-              ni se reembolsará. Es posible cancelar o reembolsar lecciones con
-              descuento; sin embargo, el reembolso será en función del valor sin
-              promoción.
-            </ItemsSubContent>
-            <ItemsSubContent>
-              La matrícula no es reembolsable si un participante se conecta
-              tarde o desea terminar la clase antes del tiempo asignado. Ingenio
-              Languages no reembolsará ninguna tarifa debido a ausencia,
-              enfermedad o circunstancias tecnológicas. Es su responsabilidad
-              proporcionar una conexión a Internet que funcione; no podemos ser
-              responsables de esto.
+              After filling out the form, an assistant will contact you to
+              choose the day and time of your trial class. After the trial class
+              you will be able to purchase one of the various class packages
+              offered by Ingenio Languages by adding them to the shopping cart.
             </ItemsSubContent>
           </BoxContent>
           <BoxContent>
-            <ItemsContent>Conteo de clases de paquetes mensuales.</ItemsContent>
+            <ItemsContent Bold>Cancellation fees</ItemsContent>
+            <ItemsContent>Private lessons from online tutors </ItemsContent>
             <ItemsSubContent>
-              El número de lecciones mensuales que compra, deberán ser
-              utilizadas durante el mes, caso contrario, las lecciones no son
-              acumulables para el siguiente mes
+              We offer a 100% money back guarantee on the first lesson. If you
+              are not satisfied with your lessons, you can contact us within the
+              first week for a full refund (or choose another teacher). Every
+              time a lesson is cancelled, you can reschedule the class for
+              another day and time.
+            </ItemsSubContent>
+            <ItemsSubContent>
+              If you or we cancel a lesson for any reason, we will refund that
+              lesson if you do not wish to reschedule.
             </ItemsSubContent>
 
             <ItemsSubContent>
-              Ingenio Languages es el único responsable del contenido de su
-              sitio web, la información transmitida y almacenada, los enlaces de
-              hipertexto, las reclamaciones de terceros y las acciones legales
-              relativas a la propiedad intelectual, derechos de terceros y
-              protección de menores. Ingenio Languages es responsable de las
-              leyes y normativas vigentes y de las normas que regulan el
-              funcionamiento del servicio online, el comercio electrónico, los
-              derechos de autor, el mantenimiento del orden público y los
-              principios generales de uso de Internet.
+              Cancellations must be made at least 24 hours before the class.
+              Otherwise, the class fee will not be rescheduled or refunded. It
+              is possible to cancel or refund discounted lessons; however, the
+              refund will be based on the non-promotional value.
             </ItemsSubContent>
             <ItemsSubContent>
-              El usuario indemnizará a Ingenio Languages de los gastos generados
-              por la asignación de Ingenio Languages en todo caso cuya
-              responsabilidad fuera imputable al usuario, incluidos los
-              honorarios y gastos de defensa legal, incluso en el caso de
-              decisión judicial no firme.
+              LBefore you start your classes or when you have completed less
+              than 3 lessons, you can cancel the purchased package and receive a
+              100% refund, otherwise, from the third lesson on, 20% of the value
+              to be reimbursed will be deducted for administrative expenses.
+            </ItemsSubContent>
+            <ItemsSubContent>
+              Tuition is non-refundable if a participant logs in late or wants
+              to finish the class before the allotted time. Ingenio Languages
+              will not refund any fees due to absence, illness or technological
+              circumstances. It is your responsibility to provide a working
+              Internet connection; we cannot be responsible for this.
+            </ItemsSubContent>
+          </BoxContent>
+          <BoxContent>
+            <ItemsContent>Monthly package class count. </ItemsContent>
+            <ItemsSubContent>
+              The number of monthly lessons you buy must be used during the
+              month, otherwise, the lessons are not cumulative for the following
+              month.
+            </ItemsSubContent>
+          </BoxContent>
+          <BoxContent>
+            <ItemsContent>Progress report and course resources</ItemsContent>
+            <ItemsSubContent>
+              The progress report shows the student their progress in the
+              language. We have organized our students' progress based on the
+              Common European Framework of Reference for Languages. The
+              resources that will be provided for your lessons have the
+              intellectual property of Ingenio Languages or external publishers.
+              By purchasing any of these resources, Ingenio Languages grants you
+              certain rights to use the resources for limited purposes. This
+              section describes the agreement and tells you what you can do with
+              the resources.
             </ItemsSubContent>
           </BoxContent>
           <BoxContent>
             <ItemsContent>
-              Informe de progreso y recursos del curso
+              Internal links to Ingenio Languages resources
             </ItemsContent>
             <ItemsSubContent>
-              El informe de progreso le muestra al estudiante su avance en el
-              idioma. Hemos organizado el progreso de nuestros estudiantes
-              basándonos en el Marco Común Europeo de Referencia para las
-              lenguas. Los recursos que se le facilitarán para sus lecciones,
-              poseen propiedad intelectual de Ingenio Languages o de editoriales
-              externas. Al comprar alguno de estos recursos, Ingenio Languages
-              le otorga ciertos derechos para usar los recursos con fines
-              limitados. Esta sección describe el acuerdo y le informa qué puede
-              hacer con los recursos.
+              Ingenio Languages resource sheets are for personal and
+              non-commercial use. You may not modify, copy, distribute,
+              transmit, display, perform, reproduce, publish, license, create
+              derivative works from, transfer, or sell any information,
+              software, products, or services obtained from these resources.
+            </ItemsSubContent>
+            <ItemsSubContent>
+              We check the functionality of our internal links on our resources
+              and our own content on a regular basis. If you find a broken link
+              or errors in our content, please contact us; We will resolve it
+              immediately and provide you with the updated version of the
+              resource.
             </ItemsSubContent>
           </BoxContent>
           <BoxContent>
             <ItemsContent>
-              Enlaces internos a recursos de Ingenio Languages
+              External links to resources on other websites
             </ItemsContent>
             <ItemsSubContent>
-              Las hojas de recursos de Ingenio Languages son para uso personal y
-              no comercial. No puede modificar, copiar, distribuir, transmitir,
-              mostrar, ejecutar, reproducir, publicar, licenciar, crear trabajos
-              derivados, transferir o vender información, software, productos o
-              servicios obtenidos de estos recursos.
+              We provide links to external resources from third party websites.
+              We check the functionality of these links on a regular basis. If
+              you find a broken link, please contact us; We will try to fix it
+              and provide you with the updated version of the resource.
             </ItemsSubContent>
             <ItemsSubContent>
-              Verificamos la funcionalidad de nuestros enlaces internos en
-              nuestros recursos y nuestro propio contenido de forma regular. Si
-              encuentra un enlace roto o errores en nuestro contenido,
-              comuníquese con nosotros; Lo resolveremos de inmediato y le
-              proporcionaremos la versión actualizada del recurso.
+              We are not responsible for the content of external resources and
+              we do not own or grant any rights to these resources. By using
+              these external resources, you agree to the respective Terms and
+              Conditions of these third parties.
             </ItemsSubContent>
           </BoxContent>
           <BoxContent>
             <ItemsContent>
-              Enlaces externos a recursos de otros sitios web
+              PDF not working/opening/downloading properly
             </ItemsContent>
             <ItemsSubContent>
-              Para poder descargar y ver las hojas de recursos, necesitará un
-              dispositivo compatible, acceso a Internet que funcione y un
-              software lector de PDF compatible. Su capacidad para utilizar las
-              hojas de recursos y su rendimiento pueden verse afectados por
-              estos factores. Dichos requisitos del sistema son su
-              responsabilidad.
-            </ItemsSubContent>
-            <ItemsSubContent>
-              No somos responsables del contenido de los recursos externos y no
-              poseemos ni otorgamos ningún derecho sobre estos recursos. Al
-              utilizar estos recursos externos, acepta los respectivos Términos
-              y condiciones de estos terceros.
+              In order to download and view the resource sheets, you will need a
+              compatible device, working Internet access, and compatible PDF
+              reader software. Your ability to use resource sheets and their
+              performance may be affected by these factors. Such system
+              requirements are your responsibility.
             </ItemsSubContent>
           </BoxContent>
           <BoxContent>
-            <ItemsContent>
-              PDF no funciona / no se abre / descarga correctamente
-            </ItemsContent>
+            <ItemsContent>Text book </ItemsContent>
             <ItemsSubContent>
-              Para poder descargar y ver las hojas de recursos, necesitará un
-              dispositivo compatible, acceso a Internet que funcione y un
-              software lector de PDF compatible. Su capacidad para utilizar las
-              hojas de recursos y su rendimiento pueden verse afectados por
-              estos factores. Dichos requisitos del sistema son su
-              responsabilidad.
+              It is highly recommended that the student purchase the physical
+              textbook to accelerate their learning process, however, it will be
+              optional whether or not the student wishes to purchase the
+              textbook for their language classes.
+            </ItemsSubContent>
+            <ItemsSubContent>
+              The book purchase process will be done directly with the
+              respective publisher. The process of buying, sending and receiving
+              it will be between the student and the publisher.
             </ItemsSubContent>
           </BoxContent>
           <BoxContent>
-            <ItemsContent>Libro de texto</ItemsContent>
+            <ItemsContent>General notes</ItemsContent>
             <ItemsSubContent>
-              Es muy recomendable que le estudiante adquiera el libro de texto
-              en físico para acelerar su proceso de aprendizaje, sin embargo,
-              será opcional si el estudiante desea o no comprar el libro de
-              texto para sus clases de idiomas.
-            </ItemsSubContent>
-            <ItemsSubContent>
-              El proceso de compra del libro lo hará directamente con la
-              editorial respectiva. El proceso de compra, envío y recepción del
-              mismo será entre el estudiante y la editorial.
+              All coupons are valid for up to one year after purchase. If you
+              have come to us through an agent, their Terms and Conditions may
+              apply to you; Ingenio Languages reserves the right to apply its
+              own terms.
             </ItemsSubContent>
           </BoxContent>
           <BoxContent>
-            <ItemsContent>Notas generales</ItemsContent>
+            <ItemsContent>Prohibited crimes</ItemsContent>
             <ItemsSubContent>
-              Todos los cupones son válidos hasta un año después de la compra.
-              Si ha acudido a nosotros a través de un agente, es posible que se
-              le apliquen sus Términos y condiciones; Ingenio Languages se
-              reserva el derecho de aplicar sus propios términos.
-            </ItemsSubContent>
-          </BoxContent>
-          <BoxContent>
-            <ItemsContent>Delitos prohibibles</ItemsContent>
-            <ItemsSubContent>
-              Las siguientes acciones no están permitidas en Ingenio Languages y
-              pueden dar lugar a la desactivación de la cuenta y la prohibición
-              de tomar más clases con Ingenio Languages.
+              The following actions are not allowed at Ingenio Languages and may
+              result in account deactivation and a ban from taking further
+              classes with Ingenio Languages.
             </ItemsSubContent>
             <ItemsCircle>
               <ItemCircle_subItem>
-                Ponerse en contacto con los maestros de Ingenio Languages u
-                ofrecer pagos fuera del sistema Ingenio Languages.
+                Contact Ingenio Languages teachers or offer payments outside the
+                Ingenio Languages system.
               </ItemCircle_subItem>
               <ItemCircle_subItem>
-                Eludir o manipular nuestra estructura de tarifas, el proceso de
-                facturación o las tarifas adeudadas a Ingenio Languages.
+                Circumvent or manipulate our fee structure, billing process, or
+                fees owed to Ingenio Languages.
               </ItemCircle_subItem>
               <ItemCircle_subItem>
-                No entregar el pago por los servicios adquiridos por usted.
+                Failure to deliver payment for services purchased by you.
               </ItemCircle_subItem>{" "}
               <ItemCircle_subItem>
-                Compartir el material de aprendizaje con un tercero. Esto
-                incluye copiar, reproducir, cargar, publicar o distribuir los
-                materiales en cualquier forma sin el permiso previo por escrito
-                de Ingenio Languages.
+                Sharing the learning material with a third party. This includes
+                copying, reproducing, uploading, publishing or distributing the
+                materials in any way without the prior written permission of
+                Ingenio Languages.
               </ItemCircle_subItem>
               <ItemCircle_subItem>
-                Transferir su cuenta y sus credenciales de inicio de sesión a
-                otra parte sin nuestro consentimiento previo por escrito.
+                Transfer your account and login credentials to another party
+                without our prior written consent.
               </ItemCircle_subItem>
               <ItemCircle_subItem>
-                Proporcionar o publicar información falsa, engañosa o inexacta.
+                Provide or post false, misleading or inaccurate information.
               </ItemCircle_subItem>
             </ItemsCircle>
           </BoxContent>

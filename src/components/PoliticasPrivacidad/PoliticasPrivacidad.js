@@ -48,173 +48,164 @@ export default function PoliticasPrivacidad() {
             <TableItem>Contactos</TableItem>
           </BoxSubTable>
         </Table> */}
-        <Title>Política de privacidad</Title>
+        <Title>Privacy Policy </Title>
         <Content_Subtitle>
-          <SubTitle>Valoramos tu privacidad</SubTitle>
+          <SubTitle>We value your privacy</SubTitle>
           <ContentSubtitle>
-            “Ingenio Languages” forma parte de la familia “Ingenio”, así como el
-            Centro de Formación Integral “Ingenio Online”.
+            “Ingenio Languages” is part of the “Ingenio” family, as well as the
+            Comprehensive Training Center “Ingenio Online”.
           </ContentSubtitle>
           <ContentSubtitle>
-            En Ingenio Languages, sabemos que a usted le importa la protección
-            de su información personal y cómo se utiliza, y cumplimos con toda
-            la legislación vigente en materia de protección de datos. Esta
-            política describe nuestras prácticas de información en línea y las
-            elecciones que puede tomar sobre la forma en que se recopila y
-            utiliza su información. Lea esta política detenidamente porque, al
-            visitar o utilizar nuestro sitio web, da su consentimiento para que
-            sus datos puedan ser procesados de acuerdo con esta Política de
-            privacidad. La política no se aplica a otros sitios web a los que se
-            pueda acceder a través de enlaces, de los que Ingenio Languages no
-            se hace responsable en modo alguno.
+            At Ingenio Languages, we know that you care about the protection of
+            your personal information and how it is used, and we comply with all
+            applicable data protection legislation.
+          </ContentSubtitle>
+          <ContentSubtitle>
+            This policy describes our online information practices and the
+            choices you can make about how your information is collected and
+            used.
+          </ContentSubtitle>
+          <ContentSubtitle>
+            Please read this policy carefully because, by visiting or using our
+            website, you consent to your data being processed in accordance with
+            this Privacy Policy. The policy does not apply to other websites
+            that can be accessed through links, for which Ingenio Languages is
+            not responsible in any way.
           </ContentSubtitle>
         </Content_Subtitle>
         <Content>
           <BoxContent>
             <ItemsContent>
-              Protección de datos personales según la LOPD (Ley Orgánica de
-              Protección de Datos Personales de Ecuador)
+              Protection of personal data according to the LOPD (Organic Law of
+              Protection of Personal Data of Ecuador)
             </ItemsContent>
             <ItemsSubContent>
-              Esta ley tiene por objeto garantizar el derecho a la protección de
-              datos personales, que incluye el acceso y decisión sobre la
-              información y datos de este carácter, así como su correspondiente
-              protección.
+              The purpose of this law is to guarantee the right to personal data
+              protection, which includes access to and decision on information
+              and data of this nature, as well as its corresponding protection.
             </ItemsSubContent>
             <ItemsSubContent>
-              De acuerdo con nuestra obligación legal nosotros, Ingenio
-              Languages queremos informarle sobre la recogida y uso de sus datos
-              personales. Toda la información personal recopilada a través de
-              formularios en el sitio web ingeniolanguages.com se recopila
-              automáticamente en un servidor seguro. La recogida y tratamiento
-              automatizado de los datos personales sirve para mantener las
-              relaciones comerciales y para informar y asesorar sobre ofertas y
-              novedades de Formación. Estos datos no serán transmitidos a
-              terceros bajo ninguna circunstancia.
+              In accordance with our legal obligation, we, Ingenio Languages,
+              want to inform you about the collection and use of your personal
+              data. All personal information collected through forms on the
+              ingeniolanguages.com website is automatically collected on a
+              secure server.
             </ItemsSubContent>
             <ItemsSubContent>
-              Ingenio Languages toma las medidas necesarias para garantizar la
-              seguridad, integridad y confidencialidad de sus datos de acuerdo
-              con lo dispuesto en el Registro Oficial Suplemento No. 459 de 26
-              de mayo de 2021 en donde se publicó la Ley Orgánica de Protección
-              de Datos Personales. El usuario podrá ejercitar los derechos de
-              acceso, oposición, rectificación y cancelación a que se refiere el
-              Reglamento en cualquier momento mediante correo electrónico a
-              admin@ingenioonline.com o contactando con nosotros en la siguiente
-              dirección: Urb. Ciudad Verde 106-12 Santo Domingo de los Colorados
-              – Ecuador. Telf. +593 998546897 El usuario declara que toda la
-              información facilitada por él es veraz y correcta, y se compromete
-              a mantenerla actualizada, informando a Ingenio Languages de
-              cualquier cambio.
+              The collection and automated processing of personal data serves to
+              maintain business relationships and to inform and advise on offers
+              and news of Training. These data will not be passed on to third
+              parties under any circumstances. Ingenio Languages takes the
+              necessary measures to guarantee the security, integrity and
+              confidentiality of your data in accordance with the provisions of
+              the Official Registry Supplement No. 459 of May 26, 2021 where the
+              Organic Law on Protection of Personal Data was published.
             </ItemsSubContent>
             <ItemsSubContent>
-              En el siguiente enlace encontrará el texto íntegro de la ley: Ley
-              Orgánica de Protección de Datos Personales
+              In the following link you will find the full text of the law:
+              Organic Law on Personal Data Protection
             </ItemsSubContent>
           </BoxContent>
           <BoxContent>
-            <ItemsContent>Recopilación y uso de datos</ItemsContent>
+            <ItemsContent>Data Collection and Use</ItemsContent>
             <ItemsSubContent>
-              Cuando realiza una reserva para un curso en nuestro sitio,
-              necesitaremos recopilar cierta información sobre usted, como su
-              nombre, país, dirección de correo electrónico, género, número de
-              teléfono y edad. No compartimos su información personal con
-              terceros.
+              When you make a reservation for a course on our site, we will need
+              to collect certain information about you, such as your name,
+              country, email address, gender, telephone number and age. We do
+              not share your personal information with third parties.
             </ItemsSubContent>
             <ItemsSubContent>
-              recopilamos de usted para procesar sus solicitudes y para
-              informarle de nuestras nuevas ofertas y funcionalidades de
-              servicios. Como parte del servicio que te presta Ingenio
-              Languages, nos comunicaremos vía e-mail o por llamada telefónica
-              para informarte de nuestras ofertas, servicios u otra información
-              relevante relacionada con nuestra escuela. Pero su información
-              personal no se proporcionará a empresas de terceros, ya que solo
-              nos comunicaremos con usted directamente Ingenio Languages utiliza
-              la información que
+              Ingenio Languages uses the information we collect from you to
+              process your requests and to inform you of our new offerings and
+              service features. As part of the service that Ingenio Languages
+              provides you, we will communicate via e-mail or by phone call to
+              inform you of our offers, services or other relevant information
+              related to our school. But your personal information will not be
+              provided to third party companies as we will only communicate with
+              you directly.
             </ItemsSubContent>
             <ItemsSubContent>
-              Ingenio Languages maneja servidores SAS, por tanto, no correrá
-              ningún riesgo de filtración de información con terceros por
-              servidores compartidos.
+              Ingenio Languages manages SAS servers, therefore, you will not run
+              any risk of information leaking with third parties through shared
+              servers.
             </ItemsSubContent>
             <ItemsSubContent>
-              En los casos en que el usuario incluya ficheros con datos
-              personales en los servidores de alojamiento compartido, Ingenio
-              Languages no se hace responsable del incumplimiento de la ley por
-              parte del usuario de la LOPD.
+              In the cases in which the user includes files with personal data
+              in the shared hosting servers, Ingenio Languages is not
+              responsible for the breach of the law by the user of the LOPD.
             </ItemsSubContent>
           </BoxContent>
           <BoxContent>
             <ItemsContent>
-              Retención de datos de acuerdo con la LOPD
+              Data retention in accordance with the LOPD
             </ItemsContent>
             <ItemsSubContent>
-              De acuerdo con la LOPD Ingenio Languages almacena los datos
-              imprescindibles necesarios para identificar su origen y el inicio
-              del servicio prestado. El almacenamiento de estos datos no influye
-              en el secreto de la comunicación y solo podrá ser utilizado en el
-              marco de una investigación penal o para garantizar la seguridad
-              pública poniéndose a disposición de los jueces y / o tribunales o
-              del ministerio competente. La transmisión de datos a las fuerzas y
-              cuerpos del estado se lleva a cabo de acuerdo con el reglamento de
-              protección de datos.
+              In accordance with the LOPD, Ingenio Languages stores the
+              essential data necessary to identify its origin and the start of
+              the service provided. The storage of this data does not influence
+              the secrecy of the communication and may only be used in the
+              framework of a criminal investigation or to guarantee public
+              safety by making itself available to the judges and/or courts or
+              the competent ministry. The transmission of data to the state
+              forces and bodies is carried out in accordance with the data
+              protection regulation.
             </ItemsSubContent>
           </BoxContent>
           <BoxContent>
-            <ItemsContent>Derechos de autor de Ingenio Languages</ItemsContent>
+            <ItemsContent>Copyright of Ingenio Languages</ItemsContent>
             <ItemsSubContent>
-              Ingenio Languages es titular de todos los derechos de autor,
-              propiedad intelectual y muchos otros derechos relacionados con los
-              contenidos del sitio web www.ingeniolanguages.com . Estos también
-              se refieren a los servicios que allí se ofrecen y los programas
-              que son necesarios para implementarlos. No se permite la
-              reproducción, publicación y / o uso privado no exclusivo de los
-              contenidos, total o parcial, del sitio web ingeniolanguages.com
-              sin el consentimiento previo por escrito.
+              Ingenio Languages is the owner of all copyrights, intellectual
+              property and many other rights related to the contents of the
+              www.ingeniolanguages.com website. These also refer to the services
+              that are offered there and the programs that are necessary to
+              implement them. The reproduction, publication and/or non-exclusive
+              private use of the contents, in whole or in part, of the
+              ingeniolanguages.com website is not permitted without prior
+              written consent.
             </ItemsSubContent>
           </BoxContent>
           <BoxContent>
-            <ItemsContent>Propiedad intelectual del software</ItemsContent>
+            <ItemsContent>Software Intellectual Property</ItemsContent>
             <ItemsSubContent>
-              El usuario debe respetar los programas de terceros puestos a
-              disposición por Ingenio Languages, aunque sean gratuitos y / o de
-              acceso público. Ingenio Languages dispone de los derechos de
-              explotación y propiedad intelectual necesarios del software. El
-              usuario no adquiere ningún derecho o licencia sobre el software
-              necesario para proporcionar el servicio acordado contractualmente.
-              Esto también se aplica a la información técnica para el
-              seguimiento del servicio con la excepción de los derechos y
-              licencias requeridos para realizar los servicios acordados
-              contractualmente y solo por su duración. <br /> El usuario
-              necesita autorización por escrito de Ingenio Languages, para
-              cualquier actuación que exceda la ejecución del contrato. Por
-              tanto, se prohíbe al usuario acceder, modificar o visualizar la
-              configuración, estructura y ficheros de los servidores de Ingenio
-              Languages, ya que cualquier acto negligente o doloso que se
-              produzca en los servidores o sistemas de seguridad conlleva
-              responsabilidad civil y penal directa.
+              The user must respect third-party programs made available by
+              Ingenio Languages, even if they are free and/or publicly
+              accessible. Ingenio Languages has the necessary exploitation and
+              intellectual property rights for the software. The user does not
+              acquire any right or license to the software necessary to provide
+              the contractually agreed service. This also applies to technical
+              information for service tracking with the exception of the rights
+              and licenses required to perform the contractually agreed services
+              and only for their duration. The user needs written authorization
+              from Ingenio Languages, for any action that exceeds the execution
+              of the contract. Therefore, the user is prohibited from accessing,
+              modifying or viewing the configuration, structure and files of the
+              Ingenio Languages servers, since any negligent or malicious act
+              that occurs on the servers or security systems entails direct
+              civil and criminal liability.
             </ItemsSubContent>
           </BoxContent>
           <BoxContent>
-            <ItemsContent>Uso de cookies</ItemsContent>
+            <ItemsContent>Use of cookies</ItemsContent>
             <ItemsSubContent>
-              Ingenio Languages utiliza una tecnología llamada "cookies". Las
-              cookies son piezas de información que un sitio web transfiere al
-              disco duro de su computadora con el fin de mantener registros. Nos
-              dicen cómo y cuándo se ven las páginas de nuestro sitio y por
-              cuántas personas.
+              Ingenio Languages uses a technology called "cookies". Cookies are
+              pieces of information that a website transfers to your computer's
+              hard drive for record-keeping purposes. They tell us how and when
+              pages on our site are viewed and by how many people.
             </ItemsSubContent>
             <ItemsSubContent>
-              ¿Qué significan las categorías de cookies? Fundamentos y
-              funcionalidad: estas cookies son necesarias para que nuestro sitio
-              web funcione correctamente y le ofrezca los servicios que
-              ofrecemos.
+              What do the cookie categories mean? Basics and functionality:
+              These cookies are necessary for our website to function properly
+              and to offer you the services we offer. Analytics: These cookies
+              help us understand our users by monitoring how they behave on our
+              site. We use these cookies to further enhance your experience on
+              our site
             </ItemsSubContent>
             <ItemsSubContent>
-              Análisis: estas cookies nos ayudan a comprender a nuestros
-              usuarios al monitorear cómo se comportan en nuestro sitio. Usamos
-              estas cookies para mejorar aún más su experiencia en nuestro
-              sitio.
+              Cookies do not collect personal identifiable information, although
+              they do identify a user's computer. We do not combine the
+              information collected through cookies with other personally
+              identifiable information to detect who you are or what your
+              username or email address is.
             </ItemsSubContent>
             <ItemsSubContent>
               Las cookies no recopilan información de identificación personal,
@@ -224,155 +215,154 @@ export default function PoliticasPrivacidad() {
               su nombre de usuario o dirección de correo electrónico.
             </ItemsSubContent>
             <ItemsSubContent>
-              Usamos Google Analytics, un servicio que transmite datos de
-              tráfico del sitio web a los servidores de Google. Google Analytics
-              no identifica a los usuarios individuales y su dirección IP es
-              anónima. Usamos informes proporcionados por Google Analytics para
-              ayudarnos a comprender el tráfico y el uso de la página web. Si
-              desea excluirse de la cookie de Google Analytics, puede utilizar
-              el complemento de exclusión voluntaria de Google Analytics .
+              On some of our pages, we may embed YouTube videos. The videos are
+              embedded in YouTube's so-called "enhanced privacy mode". This
+              means that YouTube will not store any information about visitors
+              to our website unless they choose to play the video.
             </ItemsSubContent>
             <ItemsSubContent>
-              En algunas de nuestras páginas, podríamos incrustar videos de
-              YouTube. Los videos están integrados en el llamado "modo de
-              privacidad mejorada" de YouTube. Esto significa que YouTube no
-              almacenará información sobre los visitantes de nuestro sitio web a
-              menos que decidan reproducir el video.
-            </ItemsSubContent>
-            <ItemsSubContent>
-              Tiene la capacidad de aceptar o rechazar cookies modificando la
-              configuración de su navegador. Si lo hace, es posible que no pueda
-              aprovechar al máximo nuestro sitio web. Por ejemplo, solo se puede
-              acceder al proceso completo de reserva en línea si acepta las
-              cookies
+              You have the ability to accept or decline cookies by changing your
+              browser settings. If you do, you may not be able to take full
+              advantage of our website. For example, the full online booking
+              process can only be accessed if you accept cookies.
             </ItemsSubContent>
           </BoxContent>
           <BoxContent>
-            <ItemsContent>Uso de canales de redes sociales</ItemsContent>
+            <ItemsContent>Use of social media channels</ItemsContent>
             <ItemsSubContent>
-              Usamos nuestros canales de redes sociales para vincular noticias,
-              artículos u otra información relevante a nuestros clientes y
-              seguidores. Se pueden incluir fotografías de personas
-              identificables que participen en nuestros cursos, actividades,
-              charlas, conferencias u otros eventos. Sin embargo, en caso de que
-              el usuario quiera eliminar su imagen, puede contactar al
-              administrador de la página para proceder con su eliminación.
+              We use our social media channels to link news, articles or other
+              relevant information to our customers and followers. Photographs
+              of identifiable people who participate in our courses, activities,
+              talks, conferences or other events may be included. However, in
+              case the user wants to remove his image, he can contact the
+              administrator of the page to proceed with its removal.
             </ItemsSubContent>
           </BoxContent>
           <BoxContent>
-            <ItemsContent>
-              Propiedad intelectual del contenido alojado
-            </ItemsContent>
+            <ItemsContent>Intellectual Property of Hosted Content</ItemsContent>
             <ItemsSubContent>
-              Queda prohibido el uso contrario a la legislación en materia de
-              propiedad intelectual de los servicios prestados por Formación
-              Ingenio Languages, en particular:
+              The use contrary to the legislation on intellectual property of
+              the services provided by Ingenio Languages Training is prohibited,
+              in particular:
             </ItemsSubContent>
             <ItemsCircle>
               <ItemCircle_subItem>
-                Cualquier uso que viole la legislación ecuatoriana o vulnere los
-                derechos de terceros.
+                Any use that violates Ecuadorian legislation or violates the
+                rights of third parties.
               </ItemCircle_subItem>
               <ItemCircle_subItem>
-                La publicación o transmisión de cualquier contenido que, a
-                juicio de Ingenio Languages, resulte violento, obsceno, abusivo,
-                ilegal, racista, xenófobo o difamatorio.
+                The publication or transmission of any content that, in the
+                opinion of Ingenio Languages, is violent, obscene, abusive,
+                illegal, racist, xenophobic or defamatory.
               </ItemCircle_subItem>
               <ItemCircle_subItem>
-                Hackear números de serie de programas u otrocontenido que viole
-                los derechos de propiedad intelectual de terceros.
+                Hack software serial numbers or other content that violates the
+                intellectual property rights of others.
               </ItemCircle_subItem>{" "}
               <ItemCircle_subItem>
-                La recopilación y / o uso de datos personales de otros usuarios
-                sin su consentimiento expreso o en violación de la LOPD, sobre
-                la protección de las personas en lo que respecta al tratamiento
-                de datos personales y sobre la libre circulación de dichos
-                datos.
+                The collection and / or use of personal data of other users
+                without their express consent or in violation of the LOPD, on
+                the protection of people with regard to the processing of
+                personal data and on the free circulation of said data.
               </ItemCircle_subItem>
               <ItemCircle_subItem>
-                Uso del servidor de correo y las direcciones de correo
-                electrónico del dominio para enviar spam
+                Use of mail server and domain email addresses to send spam.
+                Ingenio Languages is solely responsible for the content of its
+                website, the information transmitted and stored, hypertext
+                links, third party claims and legal actions related to
+                intellectual property, third party rights and protection of
+                minors. Ingenio Languages is responsible for the laws and
+                regulations in force and the rules that regulate the operation
+                of the online service, electronic commerce, copyright,
+                maintenance of public order and the general principles of
+                Internet use.
               </ItemCircle_subItem>
             </ItemsCircle>
             <ItemsSubContent>
-              Ingenio Languages es el único responsable del contenido de su
-              sitio web, la información transmitida y almacenada, los enlaces de
-              hipertexto, las reclamaciones de terceros y las acciones legales
-              relativas a la propiedad intelectual, derechos de terceros y
-              protección de menores. Ingenio Languages es responsable de las
-              leyes y normativas vigentes y de las normas que regulan el
-              funcionamiento del servicio online, el comercio electrónico, los
-              derechos de autor, el mantenimiento del orden público y los
-              principios generales de uso de Internet.
+              Ingenio Languages is solely responsible for the content of its
+              website, the information transmitted and stored, hypertext links,
+              third party claims and legal actions related to intellectual
+              property, third party rights and protection of minors. Ingenio
+              Languages is responsible for the laws and regulations in force and
+              the rules that regulate the operation of the online service,
+              electronic commerce, copyright, maintenance of public order and
+              the general principles of Internet use.
             </ItemsSubContent>
             <ItemsSubContent>
-              El usuario indemnizará a Ingenio Languages de los gastos generados
-              por la asignación de Ingenio Languages en todo caso cuya
-              responsabilidad fuera imputable al usuario, incluidos los
-              honorarios y gastos de defensa legal, incluso en el caso de
-              decisión judicial no firme.
+              The user will indemnify Ingenio Languages for the expenses
+              generated by the assignment of Ingenio Languages in any case whose
+              responsibility was attributable to the user, including legal
+              defense fees and expenses, even in the event of a non-final court
+              decision.
             </ItemsSubContent>
           </BoxContent>
           <BoxContent>
-            <ItemsContent>Protección de la información alojada</ItemsContent>
+            <ItemsContent>Protection of hosted information</ItemsContent>
             <ItemsSubContent>
-              Ingenio Languages realizamos copias de seguridad del contenido
-              alojado en nuestros servidores. Sin embargo, no somos responsables
-              de la pérdida o eliminación accidental de datos por parte del
-              usuario. Del mismo modo, no podemos garantizar el reemplazo
-              completo de los datos eliminados por los usuarios, ya que los
-              datos antes mencionados podrían haber sido eliminados y / o
-              cambiados durante el período desde la última copia de seguridad.
+              Ingenio Languages we make backup copies of the content hosted on
+              our servers. However, we are not responsible for accidental loss
+              or deletion of data by the user. Similarly, we cannot guarantee
+              complete replacement of data deleted by users, as the
+              aforementioned data might have been deleted and/or changed during
+              the period since the last backup.
             </ItemsSubContent>
             <ItemsSubContent>
-              Los servicios ofrecidos, salvo los servicios específicos de copia
-              de seguridad, no incluyen la reposición de los contenidos
-              conservados en las copias de seguridad realizadas por Ingenio
-              Languages. Si la pérdida de datos se debe al usuario, se establece
-              una tasa de acuerdo a la complejidad y extensión de la
-              recuperación, siempre de acuerdo con la aceptación del usuario. La
-              recuperación de datos solo está incluida en el precio del servicio
-              si la pérdida de contenido es imputable a Ingenio Languages.
-            </ItemsSubContent>
-          </BoxContent>
-          <BoxContent>
-            <ItemsContent>Comunicaciones comerciales</ItemsContent>
-            <ItemsSubContent>
-              En aplicación de la Ley de Comercio Electrónico, firmas y mensajes
-              de datos del Ecuador, Ingenio Languages no enviará publicidad por
-              correo electrónico u otro medio de comunicación electrónica salvo
-              que el destinatario lo haya solicitado o autorizado expresamente
-              previamente y por escrito.
-            </ItemsSubContent>
-            <ItemsSubContent>
-              Ingenio Languages tiene derecho a continuar enviando
-              comunicaciones comerciales sobre productos o servicios a los
-              usuarios con los que exista una relación contractual previa, si
-              estos son similares a los que originalmente fueron objeto del
-              contrato con el cliente. En cualquier caso, el usuario podrá
-              solicitar que no se le envíe más información comercial previa
-              acreditación de su identidad.
-            </ItemsSubContent>
-            <ItemsSubContent>
-              Usamos ActiveCampaign como nuestra plataforma de automatización de
-              marketing. Al suscribirse a nuestro boletín, usted reconoce que la
-              información que proporcione será transferida a ActiveCampaign para
-              su procesamiento de acuerdo con su Política de privacidad y sus
-              Términos . Puede cambiar de opinión en cualquier momento haciendo
-              clic en el enlace para darse de baja en el pie de página de
-              cualquier correo electrónico que reciba de nosotros.
+              The services offered, except for the specific backup services, do
+              not include the replacement of the contents preserved in the
+              backup copies made by Ingenio Languages. If the loss of data is
+              due to the user, a rate is established according to the complexity
+              and extent of the recovery, always in accordance with the user's
+              acceptance. Data recovery is only included in the price of the
+              service if the loss of content is attributable to Ingenio
+              Languages.
             </ItemsSubContent>
           </BoxContent>
           <BoxContent>
-            <ItemsContent>Cómo contactarnos</ItemsContent>
+            <ItemsContent>Commercial communications</ItemsContent>
+            <ItemsSubContent>
+              In application of the Electronic Commerce Law, signatures and data
+              messages of Ecuador, Ingenio Languages will not send advertising
+              by email or other means of electronic communication unless the
+              recipient has previously requested or expressly authorized it in
+              writing
+            </ItemsSubContent>
+            <ItemsSubContent>
+              Ingenio Languages has the right to continue sending commercial
+              communications about products or services to users with whom there
+              is a prior contractual relationship, if these are similar to those
+              that were originally the subject of the contract with the client.
+              In any case, the user may request that no more commercial
+              information be sent to them after proof of their identity.
+            </ItemsSubContent>
+            <ItemsSubContent>
+              We use ActiveCampaign as our marketing automation platform. By
+              subscribing to our newsletter, you acknowledge that the
+              information you provide will be transferred to ActiveCampaign for
+              processing in accordance with their Privacy Policy and Terms. You
+              can change your mind at any time by clicking the unsubscribe link
+              in the footer of any email you receive from us.
+            </ItemsSubContent>
+          </BoxContent>
+          <BoxContent>
+            <ItemsContent>How to contact us</ItemsContent>
             <ItemsSubContent>
               <b>Ingenio Languages</b>
               <br />
-              <b>Ingenio Online Centro de Formación Integral Ingenio </b>
+              <b>Ingenio Online</b>
               <br />
-              <b>Director: Wilson Cisneros.</b>
+              <b>Comprehensive Training Center Ingenio </b>
               <br />
-              <b>Coordinadora Académica: Libary Manjarrés</b>
+              <b>CEO Wilson Cisneros</b>
+              <br />
+              <b>Academic coordinator: Libary Manjarrés </b>
+              <b>Address:</b> Urb. Ciudad Verde 106- 12 Santo Domingo de los
+              Colorados – Ecuador
+              <br /> <b>Phone number.</b> +593 998546897 +593 939418502
+              <br />
+              <b>Email:</b>
+              admin@ingenioonline.com
+              <br /> The ingeniolanguages.com website and this legal notice are
+              subject to Ecuadorian law.
             </ItemsSubContent>
           </BoxContent>
         </Content>
