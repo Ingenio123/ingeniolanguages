@@ -3,21 +3,24 @@ import styled from "styled-components";
 import { IoCloseSharp, IoPersonSharp, IoPeopleSharp } from "react-icons/io5";
 import { BsCart2, BsCreditCard } from "react-icons/bs";
 // librerias
-import { useState, useCallback, useRef } from "react";
+import { useState, useCallback, useRef, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 //actions
 import { Select_Package } from "../../redux/actions/packageAction";
+import { GroupPersons } from "../../redux/actions/ItemOnePackageAction";
+
 //components
 import OptionTime from "../modalsPackage/Optiontime";
 import OptionValues from "../modalsPackage/OptionsValues";
 import LessonMonth from "../modalsPackage/lessonMonth";
-
+import ProgressStetpBar from "../modalsPackage/ProgressStetpBar";
 const Modal = (props) => {
   const history = useHistory();
   const dispatch = useDispatch();
   const InputMonths = useRef(0);
   const [Months, setMonths] = useState({ value: 1 });
+  const [PersonsGroup, setPersonsGroup] = useState({ value: 0 });
   const [Valores, setValores] = useState(false);
   const [IndividualClass, setIndividualClass] = useState(true);
   const [GroupClass, setGroupClass] = useState(false);
@@ -74,8 +77,6 @@ const Modal = (props) => {
     dispatch({
       type: "RESET_PRICES",
     });
-
-    InputMonths.current.value = 1;
 
     dispatch({
       type: "GROUP_CLASS",
@@ -135,6 +136,22 @@ const Modal = (props) => {
     });
   };
 
+  const handleNumber = (e) => {
+    var val = parseInt(e.target.value);
+
+    if (isNaN(val)) {
+      setPersonsGroup({ value: 0 });
+      return;
+    }
+    setPersonsGroup({ value: e.target.value });
+  };
+
+  useEffect(() => {
+    setPersonsGroup({ value: 1 });
+  }, [Valores]);
+  useEffect(() => {
+    dispatch(GroupPersons(PersonsGroup));
+  }, [PersonsGroup, dispatch]);
   return (
     <>
       {props.open && (
@@ -144,19 +161,29 @@ const Modal = (props) => {
             <ImageContent img={props.img} />
             <CardContent>
               <Title>{props.nameCourse} lesson</Title>
+              <ProgressStetpBar />
               <PricesBox>
                 <h4>${CalculoPrices}</h4>
               </PricesBox>
               {/* Icons */}
               <ContentIcon>
-                <Tooltip>
+                <ButtonType
+                  activado={IndividualClass}
+                  onClick={OnClickIndividual}
+                >
+                  one to one
+                </ButtonType>
+                <ButtonType activado={GroupClass} onClick={OnClickGroup}>
+                  Group lessons
+                </ButtonType>
+                {/* <Tooltip>
                   <IndividualI active={true} onClick={OnClickIndividual} />
                   <span className="tooltip-box">One to one</span>
-                </Tooltip>
-                <Tooltip>
+                </Tooltip> */}
+                {/* <Tooltip>
                   <GroupI active={false} onClick={OnClickGroup} />
                   <span className="tooltip-box-group">Group lessons</span>
-                </Tooltip>
+                </Tooltip> */}
               </ContentIcon>
               <ContentGrid>
                 <ContentSelect>
@@ -171,11 +198,13 @@ const Modal = (props) => {
               <ContentGrid>
                 {GroupClass && (
                   <ContentSelect>
-                    <LessonMonth
-                      Months={Months}
-                      size="true"
-                      InputMonths={InputMonths}
-                      handleMonth={handleMonth}
+                    <span>Number of students</span>
+                    <MonthBuy
+                      type="number"
+                      value={PersonsGroup.value}
+                      min="2"
+                      max="10"
+                      onChange={(e) => handleNumber(e)}
                     />
                   </ContentSelect>
                 )}
@@ -490,4 +519,24 @@ const Options = styled.div`
   display: ${(props) => (props.show ? "block" : "none")};
 `;
 
+const ButtonType = styled.button`
+  padding: 4px 8px;
+  margin: 0;
+  border: ${(props) => (props.activado ? "none" : "none")};
+  margin: 0 4px;
+  border-radius: 5px;
+  color: ${(props) => (props.activado ? "#fff" : "#0069FF")};
+  background: ${(props) =>
+    props.activado ? "#314584" : "rgba(0, 105, 255,.3)"};
+  font-size: 1rem;
+`;
+
+const MonthBuy = styled.input`
+  background: transparent;
+  font-size: 1rem;
+  border: 1px solid silver;
+  padding: 5px 4px;
+  width: ${({ Month }) => (Month ? "100%" : "100%")};
+  border-radius: 5px;
+`;
 export default Modal;
