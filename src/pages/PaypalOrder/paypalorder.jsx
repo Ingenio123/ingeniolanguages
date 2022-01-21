@@ -2,6 +2,9 @@ import styled from "styled-components";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import { BiLockAlt } from "react-icons/bi";
+//assets
+import CardsPng from "../../assets/images/cards.png";
+//
 // helpers
 import { isAuth } from "../../helpers/Auth";
 //
@@ -135,8 +138,9 @@ const PaypalOrder = () => {
           </button>
           <div className="pagoSeguro">
             <BiLockAlt />
-            <span>Pago totalmente seguro</span>
+            <span>Guaranteed 100% secure payment</span>
           </div>
+          <img src={CardsPng} style={{ height: "80px" }} alt="Cards png" />
         </div>
       </Section>
     </main>
@@ -168,8 +172,9 @@ const Section = styled.section`
       font-weight: 600;
       /* border: 1px solid black; */
       span {
-        margin-left: 1rem;
+        margin-left: 0.3rem;
         line-height: 0;
+        font-size: 1.1rem;
       }
     }
   }

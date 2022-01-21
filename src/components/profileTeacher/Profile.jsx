@@ -80,7 +80,8 @@ export const Profile = () => {
           </div>
         </section>
         <section>
-          <h4>Hobbies and interest</h4>
+          <H4 className="font-w-600 mb-1">Hobbies and interests</H4>
+          <Parrafo>{Data.Interests}</Parrafo>
         </section>
         {/* SECTION CARDS PRICES PACKAGE  */}
         {/* <Packages /> */}
@@ -109,4 +110,13 @@ export const Profile = () => {
 
 const Separator = styled.div`
   margin: 4rem 0 0;
+`;
+
+const H4 = styled.h4`
+  font-size: 2rem;
+`;
+
+const Parrafo = styled.p`
+  line-height: 1.5;
+  font-size: 1.2rem;
 `;
