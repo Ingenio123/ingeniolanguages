@@ -160,7 +160,7 @@ const Modal = (props) => {
           <Card>
             <ImageContent img={props.img} />
             <CardContent>
-              <Title>{props.nameCourse} lesson</Title>
+              <Title>{props.nameCourse} lessons</Title>
               <ProgressStetpBar />
               <PricesBox>
                 <h4>${CalculoPrices}</h4>

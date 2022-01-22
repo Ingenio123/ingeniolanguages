@@ -13,10 +13,10 @@ export default function NewFooter() {
         <div>Copyright © 2021</div>
         <ContentLinks>
           <HiperVinculo to="/politicasPrivacidad">
-            Politicas de privacidad
+            Privacy policies
           </HiperVinculo>
           <HiperVinculo to="/TerminosCondiciones">
-            Términos & Condiciones
+            Terms and conditions
           </HiperVinculo>
           <HiperVinculo
             to={{
@@ -24,7 +24,7 @@ export default function NewFooter() {
             }}
             target="_blank"
           >
-            Suggestion And Coments
+            Suggestions and comments
           </HiperVinculo>
         </ContentLinks>
         <ListIcons>

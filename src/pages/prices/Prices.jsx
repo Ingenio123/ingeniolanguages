@@ -14,6 +14,7 @@ const PricesPage = () => {
     <>
       <BoxCart />
       <Container className="container">
+        <H2Styles className="text-center">Lesson packages</H2Styles>
         <ContentGrid>
           {Data.map((item) => (
             <CardC
@@ -50,6 +51,10 @@ const ContentGrid = styled.section`
   @media screen and (max-width: 768px) {
     grid-template-columns: repeat(1, minmax(0, 1fr));
   }
+`;
+
+const H2Styles = styled.h2`
+  margin: 0;
 `;
 
 export default PricesPage;
