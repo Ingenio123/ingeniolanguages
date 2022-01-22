@@ -12,9 +12,7 @@ export default function NewFooter() {
       <ContentFooterBottom className="container">
         <div>Copyright © 2021</div>
         <ContentLinks>
-          <HiperVinculo to="/politicasPrivacidad">
-            Privacy policies
-          </HiperVinculo>
+          <HiperVinculo to="/politicasPrivacidad">Privacy policy</HiperVinculo>
           <HiperVinculo to="/TerminosCondiciones">
             Terms and conditions
           </HiperVinculo>
