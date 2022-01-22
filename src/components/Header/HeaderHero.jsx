@@ -42,7 +42,7 @@ const HeaderHero = ({ isLogged, ActivarLoged }) => {
   const [Load, setLoading] = useState(true);
 
   const { SignUp } = useUser();
-  const UerData = useSelector((state) => state.UerData.data);
+  const UerData = useSelector((state) => state.UerData);
   console.log(UerData);
   const dispatch = useDispatch();
 
@@ -140,7 +140,7 @@ const HeaderHero = ({ isLogged, ActivarLoged }) => {
           mostrarModal={ShowFormData}
           modificadorModal={setShowFormData}
           title={
-            UerData.democlass !== false
+            UerData.demoClass !== false
               ? "Ya has requerido una demo class"
               : "Verifica los datos"
           }
@@ -152,7 +152,7 @@ const HeaderHero = ({ isLogged, ActivarLoged }) => {
           {UerData.addData === 1 && <FormDataOne />}
           {UerData.addData === 0 && <Images />}
         </DemoClass>
-      ) }
+      )}
 
       <ModalRequesFreeClass
         route="democlass"

@@ -19,12 +19,10 @@ export default function ModalDemoClass({
 
   const userContext = useContext(contextUser);
   const [DataUser, setDataUser] = useState(null);
-  console.log("user context", userContext);
 
   useEffect(() => {
     setDataUser(userContext.InformUser);
   }, [userContext.InformUser]);
-  console.log(DataUser);
 
   return (
     <>
@@ -37,10 +35,12 @@ export default function ModalDemoClass({
             </HeaderModal>
             {addData > 0 && (
               <BoxGrid>
-                <ContentText>
-                  <Label>Name</Label>
-                  <TextUser>{FirstName}</TextUser>
-                </ContentText>
+                {FirstName && (
+                  <ContentText>
+                    <Label>Name</Label>
+                    <TextUser>{FirstName}</TextUser>
+                  </ContentText>
+                )}
                 <ContentText>
                   <Label>Email</Label>
                   <TextUser>{Email}</TextUser>

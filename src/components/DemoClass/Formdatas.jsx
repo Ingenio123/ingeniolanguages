@@ -66,10 +66,6 @@ export default function FormDatas() {
         {Error.error || Error.error === false ? (
           <Message status={Error.error}>{Error.message}</Message>
         ) : null}
-        {/* {Error.error ||
-          (Error.error === false && (
-            <Message status={Error.error}>{Error.message}</Message>
-          ))} */}
         <FormGroup>
           <InputCountry
             valueType="short"
