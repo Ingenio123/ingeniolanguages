@@ -2,6 +2,7 @@ import { useState } from "react";
 import styled from "styled-components";
 import { IoSearch, IoCheckmarkSharp } from "react-icons/io5";
 import { BsFillUnlockFill, BsLockFill } from "react-icons/bs";
+import { IoMdArrowDropdown } from "react-icons/io";
 import { useEffect, useContext } from "react";
 import axios from "axios";
 import { getCookie } from "../../../helpers/Auth";
@@ -267,10 +268,107 @@ function SearchStudent({ handleSearch }) {
               onChange={(e) => handleChangeComments(e)}
             ></TextLarge>
           </ItemsCard>
+
+          <CardGridItems>
+            <ContentItems>
+              <div className="items__header">
+                <div>
+                  <input type="checkbox" />
+                  <label className="text">A1</label>
+                </div>
+                <IoMdArrowDropdown />
+              </div>
+              <Line />
+              <div className="items__header">
+                <div>
+                  <input type="checkbox" />
+                  <label className="text">A1.1</label>
+                </div>
+                <IoMdArrowDropdown />
+              </div>
+              <div className="item__body">
+                <div className="items__individual">
+                  <input type="checkbox" />
+                  <label htmlFor="">item1</label>
+                </div>
+                <div className="items__individual">
+                  <input type="checkbox" />
+                  <label htmlFor="">item2</label>
+                </div>
+                <div className="items__individual">
+                  <input type="checkbox" />
+                  <label htmlFor="">item3</label>
+                </div>
+              </div>
+              <div className="items__header">
+                <div>
+                  <input type="checkbox" />
+                  <label className="text">A1.2</label>
+                </div>
+                <IoMdArrowDropdown />
+              </div>
+              <div className="item__body">
+                <div className="items__individual">
+                  <input type="checkbox" />
+                  <label htmlFor="">item1</label>
+                </div>
+                <div className="items__individual">
+                  <input type="checkbox" />
+                  <label htmlFor="">item2</label>
+                </div>
+                <div className="items__individual">
+                  <input type="checkbox" />
+                  <label htmlFor="">item3</label>
+                </div>
+              </div>
+              <div className="items__header ">
+                <div>
+                  <input type="checkbox" />
+                  <label className="text">A1.3</label>
+                </div>
+                <IoMdArrowDropdown />
+              </div>
+              <div className="item__body">
+                <div className="items__individual">
+                  <input type="checkbox" />
+                  <label htmlFor="">item1</label>
+                </div>
+                <div className="items__individual">
+                  <input type="checkbox" />
+                  <label htmlFor="">item2</label>
+                </div>
+                <div className="items__individual">
+                  <input type="checkbox" />
+                  <label htmlFor="">item3</label>
+                </div>
+              </div>
+            </ContentItems>
+            <ContentItems>
+              <div className="items__header">
+                <div>
+                  <input type="checkbox" />
+                  <label className="text">A2</label>
+                </div>
+                <IoMdArrowDropdown />
+              </div>
+              <hr />
+            </ContentItems>
+            <ContentItems>
+              <div className="items__header">
+                <div>
+                  <input type="checkbox" />
+                  <label className="text">B1</label>
+                </div>
+                <IoMdArrowDropdown />
+              </div>
+              <hr />
+            </ContentItems>
+          </CardGridItems>
           <ItemsCard>
             <ButtonSend onClick={handleSend}>Send</ButtonSend>
           </ItemsCard>
-          <ItemsCard block={true}>
+
+          {/* <ItemsCard block={true}>
             <BoxLevels>
               <ItemLevels active={true}>
                 <NameLevel active={true}> Level A1 </NameLevel>{" "}
@@ -317,7 +415,7 @@ function SearchStudent({ handleSearch }) {
                 </ButtonRevised>
               </ItemLevels>
             </BoxLevels>
-          </ItemsCard>
+          </ItemsCard> */}
         </BoxCardStudent>
       </BoxExample>
     </Content>
@@ -325,6 +423,40 @@ function SearchStudent({ handleSearch }) {
 }
 
 export default SearchStudent;
+
+const CardGridItems = styled.div`
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  column-gap: 0.2rem;
+`;
+
+const ContentItems = styled.div`
+  padding: 0.5rem;
+
+  .items__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1rem;
+
+    .text {
+      color: #242328;
+      font-size: 1rem;
+      font-weight: 600;
+    }
+  }
+  .item__body {
+    padding: 0.5rem 0 0.5rem 1rem;
+    .items__individual {
+      font-size: 0.9rem;
+    }
+  }
+`;
+
+const Line = styled.hr`
+  margin: 0;
+  margin: 0.3rem 0;
+`;
 
 // ##########################
 

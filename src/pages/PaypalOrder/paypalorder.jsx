@@ -44,13 +44,22 @@ const PaypalOrder = () => {
       //   return props.history.push("/paypalorder");
       const EndPoint = Url.url + "/paypal/createPayment";
       //   console.log("items:", items);
-      console.log(valor);
+      let array = [];
+      for (let i = 0; i < items.length; i++) {
+        array.push({
+          lesson: items[i].lesson * items[i].months,
+          idiom: items[i].idiom,
+          time: items[i].time,
+          price: items[i].price,
+          months: items[i].months,
+        });
+      }
       const { token } = JSON.parse(window.localStorage.getItem("user"));
       const { data } = await axios.post(
         EndPoint,
         {
           priceTotal: valor,
-          datosArray: items,
+          datosArray: array,
         },
         {
           headers: {

@@ -163,7 +163,8 @@ export default function OrderPay(props) {
                     </ItemListContent>
                     <ItemListContent>
                       <TextFuerte>Number of lessons: </TextFuerte>
-                      {item.lesson}{" "}
+                      {item.lesson * item.months} lesson per {item.months}{" "}
+                      months.
                     </ItemListContent>
                     <ItemListContent>
                       <TextFuerte>Duration of lessons:</TextFuerte> {item.time}

@@ -27,10 +27,11 @@ export default function ModalPackageFrench({
     (state) => state.itemPackage.calculatePrices
   );
   const history = useHistory();
-  const LessonsMonth = useSelector(
-    (state) => state.itemPackage.lessonMonth.label
-  );
+  const LessonsMonth = useSelector((state) => state.itemPackage.numberMonts);
   const time = useSelector((state) => state.itemPackage.timeLesson.label);
+  const numberLessons = useSelector(
+    (state) => state.itemPackage.lessonMonth.value
+  );
   const dispatch = useDispatch();
 
   //  context modal
@@ -109,7 +110,15 @@ export default function ModalPackageFrench({
 
   const handleCart = () => {
     //price , idiom , lesson
-    dispatch(Select_Package(CalculoPrices, "Spanish", LessonsMonth, time));
+    dispatch(
+      Select_Package(
+        CalculoPrices,
+        "Spanish",
+        numberLessons,
+        time,
+        parseInt(LessonsMonth)
+      )
+    );
     dispatch({ type: "ADD_CART" });
     dispatch({
       type: "AddCart",

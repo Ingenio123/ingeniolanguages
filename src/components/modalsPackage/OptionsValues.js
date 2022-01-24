@@ -20,7 +20,7 @@ export default function OptionsValues({ GroupLessons, valor }) {
 
   const handleItems = (item) => {
     // setItems(item);
-
+    console.log(item);
     if (item.value === 1) {
       dispatch(CreateOneMonthLesson(item));
       return dispatch(CalculatePricesOne(item));
@@ -29,17 +29,13 @@ export default function OptionsValues({ GroupLessons, valor }) {
     dispatch({
       type: "REMOVE_OPTION_CLASS_ONE",
     });
-    dispatch(CreateOneMonthLesson(item));
 
-    // if(GroupLessons){
-    //     dispatch({
-    //         type:'RESET_PRICES'
-    //       })
-    // }
+    dispatch(CreateOneMonthLesson(item));
 
     dispatch({
       type: "CALCULATE_PRICES_ITEMS",
     });
+
     valor();
   };
 

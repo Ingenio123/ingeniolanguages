@@ -98,6 +98,19 @@ export default function Header() {
       behavior: "smooth",
     });
   };
+  function FormatDate(date) {
+    const dates = new Date(date);
+    var year = dates.getFullYear();
+    var month = dates.getMonth();
+    var day = dates.getDate();
+    if (day < 10) {
+      day = "0" + day;
+    }
+    if (month < 10) {
+      month = "0" + month;
+    }
+    return month + "/" + day + "/" + year;
+  }
   //
   return (
     <ContentCards>
@@ -128,12 +141,23 @@ export default function Header() {
                     <ItemsDeCompra>
                       <IconNumberLessons />
                       <ItemContent>
-                        Number of lessons: {item.lesson}
+                        Number of purchased lessons:{item.lesson}{" "}
+                        {item.lesson > 1 ? "lessons" : "lesson"}
+                      </ItemContent>
+                    </ItemsDeCompra>
+                    <ItemsDeCompra>
+                      <IconNumberLessons />
+                      <ItemContent>
+                        Number of remaining lessons: {item.lesson}{" "}
+                        {item.lesson > 1 ? "lessons" : "lesson"}
                       </ItemContent>
                     </ItemsDeCompra>
                     <ItemsDeCompra>
                       <IconCalendar />
-                      <ItemContent>Dias de expiracion 00/00/00</ItemContent>
+                      <ItemContent>
+                        Lessons package expiration date:{" "}
+                        {FormatDate(item.expiresCours)}
+                      </ItemContent>
                     </ItemsDeCompra>
                   </DatosDeCompra>
                 </div>
@@ -221,7 +245,7 @@ const CardContent = styled.div`
   height: 100%;
   border-radius: 4px;
   position: relative;
-  max-height: 145px;
+  max-height: 175px;
 `;
 const ContentCards = styled.div`
   width: 490px;
@@ -260,7 +284,7 @@ const BuyNewCourse = styled(FaCartPlus)`
 
 const CardCourse = styled.div`
   display: grid;
-  grid-template-columns: 150px 290px;
+  grid-template-columns: 120px 333px;
   border-radius: 5px;
   padding: 1rem 1rem 0.8rem 0.2rem;
   /* background: rgba(0, 0, 0, 0.1);
