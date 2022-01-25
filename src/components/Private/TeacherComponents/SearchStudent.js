@@ -15,6 +15,7 @@ import { GetAllStudents } from "../../../helpers/User";
 import ContextCourse from "../../Context/CoursesContext";
 import ComponentSelect from "../../ComponentTeachers/Calificacion";
 import { Qualification } from "../../../services/teacherqualification";
+import Data from "./Levels.json";
 
 const initialForm = {
   student: "",
@@ -97,25 +98,13 @@ function SearchStudent({ handleSearch }) {
     return setDataStudents(null);
   };
   // #################################################
-  // const searchHandler = (searchTerm) => {
-  //   setSearch(searchTerm);
-  //   console.log(ListData);
-  //   if (search !== "") {
-  //     const newContactList = ListData.filter((value) => {
-  //       // console.log("valore", value.FirstName);
-  //       // return value.FirstName.toLowerCase().includes(searchTerm.toLowerCase());
-  //       return Object.values(value)
-  //         .join(" ")
-  //         .toLowerCase()
-  //         .includes(searchTerm.toLowerCase());
-  //     });
-  //     setSearchResults(newContactList);
-  //     console.log("Exist", newContactList);
-  //   } else {
-  //     setSearchResults([]);
-  //     console.log("Mot Exist");
-  //   }
-  // };
+  const GetDataTemary = async () => {
+    const url = "https://www.ingenioapi.com";
+    const resp = await fetch(`${url}/temary/getTemary`);
+    const data = await resp.json();
+    console.log(data);
+  };
+
   // #################################################
   const onSuggestHandler = (text) => {
     setDataOneStudent({
@@ -194,6 +183,7 @@ function SearchStudent({ handleSearch }) {
     // const data = await Qualification(value);
     await Qualification(value);
   };
+  // ##########################################
 
   // ########################################
   const resetInput = () => {};
@@ -207,17 +197,6 @@ function SearchStudent({ handleSearch }) {
         searchKeyword={searchHandler}
         resetInput={resetInput}
       />
-
-      {/* {suggestion &&
-        suggestion.map((suggestion, i) => (
-          <BoxFatter>
-            <BoxSearch>
-              <ItemsSearch key={i} onClick={() => onSuggestHandler(suggestion)}>
-                {suggestion.FirstName}{" "}
-              </ItemsSearch>
-            </BoxSearch>
-          </BoxFatter>
-        ))} */}
 
       <BoxExample>
         <BoxCardStudent>
@@ -268,154 +247,30 @@ function SearchStudent({ handleSearch }) {
               onChange={(e) => handleChangeComments(e)}
             ></TextLarge>
           </ItemsCard>
-
-          <CardGridItems>
-            <ContentItems>
-              <div className="items__header">
-                <div>
-                  <input type="checkbox" />
-                  <label className="text">A1</label>
-                </div>
-                <IoMdArrowDropdown />
-              </div>
-              <Line />
-              <div className="items__header">
-                <div>
-                  <input type="checkbox" />
-                  <label className="text">A1.1</label>
-                </div>
-                <IoMdArrowDropdown />
-              </div>
-              <div className="item__body">
-                <div className="items__individual">
-                  <input type="checkbox" />
-                  <label htmlFor="">item1</label>
-                </div>
-                <div className="items__individual">
-                  <input type="checkbox" />
-                  <label htmlFor="">item2</label>
-                </div>
-                <div className="items__individual">
-                  <input type="checkbox" />
-                  <label htmlFor="">item3</label>
-                </div>
-              </div>
-              <div className="items__header">
-                <div>
-                  <input type="checkbox" />
-                  <label className="text">A1.2</label>
-                </div>
-                <IoMdArrowDropdown />
-              </div>
-              <div className="item__body">
-                <div className="items__individual">
-                  <input type="checkbox" />
-                  <label htmlFor="">item1</label>
-                </div>
-                <div className="items__individual">
-                  <input type="checkbox" />
-                  <label htmlFor="">item2</label>
-                </div>
-                <div className="items__individual">
-                  <input type="checkbox" />
-                  <label htmlFor="">item3</label>
-                </div>
-              </div>
-              <div className="items__header ">
-                <div>
-                  <input type="checkbox" />
-                  <label className="text">A1.3</label>
-                </div>
-                <IoMdArrowDropdown />
-              </div>
-              <div className="item__body">
-                <div className="items__individual">
-                  <input type="checkbox" />
-                  <label htmlFor="">item1</label>
-                </div>
-                <div className="items__individual">
-                  <input type="checkbox" />
-                  <label htmlFor="">item2</label>
-                </div>
-                <div className="items__individual">
-                  <input type="checkbox" />
-                  <label htmlFor="">item3</label>
-                </div>
-              </div>
-            </ContentItems>
-            <ContentItems>
-              <div className="items__header">
-                <div>
-                  <input type="checkbox" />
-                  <label className="text">A2</label>
-                </div>
-                <IoMdArrowDropdown />
-              </div>
-              <hr />
-            </ContentItems>
-            <ContentItems>
-              <div className="items__header">
-                <div>
-                  <input type="checkbox" />
-                  <label className="text">B1</label>
-                </div>
-                <IoMdArrowDropdown />
-              </div>
-              <hr />
-            </ContentItems>
-          </CardGridItems>
+          {/* Data levels  */}
+          {Data.map((item) => (
+            <StepProgress>
+              <Progress style={{ width: "0%" }}></Progress>
+              <Circle>
+                <span>{item.name_level}</span>
+              </Circle>
+              {item.sub_level.map((itemsub) => (
+                <>
+                  <Circle>
+                    <span>{itemsub.sublevel} </span>
+                  </Circle>
+                  {itemsub.content.map((itemcontent) => (
+                    <CircleItem
+                      onClick={() => alert(`${itemcontent.puntuacion}`)}
+                    ></CircleItem>
+                  ))}
+                </>
+              ))}
+            </StepProgress>
+          ))}
           <ItemsCard>
             <ButtonSend onClick={handleSend}>Send</ButtonSend>
           </ItemsCard>
-
-          {/* <ItemsCard block={true}>
-            <BoxLevels>
-              <ItemLevels active={true}>
-                <NameLevel active={true}> Level A1 </NameLevel>{" "}
-                <ButtonRevised active={true}>
-                  {" "}
-                  <IconRevised active={true} />{" "}
-                </ButtonRevised>
-              </ItemLevels>
-
-              <ItemLevels active={true}>
-                <NameLevel active={true}> Level A2 </NameLevel>{" "}
-                <ButtonRevisedYellow active={true}>
-                  {" "}
-                  <IconUnLock active={true} />{" "}
-                </ButtonRevisedYellow>
-              </ItemLevels>
-
-              <ItemLevels>
-                <NameLevel> Level B1 </NameLevel>{" "}
-                <ButtonRevised>
-                  {" "}
-                  <IconLock />{" "}
-                </ButtonRevised>
-              </ItemLevels>
-              <ItemLevels>
-                <NameLevel> Level B2 </NameLevel>{" "}
-                <ButtonRevised>
-                  {" "}
-                  <IconLock />{" "}
-                </ButtonRevised>
-              </ItemLevels>
-              <ItemLevels>
-                <NameLevel> Level C1 </NameLevel>{" "}
-                <ButtonRevised>
-                  {" "}
-                  <IconLock />{" "}
-                </ButtonRevised>
-              </ItemLevels>
-              <ItemLevels>
-                <NameLevel> Level C2 </NameLevel>{" "}
-                <ButtonRevised>
-                  {" "}
-                  <IconLock />{" "}
-                </ButtonRevised>
-              </ItemLevels>
-            </BoxLevels>
-          </ItemsCard> */}
         </BoxCardStudent>
       </BoxExample>
     </Content>
@@ -423,6 +278,64 @@ function SearchStudent({ handleSearch }) {
 }
 
 export default SearchStudent;
+
+const StepProgress = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  max-width: 100%;
+  width: 100%;
+  &::before {
+    content: "";
+    background-color: #a1a1aa;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    height: 4px;
+    width: 100%;
+    z-index: 1;
+  }
+`;
+const Progress = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  height: 4px;
+  z-index: 1;
+  transition: 0.4s ease;
+  background-color: #283593;
+`;
+
+const Circle = styled.div`
+  height: 30px;
+  width: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  border: ${(props) =>
+    props.active ? "2px solid #283593" : "2px solid #1D4ED8"};
+  border-radius: 50%;
+  transition: 0.4s ease;
+  color: ${(props) => (props.active ? " #283593" : "#000")};
+  background: white;
+  z-index: 9;
+`;
+
+const CircleItem = styled.div`
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  background: white;
+  z-index: 9;
+  border: 2px solid #7e22ce;
+  :hover {
+    cursor: pointer;
+  }
+`;
 
 const CardGridItems = styled.div`
   display: grid;
@@ -437,12 +350,31 @@ const ContentItems = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-size: 1rem;
-
     .text {
       color: #242328;
-      font-size: 1rem;
+      font-size: 0.8rem;
       font-weight: 600;
+    }
+
+    label {
+      display: inline-block;
+      cursor: pointer;
+      position: relative;
+      padding: 0.2rem 1rem;
+      border-radius: 5px;
+      transition: all 0.3s ease;
+      border: 2px solid #2980b9;
+    }
+
+    input[type="checkbox"] {
+      display: none;
+      &:checked + label:before {
+        display: none;
+      }
+      &:checked + label {
+        background-color: #2980b9;
+        color: #fff;
+      }
     }
   }
   .item__body {
@@ -657,6 +589,7 @@ const BoxCardStudent = styled.div`
   border-radius: 8px;
   border: 1px solid #a1a1aa;
   justify-self: end;
+  padding: 0.5rem;
 `;
 
 const ItemsCard = styled.div`

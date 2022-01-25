@@ -52,7 +52,7 @@ const ContainerProgress = styled.div`
   width: 350px;
   &::before {
     content: "";
-    background-color: #e4e4e7;
+    background-color: #4f4f4f;
     position: absolute;
     top: 50%;
     left: 0;

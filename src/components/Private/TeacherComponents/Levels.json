@@ -1,0 +1,49 @@
+[
+  {
+    "name_level": "A1",
+    "sub_level": [
+      {
+        "sublevel": "A1.1",
+        "content": [
+          {
+            "puntuacion": "1.85"
+          },
+          {
+            "puntuacion": "1.85"
+          },
+          {
+            "puntuacion": "1.85"
+          }
+        ]
+      },
+      {
+        "sublevel": "A1.2",
+        "content": [
+          {
+            "puntuacion": "1.85"
+          },
+          {
+            "puntuacion": "1.85"
+          },
+          {
+            "puntuacion": "1.85"
+          }
+        ]
+      },
+      {
+        "sublevel": "A1.3",
+        "content": [
+          {
+            "puntuacion": "1.85"
+          },
+          {
+            "puntuacion": "1.85"
+          },
+          {
+            "puntuacion": "1.85"
+          }
+        ]
+      }
+    ]
+  }
+]
