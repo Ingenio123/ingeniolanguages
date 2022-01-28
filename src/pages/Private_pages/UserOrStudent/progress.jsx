@@ -114,17 +114,6 @@ function Progress() {
                         </div>
                       </div> */}
                     </CardProgressDetails>
-                    // <CardProgress
-                    //   idiom={item.idiom}
-                    //   color={"#fef08a"}
-                    //   TimeLossons={item.time}
-                    //   textColor={"#e4d038"}
-                    //   primary={"#c4b22f"}
-                    //   porcentaje={item.score}
-                    //   // setLangauge={setLangauge}
-                    //   click={click}
-                    //   key={index}
-                    // />
                   )
                 )}
               </>

@@ -91,10 +91,10 @@ const CardRigth = (props) => {
       <ItemsComponent
         clickCard={props.clickCard}
         clikcRedirect={props.clickRedirect}
-        firstText={!student ? "Home" : "Course content"}
-        secondText={!student ? "Student's Feedback" : "My progress"}
-        urlfirst={!student ? "/" : "/private"}
-        urlSecond={!student ? "/teacherPage" : "/progress"}
+        firstText={student === null ? "Home" : "Course content"}
+        secondText={student === null ? "Student's Feedback" : "My progress"}
+        urlfirst={student === null ? "/" : "/private"}
+        urlSecond={student === null ? "/teacherPage" : "/progress"}
       />
       <SalirComponent logout={props.logout} clickCard={props.clickCard} />
     </Card>
