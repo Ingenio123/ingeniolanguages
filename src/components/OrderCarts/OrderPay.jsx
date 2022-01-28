@@ -157,17 +157,20 @@ export default function OrderPay(props) {
                       <TextFuerte>Language: </TextFuerte>
                       {item.idiom}
                     </ItemListContent>
-                    <ItemListContent>
-                      {" "}
+                    {/* <ItemListContent>
                       <TextFuerte>Lesson type:</TextFuerte> one to one.
+                    </ItemListContent> */}
+                    <ItemListContent>
+                      <TextFuerte>Duration of lessons:</TextFuerte> {item.time}{" "}
+                      minutes
                     </ItemListContent>
                     <ItemListContent>
                       <TextFuerte>Number of lessons: </TextFuerte>
-                      {item.lesson * item.months} lesson per {item.months}{" "}
-                      months.
+                      {item.lesson} lesson per month
                     </ItemListContent>
                     <ItemListContent>
-                      <TextFuerte>Duration of lessons:</TextFuerte> {item.time}
+                      <TextFuerte>Number of months:</TextFuerte> {item.months}{" "}
+                      {item.months > 1 ? "months" : "month"}
                     </ItemListContent>
                     <br />
                     <ItemListContent>Subtotal: ${item.price}</ItemListContent>
