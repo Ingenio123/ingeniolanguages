@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import PropTypes from "prop-types";
 
-export const CardProgress = ({ score }) => {
+export const CardProgresNew = ({ score }) => {
   return (
     <Donut>
       <div className="donut-default">
@@ -27,11 +27,11 @@ export const CardProgress = ({ score }) => {
   );
 };
 
-CardProgress.defaultProps = {
+CardProgresNew.defaultProps = {
   score: 0,
 };
 
-CardProgress.prototypes = {
+CardProgresNew.prototypes = {
   score: PropTypes.number.isRequired,
 };
 

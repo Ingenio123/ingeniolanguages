@@ -40,7 +40,11 @@ const CardRigth = (props) => {
   };
   // hooks
   const { updateImage } = useImageProfile();
-  //
+  //variables
+
+  let rol = window.localStorage.getItem("user");
+  rol = JSON.parse(rol);
+
   useEffect(() => {
     setState(1);
     if (ImgPrev) {
@@ -91,10 +95,12 @@ const CardRigth = (props) => {
       <ItemsComponent
         clickCard={props.clickCard}
         clikcRedirect={props.clickRedirect}
-        firstText={student === null ? "Home" : "Course content"}
-        secondText={student === null ? "Student's Feedback" : "My progress"}
-        urlfirst={student === null ? "/" : "/private"}
-        urlSecond={student === null ? "/teacherPage" : "/progress"}
+        firstText={rol.rol === "teacher" ? "Home" : "Course content"}
+        secondText={
+          rol.rol === "teacher" ? "Student's Feedback" : "My progress"
+        }
+        urlfirst={rol.rol === "teacher" ? "/" : "/private"}
+        urlSecond={rol.rol === "teacher" ? "/teacherPage" : "/progress"}
       />
       <SalirComponent logout={props.logout} clickCard={props.clickCard} />
     </Card>

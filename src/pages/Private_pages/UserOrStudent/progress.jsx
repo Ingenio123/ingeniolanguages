@@ -8,7 +8,7 @@ import { useCallback, useContext, useState, useEffect } from "react";
 //components
 import CardProgress from "../../../components/Progress_Lesson/CardsChart";
 import CardFeedback from "../../../components/Progress_Lesson/CardFeedback";
-import { CardProgress as CardProgresss } from "../../../components/Progress_Lesson/CardProgress";
+import { CardProgresNew } from "../../../components/Progress_Lesson/CardProgress";
 //end components
 import ContextStudent from "../../../components/Context/StudentContext";
 //data Json
@@ -88,7 +88,7 @@ function Progress() {
                         </div>
                         <button className="btn__summary">Summary</button>
                       </div>
-                      <CardProgresss score={item.score} />
+                      <CardProgresNew score={item.score} />
                       {/* <div className="card__footer">
                         <div>
                           <Box>
