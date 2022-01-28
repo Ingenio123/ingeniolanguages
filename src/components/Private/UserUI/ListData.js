@@ -41,3 +41,14 @@ export const ItemsNotStudent = [
     idiom: "Russian",
   },
 ];
+
+export const ItemsTeacher = [
+  {
+    name: "Home",
+    link: "/",
+  },
+  {
+    name: "Student's  Feedback",
+    link: "/teacherPage",
+  },
+];

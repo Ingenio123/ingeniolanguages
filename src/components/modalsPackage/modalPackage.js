@@ -26,10 +26,12 @@ export default function ModalPackage({
     (state) => state.itemPackage.calculatePrices
   );
   const LessonsMonth = useSelector(
-    (state) => state.itemPackage.lessonMonth.label
+    (state) => state.itemPackage.lessonMonth.value
   );
-  const time = useSelector((state) => state.itemPackage.timeLesson.label);
-
+  const time = useSelector((state) => state.itemPackage.timeLesson.value);
+  const numberLessons = useSelector(
+    (state) => state.itemPackage.lessonMonth.value
+  );
   const dispatch = useDispatch();
 
   const [GroupClass, setGroupClass] = useState(false);
@@ -145,7 +147,13 @@ export default function ModalPackage({
   // -------------------------- handle procced to payment ----------------------
   const handleProcced = () => {
     dispatch(
-      Select_Package(CalculoPrices, "English", LessonsMonth, time, MonthsNumber)
+      Select_Package(
+        CalculoPrices,
+        "English",
+        numberLessons,
+        time,
+        parseInt(MonthsNumber)
+      )
     );
     setShowModal(false);
     return history.push("/orderSummary");

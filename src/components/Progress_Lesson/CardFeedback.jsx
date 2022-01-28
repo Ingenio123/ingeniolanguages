@@ -1,4 +1,4 @@
-import styled, { css, keyframes } from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { BiCalendarWeek, BiChevronDown } from "react-icons/bi";
 import { useState } from "react";
 
@@ -13,14 +13,19 @@ export default function CardFeedBack({ Summary, loading }, props) {
     if (ClickToggle === index) return setToggle(null);
     setToggle(index);
   };
+
+  function RenderDate(date) {
+    const dates = new Date(date);
+    const day = dates.getDate();
+    var month = dates.getMonth();
+    if (month < 10) {
+      month = "" + dates.getMonth() + 1;
+    }
+    const year = dates.getFullYear();
+    return month + "/" + day + "/" + year;
+  }
   return (
     <>
-      {/* <CardNotStudent>
-        <TextCardNotStudent>
-          In this Section, you will be able to view your teachers feedback of
-          the lessons you have had
-        </TextCardNotStudent>
-      </CardNotStudent> */}
       <ContentFeddBack>
         {loading ? (
           <CardSkeleton>
@@ -46,6 +51,7 @@ export default function CardFeedBack({ Summary, loading }, props) {
               </CardNotStudent>
             ) : (
               <>
+                <TextFeedback> Summary of lessons </TextFeedback>
                 {Summary.map((item, index) => (
                   <Card key={index}>
                     <ContentHeader>
@@ -53,13 +59,16 @@ export default function CardFeedBack({ Summary, loading }, props) {
                         <img src={item.teacher.picture} alt="imge teacher" />
                         <Text>
                           <h3>Teacher</h3>
-                          <h2>{item.teacher.email || item.teacher.name}</h2>
+                          {/* <h2>{item.teacher.email || item.teacher.name}</h2> */}
+                          <h2>{item.name || "Milena S"}</h2>
                         </Text>
                       </ContentTeacher>
                       <Fecha>
                         <div>
                           <Icon style={{ marginRight: ".5rem" }} />
-                          <span> 1/12/2022</span>
+                          <span>
+                            {RenderDate(item.content.date) || "01/02/2022"}
+                          </span>
                         </div>
                         <IconArrowHeader
                           bottom={true}
@@ -98,6 +107,7 @@ export default function CardFeedBack({ Summary, loading }, props) {
                     )}
                   </Card>
                 ))}
+                <Line>view more </Line>
               </>
             )}
           </>
@@ -106,6 +116,33 @@ export default function CardFeedBack({ Summary, loading }, props) {
     </>
   );
 }
+
+const Line = styled.div`
+  display: flex;
+  align-items: center;
+  text-align: center;
+  color: #6e6d7a;
+  font-size: 1rem;
+
+  ::before {
+    margin-right: 1rem;
+    content: "";
+    flex: 1;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+  }
+  ::after {
+    margin-left: 1rem;
+    content: "";
+    flex: 1;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+  }
+`;
+
+const TextFeedback = styled.h2`
+  margin: 0;
+  margin-bottom: 1rem;
+  text-align: center;
+`;
 
 const IconHeader = styled(BiChevronDown)`
   position: absolute;
@@ -132,17 +169,18 @@ const TextCardNotStudent = styled.p`
   margin: 0;
 `;
 const ContentFeddBack = styled.article`
-  width: 500px;
   padding: 0 1rem;
+  max-height: calc(100vh - 150px);
+  overflow: hidden;
 `;
 const Card = styled.section`
   width: 100%;
-  padding: 1rem !important;
+  padding: 0.5rem !important;
   background-color: #fafafa;
   border-radius: 8px;
-  border: 1px solid silver;
-  margin: 0;
-  margin-bottom: 0.3rem;
+  border: 1px solid #e4e4e7;
+  margin-top: 0 !important;
+  margin-bottom: 0.5rem;
 `;
 const ContentHeader = styled.div`
   display: flex;
@@ -152,8 +190,8 @@ const ContentHeader = styled.div`
 const ContentTeacher = styled.div`
   display: flex;
   img {
-    width: 60px;
-    height: 60px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
   }
   /* margin-bottom: 1rem; */
@@ -165,11 +203,12 @@ const Fecha = styled.div`
 
   div {
     position: relative;
-    height: 20px;
+    height: 10px;
     display: flex;
     align-items: center;
     span {
       line-height: 0;
+      font-size: 0.875rem;
       align-self: flex-end;
       letter-spacing: 1px;
     }
@@ -179,7 +218,7 @@ const Fecha = styled.div`
 const Icon = styled(BiCalendarWeek)`
   position: absolute;
   left: -20px;
-  top: 10px;
+  top: 0px;
 `;
 const Text = styled.div`
   display: flex;
@@ -189,13 +228,13 @@ const Text = styled.div`
   h3 {
     color: red;
     margin: 0;
-    font-size: 1rem;
+    font-size: 0.95rem;
     line-height: normal;
   }
   h2 {
     color: #314584;
     margin: 0;
-    font-size: 1.3rem;
+    font-size: 1.25rem;
     letter-spacing: -1px;
     line-height: normal;
     font-weight: 600;

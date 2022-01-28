@@ -8,6 +8,7 @@ import { useCallback, useContext, useState, useEffect } from "react";
 //components
 import CardProgress from "../../../components/Progress_Lesson/CardsChart";
 import CardFeedback from "../../../components/Progress_Lesson/CardFeedback";
+import { CardProgress as CardProgresss } from "../../../components/Progress_Lesson/CardProgress";
 //end components
 import ContextStudent from "../../../components/Context/StudentContext";
 //data Json
@@ -19,6 +20,22 @@ function Progress() {
   const studentContext = useContext(ContextStudent);
   const [Summary, setSummary] = useState(null);
 
+  const click = useCallback(async function GetData(Language) {
+    const user = JSON.parse(window.localStorage.getItem("user"));
+    if (!studentContext.student) {
+      return setSummary(null);
+    }
+
+    const resp = await axios.get(
+      `${Url.url}/student/summary?language=${Language}`,
+      {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      }
+    );
+    return setSummary(resp.data.data);
+  }, []);
   useEffect(() => {
     console.log(studentContext);
     async function GetData(Language) {
@@ -40,22 +57,12 @@ function Progress() {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [studentContext.student]);
+  //#####################################################################
+  //                         GET SCORE PROCESS
+  //####################################################################
 
-  const click = useCallback(async function GetData(Language) {
-    const user = JSON.parse(window.localStorage.getItem("user"));
-    if (!studentContext.student) {
-      return setSummary(null);
-    }
-    const resp = await axios.get(
-      `http://localhost:4000/student/summary?language=${Language}`,
-      {
-        headers: {
-          Authorization: `Bearer ${user.token}`,
-        },
-      }
-    );
-    return setSummary(resp.data.data);
-  }, []);
+  //####################################################################
+
   return (
     <GridColumns>
       <ContentFlex>
@@ -74,17 +81,50 @@ function Progress() {
               <>
                 {studentContext.student.QueryStudent.courses.map(
                   (item, index) => (
-                    <CardProgress
-                      idiom={item.idiom}
-                      color={"#fef08a"}
-                      TimeLossons={item.time}
-                      textColor={"#e4d038"}
-                      primary={"#c4b22f"}
-                      porcentaje={0}
-                      // setLangauge={setLangauge}
-                      click={click}
-                      key={index}
-                    />
+                    <CardProgressDetails>
+                      <div className="card__header">
+                        <div className="header__data">
+                          <span className="language">{item.idiom}</span>
+                        </div>
+                        <button className="btn__summary">Summary</button>
+                      </div>
+                      <CardProgresss score={item.score} />
+                      {/* <div className="card__footer">
+                        <div>
+                          <Box>
+                            <Cirlce background="#1D4ED8" />
+
+                            <span>A1.1</span>
+                          </Box>
+                          <span>100%</span>
+                        </div>
+                        <div>
+                          <Box>
+                            <Cirlce background="#BFDBFE" />
+                            <span>A1.2</span>
+                          </Box>
+                          <span>50%</span>
+                        </div>
+                        <div>
+                          <Box>
+                            <Cirlce background="#BFDBFE" />
+                            <span>A1.3</span>
+                          </Box>
+                          <span>0%</span>
+                        </div>
+                      </div> */}
+                    </CardProgressDetails>
+                    // <CardProgress
+                    //   idiom={item.idiom}
+                    //   color={"#fef08a"}
+                    //   TimeLossons={item.time}
+                    //   textColor={"#e4d038"}
+                    //   primary={"#c4b22f"}
+                    //   porcentaje={item.score}
+                    //   // setLangauge={setLangauge}
+                    //   click={click}
+                    //   key={index}
+                    // />
                   )
                 )}
               </>
@@ -112,6 +152,82 @@ function Progress() {
   );
 }
 export default Progress;
+//###########################################################
+const CardProgressDetails = styled.div`
+  display: flex;
+  padding: 0.5rem;
+  flex-direction: column;
+  /* border: 1px solid silver; */
+  width: 470px;
+  align-items: center;
+  max-height: 260px;
+  box-shadow: 1px 7px 6px -2px rgba(0, 0, 0, 0.2);
+  .card__header {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row !important;
+    width: 100%;
+    /* min-width: 470px; */
+    .header__data {
+      .language {
+        font-size: 1.525rem;
+        font-weight: 600;
+      }
+    }
+    .btn__summary {
+      padding: 0 1rem;
+      background: #dbeafe;
+      border-radius: 4px;
+
+      font-size: 1rem;
+      color: #3b82f6;
+      font-weight: 600;
+      transition: all 0.5s ease;
+      :hover {
+        color: #2563eb;
+        background-color: #bfdbfe;
+      }
+      :active {
+        color: #1d4ed8;
+        background-color: #93c5fd;
+      }
+    }
+  }
+  .card__content {
+  }
+  .card__footer {
+    margin-top: 1rem;
+    display: grid;
+    width: 100%;
+    grid-template-columns: repeat(3, 1fr);
+    div {
+      /* justify-self: center; */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+  }
+`;
+const Box = styled.div`
+  display: flex;
+  flex-direction: row !important;
+  align-items: center !important;
+  justify-content: space-evenly;
+  column-gap: 0.4rem;
+  span {
+    line-height: normal;
+    font-size: 1rem;
+  }
+`;
+const Cirlce = styled.span`
+  border-radius: 50%;
+  height: 10px;
+  width: 10px;
+  background-color: ${(props) => props.background};
+`;
+
+//#############################################################
 const GridColumns = styled.div`
   display: grid;
   grid-template-columns: repeat(2, 1fr);

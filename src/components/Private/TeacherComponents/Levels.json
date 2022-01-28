@@ -4,43 +4,46 @@
     "sub_level": [
       {
         "sublevel": "A1.1",
+        "puntuacion": 33.33,
         "content": [
           {
-            "puntuacion": "1.85"
+            "puntuacion": 11.11
           },
           {
-            "puntuacion": "1.85"
+            "puntuacion": 22.22
           },
           {
-            "puntuacion": "1.85"
+            "puntuacion": 33.33
           }
         ]
       },
       {
         "sublevel": "A1.2",
+        "puntuacion": 66.66,
         "content": [
           {
-            "puntuacion": "1.85"
+            "puntuacion": 44.44
           },
           {
-            "puntuacion": "1.85"
+            "puntuacion": 55.55
           },
           {
-            "puntuacion": "1.85"
+            "puntuacion": 66.66
           }
         ]
       },
       {
         "sublevel": "A1.3",
+        "puntuacion": 100,
         "content": [
           {
-            "puntuacion": "1.85"
+            "puntuacion": 77.77
           },
           {
-            "puntuacion": "1.85"
+            "puntuacion": 88.88
           },
           {
-            "puntuacion": "1.85"
+            "puntuacion": 100
           }
         ]
       }

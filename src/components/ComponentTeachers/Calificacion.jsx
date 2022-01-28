@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 export default function Calificacion({ data, setIdiom }) {
+  console.log(data);
   const hanldeSelect = (e) => {
     setIdiom(e.target.value);
   };
@@ -18,20 +19,23 @@ export default function Calificacion({ data, setIdiom }) {
       {data && data.length === 1 && (
         <>
           <Text>
-            <Textbold> Idiom:</Textbold> {data[0].idiom}
+            <Textbold> Language:</Textbold> {data[0].idiom}
           </Text>
           <Text>
-            <Textbold>Number months:</Textbold> {data[0].NumberMonths}
+            <Textbold>Number of months:</Textbold>{" "}
+            {data[0].months > 1
+              ? data[0].months + " months"
+              : data[0].months + " month"}
           </Text>
           <Text>
-            <Textbold>Time lesson:</Textbold> {data[0].TimeLossons}
+            <Textbold>Duration of each lesson:</Textbold> {data[0].time}
           </Text>
           <Text>
-            <Textbold>Plan Active:</Textbold> {data[0].lessonsTotal} class
+            <Textbold>Active plan:</Textbold> {data[0].lessonTotal} class
           </Text>
           <Text>
-            <Textbold>Cuanto le queda: </Textbold>
-            {data[0].lessonsRestantes} class
+            <Textbold>Remaining lessons: </Textbold>
+            {data[0].lesson} class
           </Text>
         </>
       )}

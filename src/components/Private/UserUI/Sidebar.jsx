@@ -15,7 +15,7 @@ import { GetIdiomAction } from "../../../redux/actions/getIdiomAction";
 import { useHistory, Link } from "react-router-dom";
 import { useGoogleLogin } from "react-use-googlelogin";
 import { isAuth } from "../../../helpers/Auth";
-import { Items, ItemsNotStudent } from "./ListData";
+import { Items, ItemsNotStudent, ItemsTeacher } from "./ListData";
 import Url from "../../Urls";
 import axios from "axios";
 import styled from "styled-components";
@@ -46,7 +46,6 @@ export default function Sidebar({ salir, isLogged }) {
   // useContext -> Navbar  -> Function getIdiom() - Atributo idiom: nul
   // states
   const [sidebar, setSidebar] = useState(false);
-
   const showSidebar = () => setSidebar(!sidebar);
 
   const { signOut } = useGoogleLogin({
@@ -127,69 +126,91 @@ export default function Sidebar({ salir, isLogged }) {
         </FlexBox>
       </header>
       {/* Aqui empiza los cambios */}
-      <section className="l-navigation">
-        <nav className="ml-5 navigation ">
-          <ul>
-            {Items.map((item, index) => {
-              return (
-                <ItemsNav key={index} className="dropdown">
-                  <span className="items">
-                    {item.link ? (
-                      <LinkItems to={item.link}>{item.name}</LinkItems>
-                    ) : (
-                      item.name
-                    )}
-                    {item.name === "Book a lesson" && (
-                      <div className="dropdown-subitem">
-                        {contextStudent.student || courses.length > 0 ? (
-                          <>
-                            {courses.length > 0 ? (
-                              <>
-                                {courses.map((item, index) => (
-                                  <Link
-                                    to={`/booklesson?language=${item}`}
-                                    key={index}
-                                  >
-                                    {item}
-                                  </Link>
-                                ))}
-                              </>
-                            ) : (
-                              <>
-                                {contextStudent.student.QueryStudent.courses.map(
-                                  (item, index) => (
+      {Roles === "teacher" ? (
+        <section className="l-navigation">
+          <nav className="ml-5 navigation ">
+            <ul>
+              {ItemsTeacher.map((item, index) => {
+                return (
+                  <ItemsNav key={index} className="dropdown">
+                    <span className="items">
+                      {item.link ? (
+                        <LinkItems to={item.link}>{item.name}</LinkItems>
+                      ) : (
+                        item.name
+                      )}
+                    </span>
+                  </ItemsNav>
+                );
+              })}
+            </ul>
+          </nav>
+        </section>
+      ) : (
+        <section className="l-navigation">
+          <nav className="ml-5 navigation ">
+            <ul>
+              {Items.map((item, index) => {
+                return (
+                  <ItemsNav key={index} className="dropdown">
+                    <span className="items">
+                      {item.link ? (
+                        <LinkItems to={item.link}>{item.name}</LinkItems>
+                      ) : (
+                        item.name
+                      )}
+                      {item.name === "Book a lesson" && (
+                        <div className="dropdown-subitem">
+                          {contextStudent.student || courses.length > 0 ? (
+                            <>
+                              {courses.length > 0 ? (
+                                <>
+                                  {courses.map((item, index) => (
                                     <Link
-                                      to={`/booklesson?language=${item.idiom}`}
+                                      to={`/booklesson?language=${item}`}
                                       key={index}
                                     >
-                                      {item.idiom}
+                                      {item}
                                     </Link>
-                                  )
-                                )}
-                              </>
-                            )}
-                          </>
-                        ) : (
-                          <>
-                            {ItemsNotStudent.map((names, index) => (
-                              <Link
-                                key={index}
-                                to={`/booklesson?language=${names.idiom}`}
-                              >
-                                {names.nameItem}
-                              </Link>
-                            ))}
-                          </>
-                        )}
-                      </div>
-                    )}
-                  </span>
-                </ItemsNav>
-              );
-            })}
-          </ul>
-        </nav>
-      </section>
+                                  ))}
+                                </>
+                              ) : (
+                                <>
+                                  {contextStudent.student.QueryStudent.courses.map(
+                                    (item, index) => (
+                                      <Link
+                                        to={`/booklesson?language=${item.idiom}`}
+                                        key={index}
+                                      >
+                                        {item.idiom}
+                                      </Link>
+                                    )
+                                  )}
+                                </>
+                              )}
+                            </>
+                          ) : (
+                            <>
+                              {ItemsNotStudent.map((names, index) => (
+                                <Link
+                                  key={index}
+                                  to={`/booklesson?language=${names.idiom}`}
+                                >
+                                  {names.nameItem}
+                                </Link>
+                              ))}
+                            </>
+                          )}
+                        </div>
+                      )}
+                    </span>
+                  </ItemsNav>
+                );
+              })}
+            </ul>
+          </nav>
+        </section>
+      )}
     </div>
   );
 }

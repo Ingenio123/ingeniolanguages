@@ -26,7 +26,7 @@ export default function ModalPackageFrench({
   );
 
   const LessonsMonth = useSelector(
-    (state) => state.itemPackage.lessonMonth.label
+    (state) => state.itemPackage.lessonMonth.value
   );
   const time = useSelector((state) => state.itemPackage.timeLesson.label);
 

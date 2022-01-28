@@ -72,20 +72,10 @@ export const Teacher = () => {
   return (
     <ProviderCalificacion>
       <Grid className="container">
-        {/* <Temary
-          UseTeacher={true}
-          Sublevel={Sublevel}
-          Level={Level}
-          IdContent={IdContent}
-        /> */}
         <ProviderCourses>
           <SearchStudent handleSearch={searchHandler} />
         </ProviderCourses>
-        {/* <InputSearchElement
-          term={search}
-          searchKeyword={searchHandler}
-          listStudent={search.length < 1 ? [] : SearchResults}
-        /> */}
+
         <Temary
           margin="0 0 0 0"
           column={true}

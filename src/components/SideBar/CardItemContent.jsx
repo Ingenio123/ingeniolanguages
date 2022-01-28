@@ -1,28 +1,43 @@
 import styled, { css } from "styled-components";
 import { BiBook, BiPieChart } from "react-icons/bi";
+import PropTypes, { string } from "prop-types";
+
 const CardItemcontent = (props) => {
   return (
     <CardItems>
       <Items
         onClick={() => {
-          props.clikcRedirect("/private");
+          props.clikcRedirect(props.urlfirst);
           props.clickCard();
         }}
       >
-        <Text>Course content</Text>
+        <Text>{props.firstText}</Text>
         <IconCourse />
       </Items>
       <Items
         onClick={() => {
-          props.clikcRedirect("/progress");
+          props.clikcRedirect(props.urlSecond);
           props.clickCard();
         }}
       >
-        <Text>My progress</Text>
+        <Text>{props.secondText}</Text>
         <IconProgress />
       </Items>
     </CardItems>
   );
+};
+CardItemcontent.defaultProps = {
+  urlfirst: "/private",
+  urlSecond: "/progress",
+  firstText: "Course content",
+  secondText: "My progress",
+};
+
+CardItemcontent.prototype = {
+  urlfirst: PropTypes.string,
+  urlSecond: PropTypes.string,
+  firstText: PropTypes.string,
+  secondText: PropTypes.string,
 };
 
 export default CardItemcontent;

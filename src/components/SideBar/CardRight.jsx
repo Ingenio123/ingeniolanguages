@@ -14,6 +14,8 @@ import ButtonSend from "./ButtonSendComponent";
 // services
 //context
 import { ImageContex } from "../../context/imageContext";
+import studentContext from "../../components/Context/StudentContext";
+//end context
 
 const CardRigth = (props) => {
   // state
@@ -24,6 +26,7 @@ const CardRigth = (props) => {
   //end state
   // context
   const { state, setState } = useContext(ImageContex);
+  const { student } = useContext(studentContext);
   // end context
   //refs
   const hiddenFileInput = useRef();
@@ -61,28 +64,6 @@ const CardRigth = (props) => {
       formData,
       id: "614602dbc1432533bc008c23",
     });
-    // try {
-    //   setStado(2);
-    //   await axios.post(
-    //     "http://localhost:4000/data/user/updateImage/614602dbc1432533bc008c23",
-    //     formData,
-    //     {
-    //       headers: {
-    //         "Content-Type": "multipart/form-data",
-    //       },
-    //     }
-    //   );
-    //   setStado(3);
-    //   setInterval(() => {
-    //     setStado(4);
-    //   }, [2000]);
-    // } catch (error) {
-    //   if (error.response.status === 500) {
-    //     console.log("Error en el server ");
-    //   } else {
-    //     console.log("Error 400");
-    //   }
-    // }
   };
 
   return (
@@ -110,6 +91,10 @@ const CardRigth = (props) => {
       <ItemsComponent
         clickCard={props.clickCard}
         clikcRedirect={props.clickRedirect}
+        firstText={!student ? "Home" : "Course content"}
+        secondText={!student ? "Student's Feedback" : "My progress"}
+        urlfirst={!student ? "/" : "/private"}
+        urlSecond={!student ? "/teacherPage" : "/progress"}
       />
       <SalirComponent logout={props.logout} clickCard={props.clickCard} />
     </Card>

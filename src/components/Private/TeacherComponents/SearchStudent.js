@@ -2,7 +2,7 @@ import { useState } from "react";
 import styled from "styled-components";
 import { IoSearch, IoCheckmarkSharp } from "react-icons/io5";
 import { BsFillUnlockFill, BsLockFill } from "react-icons/bs";
-import { IoMdArrowDropdown } from "react-icons/io";
+import { BsDashLg } from "react-icons/bs";
 import { useEffect, useContext } from "react";
 import axios from "axios";
 import { getCookie } from "../../../helpers/Auth";
@@ -16,7 +16,9 @@ import ContextCourse from "../../Context/CoursesContext";
 import ComponentSelect from "../../ComponentTeachers/Calificacion";
 import { Qualification } from "../../../services/teacherqualification";
 import Data from "./Levels.json";
-
+//
+import { BiCheck } from "react-icons/bi";
+//
 const initialForm = {
   student: "",
 };
@@ -42,7 +44,8 @@ function SearchStudent({ handleSearch }) {
   const [search, setSearch] = useState("");
   const [SearchResults, setSearchResults] = useState("");
   const [ListData, setListData] = useState([]);
-  const [Idiom, setIdiom] = useState("");
+  const [Idiom, setIdiom] = useState(null);
+  const [Score, setScore] = useState(0);
 
   const courseContext = useContext(ContextCourse);
   const { course } = courseContext;
@@ -55,6 +58,7 @@ function SearchStudent({ handleSearch }) {
     GetStudents();
     // loadStudents();
   }, []);
+
   // fUNCTION SEARCH  DEL COMPONENT SEARCH
   const searchHandler = (searchTerm) => {
     setSearch(searchTerm);
@@ -177,21 +181,24 @@ function SearchStudent({ handleSearch }) {
       SummaryInput,
       Comments,
       Name: course ? course.FirstName || course.email : null,
-      idiom: Idiom,
+      idiom: Idiom ? Idiom : course.courses[0].idiom,
       email: course ? course.email : null,
+      score: Score ? Score : 0,
     };
     // const data = await Qualification(value);
     await Qualification(value);
   };
   // ##########################################
-
+  const handleScore = (puntaje) => {
+    return setScore(puntaje);
+  };
   // ########################################
   const resetInput = () => {};
   return (
     <Content>
       <ComponentSearch
         context={courseContext}
-        placeholder="Student's Name"
+        placeholder="Search student"
         listStudent={search.length < 1 ? [] : SearchResults}
         term={search}
         searchKeyword={searchHandler}
@@ -201,16 +208,16 @@ function SearchStudent({ handleSearch }) {
       <BoxExample>
         <BoxCardStudent>
           <ItemsCard start={true}>
-            <DateText>Date </DateText>{" "}
+            <DateText>Date </DateText>
             <DatePickerStyle
               selected={DateCalendar}
               onChange={(date) => setDateCalendar(date)}
-            />{" "}
+            />
           </ItemsCard>
           {/* start Datos Estaticos  */}
           <ItemsCard block>
             <p>
-              <TextBold>Nombre or email: </TextBold>
+              <TextBold>Name or Email: </TextBold>
               {course ? course.FirstName || course.email : null}
             </p>
             <p>
@@ -227,12 +234,13 @@ function SearchStudent({ handleSearch }) {
           {/* end Datos Estaticos */}
 
           <ItemsCard block={true}>
-            <ResumenLabel htmlFor="resumen">Class summary</ResumenLabel> <br />{" "}
+            <ResumenLabel htmlFor="resumen">Class summary</ResumenLabel> <br />
             <TextLarge
               id="resumen"
               cols="45"
               value={SummaryInput}
               onChange={(e) => handleChangeSummary(e)}
+              placeholder="Type in the summary of your lesson"
             ></TextLarge>
           </ItemsCard>
           <ItemsCard block={true}>
@@ -245,28 +253,32 @@ function SearchStudent({ handleSearch }) {
               cols="45"
               value={Comments}
               onChange={(e) => handleChangeComments(e)}
+              placeholder="Type in the comments of your lesson"
             ></TextLarge>
           </ItemsCard>
           {/* Data levels  */}
           {Data.map((item) => (
-            <StepProgress>
-              <Progress style={{ width: "0%" }}></Progress>
-              <Circle>
-                <span>{item.name_level}</span>
-              </Circle>
-              {item.sub_level.map((itemsub) => (
-                <>
-                  <Circle>
-                    <span>{itemsub.sublevel} </span>
-                  </Circle>
-                  {itemsub.content.map((itemcontent) => (
-                    <CircleItem
-                      onClick={() => alert(`${itemcontent.puntuacion}`)}
-                    ></CircleItem>
-                  ))}
-                </>
-              ))}
-            </StepProgress>
+            <Centrar>
+              <h6>{item.name_level}</h6>
+              <StepProgress>
+                <Progress style={{ width: "0%" }}></Progress>
+                {item.sub_level.map((itemsub) => (
+                  <>
+                    <Circle active={Score >= itemsub.puntuacion}>
+                      <span>{itemsub.sublevel} </span>
+                    </Circle>
+                    {itemsub.content.map((itemcontent) => (
+                      <CircleItem
+                        onClick={() => handleScore(itemcontent.puntuacion)}
+                        active={Score >= itemcontent.puntuacion ? true : false}
+                      >
+                        {Score >= itemcontent.puntuacion && <IconVisto />}
+                      </CircleItem>
+                    ))}
+                  </>
+                ))}
+              </StepProgress>
+            </Centrar>
           ))}
           <ItemsCard>
             <ButtonSend onClick={handleSend}>Send</ButtonSend>
@@ -278,6 +290,25 @@ function SearchStudent({ handleSearch }) {
 }
 
 export default SearchStudent;
+
+const IconVisto = styled(BiCheck)`
+  color: #fff;
+  font-size: 1.5rem;
+`;
+
+const Centrar = styled.div`
+  width: 100%;
+
+  border: 1px solid silver;
+  padding: 1rem;
+  border-radius: 0.3rem;
+  h6 {
+    padding: 0;
+    line-height: normal;
+    text-align: center;
+    margin: 0;
+  }
+`;
 
 const StepProgress = styled.div`
   display: flex;
@@ -310,28 +341,31 @@ const Progress = styled.div`
 `;
 
 const Circle = styled.div`
-  height: 30px;
-  width: 30px;
+  height: 35px;
+  width: 35px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 0.8rem;
-  border: ${(props) =>
-    props.active ? "2px solid #283593" : "2px solid #1D4ED8"};
+  font-size: 0.912rem;
+  border: 2px solid ${({ active }) => (active ? "#16A34A" : "#A1A1AA")};
   border-radius: 50%;
   transition: 0.4s ease;
-  color: ${(props) => (props.active ? " #283593" : "#000")};
-  background: white;
+  color: ${(props) => (props.active ? " #fff" : "#283593")};
+  background: ${({ active }) => (active ? "#16A34A" : "#fff")};
   z-index: 9;
 `;
 
 const CircleItem = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   height: 20px;
   width: 20px;
   border-radius: 50%;
   background: white;
   z-index: 9;
-  border: 2px solid #7e22ce;
+  border: 2px solid ${({ active }) => (active ? "#16A34A" : "#A1A1AA")};
+  background-color: ${(props) => (props.active ? "#16A34A" : "#fff")};
   :hover {
     cursor: pointer;
   }
