@@ -1,5 +1,6 @@
 import styled from "styled-components";
-import { BiCamera, BiX } from "react-icons/bi";
+import { BiCamera, BiX, BiCheck } from "react-icons/bi";
+
 //hooks
 import { useRef, useEffect, useState, useCallback, useContext } from "react";
 // custom hooks
@@ -23,6 +24,7 @@ const CardRigth = (props) => {
   const [preview, setPreview] = useState();
   const [stateImg, setStateImg] = useState("");
   const [Stado, setStado] = useState(1);
+  const [Roles, setRoles] = useState("");
   //end state
   // context
   const { state, setState } = useContext(ImageContex);
@@ -42,9 +44,6 @@ const CardRigth = (props) => {
   const { updateImage } = useImageProfile();
   //variables
 
-  let rol = window.localStorage.getItem("user");
-  rol = JSON.parse(rol);
-
   useEffect(() => {
     setState(1);
     if (ImgPrev) {
@@ -57,16 +56,19 @@ const CardRigth = (props) => {
       setPreview(null);
     }
   }, [ImgPrev]);
+
   //
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     const formData = new FormData();
     formData.append("file", ImgPrev);
-
+    const id = window.localStorage.getItem("user");
+    const _id = JSON.parse(id);
     await updateImage({
       formData,
-      id: "614602dbc1432533bc008c23",
+      id: _id._id,
     });
   };
 
@@ -88,19 +90,24 @@ const CardRigth = (props) => {
           name="image"
           style={{ display: "none" }}
         />
+        {preview && (
+          <ButtonSubmit>
+            <BiCheck />
+          </ButtonSubmit>
+        )}
         {/* {preview && <ButtonSend newimg={stateImg} estado={state} />} */}
-        <ButtonSend newimg={stateImg} estado={state} />
+        {/* <ButtonSend newimg={stateImg} estado={state} /> */}
       </form>
       <CardEdit />
       <ItemsComponent
         clickCard={props.clickCard}
         clikcRedirect={props.clickRedirect}
-        firstText={rol.rol === "teacher" ? "Home" : "Course content"}
-        secondText={
-          rol.rol === "teacher" ? "Student's Feedback" : "My progress"
-        }
-        urlfirst={rol.rol === "teacher" ? "/" : "/private"}
-        urlSecond={rol.rol === "teacher" ? "/teacherPage" : "/progress"}
+        // firstText={rol.rol === "teacher" ? "Home" : "Course content"}
+        // secondText={
+        //   rol.rol === "teacher" ? "Student's Feedback" : "My progress"
+        // }
+        // urlfirst={rol.rol === "teacher" ? "/" : "/private"}
+        // urlSecond={rol.rol === "teacher" ? "/teacherPage" : "/progress"}
       />
       <SalirComponent logout={props.logout} clickCard={props.clickCard} />
     </Card>
@@ -108,6 +115,21 @@ const CardRigth = (props) => {
 };
 
 export default CardRigth;
+
+const ButtonSubmit = styled.button`
+  position: absolute;
+  bottom: 10px;
+  right: 0;
+  width: 40px;
+  height: 40px;
+  background-color: #0059ffeb;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  font-size: 1.5rem;
+`;
 
 const Card = styled.div`
   position: absolute;
@@ -129,8 +151,7 @@ const Card = styled.div`
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   form {
     display: flex;
-    align-items: center;
-    flex-direction: column;
+    position: relative;
   }
 `;
 const ContentImg = styled.div`

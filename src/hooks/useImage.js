@@ -3,13 +3,14 @@ import { ImageContex } from "../context/imageContext";
 import { UpdateImageProfile } from "../services/UserService";
 
 const UseImage = () => {
-  const { setImgUrl, setLoading, setState } = useContext(ImageContex);
+  const { setImgUrl, setLoading, setState, Loading } = useContext(ImageContex);
 
   const uploadImage = useCallback(async ({ formData, id }) => {
-    setLoading({ loading: true });
+    setLoading({ ...Loading, loading: true });
     setState(2);
     const urlImage = await UpdateImageProfile({ formData, id });
     setLoading({
+      ...Loading,
       loading: false,
       error: urlImage.error,
       message: urlImage.message,

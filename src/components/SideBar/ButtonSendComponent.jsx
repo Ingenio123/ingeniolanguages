@@ -4,11 +4,11 @@ import { BiCheck } from "react-icons/bi";
 // --------------------- COMPONENT ------------------------
 const ButtonSendComponent = (props) => {
   return (
-    <div>
+    <>
       {props.estado !== 4 && (
         <button className={Estados(props.estado)}>{Show(props.estado)}</button>
       )}
-    </div>
+    </>
   );
 };
 
@@ -30,7 +30,7 @@ function Estados(state) {
 function Show(val) {
   switch (val) {
     case 1:
-      return "send";
+      return "confirm";
     case 2:
       return "";
     case 3:

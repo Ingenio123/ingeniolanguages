@@ -53,15 +53,21 @@ function NavNotLogged({ toggle, isLogged, logout }) {
               <>
                 {MenuData.map((item, index) => {
                   return (
-                    <NavMenuLinks
-                      to={item.Link}
-                      key={index}
-                      smooth={true}
-                      duration={1000}
-                      spy={true}
-                    >
-                      {item.title}
-                    </NavMenuLinks>
+                    <>
+                      {item.verify ? (
+                        <SuperLink to={item.SuperLink}>{item.title}</SuperLink>
+                      ) : (
+                        <NavMenuLinks
+                          to={item.Link}
+                          key={index}
+                          smooth={true}
+                          duration={1000}
+                          spy={true}
+                        >
+                          {item.title}
+                        </NavMenuLinks>
+                      )}
+                    </>
                   );
                 })}
               </>
@@ -152,6 +158,17 @@ const NavLink = css`
   cursor: pointer;
   font-weight: 700;
   font-size: 1rem;
+`;
+
+const SuperLink = styled(Link)`
+  :hover {
+    color: #314584 !important;
+  }
+  color: #314584;
+  font-weight: 700;
+  .active {
+    color: #314584 !important;
+  }
 `;
 
 const NavMenuLinks = styled(LinkID)`

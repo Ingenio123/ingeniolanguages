@@ -13,6 +13,9 @@ import LessonMonths from "./lessonMonth";
 import ProgressStetpBar from "./ProgressStetpBar";
 import { isAuth } from "../../helpers/Auth";
 
+//component
+import OptionMonths from "./OptionMonths";
+
 export default function ModalPackage({
   ShowModal,
   setShowModal,
@@ -20,7 +23,8 @@ export default function ModalPackage({
 }) {
   const history = useHistory();
   const modalRef = useRef();
-  const InputMonths = useRef(0);
+  const InputMonths = useRef();
+  const InputMonthtow = useRef();
   const MonthsNumber = useSelector((state) => state.itemPackage.numberMonts);
   const CalculoPrices = useSelector(
     (state) => state.itemPackage.calculatePrices
@@ -38,10 +42,17 @@ export default function ModalPackage({
   const [IndividualClass, setIndividualClass] = useState(true);
   const [PersonsGroup, setPersonsGroup] = useState({ value: 0 });
   const [Valores, setValores] = useState(false);
-  const [Months, setMonths] = useState({ value: 1 });
-
+  const value = useSelector((state) => state.itemPackage.numberMonts);
+  const [Lesson, setLessons] = useState(null);
+  const [Time, setTime] = useState(null);
+  //
   const OnClickValores = () => {
     setValores(!Valores);
+  };
+
+  const DefaultInputNumber = () => {
+    const inp = InputMonthtow.current;
+    inp.value = 1;
   };
 
   const OnClickGroup = () => {
@@ -50,27 +61,20 @@ export default function ModalPackage({
     dispatch({
       type: RESET_PRICES,
     });
-
-    InputMonths.current.value = 1;
-
-    dispatch({
-      type: "GROUP_CLASS",
-      payload: 2,
-    });
+    DefaultInputNumber();
+    ClearSelectsTimeLesson();
+    ClearSelectsTime();
   };
 
   const OnClickIndividual = () => {
     setIndividualClass(true);
     setGroupClass(false);
-
-    InputMonths.current.value = 1;
     dispatch({
       type: RESET_PRICES,
     });
-    dispatch({
-      type: "GROUP_CLASS",
-      payload: 1,
-    });
+    DefaultInputNumber();
+    ClearSelectsTimeLesson();
+    ClearSelectsTime();
   };
 
   const closeModal = (e) => {
@@ -80,6 +84,9 @@ export default function ModalPackage({
       dispatch({
         type: RESET_PRICES,
       });
+      DefaultInputNumber();
+      ClearSelectsTime();
+      ClearSelectsTimeLesson();
     }
   };
 
@@ -87,6 +94,9 @@ export default function ModalPackage({
     (e) => {
       if (e.key === "Escape" && ShowModal) {
         setShowModal(false);
+        DefaultInputNumber();
+        ClearSelectsTime();
+        ClearSelectsTimeLesson();
         console.log("I pressed");
       }
     },
@@ -102,17 +112,6 @@ export default function ModalPackage({
       });
     };
   }, [keyPress]);
-
-  const handleNumber = (e) => {
-    var val = parseInt(e.target.value);
-
-    if (isNaN(val)) {
-      setPersonsGroup({ value: 0 });
-      return;
-    }
-    setPersonsGroup({ value: e.target.value });
-    InputMonths.current.value = 1;
-  };
 
   useEffect(() => {
     dispatch(GroupPersons(PersonsGroup));
@@ -135,14 +134,21 @@ export default function ModalPackage({
       type: "AddCart",
       payload: 25,
     });
+    DefaultInputNumber();
+    ClearSelectsTime();
+    ClearSelectsTimeLesson();
   };
-  //     ======>  realizar aqui   de los meses    <=====
 
-  const handleMonth = useCallback(() => {
-    setMonths({ value: InputMonths.current.value });
-  }, []);
+  //            ========>                 <===========
+  const handleNumber = (e) => {
+    var val = parseInt(e.target.value);
 
-  // const packageItems = useSelector((state) => state.package);
+    if (isNaN(val)) {
+      setPersonsGroup({ value: 0 });
+      return;
+    }
+    setPersonsGroup({ value: e.target.value });
+  };
 
   // -------------------------- handle procced to payment ----------------------
   const handleProcced = () => {
@@ -155,27 +161,32 @@ export default function ModalPackage({
         parseInt(MonthsNumber)
       )
     );
+    DefaultInputNumber();
     setShowModal(false);
     return history.push("/orderSummary");
-    // if (isAuth()) {
-    // }
-    //               -------->!modalcontext.ModalState
-    // return modalcontext.setModalState(true);
-    // console.log(packageItems);
-    // const items = packageItems.items.find((x) => x.idiom === "English");
-    // console.log(items){
-    // }
-    // dispatch({
-    //   type: "PROCCED_TO_PAY",
-    //   payload: {
-    //     price: itemPackage.calculatePrices,
-    //     items:   1,
-    //   },
-    // });
   };
-  // }, [Months]);
 
-  // ##################################################################
+  const handleChange = () => {
+    /**
+     * input.value -> se tendra el valor del value del input/ si se  quiere modificar el value  se hace asi ->   input.value = 1
+     * 1. se va obtener el valor del value del input
+     * 2. se enviara un dispatcher con el valor del months
+     * 3.
+     * 4.
+     */
+    const input = InputMonthtow.current;
+    dispatch({
+      type: "NUMBER_MONTHS_INDIVIDUAL",
+      payload: input.value,
+    });
+  };
+
+  const ClearSelectsTimeLesson = () => {
+    setLessons(null);
+  };
+  const ClearSelectsTime = () => {
+    setTime(null);
+  };
 
   return (
     <>
@@ -216,16 +227,22 @@ export default function ModalPackage({
                     <ContentSelect>
                       <TextLesson> Lessons per month </TextLesson>
                       <OptionValues
+                        setLessons={setLessons}
+                        Lesson={Lesson}
                         valor={OnClickValores}
                         GroupLessons={GroupClass}
+                        InputMonthtow={InputMonthtow}
                       />
                     </ContentSelect>
 
                     <ContentSelect>
                       <TextLesson>Duration of each lesson</TextLesson>
                       <OptionTime
+                        setTime={setTime}
+                        Time={Time}
                         valor={OnClickValores}
                         GroupLessons={GroupClass}
+                        InputMonthtow={InputMonthtow}
                       />
                     </ContentSelect>
 
@@ -249,11 +266,16 @@ export default function ModalPackage({
                   </div> */}
 
                     {/* number Months */}
-                    <LessonMonths
-                      Months={Months}
-                      InputMonths={InputMonths}
-                      handleMonth={handleMonth}
+                    {/* <OptionMonths valor={OnClickValores} /> */}
+
+                    <MonthNumber
+                      ref={InputMonthtow}
+                      onChange={handleChange}
+                      type="number"
+                      min="1"
+                      max="12"
                     />
+
                     {/* end number Months */}
 
                     <Content_Buttons>
@@ -370,7 +392,7 @@ const TextLesson = styled.span`
 
 const MonthPrices = styled.div`
   display: flex;
-  justify-content: space-between;
+  margin-top: 0.5rem;
 `;
 
 const Buttons = styled.button`
@@ -429,4 +451,13 @@ const Img3D = styled.div`
     width: 100%;
     height: 100%;
   }
+`;
+const MonthNumber = styled.input`
+  background: transparent;
+  font-size: 1rem;
+  border: 1px solid silver;
+  padding: 5px 4px;
+  width: 42%;
+  border-radius: 5px;
+  height: 100%;
 `;

@@ -134,21 +134,21 @@ export default function Header() {
                     <ItemsDeCompra>
                       <IconTime />
                       <ItemContent>
-                        Duration of each lesson: {item.time}
+                        Duration of each lesson: {item.time} minutes
                         {/* Time de cada lessons: 40 min lessons */}
                       </ItemContent>
                     </ItemsDeCompra>
                     <ItemsDeCompra>
                       <IconNumberLessons />
                       <ItemContent>
-                        Number of purchased lessons:{item.lesson}{" "}
+                        Number of purchased lessons:{item.lesson}
                         {item.lesson > 1 ? "lessons" : "lesson"}
                       </ItemContent>
                     </ItemsDeCompra>
                     <ItemsDeCompra>
                       <IconNumberLessons />
                       <ItemContent>
-                        Number of remaining lessons: {item.lesson}{" "}
+                        Number of remaining lessons: {item.lesson}
                         {item.lesson > 1 ? "lessons" : "lesson"}
                       </ItemContent>
                     </ItemsDeCompra>

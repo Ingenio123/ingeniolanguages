@@ -59,7 +59,7 @@ export const HeaderHero = ({ data }) => {
               <div className="or">Or</div>
               <p>
                 <button className="btn__demo" onClick={OpenModal}>
-                  Reques a free demo lesson
+                  Request a free demo lesson
                 </button>
               </p>
             </>

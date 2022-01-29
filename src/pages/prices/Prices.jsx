@@ -55,6 +55,9 @@ const ContentGrid = styled.section`
 
 const H2Styles = styled.h2`
   margin: 0;
+  margin-bottom: 2rem !important;
+  font-size: 2.5rem;
+  /* border: 1px solid black; */
 `;
 
 export default PricesPage;

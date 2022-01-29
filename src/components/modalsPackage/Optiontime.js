@@ -6,7 +6,13 @@ import {
   CalculatePricesOne,
 } from "../../redux/actions/ItemOnePackageAction";
 
-export default function Optiontime({ GroupLessons, valor }) {
+export default function Optiontime({
+  GroupLessons,
+  valor,
+  InputMonthtow,
+  Time,
+  setTime,
+}) {
   // const  = useSelector(state => state.)
   const { lessonMonth } = useSelector((state) => state.itemPackage);
   const options = [
@@ -15,11 +21,9 @@ export default function Optiontime({ GroupLessons, valor }) {
     { value: "60", label: "60 minutes" },
   ];
 
-  const [Items, setItems] = useState(options[0]);
   const dispatch = useDispatch();
 
   const handleItems = (item) => {
-    setItems(item);
     console.log(lessonMonth);
 
     if (lessonMonth.value === 1) {
@@ -31,12 +35,21 @@ export default function Optiontime({ GroupLessons, valor }) {
     dispatch({
       type: "CALCULATE_PRICES_ITEMS",
     });
+    const inputMonth = InputMonthtow.current;
+    inputMonth.value = 1;
+
+    setTime(item);
     valor();
   };
 
   return (
     <div>
-      <Select options={options} onChange={handleItems} />
+      <Select
+        placeholder="Select"
+        value={Time}
+        options={options}
+        onChange={handleItems}
+      />
     </div>
   );
 }

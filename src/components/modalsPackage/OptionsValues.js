@@ -4,7 +4,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { CreateOneMonthLesson } from "../../redux/actions/ItemOnePackageAction";
 import { CalculatePricesOne } from "../../redux/actions/ItemOnePackageAction";
 
-export default function OptionsValues({ GroupLessons, valor }) {
+export default function OptionsValues({
+  Lesson,
+  setLessons,
+  GroupLessons,
+  valor,
+  InputMonthtow,
+}) {
   const dispatch = useDispatch();
 
   const options = [
@@ -20,6 +26,7 @@ export default function OptionsValues({ GroupLessons, valor }) {
 
   const handleItems = (item) => {
     // setItems(item);
+    setLessons(item);
     console.log(item);
     if (item.value === 1) {
       dispatch(CreateOneMonthLesson(item));
@@ -36,12 +43,18 @@ export default function OptionsValues({ GroupLessons, valor }) {
       type: "CALCULATE_PRICES_ITEMS",
     });
 
+    const inputMonth = InputMonthtow.current;
+    inputMonth.value = 1;
     valor();
   };
-
   return (
     <div>
-      <Select options={options} onChange={handleItems} />
+      <Select
+        value={Lesson}
+        placeholder="Select"
+        options={options}
+        onChange={handleItems}
+      />
     </div>
   );
 }

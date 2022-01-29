@@ -3,20 +3,19 @@ button {
 }
 
 .button {
-  //   background-color: #3b49df;
   background-color: rgb(59, 73, 223);
   position: relative;
   color: #fff;
-  padding: 8px 16px;
-  font-size: 1.2rem;
+  padding: 0.3rem 0.8rem;
+  font-size: 1rem;
   line-height: 24px;
   letter-spacing: normal;
   font-weight: 500;
-  height: 40px;
-  width: 313.613px;
+
   transition: all 0.1s cubic-bezier(0.17, 0.67, 0.5, 0.71) 0s;
   border-radius: 0.2rem;
   margin-bottom: 1rem;
+  align-self: flex-end;
   &:hover {
     background-color: #323ebe;
   }

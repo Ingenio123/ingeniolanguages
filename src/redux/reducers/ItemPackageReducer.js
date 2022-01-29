@@ -125,8 +125,9 @@ export default function CreateOnePackage(state = initialState, action) {
         ...state,
         calculatePricesIndividual: 0,
         calculatePrices: 0,
-        numberMonts: 0,
+        numberMonts: 1,
         calculatePricesGroup: 0,
+        timeLesson: {},
       };
     case CHANGE_TIME:
       return {

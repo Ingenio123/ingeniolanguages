@@ -107,24 +107,6 @@ export default function OrderPay(props) {
     });
     if (isAuth()) {
       return props.history.push("/paypalorder");
-      // const EndPoint = Url.url + "/paypal/createPayment";
-      // console.log("items:", items);
-
-      // const { token } = JSON.parse(window.localStorage.getItem("user"));
-      // const { data } = await axios.post(
-      //   EndPoint,
-      //   {
-      //     priceTotal: valor,
-      //     datosArray: items,
-      //   },
-      //   {
-      //     headers: {
-      //       authorization: `Bearer ${token}`,
-      //     },
-      //   }
-      // );
-      // console.log(data);
-      // return window.location.assign(data.link);
     }
     setClickPaypal({
       ...ClickPaypal,
@@ -133,12 +115,6 @@ export default function OrderPay(props) {
       datosArray: items,
     });
     OpenModal();
-    // console.log(data.data);
-    // const ultime = data.data.links.filter((e) => {
-    //   return e.rel === "approve";
-    // });
-    // props.history.push(`${ultime[0].href}`);
-    // window.open(`${ultime[0].href}`);
   };
 
   return (
@@ -157,16 +133,15 @@ export default function OrderPay(props) {
                       <TextFuerte>Language: </TextFuerte>
                       {item.idiom}
                     </ItemListContent>
-                    {/* <ItemListContent>
-                      <TextFuerte>Lesson type:</TextFuerte> one to one.
-                    </ItemListContent> */}
+
                     <ItemListContent>
                       <TextFuerte>Duration of lessons:</TextFuerte> {item.time}{" "}
                       minutes
                     </ItemListContent>
                     <ItemListContent>
                       <TextFuerte>Number of lessons: </TextFuerte>
-                      {item.lesson} lesson per month
+                      {item.lesson} {item.lesson > 1 ? "lessons" : "lesson"} per
+                      month
                     </ItemListContent>
                     <ItemListContent>
                       <TextFuerte>Number of months:</TextFuerte> {item.months}{" "}

@@ -4,7 +4,7 @@ import { BiPencil } from "react-icons/bi";
 const EditComponent = () => {
   return (
     <CardEdit>
-      <Text>Edita tus datos</Text>
+      <Text>Update your information </Text>
       <Icon />
     </CardEdit>
   );

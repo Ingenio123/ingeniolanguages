@@ -28,17 +28,25 @@ export default function ModalPackageFrench({
   const LessonsMonth = useSelector(
     (state) => state.itemPackage.lessonMonth.value
   );
-  const time = useSelector((state) => state.itemPackage.timeLesson.label);
+  const time = useSelector((state) => state.itemPackage.timeLesson.value);
 
   const dispatch = useDispatch();
-
+  const InputMonthtow = useRef();
   const [GroupClass, setGroupClass] = useState(false);
   const [IndividualClass, setIndividualClass] = useState(true);
   const [PersonsGroup, setPersonsGroup] = useState({ value: 0 });
   const [Valores, setValores] = useState(false);
   const [Months, setMonths] = useState({ value: 1 });
+  const [Lesson, setLessons] = useState(null);
+  const [Time, setTime] = useState(null);
+
   const InputMonths = useRef(0);
   const history = useHistory();
+
+  const DefaultInputNumber = () => {
+    const inp = InputMonthtow.current;
+    inp.value = 1;
+  };
 
   const OnClickValores = () => {
     setValores(!Valores);
@@ -50,6 +58,9 @@ export default function ModalPackageFrench({
     dispatch({
       type: RESET_PRICES,
     });
+    DefaultInputNumber();
+    ClearSelectsTimeLesson();
+    ClearSelectsTime();
   };
 
   const OnClickIndividual = () => {
@@ -58,10 +69,15 @@ export default function ModalPackageFrench({
     dispatch({
       type: RESET_PRICES,
     });
+    DefaultInputNumber();
+    ClearSelectsTimeLesson();
+    ClearSelectsTime();
   };
 
   const closeModal = (e) => {
     if (modalRef.current === e.target) {
+      ClearSelectsTimeLesson();
+      ClearSelectsTime();
       setShowModalFrench(false);
       dispatch({
         type: RESET_PRICES,
@@ -73,6 +89,8 @@ export default function ModalPackageFrench({
     (e) => {
       if (e.key === "Escape" && ShowModalFrench) {
         setShowModalFrench(false);
+        ClearSelectsTimeLesson();
+        ClearSelectsTime();
       }
     },
     [setShowModalFrench, ShowModalFrench]
@@ -113,6 +131,8 @@ export default function ModalPackageFrench({
       payload: 25,
     });
     setShowModalFrench(false);
+    ClearSelectsTimeLesson();
+    ClearSelectsTime();
   };
 
   // realizar aqui   de los meses
@@ -124,22 +144,27 @@ export default function ModalPackageFrench({
     dispatch(Select_Package(CalculoPrices, "French", LessonsMonth, time));
     setShowModalFrench(false);
     return history.push("/orderSummary");
-    // if (isAuth()) {
-    //   return history.push("/payclient");
-    // }
-    //               -------->!modalcontext.ModalState
-    // return modalContext.setModalState(true);
-    // console.log(packageItems);
-    // const items = packageItems.items.find((x) => x.idiom === "English");
-    // console.log(items){
-    // }
-    // dispatch({
-    //   type: "PROCCED_TO_PAY",
-    //   payload: {
-    //     price: itemPackage.calculatePrices,
-    //     items:   1,
-    //   },
-    // });
+  };
+
+  const handleChange = () => {
+    /**
+     * input.value -> se tendra el valor del value del input/ si se  quiere modificar el value  se hace asi ->   input.value = 1
+     * 1. se va obtener el valor del value del input
+     * 2. se enviara un dispatcher con el valor del months
+     * 3.
+     * 4.
+     */
+    const input = InputMonthtow.current;
+    dispatch({
+      type: "NUMBER_MONTHS_INDIVIDUAL",
+      payload: input.value,
+    });
+  };
+  const ClearSelectsTimeLesson = () => {
+    setLessons(null);
+  };
+  const ClearSelectsTime = () => {
+    setTime(null);
   };
   return (
     <>
@@ -181,6 +206,9 @@ export default function ModalPackageFrench({
                       <OptionValues
                         valor={OnClickValores}
                         GroupLessons={GroupClass}
+                        InputMonthtow={InputMonthtow}
+                        setLessons={setLessons}
+                        Lesson={Lesson}
                       />
                     </ContentSelect>
 
@@ -189,6 +217,9 @@ export default function ModalPackageFrench({
                       <OptionTime
                         valor={OnClickValores}
                         GroupLessons={GroupClass}
+                        InputMonthtow={InputMonthtow}
+                        setTime={setTime}
+                        Time={Time}
                       />
                     </ContentSelect>
 
@@ -207,12 +238,13 @@ export default function ModalPackageFrench({
                   </LessonMonth>
 
                   <MonthPrices>
-                    <LesonMonth
-                      Months={Months}
-                      InputMonths={InputMonths}
-                      handleMonth={handleMonth}
+                    <MonthNumber
+                      type="number"
+                      min="1"
+                      max="12"
+                      ref={InputMonthtow}
+                      onChange={handleChange}
                     />
-
                     <div>
                       <Buttons Cart title="add to cart" onClick={handleCart}>
                         add to cart
@@ -228,7 +260,13 @@ export default function ModalPackageFrench({
                     </div>
                   </MonthPrices>
                 </InformContent>
-                <BtnClose onClick={() => setShowModalFrench((prev) => !prev)} />
+                <BtnClose
+                  onClick={() => {
+                    setShowModalFrench((prev) => !prev);
+                    ClearSelectsTimeLesson();
+                    ClearSelectsTime();
+                  }}
+                />
               </ContentModel>
             </div>
           </ModalWrapper>
@@ -237,6 +275,16 @@ export default function ModalPackageFrench({
     </>
   );
 }
+
+const MonthNumber = styled.input`
+  background: transparent;
+  font-size: 1rem;
+  border: 1px solid silver;
+  padding: 5px 4px;
+  width: 42%;
+  border-radius: 5px;
+  height: 100%;
+`;
 
 const Background = styled.div`
   width: 100%;
