@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { IoCloseSharp, IoPersonSharp, IoPeopleSharp } from "react-icons/io5";
 import { BsCart2, BsCreditCard } from "react-icons/bs";
 // librerias
-import { useState, useCallback, useRef, useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 //actions
@@ -13,17 +13,26 @@ import { GroupPersons } from "../../redux/actions/ItemOnePackageAction";
 //components
 import OptionTime from "../modalsPackage/Optiontime";
 import OptionValues from "../modalsPackage/OptionsValues";
-import LessonMonth from "../modalsPackage/lessonMonth";
+
 import ProgressStetpBar from "../modalsPackage/ProgressStetpBar";
 const Modal = (props) => {
+  //react router dom
   const history = useHistory();
+  //dispatch
   const dispatch = useDispatch();
-  const InputMonths = useRef(0);
-  const [Months, setMonths] = useState({ value: 1 });
+  //refs
+  const InputMonthtow = useRef();
+  //states
+
   const [PersonsGroup, setPersonsGroup] = useState({ value: 0 });
+
   const [Valores, setValores] = useState(false);
   const [IndividualClass, setIndividualClass] = useState(true);
   const [GroupClass, setGroupClass] = useState(false);
+  const [Lesson, setLessons] = useState(null);
+  const [Time, setTime] = useState(null);
+
+  // ---- end states ------
   //selectors
   const CalculoPrices = useSelector(
     (state) => state.itemPackage.calculatePrices
@@ -33,7 +42,8 @@ const Modal = (props) => {
   );
   const time = useSelector((state) => state.itemPackage.timeLesson.label);
   const MonthsNumber = useSelector((state) => state.itemPackage.numberMonts);
-  //end selectors
+  //   end selectors
+
   //click marque el inputa que hizo click y cuando haga click en input anterior deje de marcarse
   /**
    * -> click input 1 setState(1)
@@ -46,11 +56,10 @@ const Modal = (props) => {
 
   const close = () => {
     props.setClickModal(false);
+    ClearSelectsTime();
+    ClearSelectsTimeLesson();
   };
 
-  const handleMonth = useCallback(() => {
-    setMonths({ value: InputMonths.current.value });
-  }, []);
   /**
    *
    *
@@ -60,7 +69,6 @@ const Modal = (props) => {
     setIndividualClass(true);
     setGroupClass(false);
 
-    InputMonths.current.value = 1;
     dispatch({
       type: "RESET_PRICES",
     });
@@ -68,6 +76,8 @@ const Modal = (props) => {
       type: "GROUP_CLASS",
       payload: 1,
     });
+    ClearSelectsTime();
+    ClearSelectsTimeLesson();
   };
 
   const OnClickGroup = () => {
@@ -82,6 +92,8 @@ const Modal = (props) => {
       type: "GROUP_CLASS",
       payload: 2,
     });
+    ClearSelectsTime();
+    ClearSelectsTimeLesson();
   };
 
   /**
@@ -99,21 +111,6 @@ const Modal = (props) => {
     );
     props.setClickModal(false);
     return history.push("/orderSummary");
-    // if (isAuth()) {
-    // }
-    //               -------->!modalcontext.ModalState
-    // return modalcontext.setModalState(true);
-    // console.log(packageItems);
-    // const items = packageItems.items.find((x) => x.idiom === "English");
-    // console.log(items){
-    // }
-    // dispatch({
-    //   type: "PROCCED_TO_PAY",
-    //   payload: {
-    //     price: itemPackage.calculatePrices,
-    //     items:   1,
-    //   },
-    // });
   };
 
   const handleCart = () => {
@@ -134,8 +131,10 @@ const Modal = (props) => {
       type: "AddCart",
       payload: 25,
     });
+    ClearSelectsTime();
+    ClearSelectsTimeLesson();
   };
-
+  // ====================================== //
   const handleNumber = (e) => {
     var val = parseInt(e.target.value);
 
@@ -145,13 +144,32 @@ const Modal = (props) => {
     }
     setPersonsGroup({ value: e.target.value });
   };
-
+  // ======================================  //
   useEffect(() => {
     setPersonsGroup({ value: 1 });
   }, [Valores]);
+  //
   useEffect(() => {
     dispatch(GroupPersons(PersonsGroup));
-  }, [PersonsGroup, dispatch]);
+  }, [PersonsGroup]);
+
+  //
+  const handleChange = () => {
+    const input = InputMonthtow.current;
+    dispatch({
+      type: "NUMBER_MONTHS_INDIVIDUAL",
+      payload: input.value,
+    });
+  };
+
+  // #########################################
+  const ClearSelectsTimeLesson = () => {
+    setLessons(null);
+  };
+  const ClearSelectsTime = () => {
+    setTime(null);
+  };
+
   return (
     <>
       {props.open && (
@@ -188,14 +206,33 @@ const Modal = (props) => {
               <ContentGrid>
                 <ContentSelect>
                   <span>Lessons per month</span>
-                  <OptionValues valor={OnClickValores} />
+                  <OptionValues
+                    valor={OnClickValores}
+                    setLessons={setLessons}
+                    Lesson={Lesson}
+                    InputMonthtow={InputMonthtow}
+                  />
                 </ContentSelect>
                 <ContentSelect>
                   <span>Duration of each lesson</span>
-                  <OptionTime valor={OnClickValores} />
+                  <OptionTime
+                    valor={OnClickValores}
+                    Time={Time}
+                    setTime={setTime}
+                    InputMonthtow={InputMonthtow}
+                  />
                 </ContentSelect>
               </ContentGrid>
               <ContentGrid>
+                <ContentSelect>
+                  <MonthNumber
+                    ref={InputMonthtow}
+                    onChange={handleChange}
+                    type="number"
+                    min="1"
+                    max="12"
+                  />
+                </ContentSelect>
                 {GroupClass && (
                   <ContentSelect>
                     <span>Number of students</span>
@@ -208,14 +245,6 @@ const Modal = (props) => {
                     />
                   </ContentSelect>
                 )}
-                <ContentSelect>
-                  <LessonMonth
-                    Months={Months}
-                    size="true"
-                    InputMonths={InputMonths}
-                    handleMonth={handleMonth}
-                  />
-                </ContentSelect>
               </ContentGrid>
               {/* End Icons */}
               <ContentButtonFlex>
@@ -539,4 +568,14 @@ const MonthBuy = styled.input`
   width: ${({ Month }) => (Month ? "100%" : "100%")};
   border-radius: 5px;
 `;
+const MonthNumber = styled.input`
+  background: transparent;
+  font-size: 1rem;
+  border: 1px solid silver;
+  padding: 5px 4px;
+  width: 42%;
+  border-radius: 5px;
+  height: 100%;
+`;
+
 export default Modal;

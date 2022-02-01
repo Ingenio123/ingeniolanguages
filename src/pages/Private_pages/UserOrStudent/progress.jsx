@@ -89,30 +89,6 @@ function Progress() {
                         <button className="btn__summary">Summary</button>
                       </div>
                       <CardProgresNew score={item.score} />
-                      {/* <div className="card__footer">
-                        <div>
-                          <Box>
-                            <Cirlce background="#1D4ED8" />
-
-                            <span>A1.1</span>
-                          </Box>
-                          <span>100%</span>
-                        </div>
-                        <div>
-                          <Box>
-                            <Cirlce background="#BFDBFE" />
-                            <span>A1.2</span>
-                          </Box>
-                          <span>50%</span>
-                        </div>
-                        <div>
-                          <Box>
-                            <Cirlce background="#BFDBFE" />
-                            <span>A1.3</span>
-                          </Box>
-                          <span>0%</span>
-                        </div>
-                      </div> */}
                     </CardProgressDetails>
                   )
                 )}
@@ -120,16 +96,26 @@ function Progress() {
             ) : (
               <>
                 {Data.map((val, index) => (
-                  <CardProgress
-                    idiom={val.idiom}
-                    color={val.color}
-                    TimeLossons={val.TimeLossons}
-                    textColor={val.textColor}
-                    primary={val.primary}
-                    porcentaje={val.porcentaje}
-                    key={index}
-                    click={click}
-                  />
+                  <CardProgressDetails notStudent={true}>
+                    <div className="card__header">
+                      <div className="header__data">
+                        <span className="language">{val.idiom}</span>
+                      </div>
+                      <button className="btn__summary">Summary</button>
+                    </div>
+                    <CardProgresNew score={val.porcentaje} />
+                  </CardProgressDetails>
+
+                  // <CardProgress
+                  //   idiom={val.idiom}
+                  //   color={val.color}
+                  //   TimeLossons={val.TimeLossons}
+                  //   textColor={val.textColor}
+                  //   primary={val.primary}
+                  //   porcentaje={val.porcentaje}
+                  //   key={index}
+                  //   click={click}
+                  // />
                 ))}
               </>
             )}
@@ -147,16 +133,16 @@ const CardProgressDetails = styled.div`
   padding: 0.5rem;
   flex-direction: column;
   /* border: 1px solid silver; */
-  width: 470px;
+  width: ${({ notStudent }) => (notStudent ? "300px" : "470px")};
   align-items: center;
   max-height: 260px;
   box-shadow: 1px 7px 6px -2px rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
   .card__header {
     display: flex;
     justify-content: space-between;
     flex-direction: row !important;
     width: 100%;
-    /* min-width: 470px; */
     .header__data {
       .language {
         font-size: 1.525rem;
@@ -226,6 +212,7 @@ const GridColumns = styled.div`
 const ContentFlex = styled.div`
   display: flex;
   flex-wrap: wrap;
+  gap: 1rem;
 `;
 
 /* CARD SKELETON */

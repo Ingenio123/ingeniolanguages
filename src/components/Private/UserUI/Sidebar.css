@@ -299,7 +299,6 @@ img {
   background-color: var(--first-color);
   color: rgba(255, 255, 255, 0.7);
   margin: 0 !important;
-  margin-bottom: 10px !important;
 }
 .navigation {
   display: flex;

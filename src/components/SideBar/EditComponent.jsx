@@ -1,10 +1,11 @@
 // import {}  from 'react'
 import styled from "styled-components";
 import { BiPencil } from "react-icons/bi";
+import { Link } from "react-router-dom";
 const EditComponent = () => {
   return (
     <CardEdit>
-      <Text>Update your information </Text>
+      <Text to="/updateinformation">Update your information </Text>
       <Icon />
     </CardEdit>
   );
@@ -26,12 +27,16 @@ const CardEdit = styled.div`
     color: #314584;
   }
 `;
-const Text = styled.span`
+const Text = styled(Link)`
   font-size: 1.2rem;
-
   line-height: normal;
   letter-spacing: 0;
   font-weight: 600;
+  color: #71717a;
+
+  :hover {
+    color: #314584 !important;
+  }
 `;
 
 const Icon = styled(BiPencil)`

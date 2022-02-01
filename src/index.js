@@ -59,6 +59,8 @@ import Democlass from "./pages/verifyclassdemo";
 
 import UserPrivate from "./pages/Private_pages/UserOrStudent/userprivate";
 
+import { InformationUpdate } from "./pages/Private_pages/UserOrStudent/InformationUpdate";
+
 import StudentProvider from "./hooks/useStudent";
 
 import { ModalContextProvider } from "./components/Context/modlaContext";
@@ -147,6 +149,11 @@ ReactDOM.render(
               <StudentState>
                 <PrivateRouter path="/temary" exact component={IndexTemary} />
               </StudentState>
+              <PrivateRouter
+                path="/updateinformation"
+                exact
+                component={InformationUpdate}
+              />
             </UserProvider>
           </Switch>
         </Router>

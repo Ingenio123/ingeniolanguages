@@ -139,7 +139,7 @@ export default function ModalPackage({
     ClearSelectsTimeLesson();
   };
 
-  //            ========>                 <===========
+  // ========>   <===========
   const handleNumber = (e) => {
     var val = parseInt(e.target.value);
 
