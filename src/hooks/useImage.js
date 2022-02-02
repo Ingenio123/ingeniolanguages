@@ -8,22 +8,28 @@ const UseImage = () => {
   const uploadImage = useCallback(async ({ formData, id }) => {
     setLoading({ ...Loading, loading: true });
     setState(2);
-    const urlImage = await UpdateImageProfile({ formData, id });
+    const responseService = await UpdateImageProfile({ formData, id });
+
+    if (responseService.error) {
+      return setLoading({
+        ...Loading,
+        loading: false,
+        error: responseService.error,
+        message: responseService.message,
+      });
+    }
+
     setLoading({
       ...Loading,
       loading: false,
-      error: urlImage.error,
-      message: urlImage.message,
+      error: responseService.error,
+      message: responseService.message,
     });
-    setImgUrl(urlImage.img);
-
-    setTimeout(() => {
-      setState(4);
-    }, [2000]);
+    setImgUrl(responseService.img);
   }, []);
   return {
     updateImage: uploadImage,
-    // getImage: getImage,
+    Loading,
   };
 };
 export default UseImage;

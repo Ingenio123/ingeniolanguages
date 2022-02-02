@@ -222,18 +222,17 @@ export const SendDataDemoClassOne = async ({ SecondEmail, Token }) => {
 export const UpdateImageProfile = async ({ formData, id }) => {
   const Endpoint = `${Url.url}/data/user/updateImage/${id}`;
   try {
-    const res = await axios.post(Endpoint, formData, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
+    const res = await fetch(Endpoint, {
+      method: "POST",
+      body: formData,
     });
-    return res.data;
-  } catch (error) {
-    if (error.response.status === 500) {
-      console.log("Error en el server ");
-    } else {
-      console.log("Error 400", error);
-      // return error.data;
+    if (res.status === 400) {
+      var error = await res.json();
+      return error;
     }
+    const data = await res.json();
+    return data;
+  } catch (_err) {
+    console.log("########### ERROR " + _err);
   }
 };

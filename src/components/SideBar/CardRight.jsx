@@ -21,7 +21,7 @@ import studentContext from "../../components/Context/StudentContext";
 const CardRigth = (props) => {
   // state
   const [ImgPrev, setImgPrev] = useState();
-  const [preview, setPreview] = useState();
+  const [preview, setPreview] = useState("");
   const [stateImg, setStateImg] = useState("");
   const [Stado, setStado] = useState(1);
   const [Roles, setRoles] = useState("");
@@ -39,9 +39,10 @@ const CardRigth = (props) => {
 
   const handleChange = (event) => {
     setImgPrev(event.target.files[0]);
+    setStateImg(true);
   };
-  // hooks
-  const { updateImage } = useImageProfile();
+  // custom hooks
+  const { updateImage, Loading } = useImageProfile();
   //variables
 
   useEffect(() => {
@@ -61,15 +62,17 @@ const CardRigth = (props) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const form = document.getElementById("form");
+    const formData = new FormData(form);
 
-    const formData = new FormData();
-    formData.append("file", ImgPrev);
+    // formData.append("file", ImgPrev);
     const id = window.localStorage.getItem("user");
     const _id = JSON.parse(id);
     await updateImage({
       formData,
       id: _id._id,
     });
+    setStateImg(false);
   };
 
   return (
@@ -90,13 +93,11 @@ const CardRigth = (props) => {
           name="image"
           style={{ display: "none" }}
         />
-        {preview && (
+        {stateImg && (
           <ButtonSubmit>
             <BiCheck />
           </ButtonSubmit>
         )}
-        {/* {preview && <ButtonSend newimg={stateImg} estado={state} />} */}
-        {/* <ButtonSend newimg={stateImg} estado={state} /> */}
       </form>
       <CardEdit />
       <ItemsComponent
