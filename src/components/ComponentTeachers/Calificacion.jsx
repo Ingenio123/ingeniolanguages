@@ -28,7 +28,7 @@ export default function Calificacion({ data, setIdiom }) {
               : data[0].months + " month"}
           </Text>
           <Text>
-            <Textbold>Duration of each lesson:</Textbold> {data[0].time}
+            <Textbold>Duration of each lesson:</Textbold> {data[0].time} minutes
           </Text>
           <Text>
             <Textbold>Active plan:</Textbold> {data[0].lessonTotal} class

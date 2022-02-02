@@ -15,15 +15,18 @@ export default function CardFeedBack({ Summary, loading }, props) {
   };
 
   function RenderDate(date) {
+    console.log(date);
+    let day;
     const dates = new Date(date);
-    const day = dates.getDate();
-    var month = dates.getMonth();
-    if (month < 10) {
-      month = "" + dates.getMonth() + 1;
+    day = dates.getDate();
+    if (day < 10) {
+      day = "0" + day;
     }
+    var month = dates.getMonth() + 1;
     const year = dates.getFullYear();
     return month + "/" + day + "/" + year;
   }
+
   return (
     <>
       <ContentFeddBack>
@@ -60,7 +63,7 @@ export default function CardFeedBack({ Summary, loading }, props) {
                         <Text>
                           <h3>Teacher</h3>
                           {/* <h2>{item.teacher.email || item.teacher.name}</h2> */}
-                          <h2>{item.name || "Milena S"}</h2>
+                          <h2>{item.teacher.name}</h2>
                         </Text>
                       </ContentTeacher>
                       <Fecha>

@@ -37,7 +37,6 @@ function Progress() {
     return setSummary(resp.data.data);
   }, []);
   useEffect(() => {
-    console.log(studentContext);
     async function GetData(Language) {
       const user = JSON.parse(window.localStorage.getItem("user"));
       const resp = await axios.get(

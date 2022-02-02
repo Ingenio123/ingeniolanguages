@@ -101,7 +101,7 @@ export default function Header() {
   function FormatDate(date) {
     const dates = new Date(date);
     var year = dates.getFullYear();
-    var month = dates.getMonth();
+    var month = dates.getMonth() + 1;
     var day = dates.getDate();
     if (day < 10) {
       day = "0" + day;
@@ -141,15 +141,15 @@ export default function Header() {
                     <ItemsDeCompra>
                       <IconNumberLessons />
                       <ItemContent>
-                        Number of purchased lessons:{item.lesson}
-                        {item.lesson > 1 ? "lessons" : "lesson"}
+                        Number of purchased lessons: {item.lesson}
+                        {item.lesson > 1 ? " lessons" : " lesson"}
                       </ItemContent>
                     </ItemsDeCompra>
                     <ItemsDeCompra>
                       <IconNumberLessons />
                       <ItemContent>
-                        Number of remaining lessons: {item.lesson}
-                        {item.lesson > 1 ? "lessons" : "lesson"}
+                        Number of remaining lessons: {item.lessonTotal}
+                        {item.lesson > 1 ? " lessons" : " lesson"}
                       </ItemContent>
                     </ItemsDeCompra>
                     <ItemsDeCompra>
