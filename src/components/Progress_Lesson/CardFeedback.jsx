@@ -63,48 +63,45 @@ export default function CardFeedBack({ Summary, loading }, props) {
                         <Text>
                           <h3>Teacher</h3>
                           {/* <h2>{item.teacher.email || item.teacher.name}</h2> */}
-                          <h2>{item.teacher.name}</h2>
+                          <h2>{item.teacher.name} </h2>
                         </Text>
                       </ContentTeacher>
                       <Fecha>
-                        <div>
+                        <span>
                           <Icon style={{ marginRight: ".5rem" }} />
-                          <span>
-                            {RenderDate(item.content.date) || "01/02/2022"}
-                          </span>
-                        </div>
-                        <IconArrowHeader
-                          bottom={true}
-                          giro={ClickToggle === index ? true : false}
-                          onClick={() => Toggle(index)}
-                        />
+                          {RenderDate(item.content.date) || "01/02/2022"}
+                        </span>
+                        <ViewClassSummary onClick={() => Toggle(index)}>
+                          <span>view class summary</span>
+                          <IconArrowHeader
+                            bottom={true}
+                            giro={ClickToggle === index ? true : false}
+                          />
+                        </ViewClassSummary>
                       </Fecha>
                     </ContentHeader>
                     {ClickToggle === index && (
                       <>
-                        <Acordion onClick={() => SubToggle(index)}>
-                          <div className="content">
+                        <Acordion>
+                          <div
+                            className="content"
+                            onClick={() => SubToggle(index)}
+                          >
                             <span className="text">Class Summary</span>
-                            <IconArrow />
                           </div>
-                          {Click === index && (
-                            <div className="content_two">
-                              <hr />
-                              <p>{item.content.classSummary}</p>
-                            </div>
-                          )}
+                          <div className="content_two">
+                            <hr />
+                            <p>{item.content.classSummary}</p>
+                          </div>
                         </Acordion>
-                        <Acordion onClick={() => SubToggle(index + 1)}>
+                        <Acordion>
                           <div className="content">
                             <span className="text">Comments </span>
-                            <IconArrow />
                           </div>
-                          {Click === index + 1 && (
-                            <div className="content_two">
-                              <hr />
-                              <p>{item.content.comments}</p>
-                            </div>
-                          )}
+                          <div className="content_two">
+                            <hr />
+                            <p>{item.content.comments}</p>
+                          </div>
                         </Acordion>
                       </>
                     )}
@@ -119,6 +116,40 @@ export default function CardFeedBack({ Summary, loading }, props) {
     </>
   );
 }
+
+const Icon = styled(BiCalendarWeek)``;
+const ViewClassSummary = styled.div`
+  font-size: 2rem;
+  line-height: 0;
+  justify-self: end;
+  :hover {
+    color: #6e6e74;
+    cursor: pointer;
+  }
+`;
+
+const IconArrowHeader = styled(BiChevronDown)`
+  transition: all 0.3s ease;
+  transform: ${(props) => props.giro && "rotate(0.5turn)"};
+  font-size: 1.8rem;
+  :hover {
+    color: #6e6e74;
+  }
+`;
+
+const Fecha = styled.div`
+  position: relative;
+  color: #71717a;
+  display: flex;
+  flex-direction: column;
+  span {
+    line-height: 0;
+    font-size: 1rem;
+    font-weight: 600;
+    align-self: flex-end;
+    letter-spacing: 1px;
+  }
+`;
 
 const Line = styled.div`
   display: flex;
@@ -199,30 +230,7 @@ const ContentTeacher = styled.div`
   }
   /* margin-bottom: 1rem; */
 `;
-const Fecha = styled.div`
-  position: relative;
-  font-size: 1rem;
-  color: #a1a1aa;
 
-  div {
-    position: relative;
-    height: 10px;
-    display: flex;
-    align-items: center;
-    span {
-      line-height: 0;
-      font-size: 0.875rem;
-      align-self: flex-end;
-      letter-spacing: 1px;
-    }
-  }
-`;
-
-const Icon = styled(BiCalendarWeek)`
-  position: absolute;
-  left: -20px;
-  top: 0px;
-`;
 const Text = styled.div`
   display: flex;
   flex-direction: column;
@@ -245,11 +253,8 @@ const Text = styled.div`
 `;
 const Acordion = styled.div`
   width: 100%;
-  border: 2px solid #3b82f6;
-  border-radius: 4px;
-  padding: 0.5rem 1rem;
-  color: #a1a1aa;
-  margin-bottom: 1rem;
+  color: #52525b;
+  font-weight: 700;
   .content {
     display: flex;
     justify-content: space-between;
@@ -257,36 +262,22 @@ const Acordion = styled.div`
   .content_two {
     hr {
       border-top: 1px solid #c4c4c4;
-      margin: 1rem 0;
+      margin: 0 0 0.4rem 0;
     }
     p {
       line-height: normal;
+      margin: 0;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
     }
   }
   .text {
     font-size: 1rem;
   }
   transition: all 0.3s ease;
-  :hover {
-    color: #6e6e74;
-    cursor: pointer;
-  }
 `;
 const IconArrow = styled(BiChevronDown)`
   font-size: 1.5rem;
-`;
-
-const IconArrowHeader = styled(BiChevronDown)`
-  font-size: 2rem;
-  position: absolute;
-  bottom: -10px;
-  right: 15px;
-  transition: all 0.3s ease;
-  transform: ${(props) => props.giro && "rotate(0.5turn)"};
-  :hover {
-    cursor: pointer;
-    color: #6e6e74;
-  }
 `;
 
 const shimmer = keyframes`
