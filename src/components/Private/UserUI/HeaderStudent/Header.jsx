@@ -30,6 +30,7 @@ import Rusia from "../../../../assets/images/svgs/Rusia.png";
 import KoreaImg from "../../../../assets/images/svgs/Korea.png";
 import Francia from "../../../../assets/images/svgs/Francia.png";
 import Inglaterra from "../../../../assets/images/svgs/Inglaterra.png";
+import Infantil from "../../../../assets/images/ImageInfantil.jpg";
 
 //
 import useCardIdiom from "../../../../hooks/useCardIdiom";
@@ -48,6 +49,7 @@ const imgs = (idiom) => {
       return korea;
     case "German":
       return Germany;
+
     default:
       return English;
   }
@@ -68,6 +70,8 @@ const imgFondo = (idiom) => {
       return Alemania;
     case "German":
       return Alemania;
+    case "Infantil":
+      return Infantil;
     default:
       return English;
   }
@@ -117,7 +121,10 @@ export default function Header() {
       {contextStudent.student ? (
         <>
           {contextStudent.student.QueryStudent.courses.map((item, index) => (
-            <CardContent key={index} img={imgFondo(item.idiom)}>
+            <CardContent
+              key={index}
+              img={item.kids ? imgFondo("Infantil") : imgFondo(item.idiom)}
+            >
               <ButtonNext onClick={() => handleClickCardIdiom(item.idiom)}>
                 <BiChevronRight size="1.3rem" />
               </ButtonNext>
@@ -128,7 +135,9 @@ export default function Header() {
                 </ContentImage>
                 <div>
                   <CardHeader>
-                    <span>{item.idiom}</span>
+                    <span>
+                      {item.idiom} {item.kids && "(Kids)"}
+                    </span>
                   </CardHeader>
                   <DatosDeCompra>
                     <ItemsDeCompra>

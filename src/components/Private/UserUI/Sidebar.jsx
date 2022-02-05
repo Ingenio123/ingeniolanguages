@@ -53,13 +53,6 @@ export default function Sidebar({ salir, isLogged }) {
       "669011089415-8gtepgk9pivth0itvut5tom96kn9r7i1.apps.googleusercontent.com",
   });
 
-  // const handleLogout = () => {
-  //   signOut();
-  //   dispatch(Logout());
-  //   logout();
-  //   return history.push("/");
-  // };
-
   useEffect(() => {
     window.document.body.style.paddingTop = "0";
     // contextStudent.getStudent();
@@ -183,6 +176,8 @@ export default function Sidebar({ salir, isLogged }) {
                                         key={index}
                                       >
                                         {item.idiom}
+                                        {""}
+                                        {item.kids && "(Kids)"}
                                       </Link>
                                     )
                                   )}

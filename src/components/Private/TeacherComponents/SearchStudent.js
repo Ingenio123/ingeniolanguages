@@ -19,33 +19,19 @@ import Data from "./Levels.json";
 //
 import { BiCheck } from "react-icons/bi";
 //
-const initialForm = {
-  student: "",
-};
 
 function SearchStudent({ handleSearch }) {
-  const { NumLevel, SumSublevel, idContent } = useCalficicaion();
-  const [form, setForm] = useState(initialForm);
-  const [DataStudents, setDataStudents] = useState([]);
-  const [text, setText] = useState("");
-  const [suggestion, setSuggestion] = useState([]);
-  const [DataOneStudent, setDataOneStudent] = useState({
-    Name: "",
-    courses: [],
-    lessonsTotal: "",
-    lessonsRestantes: "",
-  });
   const [DateCalendar, setDateCalendar] = useState(new Date());
   const [SummaryInput, setSummaryInput] = useState("");
   const [Comments, setComments] = useState("");
-  const [valorSelect, setValorSelect] = useState({});
-  const [ChooseCourse, setChooseCourse] = useState("");
+
   // states del Component Search
   const [search, setSearch] = useState("");
   const [SearchResults, setSearchResults] = useState("");
   const [ListData, setListData] = useState([]);
   const [Idiom, setIdiom] = useState(null);
   const [Score, setScore] = useState(0);
+  const [Kids, setKids] = useState(false);
 
   const courseContext = useContext(ContextCourse);
   const { course } = courseContext;
@@ -82,81 +68,9 @@ function SearchStudent({ handleSearch }) {
 
   // #####################################
 
-  const token = getCookie("token");
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    handleSearch(form);
-    setForm(initialForm);
-  };
-
-  const loadStudents = async () => {
-    const EndPoint = Url.url + "/data/getAllStudents";
-    const res = await axios.get(EndPoint, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-
-    if (res) return setDataStudents(res.data.students);
-    return setDataStudents(null);
-  };
   // #################################################
-  const GetDataTemary = async () => {
-    const url = "https://www.ingenioapi.com";
-    const resp = await fetch(`${url}/temary/getTemary`);
-    const data = await resp.json();
-    console.log(data);
-  };
 
   // #################################################
-  const onSuggestHandler = (text) => {
-    setDataOneStudent({
-      ...DataOneStudent,
-      Name: text.FirstName,
-      courses: text.courses,
-      lessonsTotal: 0,
-      lessonsRestantes: 0,
-    });
-    setText(text.FirstName);
-    setSuggestion([]);
-  };
-
-  // ##########################
-  const valores = (values) => {
-    console.log(values);
-  };
-  // #########################
-  function showData(courses) {
-    if (courses.length > 1) {
-      const cursos = courses.map((item) => (
-        <Options key={item._id} value={item.idiom}>
-          {item.idiom}
-        </Options>
-      ));
-
-      return (
-        <>
-          <Select
-            onChange={(e) => handleSelect(e, 0, e.target.value)}
-            value={valorSelect}
-          >
-            {cursos}
-          </Select>
-        </>
-      );
-    }
-
-    if (courses.length === 1) {
-      return (
-        <>
-          <span>{courses[0].idiom} </span>
-        </>
-      );
-    }
-
-    return "";
-  }
 
   const handleChangeSummary = (e) => {
     setSummaryInput(e.target.value);
@@ -164,15 +78,7 @@ function SearchStudent({ handleSearch }) {
   const handleChangeComments = (e) => {
     setComments(e.target.value);
   };
-  const handleSelect = (e, index, value) => {
-    console.log(e, index, value);
-    const opcion = DataOneStudent.courses.find(
-      (option) => option.idiom === value
-    );
-    setChooseCourse(opcion);
-    console.log(opcion);
-    setValorSelect(e.target.value);
-  };
+
   // #######################################
 
   const handleSend = async () => {
@@ -184,6 +90,7 @@ function SearchStudent({ handleSearch }) {
       idiom: Idiom ? Idiom : course.courses[0].idiom,
       email: course ? course.email : null,
       score: Score ? Score : 0,
+      kids: Kids,
     };
     // const data = await Qualification(value);
     await Qualification(value);
@@ -194,6 +101,14 @@ function SearchStudent({ handleSearch }) {
   };
   // ########################################
   const resetInput = () => {};
+
+  const handleSelect = async (obj) => {
+    const datos = await course.courses.find((elem) => elem._id === obj);
+    // console.log(datos);
+    setIdiom(datos.idiom);
+    setKids(datos.kids);
+  };
+
   return (
     <Content>
       <ComponentSearch
@@ -226,7 +141,11 @@ function SearchStudent({ handleSearch }) {
                   <TextBold>
                     {course.courses.length > 1 ? "Select Package" : null}
                   </TextBold>
-                  <ComponentSelect data={course.courses} setIdiom={setIdiom} />
+                  <ComponentSelect
+                    data={course.courses}
+                    handleSelect={handleSelect}
+                    setIdiom={setIdiom}
+                  />
                 </>
               )}
             </p>

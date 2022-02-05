@@ -29,7 +29,7 @@ export default function ModalPackageFrench({
     (state) => state.itemPackage.lessonMonth.value
   );
   const time = useSelector((state) => state.itemPackage.timeLesson.value);
-
+  const MonthsNumber = useSelector((state) => state.itemPackage.numberMonts);
   const dispatch = useDispatch();
   const InputMonthtow = useRef();
   const [GroupClass, setGroupClass] = useState(false);
@@ -124,7 +124,19 @@ export default function ModalPackageFrench({
 
   const handleCart = () => {
     //price , idiom , lesson
-    dispatch(Select_Package(CalculoPrices, "French", LessonsMonth, time));
+    const kids = false;
+    const id = 2;
+    dispatch(
+      Select_Package(
+        CalculoPrices,
+        "French",
+        LessonsMonth,
+        time,
+        MonthsNumber,
+        kids,
+        id
+      )
+    );
     dispatch({ type: "ADD_CART" });
     dispatch({
       type: "AddCart",
@@ -238,13 +250,16 @@ export default function ModalPackageFrench({
                   </LessonMonth>
 
                   <MonthPrices>
-                    <MonthNumber
-                      type="number"
-                      min="1"
-                      max="12"
-                      ref={InputMonthtow}
-                      onChange={handleChange}
-                    />
+                    <div>
+                      <TextLesson>Number of months</TextLesson>
+                      <MonthNumber
+                        type="number"
+                        min="1"
+                        max="12"
+                        ref={InputMonthtow}
+                        onChange={handleChange}
+                      />
+                    </div>
                     <div>
                       <Buttons Cart title="add to cart" onClick={handleCart}>
                         add to cart
@@ -255,7 +270,7 @@ export default function ModalPackageFrench({
                         disabled={CalculoPrices > 0 ? false : true}
                         onClick={handleProcced}
                       >
-                        Procced to pay
+                        Checkout
                       </Buttons>
                     </div>
                   </MonthPrices>
@@ -281,9 +296,8 @@ const MonthNumber = styled.input`
   font-size: 1rem;
   border: 1px solid silver;
   padding: 5px 4px;
-  width: 42%;
+  width: 50%;
   border-radius: 5px;
-  height: 100%;
 `;
 
 const Background = styled.div`

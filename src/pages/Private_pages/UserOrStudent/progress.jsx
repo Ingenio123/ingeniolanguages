@@ -3,7 +3,7 @@ import styled, { keyframes } from "styled-components";
 // librerias
 import axios from "axios";
 // hooks
-import { useCallback, useContext, useState, useEffect } from "react";
+import { useContext, useState, useEffect, useReducer } from "react";
 //  end hooks
 //components
 import CardProgress from "../../../components/Progress_Lesson/CardsChart";
@@ -16,29 +16,57 @@ import Data from "./dataprogress.json";
 //end  data Json
 import Url from "../../../components/Urls";
 
+const initialState = {};
+
+const Reducer = (state = initialState, action) => {
+  switch (action.type) {
+    case "GET_DATA_SERVER":
+      return {
+        ...state,
+        datos: action.payload,
+      };
+    case "GET_DATA_KIDS":
+      return {
+        ...state,
+        titile: "(Kids)",
+        kids: action.payload,
+      };
+    case "GET_DATA_NORMAL":
+      return {
+        ...state,
+        title: "",
+        normal: action.payload,
+      };
+    case "DATA_DEFAULT":
+      const flag = action.payload[0].kids; //si es kids
+      if (flag) {
+        const kidsdata = state.datos.filter((elem) => elem.kids === true);
+        return {
+          ...state,
+          kids: kidsdata,
+          default: kidsdata,
+        };
+      }
+      const normal = state.datos.filter((elem) => elem.kids === false);
+      return {
+        ...state,
+        default: action.payload,
+        normal: normal,
+      };
+    default:
+      return state;
+  }
+};
+
 function Progress() {
   const studentContext = useContext(ContextStudent);
   const [Summary, setSummary] = useState(null);
+  const [state, dispatch] = useReducer(Reducer, initialState);
 
-  const click = useCallback(async function GetData(Language) {
-    const user = JSON.parse(window.localStorage.getItem("user"));
-    if (!studentContext.student) {
-      return setSummary(null);
-    }
-
-    const resp = await axios.get(
-      `${Url.url}/student/summary?language=${Language}`,
-      {
-        headers: {
-          Authorization: `Bearer ${user.token}`,
-        },
-      }
-    );
-    return setSummary(resp.data.data);
-  }, []);
   useEffect(() => {
     async function GetData(Language) {
       const user = JSON.parse(window.localStorage.getItem("user"));
+
       const resp = await axios.get(
         `${Url.url}/student/summary?language=${Language}`,
         {
@@ -47,11 +75,19 @@ function Progress() {
           },
         }
       );
-      setSummary(resp.data.data);
+
+      dispatch({
+        type: "GET_DATA_SERVER",
+        payload: resp.data.data,
+      });
+      dispatch({
+        type: "DATA_DEFAULT",
+        payload: resp.data.data,
+      });
+      setSummary(state.default);
     }
     // GetData();
     if (studentContext.student) {
-      console.log(studentContext.student.QueryStudent.courses[0].idiom);
       GetData(studentContext.student.QueryStudent.courses[0].idiom);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -59,6 +95,24 @@ function Progress() {
   //#####################################################################
   //                         GET SCORE PROCESS
   //####################################################################
+  const ClickSummary = async (kids) => {
+    if (kids) {
+      const kidsdata = state.datos.filter((elem) => elem.kids === true);
+      dispatch({
+        type: "GET_DATA_KIDS",
+        payload: kidsdata,
+      });
+      return setSummary(state.kids);
+    }
+    const normal = state.datos.filter((elem) => elem.kids === false);
+    dispatch({
+      type: "GET_DATA_NORMAL",
+      payload: normal,
+    });
+
+    return setSummary(state.normal);
+    // state.datos
+  };
 
   //####################################################################
 
@@ -83,9 +137,16 @@ function Progress() {
                     <CardProgressDetails>
                       <div className="card__header">
                         <div className="header__data">
-                          <span className="language">{item.idiom}</span>
+                          <span className="language">
+                            {item.idiom} {item.kids && " (Kids)"}
+                          </span>
                         </div>
-                        <button className="btn__summary">Summary</button>
+                        <button
+                          onClick={() => ClickSummary(item.kids)}
+                          className="btn__summary"
+                        >
+                          Summary
+                        </button>
                       </div>
                       <CardProgresNew score={item.score} />
                     </CardProgressDetails>

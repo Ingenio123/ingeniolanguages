@@ -38,9 +38,9 @@ const Modal = (props) => {
     (state) => state.itemPackage.calculatePrices
   );
   const LessonsMonth = useSelector(
-    (state) => state.itemPackage.lessonMonth.label
+    (state) => state.itemPackage.lessonMonth.value
   );
-  const time = useSelector((state) => state.itemPackage.timeLesson.label);
+  const time = useSelector((state) => state.itemPackage.timeLesson.value);
   const MonthsNumber = useSelector((state) => state.itemPackage.numberMonts);
   //   end selectors
 
@@ -115,13 +115,17 @@ const Modal = (props) => {
 
   const handleCart = () => {
     //price , idiom , lesson
+    const kids = props.kids;
     dispatch(
       Select_Package(
         CalculoPrices,
         props.nameCourse,
         LessonsMonth,
         time,
-        MonthsNumber
+        MonthsNumber,
+        kids,
+        props.id,
+        props.img
       )
     );
 
@@ -225,6 +229,7 @@ const Modal = (props) => {
               </ContentGrid>
               <ContentGrid>
                 <ContentSelect>
+                  <span>Number of Months</span>
                   <MonthNumber
                     ref={InputMonthtow}
                     onChange={handleChange}
@@ -270,7 +275,7 @@ const Modal = (props) => {
                     <BtnIcon bg="#314584">
                       <CardI />
                     </BtnIcon>
-                    Procced to pay
+                    Checkout
                   </Btn>
                 </ContentButton>
                 {/* End Buttons */}
@@ -573,9 +578,8 @@ const MonthNumber = styled.input`
   font-size: 1rem;
   border: 1px solid silver;
   padding: 5px 4px;
-  width: 42%;
+  width: 100%;
   border-radius: 5px;
-  height: 100%;
 `;
 
 export default Modal;

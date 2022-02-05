@@ -5,6 +5,7 @@ const Card = (props) => {
     props.setData({
       idiom: props.idiom,
       imgUrl: props.imgUrl,
+      id: props.id,
     });
   };
   return (

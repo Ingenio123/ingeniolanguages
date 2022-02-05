@@ -1,17 +1,18 @@
 import styled from "styled-components";
 
-export default function Calificacion({ data, setIdiom }) {
-  console.log(data);
+export default function Calificacion({ data, setIdiom, handleSelect }) {
   const hanldeSelect = (e) => {
+    console.log(e.target.value);
     setIdiom(e.target.value);
+    handleSelect(e.target.value);
   };
   return (
     <>
       {data && data.length > 1 && (
         <Select onChange={(e) => hanldeSelect(e)}>
           {data.map((item) => (
-            <option key={item._id} value={item.idiom}>
-              {item.idiom}
+            <option key={item._id} value={item._id}>
+              {item.idiom} {item.kids && " (Kids)"}
             </option>
           ))}
         </Select>
@@ -31,11 +32,11 @@ export default function Calificacion({ data, setIdiom }) {
             <Textbold>Duration of each lesson:</Textbold> {data[0].time} minutes
           </Text>
           <Text>
-            <Textbold>Active plan:</Textbold> {data[0].lessonTotal} class
+            <Textbold>Active plan: {data[0].lesson} </Textbold> lessons
           </Text>
           <Text>
             <Textbold>Remaining lessons: </Textbold>
-            {data[0].lesson} class
+            {data[0].lessonTotal} lessons
           </Text>
         </>
       )}

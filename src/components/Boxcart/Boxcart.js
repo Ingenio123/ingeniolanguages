@@ -28,8 +28,8 @@ export default function Boxcart() {
   //   const French = items.find((x) => x.idiom === "French");
   //   const Spanish = items.find((x) => x.idiom === "Spanish");
 
-  const ClickDelete = (idiom) => {
-    dispatch(Delete_Package(idiom));
+  const ClickDelete = (id) => {
+    dispatch(Delete_Package(id));
 
     if (items.length === 1) {
       dispatch({ type: "Remove" });
@@ -159,7 +159,7 @@ export default function Boxcart() {
             {items.map((item, index) => (
               <div key={index}>
                 <BoxItems>
-                  <IconsItems>{ShowBanderas(item.idiom)}</IconsItems>
+                  <IconsItems>{ShowBanderas(item.idiom)} </IconsItems>
                   <IconsItems>
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -253,7 +253,9 @@ export default function Boxcart() {
                         </clipPath>
                       </defs>
                     </svg>
-                    <span>{item.lesson}</span>
+                    <span>
+                      {item.lesson} {item.lesson > 1 ? "lessons" : "lesson"}{" "}
+                    </span>
                   </IconsItems>
                   <IconsItems>
                     <svg
@@ -315,7 +317,7 @@ export default function Boxcart() {
                         </clipPath>
                       </defs>
                     </svg>{" "}
-                    <span>{item.time}</span>
+                    <span>{item.time} minutes</span>
                   </IconsItems>
                   <IconsItems>
                     <svg
@@ -347,7 +349,7 @@ export default function Boxcart() {
 
                 {/* <Items_Content key={index}>You have chosen the {item.lesson} package of {item.idiom} at this price: USD {item.price} </Items_Content> */}
                 <BoxDelete>
-                  <IconDelete onClick={() => ClickDelete(item.idiom)} />
+                  <IconDelete onClick={() => ClickDelete(item.id)} />
                 </BoxDelete>
                 <hr />
               </div>

@@ -128,13 +128,17 @@ export default function ModalPackageFrench({
 
   const handleCart = () => {
     //price , idiom , lesson
+    const kids = false;
+    const id = 3;
     dispatch(
       Select_Package(
         CalculoPrices,
         "Spanish",
         numberLessons,
         time,
-        parseInt(LessonsMonth)
+        parseInt(LessonsMonth),
+        kids,
+        id
       )
     );
     dispatch({ type: "ADD_CART" });
@@ -260,13 +264,16 @@ export default function ModalPackageFrench({
                       InputMonths={InputMonths}
                       handleMonth={handleMonth}
                     /> */}
-                    <MonthNumber
-                      ref={InputMonthtow}
-                      onChange={handleChange}
-                      type="number"
-                      min="1"
-                      max="12"
-                    />
+                    <div>
+                      <sTextLessonpan>Number of months</sTextLessonpan>
+                      <MonthNumber
+                        ref={InputMonthtow}
+                        onChange={handleChange}
+                        type="number"
+                        min="1"
+                        max="12"
+                      />
+                    </div>
                     <div>
                       <Buttons Cart title="add to cart" onClick={handleCart}>
                         add to cart
@@ -277,7 +284,7 @@ export default function ModalPackageFrench({
                         title="Procced to pay"
                         onClick={handleProcced}
                       >
-                        Procced to pay
+                        Checkout
                       </Buttons>
                     </div>
                   </MonthPrices>

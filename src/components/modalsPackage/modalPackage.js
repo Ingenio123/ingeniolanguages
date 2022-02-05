@@ -124,8 +124,18 @@ export default function ModalPackage({
 
   const handleCart = () => {
     //price , idiom , lesson
+    const kids = false;
+    const id = 1;
     dispatch(
-      Select_Package(CalculoPrices, "English", LessonsMonth, time, MonthsNumber)
+      Select_Package(
+        CalculoPrices,
+        "English",
+        LessonsMonth,
+        time,
+        MonthsNumber,
+        kids,
+        id
+      )
     );
 
     dispatch({ type: "ADD_CART" });
@@ -267,14 +277,16 @@ export default function ModalPackage({
 
                     {/* number Months */}
                     {/* <OptionMonths valor={OnClickValores} /> */}
-
-                    <MonthNumber
-                      ref={InputMonthtow}
-                      onChange={handleChange}
-                      type="number"
-                      min="1"
-                      max="12"
-                    />
+                    <div>
+                      <TextLesson>Number of months</TextLesson>
+                      <MonthNumber
+                        ref={InputMonthtow}
+                        onChange={handleChange}
+                        type="number"
+                        min="1"
+                        max="12"
+                      />
+                    </div>
 
                     {/* end number Months */}
 
@@ -288,7 +300,7 @@ export default function ModalPackage({
                         disabled={CalculoPrices > 0 ? false : true}
                         onClick={handleProcced}
                       >
-                        Procced to pay
+                        Checkout
                       </Buttons>
                       {/* <Link to="/payclient">
                       </Link> */}
@@ -457,7 +469,6 @@ const MonthNumber = styled.input`
   font-size: 1rem;
   border: 1px solid silver;
   padding: 5px 4px;
-  width: 42%;
+  width: 50%;
   border-radius: 5px;
-  height: 100%;
 `;

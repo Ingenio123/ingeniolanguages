@@ -1,9 +1,20 @@
 import { PRICE_LESSON } from "./types";
 
-export const Select_Package =
-  (price, idiom, lesson, time, months) => (dispatch) => {
-    if (!months) months = 1;
+/**
+ *
+ * @param {*} price
+ * @param {*} idiom
+ * @param {*} lesson
+ * @param {*} time
+ * @param {*} months
+ * @param {true | false } kids
+ * @param {*} id
+ * @returns dispatch
+ */
 
+export const Select_Package =
+  (price, idiom, lesson, time, months, kids, id, img) => (dispatch) => {
+    if (!months) months = 1;
     return dispatch({
       type: PRICE_LESSON,
       payload: {
@@ -12,14 +23,17 @@ export const Select_Package =
         time,
         price,
         months,
+        kids,
+        id,
+        img,
       },
     });
   };
 
-export const Delete_Package = (idiom) => (dispatch) => {
+export const Delete_Package = (id) => (dispatch) => {
   return dispatch({
     type: "Delete_Package",
-    payload: idiom,
+    payload: { id },
   });
 };
 

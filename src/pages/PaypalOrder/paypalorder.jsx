@@ -52,6 +52,7 @@ const PaypalOrder = () => {
           time: items[i].time,
           price: items[i].price,
           months: items[i].months,
+          kids: items[i].kids,
         });
       }
       const { token } = JSON.parse(window.localStorage.getItem("user"));
@@ -69,19 +70,6 @@ const PaypalOrder = () => {
       );
       return window.location.assign(data.link);
     }
-    // setClickPaypal({
-    //   ...ClickPaypal,
-    //   click: true,
-    //   priceTotal: valor,
-    //   datosArray: items,
-    // });
-    // OpenModal();
-    // console.log(data.data);
-    // const ultime = data.data.links.filter((e) => {
-    //   return e.rel === "approve";
-    // });
-    // props.history.push(`${ultime[0].href}`);
-    // window.open(`${ultime[0].href}`);
   };
   //
   function ValorTotal() {

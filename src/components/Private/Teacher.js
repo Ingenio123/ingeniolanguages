@@ -32,34 +32,18 @@ export const Teacher = () => {
     GetAllStudent();
   }, []);
 
-  const loadPagage = async () => {
-    axios
-      .get(`https://www.ingenioapi.com/teacherAccount/${isAuth()._id}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((res) => {
-        const { username, email, picture } = res.data;
-        setFormData({ ...formData, name: username, email, picture });
-      })
-      .catch((err) => console.log(`err ${err}`));
-  };
-
   const searchHandler = (searchTerm) => {
     setSearch(searchTerm);
     console.log(ListData);
     if (search !== "") {
       const newContactList = ListData.filter((value) => {
-        // console.log("valore", value.FirstName);
-        // return value.FirstName.toLowerCase().includes(searchTerm.toLowerCase());
         return Object.values(value)
           .join(" ")
           .toLowerCase()
           .includes(searchTerm.toLowerCase());
       });
       setSearchResults(newContactList);
-      console.log("Exist", SearchResults);
+      // console.log("Exist", SearchResults);
     } else {
       setSearchResults([]);
       console.log("Mot Exist");

@@ -346,7 +346,7 @@ img {
 .dropdown-subitem a {
   display: block;
   color: rgba(255, 255, 255, 0.59) !important;
-  padding: 0.4rem 1rem;
+  padding: 0.4rem 0.2rem;
 }
 .dropdown-subitem > a:focus,
 a:hover {

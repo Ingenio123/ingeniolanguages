@@ -55,12 +55,12 @@ export default function OrderPay(props) {
         );
 
       default:
-        return "nada";
+        return <ImgIdiom src={idiom} />;
     }
   };
 
-  const ClickDelete = (idiom) => {
-    dispatch(Delete_Package(idiom));
+  const ClickDelete = (id) => {
+    dispatch(Delete_Package(id));
     if (items.length === 1) {
       dispatch({ type: "Remove" });
     }
@@ -125,13 +125,15 @@ export default function OrderPay(props) {
           {items.map((item, index) => (
             <div key={index}>
               <BoxContentOrderSummary>
-                <BoxImages>{ShowBanderas(item.idiom)}</BoxImages>
+                <BoxImages>
+                  {ShowBanderas(item.kids ? item.img : item.idiom)}
+                </BoxImages>
                 <BoxContent>
                   <ListContent>
                     <ItemListContent>
                       {" "}
                       <TextFuerte>Language: </TextFuerte>
-                      {item.idiom}
+                      {item.idiom} {item.kids && "(Kids)"}
                     </ItemListContent>
 
                     <ItemListContent>
@@ -153,7 +155,7 @@ export default function OrderPay(props) {
                 </BoxContent>
 
                 <BoxButton>
-                  <ButtonDelete onClick={() => ClickDelete(item.idiom)}>
+                  <ButtonDelete onClick={() => ClickDelete(item.id)}>
                     <Icontrash />
                   </ButtonDelete>
                 </BoxButton>
