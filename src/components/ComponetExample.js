@@ -9,6 +9,7 @@ export default function ComponetExample() {
 
   const handleLogout = (e) => {
     e.preventDefault();
+    console.log("salir");
     logout();
   };
 
