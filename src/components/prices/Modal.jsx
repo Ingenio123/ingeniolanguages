@@ -106,7 +106,10 @@ const Modal = (props) => {
         props.nameCourse,
         LessonsMonth,
         time,
-        MonthsNumber
+        MonthsNumber,
+        props.kids,
+        props.id,
+        props.img
       )
     );
     props.setClickModal(false);
