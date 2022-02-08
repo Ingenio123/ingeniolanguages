@@ -16,42 +16,81 @@ import Data from "./dataprogress.json";
 //end  data Json
 import Url from "../../../components/Urls";
 
-const initialState = {};
+const initialState = {
+  datos: null,
+  kids: null,
+  title: null,
+  normal: null,
+  default: null,
+  loading: true,
+  error: false,
+  emptty: true,
+  idiom: null,
+};
 
 const Reducer = (state = initialState, action) => {
   switch (action.type) {
+    case "IT_IS_EMPTY":
+      return {
+        ...state,
+        idiom: action.payload,
+        empty: true,
+      };
+    case "LOADING":
+      return {
+        ...state,
+        loading: true,
+      };
+    case "LOADING_FALSE":
+      return {
+        ...state,
+        loading: false,
+      };
     case "GET_DATA_SERVER":
       return {
         ...state,
         datos: action.payload,
+        loading: false,
+        empty: false,
       };
     case "GET_DATA_KIDS":
+      console.log("KIS data" + action.payload);
       return {
         ...state,
         titile: "(Kids)",
         kids: action.payload,
+        default: action.payload,
+        loading: false,
+        empty: false,
       };
     case "GET_DATA_NORMAL":
       return {
         ...state,
         title: "",
         normal: action.payload,
+        default: action.payload,
+        loading: false,
+        empty: false,
       };
     case "DATA_DEFAULT":
-      const flag = action.payload[0].kids; //si es kids
+      const flag = action.payload[0].kids ? true : false;
       if (flag) {
         const kidsdata = state.datos.filter((elem) => elem.kids === true);
         return {
           ...state,
           kids: kidsdata,
           default: kidsdata,
+          loading: false,
+          empty: false,
         };
       }
       const normal = state.datos.filter((elem) => elem.kids === false);
       return {
         ...state,
-        default: action.payload,
+        default: normal,
         normal: normal,
+        loading: false,
+        empty: false,
       };
     default:
       return state;
@@ -60,32 +99,45 @@ const Reducer = (state = initialState, action) => {
 
 function Progress() {
   const studentContext = useContext(ContextStudent);
-  const [Summary, setSummary] = useState(null);
+  const [Idiom, setIdiom] = useState("");
   const [state, dispatch] = useReducer(Reducer, initialState);
+  const [Kids, setKids] = useState(null);
 
   useEffect(() => {
-    async function GetData(Language) {
+    async function GetData() {
       const user = JSON.parse(window.localStorage.getItem("user"));
-
-      const resp = await axios.get(
-        `${Url.url}/student/summary?language=${Language}`,
-        {
-          headers: {
-            Authorization: `Bearer ${user.token}`,
-          },
-        }
-      );
+      const resp = await axios.get(`${Url.url}/sudent/summary/getsummary`, {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      });
 
       dispatch({
-        type: "GET_DATA_SERVER",
-        payload: resp.data.data,
+        type: "LOADING",
       });
+
+      //
+      if (resp.data.data.length > 0) {
+        dispatch({
+          type: "GET_DATA_SERVER",
+          payload: resp.data.data,
+        });
+        setIdiom(resp.data.data[0].course);
+        resp.data.data[0].kids ? setKids(true) : setKids(false);
+        return dispatch({
+          type: "DATA_DEFAULT",
+          payload: resp.data.data,
+        });
+      }
+      //
       dispatch({
-        type: "DATA_DEFAULT",
-        payload: resp.data.data,
+        type: "IT_IS_EMPTY",
       });
-      setSummary(state.default);
+      return dispatch({
+        type: "LOADING_FALSE",
+      });
     }
+
     // GetData();
     if (studentContext.student) {
       GetData(studentContext.student.QueryStudent.courses[0].idiom);
@@ -95,22 +147,27 @@ function Progress() {
   //#####################################################################
   //                         GET SCORE PROCESS
   //####################################################################
-  const ClickSummary = async (kids) => {
-    if (kids) {
-      const kidsdata = state.datos.filter((elem) => elem.kids === true);
-      dispatch({
-        type: "GET_DATA_KIDS",
-        payload: kidsdata,
-      });
-      return setSummary(state.kids);
-    }
-    const normal = state.datos.filter((elem) => elem.kids === false);
-    dispatch({
-      type: "GET_DATA_NORMAL",
-      payload: normal,
-    });
+  const ClickSummary = async (kids, idiom) => {
+    console.log("KIDS: " + kids + " IDIOM: " + idiom);
+    setIdiom(idiom);
 
-    return setSummary(state.normal);
+    if (state.datos) {
+      if (kids) {
+        setKids(true);
+        const kidsdata = await state.datos.filter((elem) => elem.kids === true);
+        console.log("Kis data" + kidsdata);
+        return dispatch({
+          type: "GET_DATA_KIDS",
+          payload: kidsdata,
+        });
+      }
+      setKids(false);
+      const normal = await state.datos.filter((elem) => elem.kids === false);
+      return dispatch({
+        type: "GET_DATA_NORMAL",
+        payload: normal,
+      });
+    }
     // state.datos
   };
 
@@ -134,7 +191,7 @@ function Progress() {
               <>
                 {studentContext.student.QueryStudent.courses.map(
                   (item, index) => (
-                    <CardProgressDetails>
+                    <CardProgressDetails key={index}>
                       <div className="card__header">
                         <div className="header__data">
                           <span className="language">
@@ -142,7 +199,7 @@ function Progress() {
                           </span>
                         </div>
                         <button
-                          onClick={() => ClickSummary(item.kids)}
+                          onClick={() => ClickSummary(item.kids, item.idiom)}
                           className="btn__summary"
                         >
                           Summary
@@ -182,7 +239,14 @@ function Progress() {
           </>
         )}
       </ContentFlex>
-      <CardFeedback Summary={Summary} loading={studentContext.loading} />
+      <CardFeedback
+        ItIsEmpty={state.empty}
+        Summary={state.default}
+        loading={state.loading}
+        isStudent={studentContext.student}
+        idiom={Idiom}
+        kids={Kids}
+      />
     </GridColumns>
   );
 }

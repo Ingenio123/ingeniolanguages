@@ -2,9 +2,26 @@ import styled, { keyframes } from "styled-components";
 import { BiCalendarWeek, BiChevronDown } from "react-icons/bi";
 import { useState } from "react";
 
-export default function CardFeedBack({ Summary, loading }, props) {
+function RenderDate(date) {
+  let day;
+  const dates = new Date(date);
+  day = dates.getDate();
+  if (day < 10) {
+    day = "0" + day;
+  }
+  var month = dates.getMonth() + 1;
+  const year = dates.getFullYear();
+  return month + "/" + day + "/" + year;
+}
+
+export default function CardFeedBack(
+  { Summary, loading, ItIsEmpty, isStudent, idiom, kids },
+  props
+) {
   const [Click, setClick] = useState(false);
   const [ClickToggle, setToggle] = useState(false);
+
+  //
   const SubToggle = (index) => {
     if (Click === index) return setClick(null);
     setClick(index);
@@ -13,19 +30,6 @@ export default function CardFeedBack({ Summary, loading }, props) {
     if (ClickToggle === index) return setToggle(null);
     setToggle(index);
   };
-
-  function RenderDate(date) {
-    console.log(date);
-    let day;
-    const dates = new Date(date);
-    day = dates.getDate();
-    if (day < 10) {
-      day = "0" + day;
-    }
-    var month = dates.getMonth() + 1;
-    const year = dates.getFullYear();
-    return month + "/" + day + "/" + year;
-  }
 
   return (
     <>
@@ -45,68 +49,91 @@ export default function CardFeedBack({ Summary, loading }, props) {
           </CardSkeleton>
         ) : (
           <>
-            {!Summary ? (
-              <CardNotStudent>
-                <TextCardNotStudent>
-                  In this Section, you will be able to view your teachers
-                  feedback of the lessons you have had
-                </TextCardNotStudent>
-              </CardNotStudent>
+            {ItIsEmpty ? (
+              <>
+                {isStudent ? (
+                  <>
+                    <TextFeedback>Summary of lessons {idiom}</TextFeedback>
+
+                    <CardItIsEmpty>
+                      <TextCardNotStudent>
+                        No tienes feedback agregado para esta section
+                      </TextCardNotStudent>
+                    </CardItIsEmpty>
+                  </>
+                ) : (
+                  <CardNotStudent>
+                    <TextCardNotStudent>
+                      In this Section, you will be able to view your teachers
+                      feedback of the lessons you have h  ad
+                    </TextCardNotStudent>
+                  </CardNotStudent>
+                )}
+              </>
             ) : (
               <>
-                <TextFeedback> Summary of lessons </TextFeedback>
-                {Summary.map((item, index) => (
-                  <Card key={index}>
-                    <ContentHeader>
-                      <ContentTeacher>
-                        <img src={item.teacher.picture} alt="imge teacher" />
-                        <Text>
-                          <h3>Teacher</h3>
-                          {/* <h2>{item.teacher.email || item.teacher.name}</h2> */}
-                          <h2>{item.teacher.name} </h2>
-                        </Text>
-                      </ContentTeacher>
-                      <Fecha>
-                        <span>
-                          <Icon style={{ marginRight: ".5rem" }} />
-                          {RenderDate(item.content.date) || "01/02/2022"}
-                        </span>
-                        <ViewClassSummary onClick={() => Toggle(index)}>
-                          <span>view class summary</span>
-                          <IconArrowHeader
-                            bottom={true}
-                            giro={ClickToggle === index ? true : false}
-                          />
-                        </ViewClassSummary>
-                      </Fecha>
-                    </ContentHeader>
-                    {ClickToggle === index && (
-                      <>
-                        <Acordion>
-                          <div
-                            className="content"
-                            onClick={() => SubToggle(index)}
-                          >
-                            <span className="text">Class Summary</span>
-                          </div>
-                          <div className="content_two">
-                            <hr />
-                            <p>{item.content.classSummary}</p>
-                          </div>
-                        </Acordion>
-                        <Acordion>
-                          <div className="content">
-                            <span className="text">Comments </span>
-                          </div>
-                          <div className="content_two">
-                            <hr />
-                            <p>{item.content.comments}</p>
-                          </div>
-                        </Acordion>
-                      </>
-                    )}
-                  </Card>
-                ))}
+                <TextFeedback>
+                  Summary of lessons {idiom} {kids && "(kids)"}
+                </TextFeedback>
+                {Summary && (
+                  <>
+                    {Summary.map((item, index) => (
+                      <Card key={index}>
+                        <ContentHeader>
+                          <ContentTeacher>
+                            <img
+                              src={item.teacher.picture}
+                              alt="imge teacher"
+                            />
+                            <Text>
+                              <h3>Teacher</h3>
+                              {/* <h2>{item.teacher.email || item.teacher.name}</h2> */}
+                              <h2>{item.teacher.name || " name teacher"} </h2>
+                            </Text>
+                          </ContentTeacher>
+                          <Fecha>
+                            <span>
+                              <Icon style={{ marginRight: ".5rem" }} />
+                              {RenderDate(item.content.date) || "01/02/2022"}
+                            </span>
+                            <ViewClassSummary onClick={() => Toggle(index)}>
+                              <span>view class summary</span>
+                              <IconArrowHeader
+                                bottom={true}
+                                giro={ClickToggle === index ? true : false}
+                              />
+                            </ViewClassSummary>
+                          </Fecha>
+                        </ContentHeader>
+                        {ClickToggle === index && (
+                          <>
+                            <Acordion>
+                              <div
+                                className="content"
+                                onClick={() => SubToggle(index)}
+                              >
+                                <span className="text">Class Summary</span>
+                              </div>
+                              <div className="content_two">
+                                <hr />
+                                <p>{item.content.classSummary}</p>
+                              </div>
+                            </Acordion>
+                            <Acordion>
+                              <div className="content">
+                                <span className="text">Comments </span>
+                              </div>
+                              <div className="content_two">
+                                <hr />
+                                <p>{item.content.comments}</p>
+                              </div>
+                            </Acordion>
+                          </>
+                        )}
+                      </Card>
+                    ))}
+                  </>
+                )}
                 <Line>view more </Line>
               </>
             )}
@@ -116,6 +143,15 @@ export default function CardFeedBack({ Summary, loading }, props) {
     </>
   );
 }
+
+const CardItIsEmpty = styled.div`
+  padding: 1rem;
+  border: 1px solid silver;
+  background: #fff;
+  border-radius: 10px;
+  max-height: 66px;
+  background-color: #f0fdf4;
+`;
 
 const Icon = styled(BiCalendarWeek)``;
 const ViewClassSummary = styled.div`
