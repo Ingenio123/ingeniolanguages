@@ -1,6 +1,7 @@
 import styled from "styled-components";
+import { ShowData } from "./ShowData";
 
-export default function Calificacion({ data, setIdiom, handleSelect }) {
+export default function Calificacion({ data, setIdiom, handleSelect, datos }) {
   const hanldeSelect = (e) => {
     console.log(e.target.value);
     setIdiom(e.target.value);
@@ -17,6 +18,8 @@ export default function Calificacion({ data, setIdiom, handleSelect }) {
           ))}
         </Select>
       )}
+      {/* <ShowData data={datos} /> */}
+
       {data && data.length === 1 && (
         <>
           <Text>

@@ -45,7 +45,7 @@ function Search(props) {
         <>
           {renderListStudent.length > 0 && (
             <CardList dn={renderListStudent.length > 0 ? true : false}>
-              {renderListStudent.length !== 0 ? renderListStudent : ""}
+              {renderListStudent.length > 0 ? renderListStudent : ""}
             </CardList>
           )}
         </>

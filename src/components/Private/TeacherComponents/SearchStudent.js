@@ -20,14 +20,14 @@ import Data from "./Levels.json";
 import { BiCheck } from "react-icons/bi";
 //
 
-function SearchStudent({ handleSearch }) {
+function SearchStudent() {
   const [DateCalendar, setDateCalendar] = useState(new Date());
   const [SummaryInput, setSummaryInput] = useState("");
   const [Comments, setComments] = useState("");
 
   // states del Component Search
   const [search, setSearch] = useState("");
-  const [SearchResults, setSearchResults] = useState("");
+  const [SearchResults, setSearchResults] = useState(null);
   const [ListData, setListData] = useState([]);
   const [Idiom, setIdiom] = useState(null);
   const [Score, setScore] = useState(0);
@@ -48,18 +48,14 @@ function SearchStudent({ handleSearch }) {
   // fUNCTION SEARCH  DEL COMPONENT SEARCH
   const searchHandler = (searchTerm) => {
     setSearch(searchTerm);
-    console.log(ListData);
     if (search !== "") {
       const newContactList = ListData.filter((value) => {
-        // console.log("valore", value.FirstName);
-        // return value.FirstName.toLowerCase().includes(searchTerm.toLowerCase());
         return Object.values(value)
           .join(" ")
           .toLowerCase()
           .includes(searchTerm.toLowerCase());
       });
       setSearchResults(newContactList);
-      console.log("Exist", SearchResults);
     } else {
       setSearchResults([]);
       console.log("Mot Exist");
@@ -109,6 +105,23 @@ function SearchStudent({ handleSearch }) {
     setKids(datos.kids);
   };
 
+  function Calculate(idiom, kids) {
+    if (idiom || kids) {
+      if (kids) {
+        const datos = courseContext.course.courses.filter(
+          (elem) => elem.idiom === idiom
+        );
+        return datos[0].score;
+      }
+
+      const datostwo = courseContext.course.courses.filter(
+        (elem) => elem.idiom === idiom
+      );
+      console.log(datostwo);
+      // return datostwo[0].score;
+    }
+  }
+
   return (
     <Content>
       <ComponentSearch
@@ -145,6 +158,7 @@ function SearchStudent({ handleSearch }) {
                     data={course.courses}
                     handleSelect={handleSelect}
                     setIdiom={setIdiom}
+                    datos={SearchResults}
                   />
                 </>
               )}
@@ -186,13 +200,30 @@ function SearchStudent({ handleSearch }) {
                     <Circle active={Score >= itemsub.puntuacion}>
                       <span>{itemsub.sublevel} </span>
                     </Circle>
+
                     {itemsub.content.map((itemcontent) => (
-                      <CircleItem
-                        onClick={() => handleScore(itemcontent.puntuacion)}
-                        active={Score >= itemcontent.puntuacion ? true : false}
-                      >
-                        {Score >= itemcontent.puntuacion && <IconVisto />}
-                      </CircleItem>
+                      <>
+                        {courseContext.course && (
+                          <CircleItem
+                            onClick={() => handleScore(itemcontent.puntuacion)}
+                            active={
+                              courseContext.course &&
+                              Calculate(Idiom, Kids) > itemcontent.puntuacion
+                                ? true
+                                : false
+                            }
+                            // active={
+                            //   courseContext.course >= itemcontent.puntuacion
+                            //     ? true
+                            //     : false
+                            // }
+                          >
+                            {SearchResults >= itemcontent.puntuacion && (
+                              <IconVisto />
+                            )}
+                          </CircleItem>
+                        )}
+                      </>
                     ))}
                   </>
                 ))}

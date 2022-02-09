@@ -57,7 +57,7 @@ export const Teacher = () => {
     <ProviderCalificacion>
       <Grid className="container">
         <ProviderCourses>
-          <SearchStudent handleSearch={searchHandler} />
+          <SearchStudent />
         </ProviderCourses>
 
         <Temary
