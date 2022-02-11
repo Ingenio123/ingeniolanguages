@@ -8,7 +8,7 @@ export default function Calificacion({ data, setIdiom, handleSelect, datos }) {
     handleSelect(e.target.value);
   };
   return (
-    <>
+    <div>
       {data && data.length > 1 && (
         <Select onChange={(e) => hanldeSelect(e)}>
           {data.map((item) => (
@@ -43,7 +43,7 @@ export default function Calificacion({ data, setIdiom, handleSelect, datos }) {
           </Text>
         </>
       )}
-    </>
+    </div>
   );
 }
 
@@ -68,4 +68,52 @@ const Textbold = styled.span`
   font-weight: 600;
   color: #314584;
   line-height: normal;
+`;
+const ItemsCard = styled.div`
+  width: 100%;
+  display: ${(props) => (props.block ? "block" : "flex")};
+  justify-content: ${(props) => (props.start ? "flex-start" : "end")};
+  align-items: center;
+  padding: 10px;
+  padding-bottom: 0;
+  border: 1px solid red;
+  & > p {
+    margin: 0;
+    border: ${(props) => (props.border ? "1px solid black" : "none")};
+    line-height: 1;
+    padding: 0.4rem 0;
+    color: #314584;
+  }
+`;
+const ResumenLabel = styled.label`
+  font-size: 1rem;
+  font-weight: 600;
+  font-size: 1.1rem;
+`;
+const TextLarge = styled.textarea`
+  background: transparent;
+  color: #314584;
+  border: 1px solid rgba(49, 69, 132, 0.6);
+  outline: none;
+  resize: none;
+  padding: 5px;
+  width: 100%;
+  font-size: 1.1rem;
+  font-weight: 400;
+  line-height: 1.1;
+  &:focus {
+    border: 1px solid #00a1f1;
+  }
+
+  &::-webkit-scrollbar {
+    width: 3px;
+  }
+
+  &::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 10px gray;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: #314584;
+  }
 `;

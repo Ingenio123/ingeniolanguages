@@ -3,10 +3,20 @@ import { createContext, useState } from "react";
 const ContextCourses = createContext();
 
 function ProviderCourses({ children }) {
-  const [course, setcourse] = useState(undefined);
-
+  const [data, setData] = useState({});
+  const [firstData, setFirstData] = useState({});
+  const [StateSelect, setStateSelect] = useState({ idiom: null });
   return (
-    <ContextCourses.Provider value={{ course, setcourse }}>
+    <ContextCourses.Provider
+      value={{
+        StateSelect,
+        setStateSelect,
+        data,
+        setData,
+        firstData,
+        setFirstData,
+      }}
+    >
       {children}
     </ContextCourses.Provider>
   );

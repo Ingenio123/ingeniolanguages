@@ -9,6 +9,7 @@ import useCalificacion from "../../hooks/useCalificacion";
 import InputSearchElement from "../Search/Search";
 import { GetAllStudents } from "../../helpers/User";
 import { ProviderCourses } from "../Context/CoursesContext";
+import { SearchComponent } from "./TeacherComponents/SearchComponent";
 
 export const Teacher = () => {
   const [formData, setFormData] = useState({
@@ -57,7 +58,7 @@ export const Teacher = () => {
     <ProviderCalificacion>
       <Grid className="container">
         <ProviderCourses>
-          <SearchStudent />
+          <SearchComponent data={ListData} placeholder={"Search Student"} />
         </ProviderCourses>
 
         <Temary

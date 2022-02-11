@@ -73,6 +73,7 @@ import BookLesson from "./pages/Private_pages/UserOrStudent/bookLesson";
 import Progress from "./pages/Private_pages/UserOrStudent/progress";
 import Prices from "./pages/prices/Prices";
 import PaypalOrder from "./pages/PaypalOrder/paypalorder";
+import TeacherProgress from "./pages/teacher/studentprogress";
 
 // i18next.init({
 //   interpolation: {
@@ -118,6 +119,11 @@ ReactDOM.render(
             <Route path="/paypalorder" component={PaypalOrder} />
             <AdminRoute path="/admin" exact component={Admin} />
             <TeacherRoutes path="/teacherPage" exact component={Teacher} />
+            <TeacherRoutes
+              path="/studentProgress"
+              exact
+              component={TeacherProgress}
+            />
             <UserProvider>
               <ModalContextProvider>
                 <Route exact path="/" component={Home} />

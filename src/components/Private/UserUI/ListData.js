@@ -51,4 +51,8 @@ export const ItemsTeacher = [
     name: "Student's  Feedback",
     link: "/teacherPage",
   },
+  {
+    name: "Student's  Progress",
+    link: "/studentProgress",
+  },
 ];
