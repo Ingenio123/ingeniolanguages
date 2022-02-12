@@ -1,29 +1,19 @@
 import styled from "styled-components";
-import { BsPlusCircleFill } from "react-icons/bs";
+
 import Score from "react-score-indicator";
-import { useState } from "react";
 
-const ProgressComponent = () => {
-  const initalState = 0;
-  const [state, setValor] = useState(initalState);
-
+const ProgressComponent = ({ initialValor }, props) => {
   return (
-    <>
-      <Score
-        lineWidth={10}
-        value={65}
-        maxValue={100}
-        lineGap={0}
-        maxAngle={200}
-        rotation={90}
-        stepsColors={["#DC2626", "#FACC15", "#22C55E"]}
-        textStyle={{ display: "none" }}
-      />
-      <Text>A1.1</Text>
-      <ButtonPlus>
-        <BsPlusCircleFill size={"1.5rem"} />
-      </ButtonPlus>
-    </>
+    <Score
+      lineWidth={10}
+      value={initialValor}
+      maxValue={100}
+      lineGap={0}
+      maxAngle={200}
+      rotation={90}
+      stepsColors={["#DC2626", "#FACC15", "#22C55E"]}
+      textStyle={{ display: "none" }}
+    />
   );
 };
 export default ProgressComponent;
