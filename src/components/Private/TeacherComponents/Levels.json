@@ -1,51 +1,109 @@
 [
   {
     "name_level": "A1",
+    "puntuacion": 16.66,
     "sub_level": [
       {
         "sublevel": "A1.1",
-        "puntuacion": 33.33,
-        "content": [
-          {
-            "puntuacion": 11.11
-          },
-          {
-            "puntuacion": 22.22
-          },
-          {
-            "puntuacion": 33.33
-          }
-        ]
+        "puntuacion": 5.55
       },
       {
         "sublevel": "A1.2",
-        "puntuacion": 66.66,
-        "content": [
-          {
-            "puntuacion": 44.44
-          },
-          {
-            "puntuacion": 55.55
-          },
-          {
-            "puntuacion": 66.66
-          }
-        ]
+        "puntuacion": 11.1
       },
       {
         "sublevel": "A1.3",
-        "puntuacion": 100,
-        "content": [
-          {
-            "puntuacion": 77.77
-          },
-          {
-            "puntuacion": 88.88
-          },
-          {
-            "puntuacion": 100
-          }
-        ]
+        "puntuacion": 16.66
+      }
+    ]
+  },
+  {
+    "name_level": "A2",
+    "puntuacion": 33.32,
+    "sub_level": [
+      {
+        "sublevel": "A2.1",
+        "puntuacion": 33.33
+      },
+      {
+        "sublevel": "A2.2",
+        "puntuacion": 66.66
+      },
+      {
+        "sublevel": "A2.3",
+        "puntuacion": 100
+      }
+    ]
+  },
+  {
+    "name_level": "B1",
+    "puntuacion": 49.98,
+    "sub_level": [
+      {
+        "sublevel": "B1.1",
+        "puntuacion": 33.33
+      },
+      {
+        "sublevel": "B1.2",
+        "puntuacion": 66.66
+      },
+      {
+        "sublevel": "B1.3",
+        "puntuacion": 100
+      }
+    ]
+  },
+  {
+    "name_level": "B2",
+    "puntuacion": 66.64,
+    "sub_level": [
+      {
+        "sublevel": "B2.1",
+        "puntuacion": 33.33
+      },
+      {
+        "sublevel": "B2.2",
+        "puntuacion": 66.66
+      },
+      {
+        "sublevel": "B2.3",
+        "puntuacion": 100
+      }
+    ]
+  },
+  {
+    "name_level": "C1",
+    "puntuacion": 83.3,
+    "sub_level": [
+      {
+        "sublevel": "C1.1",
+        "puntuacion": 33.33
+      },
+      {
+        "sublevel": "C1.2",
+        "puntuacion": 66.66
+      },
+      {
+        "sublevel": "C1.3",
+        "puntuacion": 100
+      }
+    ]
+  },
+  {
+    "name_level": "C2",
+    "puntuacion": 99.96,
+    "sub_level": [
+      {
+        "sublevel": "C2.1",
+        "puntuacion": 33.33
+      },
+      {
+        "sublevel": "C2.2",
+        "puntuacion": 66.66
+      },
+      {
+        "sublevel": "C2.3",
+        "puntuacion": 100
       }
     ]
   }

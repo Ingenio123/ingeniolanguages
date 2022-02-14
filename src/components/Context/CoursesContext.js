@@ -6,6 +6,12 @@ function ProviderCourses({ children }) {
   const [data, setData] = useState({});
   const [firstData, setFirstData] = useState({});
   const [StateSelect, setStateSelect] = useState({ idiom: null });
+
+  const [Status, setStatus] = useState({
+    loading: false,
+    error: false,
+    succes: false,
+  });
   return (
     <ContextCourses.Provider
       value={{
@@ -15,6 +21,8 @@ function ProviderCourses({ children }) {
         setData,
         firstData,
         setFirstData,
+        setStatus,
+        Status,
       }}
     >
       {children}

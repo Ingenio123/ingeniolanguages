@@ -7,17 +7,18 @@ import { BiCheck } from "react-icons/bi";
 import SelectReact from "react-select";
 //custom hooks
 import useSearch from "../../../hooks/useSearch";
-const Select = styled.select`
-  font-size: 1rem;
-  padding: 0.3rem;
-`;
 
 export const Showdata = (datstudent) => {
-  const [Score, setScore] = useState(0);
   const [DateCalendar, setDateCalendar] = useState(new Date());
+  const [values, setValues] = useState({
+    comments: "",
+    summary: "",
+  });
+  //
   const { email, courses } = datstudent.datstudent;
   // custom hooks
-  const { getData, data, StateSelect, SlectIdiomCallback } = useSearch();
+  const { getData, data, StateSelect, SlectIdiomCallback, handleSubmit } =
+    useSearch();
   const filterData = (id) => {
     // return courses.filter((x) => x._id === id);
     return courses.find((x) => x._id === id);
@@ -71,7 +72,7 @@ export const Showdata = (datstudent) => {
         </Itemsdata>
         <Itemsdata>
           <TextBold>Duration of each lesson: </TextBold>
-          <TextNormal>{dataArray[0].time} minutes</TextNormal>
+          <TextNormal>{dataArray[0].time} minutes </TextNormal>
         </Itemsdata>
         <Itemsdata>
           <TextBold>Active plan: </TextBold>
@@ -91,9 +92,16 @@ export const Showdata = (datstudent) => {
     );
   };
 
-  const handleScore = (puntaje) => {
-    return setScore(puntaje);
+  const handleOnChange = (event) => {
+    const { name, value } = event.target;
+    setValues({ ...values, [name]: value });
   };
+
+  const handleSubmitPage = (e) => {
+    e.preventDefault();
+    handleSubmit({ values, DateCalendar });
+  };
+
   return (
     <BoxData>
       <Itemsdata>
@@ -134,24 +142,26 @@ export const Showdata = (datstudent) => {
           </Itemsdata>
         </>
       )}
-      <form>
+      <form onSubmit={(e) => handleSubmitPage(e)}>
         <ItemsCard block={true}>
           <ResumenLabel htmlFor="resumen">Class summary</ResumenLabel> <br />
           <TextLarge
             id="resumen"
             cols="45"
-            // value={SummaryInput}
-            // onChange={(e) => handleChangeSummary(e)}
             placeholder="Type in the summary of your lesson"
+            value={values.summary}
+            onChange={(e) => handleOnChange(e)}
+            name="summary"
           ></TextLarge>
         </ItemsCard>
         <ItemsCard block={true}>
-          <ResumenLabel htmlFor="resumen">Class summary</ResumenLabel> <br />
+          <ResumenLabel htmlFor="comments">Class comments</ResumenLabel> <br />
           <TextLarge
-            id="resumen"
+            id="comments"
             cols="45"
-            // value={SummaryInput}
-            // onChange={(e) => handleChangeSummary(e)}
+            value={values.comments}
+            onChange={(e) => handleOnChange(e)}
+            name="comments"
             placeholder="Type in the summary of your lesson"
           ></TextLarge>
         </ItemsCard>
@@ -329,7 +339,9 @@ const ButtonSubmit = styled.button`
   font-size: 1rem;
   line-height: normal;
   border-radius: 5px;
-  min-width: 120px;
+  /* min-width: 120px; */
+  width: 200px;
+  margin-left: auto;
   :hover {
     cursor: pointer;
     background-color: #2563eb;

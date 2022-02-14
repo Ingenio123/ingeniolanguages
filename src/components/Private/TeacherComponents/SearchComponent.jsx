@@ -1,15 +1,16 @@
 import styled from "styled-components";
 import { useState } from "react";
 import useSearch from "../../../hooks/useSearch";
-
+import { BiCheck } from "react-icons/bi";
 // component
 import { Showdata } from "./Showdata";
 export const SearchComponent = ({ data, placeholder }) => {
   const [filteredData, setFilteredData] = useState([]);
   const [wordEntered, setWordEntered] = useState("");
   const [item, setItem] = useState({}); // item => {}
+
   //custom hooks
-  const { reset, FirstDataGet, ResetSelect } = useSearch();
+  const { reset, FirstDataGet, ResetSelect, Status } = useSearch();
   const handleFilter = (event) => {
     const searchWord = event.target.value;
     setWordEntered(searchWord);
@@ -37,32 +38,76 @@ export const SearchComponent = ({ data, placeholder }) => {
   };
 
   return (
-    <div>
-      <SearchBox>
-        <SearchInput
-          type="text"
-          placeholder={placeholder}
-          value={wordEntered}
-          onChange={handleFilter}
-        />
-      </SearchBox>
-      {filteredData.length !== 0 && (
-        <DataResult>
-          {filteredData.slice(0, 15).map((value, key) => (
-            <ItemResult
-              onClick={() => {
-                handleClickItem(value);
-              }}
-            >
-              {value.email}
-            </ItemResult>
-          ))}
-        </DataResult>
-      )}
-      {Object.keys(item).length !== 0 && <Showdata datstudent={item} />}
-    </div>
+    <>
+      <div>
+        <SearchBox>
+          <SearchInput
+            type="text"
+            placeholder={placeholder}
+            value={wordEntered}
+            onChange={handleFilter}
+          />
+        </SearchBox>
+        {filteredData.length !== 0 && (
+          <DataResult>
+            {filteredData.slice(0, 15).map((value, key) => (
+              <ItemResult
+                onClick={() => {
+                  handleClickItem(value);
+                }}
+              >
+                {value.email}
+              </ItemResult>
+            ))}
+          </DataResult>
+        )}
+        {Object.keys(item).length !== 0 && <Showdata datstudent={item} />}
+      </div>
+      {/* <Modal>
+        <div className="card">
+          <Icon />
+          <ButtonBack>Go Back</ButtonBack>
+        </div>
+      </Modal> */}
+    </>
   );
 };
+
+const Modal = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.3);
+  z-index: 999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  .card {
+    background-color: #fff;
+    padding: 0.8rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 450px;
+    height: 200px;
+  }
+`;
+
+const Icon = styled(BiCheck)`
+  font-size: 2rem;
+`;
+
+const ButtonBack = styled.button`
+  border: none;
+  background-color: #18181b;
+  width: 300px;
+  color: #fff;
+  padding: 0.8rem;
+  border-radius: 5px;
+  font-size: 1rem;
+`;
 
 const SearchBox = styled.div``;
 

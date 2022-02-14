@@ -10,6 +10,11 @@ const useProgressScore = () => {
   const [levelSup, setLevelSup] = useState("");
   const [Show, setShow] = useState(false);
   const [Course, setCourse] = useState({});
+  const [status, setStatus] = useState({
+    loading: false,
+    error: false,
+    success: false,
+  });
   //
   const GetCourse = (datos) => {
     setStateData({ valor: datos });
@@ -26,13 +31,22 @@ const useProgressScore = () => {
     setScoreValue((plus) => plus + val);
     const { token } = JSON.parse(localStorage.getItem("user"));
 
-    const valores = { score: ScoreValue, kids, idiom, email };
-    const data = await axios.post(`${url}/teacher/summary/score`, valores, {
+    const body = { score: ScoreValue, kids, idiom, email };
+    setStatus({ loading: true, error: false });
+    const resp = await fetch(`${url}/teacher/summary/score`, {
+      method: "POST",
       headers: {
+        "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
+      body: JSON.stringify(body),
     });
-    console.log(data);
+    console.log(resp);
+    if (resp.status >= 400 && resp.status <= 500) {
+      return setStatus({ loading: false, error: true });
+    }
+
+    setStatus({ loading: false, error: false, success: true });
   };
   const AddCourse = (course) => {
     setCourse(course);
@@ -40,24 +54,35 @@ const useProgressScore = () => {
   const ResetScore = () => {
     setScoreValue(0.0);
   };
-  const initialScore = (score) => {
+  const initialScore = (course) => {
+    const { score } = course;
     setScoreValue(score);
+    setCourse(course);
     if (score < 100) {
       setLevelSup("A1");
     }
-    if (score > 100 && score < 200) {
+    if (score > 100 && course.score < 200) {
       setLevelSup("A2");
     }
-    if (score > 200 && score < 300) {
+    if (score > 200 && course.score < 300) {
+      setLevelSup("A3");
+    }
+    if (score > 200 && course.score < 300) {
       setLevelSup("A3");
     }
   };
   function StartShow() {
     setShow(true);
   }
-
   function NotShow() {
     setShow(false);
+  }
+  function ResetStatus() {
+    setStatus({
+      loading: false,
+      error: false,
+      success: false,
+    });
   }
 
   return {
@@ -73,6 +98,8 @@ const useProgressScore = () => {
     StartShow,
     NotShow,
     AddCourse,
+    status,
+    ResetStatus,
   };
 };
 export default useProgressScore;

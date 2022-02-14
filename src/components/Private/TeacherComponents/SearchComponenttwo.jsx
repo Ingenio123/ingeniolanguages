@@ -4,7 +4,9 @@ import ProgressComponent from "./ProgressComponent";
 import Select from "react-select";
 import useProgress from "../../../hooks/useProgress";
 import { BsPlusCircleFill } from "react-icons/bs";
+import { BiCheck, BiChevronDown, BiLockAlt } from "react-icons/bi";
 import { ModalConfirm } from "./modal";
+import Data from "./Levels.json";
 
 export const SearchComponenttwo = ({ data }) => {
   //states
@@ -12,6 +14,7 @@ export const SearchComponenttwo = ({ data }) => {
   const [wordEntered, setWordEntered] = useState("");
   const [Item, setItem] = useState({});
   const [Modal, setModal] = useState(false);
+  const [toggle, setToggle] = useState(null);
 
   //custom hooks
   const {
@@ -25,8 +28,9 @@ export const SearchComponenttwo = ({ data }) => {
     levelSup,
     Show,
     StartShow,
-    NotShow,
     AddCourse,
+    status,
+    ResetStatus,
   } = useProgress();
   //end custom hooks
 
@@ -55,7 +59,7 @@ export const SearchComponenttwo = ({ data }) => {
     StartShow();
     if (value.courses.length === 1) {
       const valores = value.courses[0];
-      initialScore(valores.score);
+      initialScore(valores);
     }
   };
   const filterData = (id) => {
@@ -67,7 +71,8 @@ export const SearchComponenttwo = ({ data }) => {
     GetCourse(select);
     const datosfiltrados = filterData(value);
     const { score } = datosfiltrados;
-    initialScore(score);
+    console.log("Obejct filter: " + score);
+    initialScore(datosfiltrados);
     AddCourse(datosfiltrados);
     // console.log(datosfiltrados);
     // getData(datosfiltrados);
@@ -92,62 +97,188 @@ export const SearchComponenttwo = ({ data }) => {
       );
     }
   }
-
   const ClickModal = () => {
     setModal(true);
   };
-
   const ConfirmModala = () => {
     AddScore(33, Item);
+  };
+  const handleDismiss = () => {
+    ResetStatus();
     setModal((prev) => !prev);
-    // NotShow(); //es para olcultar todo el component
+  };
+  const ToggleItem = (index) => {
+    if (toggle === index) {
+      return setToggle(null);
+    }
+    setToggle(index);
   };
 
   return (
     <>
       <ModalConfirm modal={Modal}>
-        <Button primary={true} onClick={ConfirmModala}>
-          Confirm
-        </Button>
-        <Button onClick={() => setModal((prev) => !prev)}>Cancel</Button>
+        {status.success ? (
+          <ContentSuccess>
+            <ContentICon>
+              <IconSuccess />
+            </ContentICon>
+            <ContentText>Submitted successfully</ContentText>
+            <ButtonDissmis onClick={handleDismiss}>Go back</ButtonDissmis>
+          </ContentSuccess>
+        ) : (
+          <>
+            <Texto>Are you sure ? </Texto>
+            <ContentFlex>
+              <Button primary={true} onClick={ConfirmModala}>
+                Confirm
+              </Button>
+              <Button onClick={() => setModal((prev) => !prev)}>Cancel</Button>
+            </ContentFlex>
+          </>
+        )}
       </ModalConfirm>
       <BoxSearch>
-        <InputSearch
-          onChange={handleFilter}
-          value={wordEntered}
-          placeholder="Search Student"
-        />
-        {filteredData.length !== 0 && (
-          <DataResult>
-            {filteredData.slice(0, 15).map((value, key) => (
-              <ItemResult
-                onClick={() => {
-                  handleClickItem(value);
-                }}
-              >
-                {value.email}
-              </ItemResult>
-            ))}
-          </DataResult>
-        )}
+        <ContentBox>
+          <InputSearch
+            onChange={handleFilter}
+            value={wordEntered}
+            placeholder="Search Student"
+          />
+          {filteredData.length !== 0 && (
+            <DataResult>
+              {filteredData.slice(0, 15).map((value, key) => (
+                <ItemResult
+                  key={key}
+                  onClick={() => {
+                    handleClickItem(value);
+                  }}
+                >
+                  {value.email}
+                </ItemResult>
+              ))}
+            </DataResult>
+          )}
+          {Show && (
+            <div>
+              {Object.keys(Item).length !== 0 && (
+                <TextName>Student: {Item.email} </TextName>
+              )}
+              {Object.keys(Item).length !== 0 && SelectArray(Item.courses)}
+            </div>
+          )}
+        </ContentBox>
         {Show && (
           <>
-            {Object.keys(Item).length !== 0 && (
-              <TextName>Name or Email: {Item.email} </TextName>
-            )}
-            {Object.keys(Item).length !== 0 && SelectArray(Item.courses)}
-            <Text>Student's level: {levelSup} </Text>
-            <ProgressComponent initialValor={ScoreValue} />
-            {/* <TextSublevel>A1.1</TextSublevel> */}
-            <ButtonPlus onClick={() => ClickModal()}>
+            <ContentBox>
+              <Text>Level {levelSup} </Text>
+              <ProgressComponent initialValor={ScoreValue} />
+              <TextSublevel>{levelSup}</TextSublevel>
+            </ContentBox>
+            <ContentBox>
+              {Data.map((elm, index) => (
+                <>
+                  <CardCheck>
+                    <div
+                      onClick={
+                        elm.puntuacion > ScoreValue
+                          ? () => {
+                              ToggleItem(index);
+                            }
+                          : null
+                      }
+                      className="card_header"
+                    >
+                      <span>{elm.name_level}</span>
+                      {elm.puntuacion > ScoreValue ? (
+                        <IconRow rotate={toggle === index && true} />
+                      ) : (
+                        <IconLock />
+                      )}
+                    </div>
+                    {toggle === index && (
+                      <ContentsWrapper>
+                        {elm.sub_level.map((elm) => (
+                          <Wrapper>
+                            <input type="checkbox" onChange={ClickModal} />
+                            <label>{elm.sublevel}</label>
+                          </Wrapper>
+                        ))}
+                      </ContentsWrapper>
+                    )}
+                  </CardCheck>
+                </>
+              ))}
+            </ContentBox>
+            {/* <ButtonPlus onClick={() => ClickModal()}>
               <BsPlusCircleFill size={"1.5rem"} />
-            </ButtonPlus>
+            </ButtonPlus> */}
           </>
         )}
       </BoxSearch>
     </>
   );
 };
+const ContentsWrapper = styled.div`
+  margin-top: 0.8rem;
+`;
+
+const Wrapper = styled.div`
+  margin: 0;
+  label {
+    font-size: 1.2rem;
+    margin-left: 0.25rem;
+    line-height: normal;
+  }
+  input[type="checkbox"] {
+    appearance: none;
+    height: 15px;
+    width: 15px;
+    position: relative;
+    cursor: pointer;
+    transition: 0.5s;
+  }
+  input[type="checkbox"]:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 2px solid #2563eb;
+    border-radius: 4px;
+  }
+  input:checked[type="checkbox"]:before {
+    border-left: none;
+    border-top: none;
+    width: 8px;
+    border-color: #16a34a;
+    transform: rotate(45deg);
+    border-radius: 0;
+  }
+`;
+
+const ContentBox = styled.div`
+  /* border: 1px solid red; */
+  position: relative;
+`;
+const CardCheck = styled.div`
+  padding: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  border-bottom: 1px solid #a1a1aa;
+  color: #18181b;
+  .card_header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+
+    span {
+      font-size: 1.5rem;
+      line-height: normal;
+    }
+  }
+`;
 
 const Button = styled.button`
   background-color: ${(props) => (props.primary ? "#93c5fd" : "#D4D4D8")};
@@ -181,16 +312,10 @@ const ButtonPlus = styled.button`
 
 const TextSublevel = styled.h2`
   position: absolute;
-  bottom: 70px;
   margin: 0;
   color: #2563eb;
-`;
-
-const TextIdiom = styled.p`
-  font-size: 1.25rem;
-  font-weight: 600;
-  color: #1d4ed8;
-  margin: 0;
+  bottom: 80px;
+  right: 160px;
 `;
 
 const TextName = styled.span`
@@ -204,10 +329,11 @@ const Text = styled.h3`
   font-weight: 600;
   color: #1d4ed8;
   margin: 1rem 0;
+  text-align: center;
 `;
 
 const SelectIdiom = styled(Select)`
-  width: 30%;
+  width: 100%;
   margin-top: 1rem;
 `;
 
@@ -227,17 +353,17 @@ const DataResult = styled.div`
   border-top: none;
   z-index: 9;
   background-color: #fff;
-  width: 30%;
+  width: 100%;
   padding: 0.5rem;
   z-index: 999;
 `;
 const BoxSearch = styled.div`
   width: 100%;
-  display: flex;
-  flex-direction: column;
-
+  display: grid;
+  /* grid-template-columns: repeat(3, 1fr); */
+  grid-template-columns: 300px auto 200px;
+  column-gap: 1rem;
   margin-top: 2rem;
-  align-items: center;
 `;
 
 const InputSearch = styled.input`
@@ -247,11 +373,68 @@ const InputSearch = styled.input`
   border-radius: 5px;
   font-size: 1rem;
   line-height: normal;
-  width: 30%;
+  width: 100%;
   ::placeholder {
     color: silver;
   }
   :focus {
     border: 2px solid #2989ff;
   }
+`;
+const Texto = styled.h2`
+  text-align: center;
+  margin: 0;
+  margin-bottom: 2rem;
+  color: #737373;
+  font-weight: 600;
+`;
+const ContentFlex = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+const ContentSuccess = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+`;
+
+const ContentICon = styled.div`
+  width: 60px;
+  height: 60px;
+  background-color: #bbf7d0;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const IconSuccess = styled(BiCheck)`
+  font-size: 2.5rem;
+  color: #18181b; ;
+`;
+const ButtonDissmis = styled.button`
+  color: #fff;
+  padding: 0.5rem 1rem;
+  border: none;
+  background-color: #18181b;
+  border-radius: 6px;
+  min-width: 250px;
+  font-size: 1.2rem;
+  letter-spacing: 1px;
+`;
+const ContentText = styled.p`
+  text-align: center;
+  line-height: 1.2;
+  margin: 1rem 0;
+`;
+const IconRow = styled(BiChevronDown)`
+  font-size: 1.5rem;
+  cursor: pointer;
+  ${(prosp) => prosp.rotate && `transform: rotate(180deg);`}
+`;
+const IconLock = styled(BiLockAlt)`
+  font-size: 1.2rem;
+  cursor: pointer;
 `;

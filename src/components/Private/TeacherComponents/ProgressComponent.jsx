@@ -11,29 +11,10 @@ const ProgressComponent = ({ initialValor }, props) => {
       lineGap={0}
       maxAngle={200}
       rotation={90}
-      stepsColors={["#DC2626", "#FACC15", "#22C55E"]}
+      stepsColors={["#49539c", "#525cad", "#636db6"]}
       textStyle={{ display: "none" }}
+      width={300}
     />
   );
 };
 export default ProgressComponent;
-
-const ButtonPlus = styled.button`
-  padding: 0.25rem;
-  border: none;
-  background-color: #2563eb;
-  color: #fff;
-  border-radius: 50%;
-  position: absolute;
-  bottom: 40px;
-  :active {
-    transform: scale(0.9);
-  }
-`;
-
-const Text = styled.h2`
-  position: absolute;
-  bottom: 70px;
-  margin: 0;
-  color: #2563eb;
-`;

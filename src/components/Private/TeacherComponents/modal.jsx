@@ -5,10 +5,7 @@ export const ModalConfirm = ({ modal, children }) => {
     <>
       {modal && (
         <Modal>
-          <Card>
-            <Texto>Deseas enviar </Texto>
-            <ContentFlex>{children}</ContentFlex>
-          </Card>
+          <Card>{children}</Card>
         </Modal>
       )}
     </>
@@ -39,18 +36,4 @@ const Card = styled.div`
   justify-content: center;
   flex-direction: column;
   padding: 1rem;
-`;
-
-const Texto = styled.h2`
-  text-align: center;
-  margin: 0;
-  margin-bottom: 2rem;
-  color: #737373;
-  font-weight: 300;
-`;
-
-const ContentFlex = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
 `;
