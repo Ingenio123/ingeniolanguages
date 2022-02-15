@@ -5,15 +5,18 @@
     "sub_level": [
       {
         "sublevel": "A1.1",
-        "puntuacion": 5.55
+        "puntuacion": 33.33,
+        "puntuacionSup": 16.66
       },
       {
         "sublevel": "A1.2",
-        "puntuacion": 11.1
+        "puntuacion": 66.66,
+        "puntuacionSup": 16.66
       },
       {
         "sublevel": "A1.3",
-        "puntuacion": 16.66
+        "puntuacion": 100,
+        "puntuacionSup": 16.66
       }
     ]
   },
@@ -23,15 +26,18 @@
     "sub_level": [
       {
         "sublevel": "A2.1",
-        "puntuacion": 33.33
+        "puntuacion": 33.33,
+        "puntuacionSup": 33.32
       },
       {
         "sublevel": "A2.2",
-        "puntuacion": 66.66
+        "puntuacion": 66.66,
+        "puntuacionSup": 33.32
       },
       {
         "sublevel": "A2.3",
-        "puntuacion": 100
+        "puntuacion": 100,
+        "puntuacionSup": 33.32
       }
     ]
   },
@@ -41,15 +47,18 @@
     "sub_level": [
       {
         "sublevel": "B1.1",
-        "puntuacion": 33.33
+        "puntuacion": 33.33,
+        "puntuacionSup": 49.98
       },
       {
         "sublevel": "B1.2",
-        "puntuacion": 66.66
+        "puntuacion": 66.66,
+        "puntuacionSup": 49.98
       },
       {
         "sublevel": "B1.3",
-        "puntuacion": 100
+        "puntuacion": 100,
+        "puntuacionSup": 49.98
       }
     ]
   },
@@ -59,15 +68,18 @@
     "sub_level": [
       {
         "sublevel": "B2.1",
-        "puntuacion": 33.33
+        "puntuacion": 33.33,
+        "puntuacionSup": 66.64
       },
       {
         "sublevel": "B2.2",
-        "puntuacion": 66.66
+        "puntuacion": 66.66,
+        "puntuacionSup": 66.64
       },
       {
         "sublevel": "B2.3",
-        "puntuacion": 100
+        "puntuacion": 100,
+        "puntuacionSup": 66.64
       }
     ]
   },
@@ -77,15 +89,18 @@
     "sub_level": [
       {
         "sublevel": "C1.1",
-        "puntuacion": 33.33
+        "puntuacion": 33.33,
+        "puntuacionSup": 83.3
       },
       {
         "sublevel": "C1.2",
-        "puntuacion": 66.66
+        "puntuacion": 66.66,
+        "puntuacionSup": 83.3
       },
       {
         "sublevel": "C1.3",
-        "puntuacion": 100
+        "puntuacion": 100,
+        "puntuacionSup": 83.3
       }
     ]
   },
@@ -95,15 +110,18 @@
     "sub_level": [
       {
         "sublevel": "C2.1",
-        "puntuacion": 33.33
+        "puntuacion": 33.33,
+        "puntuacionSup": 99.96
       },
       {
         "sublevel": "C2.2",
-        "puntuacion": 66.66
+        "puntuacion": 66.66,
+        "puntuacionSup": 99.96
       },
       {
         "sublevel": "C2.3",
-        "puntuacion": 100
+        "puntuacion": 100,
+        "puntuacionSup": 99.96
       }
     ]
   }

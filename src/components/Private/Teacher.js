@@ -60,9 +60,8 @@ export const Teacher = () => {
         <ProviderCourses>
           <SearchComponent data={ListData} placeholder={"Search Student"} />
         </ProviderCourses>
-
         <Temary
-          margin="0 0 0 0"
+          margin="2rem 0 0 0"
           column={true}
           // UseTeacher={true}
           // Sublevel={Sublevel}

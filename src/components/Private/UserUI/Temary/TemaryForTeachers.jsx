@@ -39,14 +39,14 @@ export const Temary = ({ margin, column }) => {
       className="l-section s-border md-pxy brd-radius"
     >
       <div className="dgrid m-grid-2 al-center header_temary">
-        <h2 className="mb-0">Course content</h2>
-        <div>
+        <h2 className="mb-1">Course content</h2>
+        {/* <div>
           <InputSearch
             type="search"
             className="input-form"
             placeholder="Search"
           />
-        </div>
+        </div> */}
       </div>
 
       {/* contents */}

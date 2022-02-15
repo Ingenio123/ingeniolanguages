@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { useState } from "react";
 import useSearch from "../../../hooks/useSearch";
-import { BiCheck } from "react-icons/bi";
+import { BiCheck, BiX } from "react-icons/bi";
 // component
 import { Showdata } from "./Showdata";
 export const SearchComponent = ({ data, placeholder }) => {
@@ -10,7 +10,7 @@ export const SearchComponent = ({ data, placeholder }) => {
   const [item, setItem] = useState({}); // item => {}
 
   //custom hooks
-  const { reset, FirstDataGet, ResetSelect, Status } = useSearch();
+  const { reset, FirstDataGet, ResetSelect, Status, ResetStatus } = useSearch();
   const handleFilter = (event) => {
     const searchWord = event.target.value;
     setWordEntered(searchWord);
@@ -37,10 +37,17 @@ export const SearchComponent = ({ data, placeholder }) => {
     ResetSelect();
   };
 
+  const HanldeResetButton = () => {
+    setFilteredData([]);
+    setItem({});
+    ResetStatus();
+  };
+
   return (
     <>
       <div>
         <SearchBox>
+          <h2>Search student by email</h2>
           <SearchInput
             type="text"
             placeholder={placeholder}
@@ -63,12 +70,29 @@ export const SearchComponent = ({ data, placeholder }) => {
         )}
         {Object.keys(item).length !== 0 && <Showdata datstudent={item} />}
       </div>
-      {/* <Modal>
-        <div className="card">
-          <Icon />
-          <ButtonBack>Go Back</ButtonBack>
-        </div>
-      </Modal> */}
+      {Status.succes || Status.error ? (
+        <Modal>
+          <div className="card">
+            {Status.error ? (
+              <>
+                <ContentIcon error={true}>
+                  <IconX />
+                </ContentIcon>
+                <p>Class summary cannot be submitted</p>
+                <p>Student has finished all the remaining lessons</p>
+              </>
+            ) : (
+              <>
+                <ContentIcon>
+                  <Icon />
+                </ContentIcon>
+                <p>Submitted successfully</p>
+              </>
+            )}
+            <ButtonBack onClick={() => HanldeResetButton()}>Go Back</ButtonBack>
+          </div>
+        </Modal>
+      ) : null}
     </>
   );
 };
@@ -84,6 +108,9 @@ const Modal = styled.div`
   align-items: center;
   width: 100%;
   height: 100%;
+  p {
+    margin: 0;
+  }
   .card {
     background-color: #fff;
     padding: 0.8rem;
@@ -92,7 +119,26 @@ const Modal = styled.div`
     align-items: center;
     width: 450px;
     height: 200px;
+    border-radius: 4px;
+    p {
+      line-height: normal;
+      text-align: center;
+      margin: 0;
+      /* margin: 0.5rem 0; */
+    }
   }
+`;
+
+const ContentIcon = styled.div`
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: ${(props) => (props.error ? "#FCA5A5" : "#86efac")};
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #18181b;
+  margin-bottom: 1rem;
 `;
 
 const Icon = styled(BiCheck)`
@@ -107,9 +153,19 @@ const ButtonBack = styled.button`
   padding: 0.8rem;
   border-radius: 5px;
   font-size: 1rem;
+  line-height: normal;
+  margin-top: 1rem;
 `;
 
-const SearchBox = styled.div``;
+const SearchBox = styled.div`
+  margin-top: 2rem;
+  h2 {
+    font-size: 1.25rem;
+    margin: 0;
+    line-height: normal;
+    font-weight: 700;
+  }
+`;
 
 const SearchInput = styled.input`
   padding: 0.5rem;
@@ -117,7 +173,8 @@ const SearchInput = styled.input`
   line-height: normal;
   border-radius: 4px;
   border: 1px solid silver;
-  margin: 1rem 0 0 0;
+  margin: 0.5rem 0 0 0;
+  width: 60%;
 `;
 const DataResult = styled.div`
   border: 1px solid silver;
@@ -134,4 +191,9 @@ const ItemResult = styled.p`
     cursor: pointer;
     background: rgba(0, 0, 0, 0.3);
   }
+`;
+
+const IconX = styled(BiX)`
+  font-size: 2rem;
+  color: #18181b;
 `;

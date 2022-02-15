@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useState } from "react";
+import { useState, useReducer } from "react";
 import ProgressComponent from "./ProgressComponent";
 import Select from "react-select";
 import useProgress from "../../../hooks/useProgress";
@@ -15,6 +15,10 @@ export const SearchComponenttwo = ({ data }) => {
   const [Item, setItem] = useState({});
   const [Modal, setModal] = useState(false);
   const [toggle, setToggle] = useState(null);
+  //
+  const [ValorScore, setValorScore] = useState(0);
+  const [ScoreTotal, setScoreTotal] = useState(0);
+  const [SubLevel, setSubLevel] = useState(0);
 
   //custom hooks
   const {
@@ -31,6 +35,7 @@ export const SearchComponenttwo = ({ data }) => {
     AddCourse,
     status,
     ResetStatus,
+    setValorSup,
   } = useProgress();
   //end custom hooks
 
@@ -97,9 +102,6 @@ export const SearchComponenttwo = ({ data }) => {
       );
     }
   }
-  const ClickModal = () => {
-    setModal(true);
-  };
   const ConfirmModala = () => {
     AddScore(33, Item);
   };
@@ -112,6 +114,11 @@ export const SearchComponenttwo = ({ data }) => {
       return setToggle(null);
     }
     setToggle(index);
+  };
+  const ClickModal = (score, subLevel) => {
+    setValorScore(score);
+    setModal(true);
+    setSubLevel(subLevel);
   };
 
   return (
@@ -129,7 +136,7 @@ export const SearchComponenttwo = ({ data }) => {
           <>
             <Texto>Are you sure ? </Texto>
             <ContentFlex>
-              <Button primary={true} onClick={ConfirmModala}>
+              <Button primary={true} onClick={() => ConfirmModala()}>
                 Confirm
               </Button>
               <Button onClick={() => setModal((prev) => !prev)}>Cancel</Button>
@@ -139,6 +146,7 @@ export const SearchComponenttwo = ({ data }) => {
       </ModalConfirm>
       <BoxSearch>
         <ContentBox>
+          <TitleSearch>Search student by email</TitleSearch>
           <InputSearch
             onChange={handleFilter}
             value={wordEntered}
@@ -158,23 +166,16 @@ export const SearchComponenttwo = ({ data }) => {
               ))}
             </DataResult>
           )}
-          {Show && (
-            <div>
-              {Object.keys(Item).length !== 0 && (
-                <TextName>Student: {Item.email} </TextName>
-              )}
-              {Object.keys(Item).length !== 0 && SelectArray(Item.courses)}
-            </div>
-          )}
         </ContentBox>
         {Show && (
           <>
             <ContentBox>
-              <Text>Level {levelSup} </Text>
-              <ProgressComponent initialValor={ScoreValue} />
-              <TextSublevel>{levelSup}</TextSublevel>
-            </ContentBox>
-            <ContentBox>
+              <div>
+                {Object.keys(Item).length !== 0 && (
+                  <TextName>Student: {Item.email} </TextName>
+                )}
+                {Object.keys(Item).length !== 0 && SelectArray(Item.courses)}
+              </div>
               {Data.map((elm, index) => (
                 <>
                   <CardCheck>
@@ -199,8 +200,16 @@ export const SearchComponenttwo = ({ data }) => {
                       <ContentsWrapper>
                         {elm.sub_level.map((elm) => (
                           <Wrapper>
-                            <input type="checkbox" onChange={ClickModal} />
-                            <label>{elm.sublevel}</label>
+                            {/* <input type="checkbox" onChange={ClickModal} /> */}
+                            <ButtonCheck
+                              active={false}
+                              onClick={() =>
+                                ClickModal(elm.puntuacion, elm.sublevel)
+                              }
+                            >
+                              {false && <BiCheck />}
+                            </ButtonCheck>
+                            <span>{elm.sublevel}</span>
                           </Wrapper>
                         ))}
                       </ContentsWrapper>
@@ -208,6 +217,12 @@ export const SearchComponenttwo = ({ data }) => {
                   </CardCheck>
                 </>
               ))}
+            </ContentBox>
+            <ContentBox>
+              <Text bold>Student's Progress </Text>
+              <Text size="1.5rem">Level:{levelSup} </Text>
+              <ProgressComponent initialValor={ScoreValue} />
+              <TextSublevel>{levelSup}</TextSublevel>
             </ContentBox>
             {/* <ButtonPlus onClick={() => ClickModal()}>
               <BsPlusCircleFill size={"1.5rem"} />
@@ -222,14 +237,31 @@ const ContentsWrapper = styled.div`
   margin-top: 0.8rem;
 `;
 
+const ButtonCheck = styled.button`
+  height: 20px;
+  width: 20px;
+  background-color: ${({ active }) => (active ? "#4ADE80" : "transparent")};
+  border: ${({ active }) => (active ? "none" : "2px solid #2563eb")};
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  font-size: 1.25rem;
+  margin: 0;
+`;
+
 const Wrapper = styled.div`
   margin: 0;
-  label {
+  display: flex;
+  margin: 0.2rem 0;
+  span {
     font-size: 1.2rem;
     margin-left: 0.25rem;
     line-height: normal;
   }
-  input[type="checkbox"] {
+
+  /* input[type="checkbox"] {
     appearance: none;
     height: 15px;
     width: 15px;
@@ -254,13 +286,20 @@ const Wrapper = styled.div`
     border-color: #16a34a;
     transform: rotate(45deg);
     border-radius: 0;
-  }
+  } */
 `;
 
 const ContentBox = styled.div`
   /* border: 1px solid red; */
   position: relative;
 `;
+const TitleSearch = styled.h2`
+  font-size: 1.25rem;
+  margin: 0;
+  line-height: normal;
+  font-weight: 700;
+`;
+
 const CardCheck = styled.div`
   padding: 0.5rem;
   display: flex;
@@ -314,27 +353,33 @@ const TextSublevel = styled.h2`
   position: absolute;
   margin: 0;
   color: #2563eb;
-  bottom: 80px;
-  right: 160px;
+  /* top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0; */
+  bottom: 140px;
+  right: 230px;
 `;
 
 const TextName = styled.span`
   font-size: 1.3rem;
   color: #1d4ed8;
-  margin-top: 2rem;
+  /* margin-top: 2rem; */
+  margin: 0;
 `;
 
 const Text = styled.h3`
-  font-size: 2rem;
+  font-size: ${(props) => (props.size ? props.size : "2rem")};
   font-weight: 600;
   color: #1d4ed8;
-  margin: 1rem 0;
+  margin: 0.5rem 0;
   text-align: center;
+  font-weight: ${(props) => (props.bold ? "700" : "500")};
 `;
 
 const SelectIdiom = styled(Select)`
   width: 100%;
-  margin-top: 1rem;
+  margin-bottom: 2rem;
 `;
 
 const ItemResult = styled.p`
@@ -361,7 +406,7 @@ const BoxSearch = styled.div`
   width: 100%;
   display: grid;
   /* grid-template-columns: repeat(3, 1fr); */
-  grid-template-columns: 300px auto 200px;
+  grid-template-columns: 300px 300px auto;
   column-gap: 1rem;
   margin-top: 2rem;
 `;
@@ -374,6 +419,7 @@ const InputSearch = styled.input`
   font-size: 1rem;
   line-height: normal;
   width: 100%;
+  margin: 0.5rem 0 0 0;
   ::placeholder {
     color: silver;
   }

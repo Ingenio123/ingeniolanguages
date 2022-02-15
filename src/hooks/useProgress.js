@@ -10,6 +10,7 @@ const useProgressScore = () => {
   const [levelSup, setLevelSup] = useState("");
   const [Show, setShow] = useState(false);
   const [Course, setCourse] = useState({});
+  const [ValorSup, setValorSup] = useState(0);
   const [status, setStatus] = useState({
     loading: false,
     error: false,
@@ -100,6 +101,8 @@ const useProgressScore = () => {
     AddCourse,
     status,
     ResetStatus,
+    ValorSup,
+    setValorSup,
   };
 };
 export default useProgressScore;

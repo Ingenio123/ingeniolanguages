@@ -13,7 +13,7 @@ const ProgressComponent = ({ initialValor }, props) => {
       rotation={90}
       stepsColors={["#49539c", "#525cad", "#636db6"]}
       textStyle={{ display: "none" }}
-      width={300}
+      width={350}
     />
   );
 };

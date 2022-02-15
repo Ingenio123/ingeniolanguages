@@ -35,16 +35,14 @@ const useSearch = () => {
   const ResetSelect = () => {
     setStateSelect({ idiom: null });
   };
+  const { token } = JSON.parse(localStorage.getItem("user"));
 
   const handleSubmit = async ({ values, DateCalendar }) => {
     const { summary, comments } = values;
-    console.log(summary, comments, DateCalendar);
-    const { token } = JSON.parse(localStorage.getItem("user"));
     if (Object.keys(data).length === 0) {
       const kids = firstData.courses[0].kids;
       const idiom = firstData.courses[0].idiom;
       const email = firstData.email;
-      console.log(kids, idiom);
       const body = {
         SummaryInput: summary,
         Comments: comments,
@@ -66,6 +64,14 @@ const useSearch = () => {
         },
         body: JSON.stringify(body),
       });
+      console.log(resp);
+      if (resp.status === 400) {
+        return setStatus({
+          loading: false,
+          error: true,
+          succes: false,
+        });
+      }
       if (resp.status === 200) {
         return setStatus({
           loading: false,
@@ -74,6 +80,54 @@ const useSearch = () => {
         });
       }
     }
+    const kistwo = data.kids;
+    const idiomtwo = data.idiom;
+    const email = firstData.email;
+
+    const bodydata = {
+      SummaryInput: summary,
+      Comments: comments,
+      idiom: idiomtwo,
+      email: email,
+      date: DateCalendar,
+      kids: kistwo,
+    };
+    setStatus({
+      loading: true,
+      error: false,
+      succes: false,
+    });
+    const response = await fetch(`${url}/teacher/summary`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(bodydata),
+    });
+    console.log(response);
+    if (response.status === 400) {
+      return setStatus({
+        loading: false,
+        error: true,
+        succes: false,
+      });
+    }
+    if (response.status === 200) {
+      return setStatus({
+        loading: false,
+        error: false,
+        succes: true,
+      });
+    }
+  };
+
+  const ResetStatus = () => {
+    setStatus({
+      loading: false,
+      error: false,
+      succes: false,
+    });
   };
 
   return {
@@ -87,6 +141,7 @@ const useSearch = () => {
     ResetSelect,
     handleSubmit,
     Status,
+    ResetStatus,
   };
 };
 

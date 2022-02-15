@@ -104,8 +104,8 @@ export const Showdata = (datstudent) => {
 
   return (
     <BoxData>
-      <Itemsdata>
-        <TextBold>Name or Email: </TextBold>
+      <Itemsdata border__bottom={true}>
+        <TextBold>Student: </TextBold>
         <TextNormal>{email} </TextNormal>
       </Itemsdata>
       {ShowDataArray(courses)}
@@ -143,7 +143,7 @@ export const Showdata = (datstudent) => {
         </>
       )}
       <form onSubmit={(e) => handleSubmitPage(e)}>
-        <ItemsCard block={true}>
+        <ItemsCard block={true} mt={true}>
           <ResumenLabel htmlFor="resumen">Class summary</ResumenLabel> <br />
           <TextLarge
             id="resumen"
@@ -162,10 +162,10 @@ export const Showdata = (datstudent) => {
             value={values.comments}
             onChange={(e) => handleOnChange(e)}
             name="comments"
-            placeholder="Type in the summary of your lesson"
+            placeholder="Type in the comments of your lesson"
           ></TextLarge>
         </ItemsCard>
-        <ButtonSubmit>Send</ButtonSubmit>
+        <ButtonSubmit>Submit</ButtonSubmit>
       </form>
     </BoxData>
   );
@@ -252,11 +252,14 @@ const CircleItem = styled.div`
 
 const BoxData = styled.div`
   border: 1px solid silver;
+  border-radius: 8px;
+  width: 90%;
   padding: 1rem;
   margin-top: 1rem;
 `;
 const Itemsdata = styled.div`
-  border-bottom: 1px solid silver;
+  border-bottom: ${(props) =>
+    props.border__bottom ? "none" : "1px solid silver"};
   font-size: 1rem;
   margin-bottom: 0.2rem;
 `;
@@ -283,14 +286,14 @@ const DatePickerStyle = styled(DatePicker)`
 const BoxCalendar = styled.div`
   font-size: 1rem;
   display: flex;
-  margin: 0.3rem 0;
+  margin: 1rem 0 0 0;
 `;
 const ItemsCard = styled.div`
   width: 100%;
   display: ${(props) => (props.block ? "block" : "flex")};
   justify-content: ${(props) => (props.start ? "flex-start" : "end")};
   align-items: center;
-
+  ${(props) => props.mt && "margin-top: 1rem"};
   & > p {
     margin: 0;
     border: ${(props) => (props.border ? "1px solid black" : "none")};
