@@ -59,7 +59,7 @@ export const Showdata = (datstudent) => {
           />
         </BoxCalendar>
         <Itemsdata>
-          <TextBold>Number of Months: </TextBold>
+          <TextBold>language: </TextBold>
           <TextNormal>
             {dataArray[0].idiom} {dataArray[0].kids && "(Kids)"}
           </TextNormal>
