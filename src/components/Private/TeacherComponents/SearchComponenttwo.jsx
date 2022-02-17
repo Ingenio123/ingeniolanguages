@@ -3,10 +3,38 @@ import { useState, useReducer } from "react";
 import ProgressComponent from "./ProgressComponent";
 import Select from "react-select";
 import useProgress from "../../../hooks/useProgress";
+import useProgressContext from "../../../hooks/useProgressContext";
 import { BsPlusCircleFill } from "react-icons/bs";
 import { BiCheck, BiChevronDown, BiLockAlt } from "react-icons/bi";
 import { ModalConfirm } from "./modal";
 import Data from "./Levels.json";
+
+const OptionsSelect = [
+  {
+    label: "A1",
+    value: "a1",
+  },
+  {
+    label: "A2",
+    value: "a2",
+  },
+  {
+    label: "B1",
+    value: "b1",
+  },
+  {
+    label: "B2",
+    value: "B2",
+  },
+  {
+    label: "C1",
+    value: "C1",
+  },
+  {
+    label: "C2",
+    value: "C2",
+  },
+];
 
 export const SearchComponenttwo = ({ data }) => {
   //states
@@ -17,9 +45,7 @@ export const SearchComponenttwo = ({ data }) => {
   const [toggle, setToggle] = useState(null);
   //
   const [ValorScore, setValorScore] = useState(0);
-  const [ScoreTotal, setScoreTotal] = useState(0);
   const [SubLevel, setSubLevel] = useState(0);
-
   //custom hooks
   const {
     GetCourse,
@@ -27,16 +53,19 @@ export const SearchComponenttwo = ({ data }) => {
     ResetSelect,
     AddScore,
     ResetScore,
-    ScoreValue,
     initialScore,
-    levelSup,
     Show,
     StartShow,
     AddCourse,
     status,
     ResetStatus,
+    ScoreValue,
+    levelSup,
     setValorSup,
   } = useProgress();
+  const { addScore, level, scoreRuleta, sublevel, DefaultScore } =
+    useProgressContext();
+
   //end custom hooks
 
   const handleFilter = (event) => {
@@ -77,8 +106,9 @@ export const SearchComponenttwo = ({ data }) => {
     const datosfiltrados = filterData(value);
     const { score } = datosfiltrados;
     console.log("Obejct filter: " + score);
-    initialScore(datosfiltrados);
+    DefaultScore(score);
     AddCourse(datosfiltrados);
+
     // console.log(datosfiltrados);
     // getData(datosfiltrados);
     // SlectIdiomCallback(select);
@@ -176,57 +206,20 @@ export const SearchComponenttwo = ({ data }) => {
                 )}
                 {Object.keys(Item).length !== 0 && SelectArray(Item.courses)}
               </div>
-              {Data.map((elm, index) => (
-                <>
-                  <CardCheck>
-                    <div
-                      onClick={
-                        elm.puntuacion > ScoreValue
-                          ? () => {
-                              ToggleItem(index);
-                            }
-                          : null
-                      }
-                      className="card_header"
-                    >
-                      <span>{elm.name_level}</span>
-                      {elm.puntuacion > ScoreValue ? (
-                        <IconRow rotate={toggle === index && true} />
-                      ) : (
-                        <IconLock />
-                      )}
-                    </div>
-                    {toggle === index && (
-                      <ContentsWrapper>
-                        {elm.sub_level.map((elm) => (
-                          <Wrapper>
-                            {/* <input type="checkbox" onChange={ClickModal} /> */}
-                            <ButtonCheck
-                              active={false}
-                              onClick={() =>
-                                ClickModal(elm.puntuacion, elm.sublevel)
-                              }
-                            >
-                              {false && <BiCheck />}
-                            </ButtonCheck>
-                            <span>{elm.sublevel}</span>
-                          </Wrapper>
-                        ))}
-                      </ContentsWrapper>
-                    )}
-                  </CardCheck>
-                </>
-              ))}
+              <Select options={OptionsSelect} />
             </ContentBox>
             <ContentBox>
               <Text bold>Student's Progress </Text>
-              <Text size="1.5rem">Level:{levelSup} </Text>
-              <ProgressComponent initialValor={ScoreValue} />
-              <TextSublevel>{levelSup}</TextSublevel>
+              <Text size="1.5rem">Level: {level} </Text>
+              <ProgressComponent initialValor={scoreRuleta} />
+              <TextSublevel>
+                {level}
+                {sublevel}
+              </TextSublevel>
+              <ButtonPlus onClick={() => addScore()}>
+                <BsPlusCircleFill size={"1.5rem"} />
+              </ButtonPlus>
             </ContentBox>
-            {/* <ButtonPlus onClick={() => ClickModal()}>
-              <BsPlusCircleFill size={"1.5rem"} />
-            </ButtonPlus> */}
           </>
         )}
       </BoxSearch>
@@ -260,33 +253,6 @@ const Wrapper = styled.div`
     margin-left: 0.25rem;
     line-height: normal;
   }
-
-  /* input[type="checkbox"] {
-    appearance: none;
-    height: 15px;
-    width: 15px;
-    position: relative;
-    cursor: pointer;
-    transition: 0.5s;
-  }
-  input[type="checkbox"]:before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    border: 2px solid #2563eb;
-    border-radius: 4px;
-  }
-  input:checked[type="checkbox"]:before {
-    border-left: none;
-    border-top: none;
-    width: 8px;
-    border-color: #16a34a;
-    transform: rotate(45deg);
-    border-radius: 0;
-  } */
 `;
 
 const ContentBox = styled.div`
@@ -344,6 +310,8 @@ const ButtonPlus = styled.button`
   border-radius: 50%;
   position: absolute;
   bottom: 40px;
+  bottom: 110px;
+  right: 230px;
   :active {
     transform: scale(0.9);
   }
@@ -484,3 +452,45 @@ const IconLock = styled(BiLockAlt)`
   font-size: 1.2rem;
   cursor: pointer;
 `;
+
+// {
+//   Data.map((elm, index) => (
+//     <>
+//       <CardCheck>
+//         <div
+//           onClick={
+//             elm.puntuacion > ScoreValue
+//               ? () => {
+//                   ToggleItem(index);
+//                 }
+//               : null
+//           }
+//           className="card_header"
+//         >
+//           <span>{elm.name_level}</span>
+//           {elm.puntuacion > ScoreValue ? (
+//             <IconRow rotate={toggle === index && true} />
+//           ) : (
+//             <IconLock />
+//           )}
+//         </div>
+//         {toggle === index && (
+//           <ContentsWrapper>
+//             {elm.sub_level.map((elm) => (
+//               <Wrapper>
+//                 {/* <input type="checkbox" onChange={ClickModal} /> */}
+//                 <ButtonCheck
+//                   active={false}
+//                   onClick={() => ClickModal(elm.puntuacion, elm.sublevel)}
+//                 >
+//                   {false && <BiCheck />}
+//                 </ButtonCheck>
+//                 <span>{elm.sublevel}</span>
+//               </Wrapper>
+//             ))}
+//           </ContentsWrapper>
+//         )}
+//       </CardCheck>
+//     </>
+//   ));
+// }

@@ -1,5 +1,6 @@
 import { SearchComponenttwo } from "../../components/Private/TeacherComponents/SearchComponenttwo";
 import { useEffect, useState } from "react";
+import { ProgressContext } from "../../context/ProgressContext";
 
 //helpers
 import { GetAllStudents } from "../../helpers/User";
@@ -16,7 +17,9 @@ const StudentProgress = () => {
 
   return (
     <main className="container">
-      <SearchComponenttwo data={ListData} placeholder="Search Student" />
+      <ProgressContext>
+        <SearchComponenttwo data={ListData} placeholder="Search Student" />
+      </ProgressContext>
     </main>
   );
 };

@@ -57,7 +57,8 @@ export default function CardFeedBack(
 
                     <CardItIsEmpty>
                       <TextCardNotStudent>
-                        No tienes feedback agregado para esta section
+                        The summaries of your lessons haven't been submitted
+                        yet.
                       </TextCardNotStudent>
                     </CardItIsEmpty>
                   </>
@@ -65,7 +66,7 @@ export default function CardFeedBack(
                   <CardNotStudent>
                     <TextCardNotStudent>
                       In this Section, you will be able to view your teachers
-                      feedback of the lessons you have h  ad
+                      feedback of the lessons you have h ad
                     </TextCardNotStudent>
                   </CardNotStudent>
                 )}
@@ -134,7 +135,7 @@ export default function CardFeedBack(
                     ))}
                   </>
                 )}
-                <Line>view more </Line>
+                {/* <Line>view more </Line> */}
               </>
             )}
           </>

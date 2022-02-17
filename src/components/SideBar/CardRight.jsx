@@ -57,7 +57,6 @@ const CardRigth = (props) => {
       setPreview(null);
     }
   }, [ImgPrev]);
-
   //
 
   const handleSubmit = async (e) => {
@@ -74,6 +73,8 @@ const CardRigth = (props) => {
     });
     setStateImg(false);
   };
+
+  const { rol } = JSON.parse(window.localStorage.getItem("user"));
 
   return (
     <Card ref={props.cardRef}>
@@ -103,12 +104,10 @@ const CardRigth = (props) => {
       <ItemsComponent
         clickCard={props.clickCard}
         clikcRedirect={props.clickRedirect}
-        // firstText={rol.rol === "teacher" ? "Home" : "Course content"}
-        // secondText={
-        //   rol.rol === "teacher" ? "Student's Feedback" : "My progress"
-        // }
-        // urlfirst={rol.rol === "teacher" ? "/" : "/private"}
-        // urlSecond={rol.rol === "teacher" ? "/teacherPage" : "/progress"}
+        secondText={rol !== "teacher" ? "Course content" : "Student's Progress"}
+        firstText={rol !== "teacher" ? "My progress " : "Student's Feedback"}
+        urlSecond={rol !== "teacher" ? "/private" : "/studentProgress"}
+        urlfirst={rol !== "teacher" ? "/progress" : "/teacherPage"}
       />
       <SalirComponent logout={props.logout} clickCard={props.clickCard} />
     </Card>
