@@ -1,5 +1,7 @@
 import ProgressContext from "../context/ProgressContext";
 import { useContext } from "react";
+import { url } from "../components/Urls";
+
 const UseProgressContext = () => {
   const contextProgress = useContext(ProgressContext);
   const {
@@ -12,9 +14,11 @@ const UseProgressContext = () => {
     scoreRuleta,
     sublevel,
     AddSubLevel,
+    Status,
+    setStatus,
   } = contextProgress;
 
-  const ScoreAdd = () => {
+  const ScoreAdd = (score) => {
     console.log("AddScore");
     if (score >= 16 && score < 34) {
       AddLevel(1);
@@ -34,26 +38,73 @@ const UseProgressContext = () => {
     if (score >= 99) {
       AddLevel(6);
     }
-    AddScore(5.55);
+  };
 
-    AddScoreRuleta(33);
+  //score => number / obeject = datos del student selecionado / course => {kids: boolean , idiom: string }
+
+  const SendDataServerScore = async (score, objec, course) => {
+    const { email } = objec;
+    const { kids, idiom } = course;
+
+    const { token } = JSON.parse(localStorage.getItem("user"));
+
+    const body = { score: score, kids, idiom, email };
+    // setStatus({ loading: true, error: false });
+    const resp = await fetch(`${url}/teacher/summary/score`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(body),
+    });
+    console.log(resp);
+    if (resp.status === 200) {
+      AddScore(5.55);
+      AddScoreRuleta(33);
+      setStatus({
+        loading: false,
+        error: false,
+        success: true,
+      });
+    }
+    if (resp.status === 400) {
+      setStatus({
+        loading: false,
+        error: true,
+        success: false,
+        message: "Error Idiom not select",
+      });
+    }
   };
 
   const DefaultScore = (initScore) => {
-    console.log("Default  score");
+    console.log("Default score");
     defaultScore(initScore);
   };
 
   const addLevel = (val) => {
     AddLevel(val);
   };
+
+  const ResetStatusContext = () => {
+    setStatus({
+      loading: false,
+      error: false,
+      success: false,
+    });
+  };
   return {
+    score,
     addScore: ScoreAdd,
     DefaultScore,
     addLevel,
     level,
     scoreRuleta,
     sublevel,
+    sendScore: SendDataServerScore,
+    Status,
+    ResetStatusContext,
   };
 };
 

@@ -13,11 +13,16 @@ const initialState = {
 const Context = createContext(initialState);
 
 export const ProgressContext = ({ children }) => {
+  const [Status, setStatus] = useState({
+    loading: false,
+    error: false,
+    success: false,
+  });
   const [state, dispatch] = useReducer(reduxer, initialState);
   /**
    * Es como tener un  componente  de react
    */
-  function AddScore(valor) {
+  async function AddScore(valor) {
     const { score } = state;
     const valtotal = score + valor;
     dispatch({
@@ -25,15 +30,17 @@ export const ProgressContext = ({ children }) => {
       payload: valtotal,
     });
   }
+
   function defaultScore(initScore) {
-    dispatch({
+    return dispatch({
       type: "DEFAULT_SCORE",
       payload: initScore,
     });
   }
+
   function AddLevel(val) {
     const levels = ["A1", "A2", "B1", "B2", "C1", "C2"];
-    //  val ===>     0     1      2     3     4     5
+    //  val ===>     0     1     2     3     4     5
     dispatch({
       type: "ADD_LEVEL",
       payload: levels[val],
@@ -94,6 +101,8 @@ export const ProgressContext = ({ children }) => {
         AddScoreRuleta,
         ResetScore,
         AddSubLevel,
+        Status,
+        setStatus,
       }}
     >
       {children}

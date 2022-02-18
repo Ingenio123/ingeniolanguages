@@ -5,9 +5,10 @@ import Select from "react-select";
 import useProgress from "../../../hooks/useProgress";
 import useProgressContext from "../../../hooks/useProgressContext";
 import { BsPlusCircleFill } from "react-icons/bs";
-import { BiCheck, BiChevronDown, BiLockAlt } from "react-icons/bi";
+import { BiCheck, BiChevronDown, BiLockAlt, BiX } from "react-icons/bi";
 import { ModalConfirm } from "./modal";
 import Data from "./Levels.json";
+import SendScoreComponent from "./SendScore";
 
 const OptionsSelect = [
   {
@@ -62,9 +63,19 @@ export const SearchComponenttwo = ({ data }) => {
     ScoreValue,
     levelSup,
     setValorSup,
+    Course,
   } = useProgress();
-  const { addScore, level, scoreRuleta, sublevel, DefaultScore } =
-    useProgressContext();
+  const {
+    addScore,
+    level,
+    scoreRuleta,
+    sublevel,
+    DefaultScore,
+    sendScore,
+    score,
+    Status,
+    ResetStatusContext,
+  } = useProgressContext();
 
   //end custom hooks
 
@@ -105,13 +116,10 @@ export const SearchComponenttwo = ({ data }) => {
     GetCourse(select);
     const datosfiltrados = filterData(value);
     const { score } = datosfiltrados;
+
     console.log("Obejct filter: " + score);
     DefaultScore(score);
     AddCourse(datosfiltrados);
-
-    // console.log(datosfiltrados);
-    // getData(datosfiltrados);
-    // SlectIdiomCallback(select);
   };
   function SelectArray(dataArray) {
     if (dataArray.length > 1) {
@@ -132,11 +140,15 @@ export const SearchComponenttwo = ({ data }) => {
       );
     }
   }
+
   const ConfirmModala = () => {
-    AddScore(33, Item);
+    // AddScore(33, Item);
+    addScore(score);
+    sendScore(score, Item, Course);
   };
   const handleDismiss = () => {
-    ResetStatus();
+    // ResetStatus();
+    ResetStatusContext();
     setModal((prev) => !prev);
   };
   const ToggleItem = (index) => {
@@ -146,20 +158,22 @@ export const SearchComponenttwo = ({ data }) => {
     setToggle(index);
   };
   const ClickModal = (score, subLevel) => {
-    setValorScore(score);
+    // setValorScore(score);
     setModal(true);
-    setSubLevel(subLevel);
+    // setSubLevel(subLevel);
   };
 
   return (
     <>
       <ModalConfirm modal={Modal}>
-        {status.success ? (
+        {Status.success || Status.error ? (
           <ContentSuccess>
-            <ContentICon>
-              <IconSuccess />
+            <ContentICon error={Status.error}>
+              {Status.error ? <IconError /> : <IconSuccess />}
             </ContentICon>
-            <ContentText>Submitted successfully</ContentText>
+            <ContentText>
+              {Status.error ? Status.message : "Submitted successfully"}
+            </ContentText>
             <ButtonDissmis onClick={handleDismiss}>Go back</ButtonDissmis>
           </ContentSuccess>
         ) : (
@@ -202,11 +216,14 @@ export const SearchComponenttwo = ({ data }) => {
             <ContentBox>
               <div>
                 {Object.keys(Item).length !== 0 && (
-                  <TextName>Student: {Item.email} </TextName>
+                  <TitleSearch>Student: {Item.email} </TitleSearch>
                 )}
                 {Object.keys(Item).length !== 0 && SelectArray(Item.courses)}
               </div>
-              <Select options={OptionsSelect} />
+              <SelectLevel placeholder="Select Level" options={OptionsSelect} />
+              <SendScoreComponent
+              // options={}
+              />
             </ContentBox>
             <ContentBox>
               <Text bold>Student's Progress </Text>
@@ -216,9 +233,12 @@ export const SearchComponenttwo = ({ data }) => {
                 {level}
                 {sublevel}
               </TextSublevel>
-              <ButtonPlus onClick={() => addScore()}>
+              <ButtonPlus onClick={() => ClickModal()}>
                 <BsPlusCircleFill size={"1.5rem"} />
               </ButtonPlus>
+              {/* <ButtonPlus onClick={() => addScore()}>
+                <BsPlusCircleFill size={"1.5rem"} />
+              </ButtonPlus> */}
             </ContentBox>
           </>
         )}
@@ -226,6 +246,11 @@ export const SearchComponenttwo = ({ data }) => {
     </>
   );
 };
+
+const SelectLevel = styled(Select)`
+  margin-bottom: 1rem;
+`;
+
 const ContentsWrapper = styled.div`
   margin-top: 0.8rem;
 `;
@@ -264,6 +289,7 @@ const TitleSearch = styled.h2`
   margin: 0;
   line-height: normal;
   font-weight: 700;
+  margin-bottom: 0.5rem;
 `;
 
 const CardCheck = styled.div`
@@ -347,7 +373,7 @@ const Text = styled.h3`
 
 const SelectIdiom = styled(Select)`
   width: 100%;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
 `;
 
 const ItemResult = styled.p`
@@ -387,7 +413,7 @@ const InputSearch = styled.input`
   font-size: 1rem;
   line-height: normal;
   width: 100%;
-  margin: 0.5rem 0 0 0;
+
   ::placeholder {
     color: silver;
   }
@@ -417,7 +443,7 @@ const ContentSuccess = styled.div`
 const ContentICon = styled.div`
   width: 60px;
   height: 60px;
-  background-color: #bbf7d0;
+  background-color: ${(props) => (props.error ? "#FCA5A5" : " #bbf7d0")};
   border-radius: 50%;
   display: flex;
   justify-content: center;
@@ -451,6 +477,10 @@ const IconRow = styled(BiChevronDown)`
 const IconLock = styled(BiLockAlt)`
   font-size: 1.2rem;
   cursor: pointer;
+`;
+const IconError = styled(BiX)`
+  font-size: 2.5rem;
+  color: #18181b; ;
 `;
 
 // {

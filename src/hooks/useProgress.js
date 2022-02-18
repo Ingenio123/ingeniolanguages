@@ -46,9 +46,9 @@ const useProgressScore = () => {
     if (resp.status >= 400 && resp.status <= 500) {
       return setStatus({ loading: false, error: true });
     }
-
     setStatus({ loading: false, error: false, success: true });
   };
+
   const AddCourse = (course) => {
     setCourse(course);
   };
@@ -103,6 +103,7 @@ const useProgressScore = () => {
     ResetStatus,
     ValorSup,
     setValorSup,
+    Course,
   };
 };
 export default useProgressScore;
