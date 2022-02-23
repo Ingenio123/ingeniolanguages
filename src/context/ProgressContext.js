@@ -13,12 +13,18 @@ const initialState = {
 const Context = createContext(initialState);
 
 export const ProgressContext = ({ children }) => {
+  const [state, dispatch] = useReducer(reduxer, initialState);
   const [Status, setStatus] = useState({
     loading: false,
     error: false,
     success: false,
   });
-  const [state, dispatch] = useReducer(reduxer, initialState);
+  const [ObjecIdiom, setObjecIdiom] = useState({
+    idiom: null,
+    kids: null,
+  });
+
+  const [AddStudent, setAddStudent] = useState({ _id: null });
   /**
    * Es como tener un  componente  de react
    */
@@ -103,6 +109,10 @@ export const ProgressContext = ({ children }) => {
         AddSubLevel,
         Status,
         setStatus,
+        ObjecIdiom,
+        setObjecIdiom,
+        setAddStudent,
+        AddStudent,
       }}
     >
       {children}

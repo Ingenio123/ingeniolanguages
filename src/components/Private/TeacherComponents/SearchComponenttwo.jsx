@@ -9,33 +9,7 @@ import { BiCheck, BiChevronDown, BiLockAlt, BiX } from "react-icons/bi";
 import { ModalConfirm } from "./modal";
 import Data from "./Levels.json";
 import SendScoreComponent from "./SendScore";
-
-const OptionsSelect = [
-  {
-    label: "A1",
-    value: "a1",
-  },
-  {
-    label: "A2",
-    value: "a2",
-  },
-  {
-    label: "B1",
-    value: "b1",
-  },
-  {
-    label: "B2",
-    value: "B2",
-  },
-  {
-    label: "C1",
-    value: "C1",
-  },
-  {
-    label: "C2",
-    value: "C2",
-  },
-];
+import { useScoreExam } from "../../../hooks/useScoreExam";
 
 export const SearchComponenttwo = ({ data }) => {
   //states
@@ -77,6 +51,7 @@ export const SearchComponenttwo = ({ data }) => {
     ResetStatusContext,
   } = useProgressContext();
 
+  const { AddIdiom, AddStudentFunc } = useScoreExam();
   //end custom hooks
 
   const handleFilter = (event) => {
@@ -98,6 +73,7 @@ export const SearchComponenttwo = ({ data }) => {
   };
   const handleClickItem = (value) => {
     setItem(value);
+    AddStudentFunc(value);
     clearInput();
     ResetSelect();
     ResetScore();
@@ -115,11 +91,14 @@ export const SearchComponenttwo = ({ data }) => {
     const { value } = select;
     GetCourse(select);
     const datosfiltrados = filterData(value);
-    const { score } = datosfiltrados;
+    const { score, idiom, kids } = datosfiltrados;
+    // debugger;
+    console.log(datosfiltrados);
 
     console.log("Obejct filter: " + score);
     DefaultScore(score);
     AddCourse(datosfiltrados);
+    AddIdiom(idiom, kids);
   };
   function SelectArray(dataArray) {
     if (dataArray.length > 1) {
@@ -220,7 +199,7 @@ export const SearchComponenttwo = ({ data }) => {
                 )}
                 {Object.keys(Item).length !== 0 && SelectArray(Item.courses)}
               </div>
-              <SelectLevel placeholder="Select Level" options={OptionsSelect} />
+
               <SendScoreComponent
               // options={}
               />
