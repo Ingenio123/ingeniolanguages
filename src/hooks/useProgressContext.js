@@ -16,6 +16,8 @@ const UseProgressContext = () => {
     AddSubLevel,
     Status,
     setStatus,
+    Show,
+    setShow,
   } = contextProgress;
 
   const ScoreAdd = (score) => {
@@ -41,7 +43,6 @@ const UseProgressContext = () => {
   };
 
   //score => number / obeject = datos del student selecionado / course => {kids: boolean , idiom: string }
-
   const SendDataServerScore = async (score, objec, course) => {
     const { email } = objec;
     const { kids, idiom } = course;
@@ -94,6 +95,9 @@ const UseProgressContext = () => {
       success: false,
     });
   };
+  const StartShow = () => {
+    setShow(true);
+  };
   return {
     score,
     addScore: ScoreAdd,
@@ -105,6 +109,8 @@ const UseProgressContext = () => {
     sendScore: SendDataServerScore,
     Status,
     ResetStatusContext,
+    StartShow,
+    Show,
   };
 };
 

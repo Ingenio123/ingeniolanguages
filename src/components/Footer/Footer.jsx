@@ -20,7 +20,7 @@ export const Footer = () => {
             <SubItems to="Prices" offset={50} duration={1000} smooth={true}>
               Prices
             </SubItems>
-            <SubItems to="">Contac Us</SubItems>
+            <SubItems to="">Contact Us</SubItems>
           </Items>
         </Container>
       </SectionFooter>

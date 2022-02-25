@@ -23,8 +23,10 @@ export const ProgressContext = ({ children }) => {
     idiom: null,
     kids: null,
   });
-
   const [AddStudent, setAddStudent] = useState({ _id: null });
+  const [Show, setShow] = useState(false);
+  const [DataScores, setDataScores] = useState({ data: null });
+
   /**
    * Es como tener un  componente  de react
    */
@@ -113,6 +115,10 @@ export const ProgressContext = ({ children }) => {
         setObjecIdiom,
         setAddStudent,
         AddStudent,
+        Show,
+        setShow,
+        DataScores,
+        setDataScores,
       }}
     >
       {children}

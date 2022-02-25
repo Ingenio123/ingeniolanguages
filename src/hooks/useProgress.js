@@ -8,7 +8,7 @@ const useProgressScore = () => {
   });
   const [ScoreValue, setScoreValue] = useState(0.0);
   const [levelSup, setLevelSup] = useState("");
-  const [Show, setShow] = useState(false);
+
   const [Course, setCourse] = useState({});
   const [ValorSup, setValorSup] = useState(0);
   const [status, setStatus] = useState({
@@ -72,12 +72,7 @@ const useProgressScore = () => {
       setLevelSup("A3");
     }
   };
-  function StartShow() {
-    setShow(true);
-  }
-  function NotShow() {
-    setShow(false);
-  }
+
   function ResetStatus() {
     setStatus({
       loading: false,
@@ -95,9 +90,7 @@ const useProgressScore = () => {
     ResetScore,
     initialScore,
     levelSup,
-    Show,
-    StartShow,
-    NotShow,
+
     AddCourse,
     status,
     ResetStatus,

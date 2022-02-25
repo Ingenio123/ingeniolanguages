@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useState, useReducer } from "react";
+import { useState, useReducer, useEffect, useCallback } from "react";
 import ProgressComponent from "./ProgressComponent";
 import Select from "react-select";
 import useProgress from "../../../hooks/useProgress";
@@ -10,6 +10,7 @@ import { ModalConfirm } from "./modal";
 import Data from "./Levels.json";
 import SendScoreComponent from "./SendScore";
 import { useScoreExam } from "../../../hooks/useScoreExam";
+import { GetScoreExamForIdStudent } from "../../../helpers/User";
 
 export const SearchComponenttwo = ({ data }) => {
   //states
@@ -18,9 +19,10 @@ export const SearchComponenttwo = ({ data }) => {
   const [Item, setItem] = useState({});
   const [Modal, setModal] = useState(false);
   const [toggle, setToggle] = useState(null);
-  //
   const [ValorScore, setValorScore] = useState(0);
   const [SubLevel, setSubLevel] = useState(0);
+  const [dataIdiom, setDataidiom] = useState("");
+  //
   //custom hooks
   const {
     GetCourse,
@@ -29,8 +31,6 @@ export const SearchComponenttwo = ({ data }) => {
     AddScore,
     ResetScore,
     initialScore,
-    Show,
-    StartShow,
     AddCourse,
     status,
     ResetStatus,
@@ -49,9 +49,11 @@ export const SearchComponenttwo = ({ data }) => {
     score,
     Status,
     ResetStatusContext,
+    Show,
+    StartShow,
   } = useProgressContext();
 
-  const { AddIdiom, AddStudentFunc } = useScoreExam();
+  const { AddIdiom, AddStudentFunc, AddDataScoreExam } = useScoreExam();
   //end custom hooks
 
   const handleFilter = (event) => {
@@ -82,6 +84,9 @@ export const SearchComponenttwo = ({ data }) => {
       const valores = value.courses[0];
       initialScore(valores);
     }
+    GetScoreExamForIdStudent("621699c9b4bcf53584d1269f").then((res) =>
+      AddDataScoreExam(res.data.scoreExam.Content)
+    );
   };
   const filterData = (id) => {
     // return courses.filter((x) => x._id === id);
@@ -92,6 +97,7 @@ export const SearchComponenttwo = ({ data }) => {
     GetCourse(select);
     const datosfiltrados = filterData(value);
     const { score, idiom, kids } = datosfiltrados;
+    setDataidiom(idiom);
     // debugger;
     console.log(datosfiltrados);
 
@@ -119,7 +125,6 @@ export const SearchComponenttwo = ({ data }) => {
       );
     }
   }
-
   const ConfirmModala = () => {
     // AddScore(33, Item);
     addScore(score);

@@ -9,6 +9,8 @@ export const useScoreExam = () => {
     AddStudent,
     setStatus,
     Status,
+    DataScores,
+    setDataScores,
   } = useContext(ContextProgress);
 
   const AddIdiom = (idiom, kids) => {
@@ -20,6 +22,9 @@ export const useScoreExam = () => {
     // debugger;
     setAddStudent(_id);
   };
+  const AddDataScoreExam = (data) => {
+    setDataScores({ data: data });
+  };
   return {
     AddIdiom,
     ObjecIdiom,
@@ -27,5 +32,7 @@ export const useScoreExam = () => {
     AddStudent,
     setStatus,
     Status,
+    AddDataScoreExam,
+    DataScores,
   };
 };

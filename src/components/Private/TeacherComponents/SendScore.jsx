@@ -1,11 +1,15 @@
 import "react-datepicker/dist/react-datepicker.css";
 import Select from "react-select";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import styled from "styled-components";
 import { BiX, BiCheck } from "react-icons/bi";
 import DatePicker from "react-datepicker";
 import { useScoreExam } from "../../../hooks/useScoreExam";
-import { AddScoreExam } from "../../../helpers/User";
+import {
+  AddScoreExam,
+  UpdateScoreExamForIdStudent,
+} from "../../../helpers/User";
+import ContextProgress from "../../../context/ProgressContext";
 const OptionsSelect = [
   {
     label: "A1",
@@ -119,6 +123,8 @@ const OptionsC2 = [
 ];
 
 const SendScore = () => {
+  const { Show, setShow } = useContext(ContextProgress);
+
   const [State, setState] = useState({
     data: null,
   });
@@ -132,9 +138,20 @@ const SendScore = () => {
     success: false,
     error: false,
   });
+  const [DatosVerify, setDatosVerify] = useState("");
+  const [DatosScore, setDatosScore] = useState({
+    success: false,
+    socore: null,
+  });
+  const [ModalConfirm, setModalConfirm] = useState(false);
+  const [ModalUpdate, setModalUpdate] = useState(false);
+  const [ConfirmSuccess, setConfirmSuccess] = useState({
+    success: null,
+    error: null,
+  });
 
   //custom hooks
-  const { ObjecIdiom, AddStudent } = useScoreExam();
+  const { ObjecIdiom, AddStudent, DataScores } = useScoreExam();
   //end custom hooks
   function ReturnOptions(Level) {
     switch (Level) {
@@ -157,6 +174,7 @@ const SendScore = () => {
 
   const handleChangeLevel = (value) => {
     ResetSublevel();
+    FilterLevel(value);
     return setState({
       ...State,
       data: value,
@@ -164,6 +182,8 @@ const SendScore = () => {
   };
 
   const handleChangeSubLevel = (value) => {
+    console.log(value);
+    FilterSublevel(value.value);
     return setStateSubLevel({
       ...stateSubLevel,
       data: value,
@@ -220,11 +240,93 @@ const SendScore = () => {
   };
 
   const handleGoBack = () => {
+    setShow(false);
     return setValidation({
       ...StatusValidation,
       error: false,
       success: false,
     });
+  };
+
+  const handleGoBackUpdt = () => {
+    setShow(false);
+    setConfirmSuccess({
+      ...ConfirmSuccess,
+      success: false,
+      error: false,
+    });
+    return setModalConfirm(false);
+  };
+
+  const filterPackage = () => {
+    const datos = DataScores.data
+      .filter((e) => e.kids === ObjecIdiom.kids && e.idiom === e.idiom)
+      .pop();
+    return datos;
+  };
+  const FilterLevel = (level) => {
+    // console.log(filterPackage());
+    const levelFil = filterPackage();
+    const found = levelFil.level
+      .filter((e) => e.name_level === level.value)
+      .pop();
+    console.log(found);
+    setDatosVerify(found);
+  };
+
+  const FilterSublevel = (name_sublevel) => {
+    // const dat = DatosVerify.subLevel.find((e) => e.subLevel == name_sublevel);
+    const dat = DatosVerify.subLevel.filter(
+      (e) => e.name_sublevel === name_sublevel
+    );
+    console.log(dat);
+    if (dat.length == 1) {
+      console.log("Exists");
+      return setDatosScore({
+        ...StatusValidation,
+        success: true,
+        score: dat[0].score,
+      });
+    }
+    return setDatosScore({
+      ...StatusValidation,
+      success: false,
+      score: null,
+    });
+  };
+
+  const ClickUpdate = () => {
+    setModalUpdate(true);
+  };
+
+  const handleUpdateSubmite = (e) => {
+    e.preventDefault();
+    setModalUpdate((prev) => !prev);
+    setModalConfirm((prev) => !prev);
+  };
+
+  const HandleSendModalConfirm = () => {
+    const Body = {
+      idStudent: AddStudent,
+      idiom: ObjecIdiom.idiom,
+      kids: ObjecIdiom.kids,
+      dateCalendar: DateCalendar,
+      score: InputValues.inpScore,
+      name_level: State.data.value,
+      name_sublevel: stateSubLevel.data.value,
+    };
+    UpdateScoreExamForIdStudent(Body).then((res) => {
+      console.log(res);
+      setConfirmSuccess({
+        ...ConfirmSuccess,
+        success: res.success,
+      });
+    }); // -> param body data
+  };
+
+  const handlCancel = () => {
+    setShow(false);
+    setModalConfirm((prev) => !prev);
   };
 
   return (
@@ -241,29 +343,42 @@ const SendScore = () => {
         value={stateSubLevel.data}
         onChange={handleChangeSubLevel}
       />
-      <Form onSubmit={(e) => handleSubmit(e)}>
-        <h6>Add score of exams</h6>
-        <span>Date Input</span>
-        <InputDate
-          selected={DateCalendar}
-          onChange={(date) => setDateCalendar(date)}
-        />
-        <ContentInput>
-          <Input
-            type="text"
-            placeholder="Input Score"
-            onChange={handleChange}
-            name="inpScore"
+      {/*
+        Cuando el Score existe ejecutar este code
+      */}
+      {DatosScore.success ? (
+        <CardScoreExist>
+          <h6>Exam score </h6>
+          <span>Current Score: {DatosScore.score} </span>
+          <ButtonChange onClick={ClickUpdate}>
+            Change current score
+          </ButtonChange>
+        </CardScoreExist>
+      ) : (
+        <Form onSubmit={(e) => handleSubmit(e)}>
+          <h6>Add exam score</h6>
+          <span>Date of exam</span>
+          <InputDate
+            selected={DateCalendar}
+            onChange={(date) => setDateCalendar(date)}
           />
-          <ButtonSubmit type="submit">Submit</ButtonSubmit>
-        </ContentInput>
-        {MessageErrorBox && (
-          <MsgErrorClient>
-            <p>Please, make sure you select a level and sublevel.</p>
-            <IconClose onClick={CloseMessageClick} />
-          </MsgErrorClient>
-        )}
-      </Form>
+          <ContentInput>
+            <Input
+              type="text"
+              placeholder="Enter Score"
+              onChange={handleChange}
+              name="inpScore"
+            />
+            <ButtonSubmit type="submit">Submit</ButtonSubmit>
+          </ContentInput>
+          {MessageErrorBox && (
+            <MsgErrorClient>
+              <p>Please, make sure you select a level and sublevel.</p>
+              <IconClose onClick={CloseMessageClick} />
+            </MsgErrorClient>
+          )}
+        </Form>
+      )}
 
       {StatusValidation.success || StatusValidation.error ? (
         <Modal>
@@ -274,19 +389,230 @@ const SendScore = () => {
             <ContentText>
               <span>{StatusValidation.success ? "Success" : "Error"} </span>
               <p>
-                Error Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-                Debitis, sunt.
+                {StatusValidation.success
+                  ? "Submited succesfully"
+                  : "Error Lorem ipsum dolor sit, amet consectetur adipisicing elit Debitis, sunt."}
               </p>
             </ContentText>
             <Button onClick={() => handleGoBack()}>Go back</Button>
           </Card>
         </Modal>
       ) : null}
+
+      {/* Si desea actualizar ejecutar esta modal */}
+      {ModalUpdate && (
+        <ModalFromUpdateScore>
+          <CardForm>
+            <IconCloseModal onClick={() => setModalUpdate(false)} />
+            <Form onSubmit={(e) => handleUpdateSubmite(e)}>
+              <h6>Update exam score</h6>
+              <span>Date of exam</span>
+              <InputDate
+                selected={DateCalendar}
+                onChange={(date) => setDateCalendar(date)}
+              />
+              <ContentInput>
+                <Input
+                  type="text"
+                  placeholder="Enter Score"
+                  onChange={handleChange}
+                  name="inpScore"
+                />
+                <ButtonSubmit type="submit">Submit</ButtonSubmit>
+              </ContentInput>
+            </Form>
+          </CardForm>
+        </ModalFromUpdateScore>
+      )}
+
+      {ModalConfirm && (
+        <ModalAreSure>
+          <CardSure>
+            {ConfirmSuccess.success ? (
+              <>
+                <ContentIcon success={ConfirmSuccess.success}>
+                  {ConfirmSuccess.success ? <IconSucces /> : <IconError />}
+                </ContentIcon>
+                <ContentText>
+                  <span>{ConfirmSuccess.success ? "Success" : "Error"} </span>
+                  <p>
+                    {ConfirmSuccess.success
+                      ? "Submited succesfully"
+                      : "Error Lorem ipsum dolor sit, amet consectetur adipisicing elit Debitis, sunt."}
+                  </p>
+                </ContentText>
+                <Button onClick={() => handleGoBackUpdt()}>Go back</Button>
+              </>
+            ) : (
+              <>
+                <h6>Are you sure you want to update the current score ?</h6>
+                <div>
+                  <button className="confirm" onClick={HandleSendModalConfirm}>
+                    Confirm
+                  </button>
+                  <button className="cancel" onClick={handlCancel}>
+                    Cancel
+                  </button>
+                </div>
+              </>
+            )}
+          </CardSure>
+        </ModalAreSure>
+      )}
     </DivBorder>
   );
 };
-
 export default SendScore;
+
+/**
+ *
+ * => IconWargning
+ * => Wargning
+ * title =>  Are you sure you want to update the current score ?
+ * button => Confirm  / Cancel
+ *
+ *  ########################
+ * => IconCheck
+ * => success
+ * title => The score has been updated!
+ * button => Go back => background:  #000
+ *
+ */
+
+const ModalAreSure = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+`;
+
+const CardSure = styled.div`
+  position: relative;
+  width: 400px;
+  height: 250px;
+  background-color: #fff;
+  border-radius: 4px;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  h6 {
+    font-size: 1.5rem;
+    line-height: normal;
+    color: #18181b;
+    text-align: center;
+    margin-bottom: 1rem;
+    font-weight: 600 !important;
+    letter-spacing: -1px;
+  }
+  div {
+    margin: 0 auto;
+  }
+  button {
+    color: #fff;
+    padding: 0.5rem 1rem;
+    font-size: 1.2rem;
+    border-radius: 4px;
+    line-height: normal;
+    &.confirm {
+      background-color: #1d4ed8;
+      &:hover {
+        background-color: #2563eb;
+      }
+    }
+    &.cancel {
+      margin-left: 1rem;
+      background-color: #71717a;
+      &:hover {
+        background-color: #a1a1aa;
+      }
+    }
+  }
+`;
+
+const ModalFromUpdateScore = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+`;
+
+const CardForm = styled.div`
+  position: relative;
+  width: 320px;
+  height: 250px;
+  background-color: #fff;
+  border-radius: 4px;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+`;
+
+const IconCloseModal = styled(BiX)`
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 1.5rem;
+  color: #18181b;
+  :hover {
+    cursor: pointer;
+  }
+`;
+
+const ButtonChange = styled.button`
+  padding: 0.5rem 1rem;
+  background-color: #1d4ed8;
+  color: #fff;
+  font-size: 1rem;
+  line-height: normal;
+  border-radius: 4px;
+  margin-top: 1rem;
+  width: 200px;
+  :hover {
+    background-color: #2563eb;
+  }
+`;
+
+const CardScoreExist = styled.div`
+  margin-top: 1rem;
+  border: 1px solid silver;
+  border-radius: 4px;
+  width: 100%;
+  padding: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  span {
+    color: #71717a;
+    font-size: 0.89rem;
+    line-height: normal;
+    margin-right: auto;
+    margin-bottom: 0.8rem;
+    font-weight: 600;
+  }
+  h6 {
+    text-align: center;
+    font-size: 1.25rem;
+    color: #71717a;
+    line-height: normal;
+    font-weight: 600;
+    letter-spacing: -1px;
+  }
+`;
 
 const DivBorder = styled.div`
   border: 1px solid silver;
@@ -405,6 +731,7 @@ const Form = styled.form`
     color: #71717a;
     font-size: 0.89rem;
     line-height: normal;
+    margin-left: 0.5rem;
   }
   h6 {
     text-align: center;
@@ -451,6 +778,7 @@ const InputDate = styled(DatePicker)`
   line-height: 1.3;
   margin-bottom: 1rem;
   color: #52525b;
+  width: 170px;
   &:focus {
     border-color: #2563eb;
   }

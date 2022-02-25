@@ -81,11 +81,11 @@ export const Temary = ({ margin, column }) => {
                   </div>
                 </div>
 
-                <p className="small grey-500 s-mb-0 font-md-1">
+                {/* <p className="small grey-500 s-mb-0 font-md-1">
                   After you complete all the content within the A1 level, you
                   will be able to communicate in everyday situations with
                   commonly-used expressions and elementary vocabulary.
-                </p>
+                </p> */}
                 <div className="dflex"></div>
               </div>
               {ClickPrimary === key ? (
