@@ -75,6 +75,10 @@ import Prices from "./pages/prices/Prices";
 import PaypalOrder from "./pages/PaypalOrder/paypalorder";
 import TeacherProgress from "./pages/teacher/studentprogress";
 
+import SignForgotPassword from "./pages/ForgotPassword/SignForgotPass";
+import { UpdatePassword } from "./pages/ForgotPassword/UpdatedPassword";
+import { PageForgotPassword } from "./pages/ForgotPassword/PageForgot";
+
 // i18next.init({
 //   interpolation: {
 //     escapeValue: false,
@@ -159,6 +163,16 @@ ReactDOM.render(
                 path="/updateinformation"
                 exact
                 component={InformationUpdate}
+              />
+              <Route path="/forgotpassword" component={PageForgotPassword} />
+              <PrivateRouter
+                path="/updatePassword"
+                exact
+                component={UpdatePassword}
+              />
+              <Route
+                path="/siginforgotpassword"
+                component={SignForgotPassword}
               />
             </UserProvider>
           </Switch>

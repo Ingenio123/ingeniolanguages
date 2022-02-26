@@ -141,3 +141,33 @@ export const UpdateScoreExamForIdStudent = async (body) => {
     success: dat.success,
   };
 };
+
+export const UpdatePasswordSend = async (body) => {
+  const user = JSON.parse(window.localStorage.getItem("user"));
+  const res = await fetch(`${Url.url}/data/updateNewPassword`, {
+    body: JSON.stringify(body),
+    method: "PUT",
+    headers: {
+      Authorization: `Bearer ${user.token}`,
+      "Content-type": "application/json",
+    },
+  });
+  const data = await res.json();
+  return {
+    success: data.success,
+  };
+};
+
+export const SendForgotPassword = async (body) => {
+  const res = await fetch(`${Url.url}/data/updatePassword`, {
+    method: "PUT",
+    body: JSON.stringify(body),
+    headers: {
+      "Content-type": "application/json",
+    },
+  });
+  const data = await res.json();
+  return {
+    success: data.success,
+  };
+};

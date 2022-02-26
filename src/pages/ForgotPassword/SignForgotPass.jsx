@@ -2,25 +2,17 @@ import "../../assets/components/ImageForm.css";
 import { FcGoogle } from "react-icons/fc";
 import styled from "styled-components";
 import { useState, useEffect } from "react";
-import { Login } from "../../redux/actions/authAction";
-import { useDispatch, useSelector } from "react-redux";
+// import { Login } from "../../redux/actions/authAction";
 import { withRouter, Redirect, Link } from "react-router-dom";
-import { SignInGoogle } from "../../redux/actions/authAction";
-import { GoogleLogin } from "react-google-login";
-import axios from "axios";
+
 import { authenticate, isAuth } from "../../helpers/Auth";
 import { useForm } from "react-hook-form";
-import Url from "../Urls";
 import useUser from "../../hooks/useUser";
 
 const SignIn = ({ history }) => {
   // ##########  estados ############
-  const [form, setValue] = useState({
-    email: "",
-  });
   const { login, ActivarLoged, hasLoginError, messageError } = useUser();
   //#################h################
-  const dispatch = useDispatch();
 
   useEffect(() => {
     try {
@@ -36,84 +28,6 @@ const SignIn = ({ history }) => {
     }
   }, []);
 
-  const auth = useSelector((state) => state.auth);
-
-  const handleInput = (e) => {
-    setValue({
-      ...form,
-      [e.target.name]: e.target.value,
-    });
-  };
-
-  const handleOnSubmit = (e) => {
-    e.preventDefault();
-
-    // SubmitLogin(form.email, form.password);
-
-    login(form).then((res) => {
-      if (res) {
-        ActivarLoged({ res });
-        if (isAuth()) {
-          if (isAuth().rol === "admin") return history.push("/admin");
-          if (isAuth().rol === "teacher") return history.push("/teacherPage");
-          return history.push("/private");
-        }
-      }
-    });
-
-    // ###### IMPORTANT ########
-    //          --> SIEMPRE UTILILIZAR EL DISPATCH PARA LLAMAR EL ACTION <--
-    // dispatch(Login(form));
-    // ########################
-    e.target.reset();
-  };
-
-  const SubmitLogin = async (email, password) => {
-    // Headers
-    const config = {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
-
-    const response = await axios.post(
-      Url.url + "/data/userSignIn",
-      { email, password },
-      config
-    );
-
-    console.log(response);
-    informParent(response);
-  };
-
-  const responseGoogle = (res) => {
-    sendGoogleToken(res.tokenId);
-  };
-
-  const sendGoogleToken = (tokenId) => {
-    axios
-      .post(Url.url + "/data/authGoogle", {
-        idToken: tokenId,
-      })
-      .then((res) => {
-        informParent(res);
-        console.log("RestAuth", res);
-        ActivarLoged(res.data.user);
-        dispatch(SignInGoogle());
-      })
-      .catch((err) => console.log("GOOGLE SIGNIN ERROR", err));
-  };
-
-  const informParent = (response) => {
-    authenticate(response, () => {
-      if (isAuth()) {
-        if (isAuth().rol === "admin") return history.push("/admin");
-        if (isAuth().rol === "teacher") return history.push("/teacherPage");
-        return history.push("/private");
-      }
-    });
-  };
-
   const {
     register,
     handleSubmit,
@@ -127,9 +41,8 @@ const SignIn = ({ history }) => {
         console.log(res);
         ActivarLoged(res);
         if (isAuth()) {
-          if (isAuth().rol === "admin") return history.push("/admin");
-          if (isAuth().rol === "teacher") return history.push("/teacherPage");
-          return history.push("/private");
+          //   if (isAuth().rol === "teacher") return history.push("/teacherPage");
+          return history.push("/updatePassword");
         }
       }
     });
@@ -174,7 +87,7 @@ const SignIn = ({ history }) => {
                 </div>
                 <div className="col-12 col-md-12">
                   <div className="form-group">
-                    <label>Password</label>
+                    <label>Enter temporary password</label>
                     <input
                       name="password"
                       type="password"
@@ -184,44 +97,14 @@ const SignIn = ({ history }) => {
                       })}
                     />
                   </div>
-                  <ContentForgot>
-                    <LinkText to="/forgotpassword">Forgot password?</LinkText>
-                  </ContentForgot>
                 </div>
-                {/*  */}
                 <div className="mb-1 col-12 col-md-12">
                   <Centrar>
                     <ButtonSubmit>Sign In</ButtonSubmit>
                   </Centrar>
-                  <br />
-                  <LineCenter>Or </LineCenter>
                 </div>
               </div>
-              <Centrar>
-                <GoogleLogin
-                  clientId="669011089415-8gtepgk9pivth0itvut5tom96kn9r7i1.apps.googleusercontent.com"
-                  render={(renderProps) => (
-                    <ButtonIcon
-                      onClick={renderProps.onClick}
-                      disabled={renderProps.disabled}
-                    >
-                      <IconGoogle /> Sign In With Google{" "}
-                    </ButtonIcon>
-                  )}
-                  buttonText="Login"
-                  onSuccess={responseGoogle}
-                  onFailure={responseGoogle}
-                  cookiePolicy={"single_host_origin"}
-                />
-              </Centrar>
             </form>
-            <div className="mt-3 text-center">
-              <TextGray>
-                If you are new at <TextBold> Ingenio Languages, </TextBold>
-                create an account
-              </TextGray>
-              <ButtonSignIn to="/SignUp">Sign Up</ButtonSignIn>
-            </div>
           </div>
 
           <div>
@@ -234,16 +117,6 @@ const SignIn = ({ history }) => {
 };
 
 export default withRouter(SignIn);
-
-const ContentForgot = styled.div`
-  margin-bottom: 1rem;
-
-  span {
-    display: block;
-    margin-right: auto;
-    text-align: right;
-  }
-`;
 
 const TextBold = styled.span`
   font-weight: 600;
@@ -379,11 +252,4 @@ const ContentImg = styled.div`
   background-image: url("https://images.unsplash.com/photo-1581547848400-c2d06d641a65?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80");
   background-position: center;
   background-size: cover;
-`;
-const LinkText = styled(Link)`
-  font-size: 0.9rem;
-  color: #a1a1aa;
-  :hover {
-    color: #71717a !important;
-  }
 `;

@@ -122,7 +122,7 @@ export const Temary = ({ margin, column }) => {
                                   className=" s-pxy-1 small grey-600 s-transition hover-bg-03"
                                 >
                                   <div className="dflex alg-center contentInputsCheck">
-                                    <input
+                                    {/* <input
                                       type="checkbox"
                                       id={Contentindex}
                                       value="valor luis"
@@ -136,7 +136,7 @@ export const Temary = ({ margin, column }) => {
                                       >
                                         <BiCheckCircle />
                                       </i>
-                                    </label>
+                                    </label> */}
                                     <p className="small grey-500 s-mb-0 ">
                                       {subItemContent.item}
                                     </p>
