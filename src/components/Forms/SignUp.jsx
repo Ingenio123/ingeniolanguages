@@ -129,7 +129,6 @@ const SignUp = (props) => {
                     />
                     {errors.FirstName && (
                       <span className="text-samall text-danger">
-                        {" "}
                         {errors.FirstName?.message}{" "}
                       </span>
                     )}

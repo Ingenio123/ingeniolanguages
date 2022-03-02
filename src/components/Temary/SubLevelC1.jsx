@@ -4,6 +4,8 @@ import { useDispatch } from "react-redux";
 import { CREATE_ONE_iTEMEN_TEMARY } from "../../redux/actions/types";
 import { CreateOneItemTemary } from "../../redux/actions/temaryAction";
 
+import { TextError } from "./Style";
+
 export default function SubLevelA2({ subLevel, Level }) {
   const {
     register,
@@ -36,40 +38,28 @@ export default function SubLevelA2({ subLevel, Level }) {
       <Form onSubmit={handleSubmit(createTemary)} id="form_temary_C1">
         <GridForm>
           <ItemsContent>
-            <label>Item Content 1</label>
+            <label> Content 1</label>
             <InputFormContent
               type="text"
               {...register("item1", {
                 required: "Required Content",
               })}
             />
+            {errors.item1 && (
+              <TextError className="text-danger text-small">
+                {errors.item1?.message}
+              </TextError>
+            )}
+            <label> Content 2</label>
+            <InputFormContent type="text" {...register("item2")} />
 
-            <label>Item Content 2</label>
-            <InputFormContent
-              type="text"
-              {...register("item2", {
-                required: "Required Content",
-              })}
-            />
-
-            <label>Item Content 3</label>
-            <InputFormContent
-              type="text"
-              {...register("item3", {
-                required: "Required Content",
-              })}
-            />
+            <label> Content 3</label>
+            <InputFormContent type="text" {...register("item3")} />
           </ItemsContent>
 
           <UrlExamen>
             <label htmlFor="UrlExam">Url Exam</label>
-            <InputForm
-              className="inputs"
-              id="UrlExam"
-              {...register("Exam", {
-                required: "Escriba el Examen",
-              })}
-            />
+            <InputForm className="inputs" id="UrlExam" {...register("Exam")} />
           </UrlExamen>
         </GridForm>
         <ButtonSend type="submit" value="Send" />

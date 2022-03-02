@@ -52,22 +52,22 @@ export const Temary = () => {
         ) : (
           <h2 className="mb-0">{Student || "Spanish"} course content </h2>
         )} */}
-        <h2 className="mb-0">{Student || "Spanish"} course content </h2>
-        <div>
+        <h2 className="mb-1 text-center">{Student} course content </h2>
+        {/* <div>
           <InputSearch
             type="search"
             className="input-form"
             placeholder="Search"
           />
-        </div>
+        </div> */}
       </div>
 
-      <div className="md-px-0 ">
+      {/* <div className="md-px-0 ">
         <div className="s-mb-2 s-cross-center progress-bar s-py-1">
           <div className="progress-bar__bar"></div>
           <span className="progess-bar__percentage small">0% Completed</span>
         </div>
-      </div>
+      </div> */}
       {/* contents */}
       <div className="dgrid lgrid card-template row-gap s-gap-0 s-py-1 ">
         {Valor.map((item, key) => (
@@ -98,11 +98,11 @@ export const Temary = () => {
                   </div>
                 </div>
 
-                <p className="small grey-500 s-mb-0 font-md-1">
+                {/* <p className="small grey-500 s-mb-0 font-md-1">
                   After you complete all the content within the A1 level, you
                   will be able to communicate in everyday situations with
                   commonly-used expressions and elementary vocabulary.
-                </p>
+                </p> */}
                 <div className="dflex"></div>
               </div>
               {ClickPrimary === key ? (

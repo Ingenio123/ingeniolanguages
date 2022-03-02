@@ -29,11 +29,13 @@ const GridLayout = styled.div`
     grid-template-columns: 100%;
   }
 `;
+
 const ColumGrid = styled.aside`
   padding: 0 0.5rem;
   border-radius: 5px;
   background-color: #f1f5f9;
 `;
+
 // <Container>
 //   {/* <GridLayout>
 //       {/* <SectionTeacher idiom={idIdiom} TeacherIdiom={Teachers} /> */}
