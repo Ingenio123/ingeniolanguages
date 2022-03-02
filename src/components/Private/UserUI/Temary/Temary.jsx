@@ -52,7 +52,9 @@ export const Temary = () => {
         ) : (
           <h2 className="mb-0">{Student || "Spanish"} course content </h2>
         )} */}
-        <h2 className="mb-1 text-center">{Student} course content </h2>
+        <h2 className="mb-1 text-center">
+          {Student || "Spanish"} course content
+        </h2>
         {/* <div>
           <InputSearch
             type="search"
