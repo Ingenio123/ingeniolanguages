@@ -100,7 +100,7 @@ const CardRigth = (props) => {
           </ButtonSubmit>
         )}
       </form>
-      <CardEdit />
+      <CardEdit rol={rol} />
       <ItemsComponent
         clickCard={props.clickCard}
         clikcRedirect={props.clickRedirect}

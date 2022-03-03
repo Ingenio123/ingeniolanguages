@@ -24,6 +24,8 @@ const initialState = {
   optionClass: 1, // optioncClass --->  1.- Individual  ##  2.- Group
   pricesGroup: 0,
   valorDescuento: 1,
+  groupActive: false,
+  individualActive: true,
 };
 
 export default function CreateOnePackage(state = initialState, action) {
@@ -165,6 +167,24 @@ export default function CreateOnePackage(state = initialState, action) {
         ...state,
         numberMonts: action.payload,
         calculatePrices: state.calculatePricesIndividual * action.payload,
+      };
+    case "NUMBER_MONTHS_GROUP":
+      return {
+        ...state,
+        calculatePrices: state.calculatePricesGroup * action.payload,
+        numberMonts: action.payload,
+      };
+    case "GROUP_ACTIVE":
+      return {
+        ...state,
+        groupActive: action.payload,
+        individualActive: false,
+      };
+    case "INIDIVIDUAL_ACTIVE":
+      return {
+        ...state,
+        individualActive: action.payload,
+        groupActive: false,
       };
     case "GROUP_CLASS":
       return {

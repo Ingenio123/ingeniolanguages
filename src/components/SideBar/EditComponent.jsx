@@ -2,10 +2,16 @@
 import styled from "styled-components";
 import { BiPencil } from "react-icons/bi";
 import { Link } from "react-router-dom";
-const EditComponent = () => {
+const EditComponent = ({ rol }) => {
   return (
     <CardEdit>
-      <Text to="/updateinformation">Update your information </Text>
+      <Text
+        to={
+          rol === "teacher" ? "/updateinformationteacher" : "/updateinformation"
+        }
+      >
+        Update your information
+      </Text>
       <Icon />
     </CardEdit>
   );

@@ -70,10 +70,12 @@ const PricesPage = () => {
   );
 };
 
-const Container = styled.div``;
+const Container = styled.div`
+  margin-bottom: 3rem;
+`;
 const ContentGrid = styled.section`
   margin: 0;
-  margin-bottom: ${({ bottom }) => (bottom ? "1rem " : "0")};
+  margin-bottom: ${({ bottom }) => (bottom ? "2rem " : "0")};
   padding: 0;
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));

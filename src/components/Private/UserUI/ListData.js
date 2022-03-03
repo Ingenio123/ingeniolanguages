@@ -5,14 +5,14 @@ export const Items = [
   },
   {
     name: "Course content",
-    link: "/private",
-  },
-  {
-    name: "Book a lesson",
+    // link: "/private",
   },
   {
     name: "My progress",
     link: "/progress",
+  },
+  {
+    name: "Book a lesson",
   },
 ];
 export const ItemsNotStudent = [

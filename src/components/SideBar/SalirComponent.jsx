@@ -8,7 +8,7 @@ const SalirComponent = (props) => {
         props.clickCard();
       }}
     >
-      <Text>Log out</Text>
+      <Text>Sign out</Text>
       <Icon />
     </CardSalir>
   );

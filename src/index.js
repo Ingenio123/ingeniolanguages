@@ -145,7 +145,11 @@ ReactDOM.render(
                 component={Notificacion}
               />
               <StudentProvider>
-                <PrivateRouter path="/private" exact component={UserPrivate} />
+                <PrivateRouter
+                  path="/private/:id"
+                  exact
+                  component={UserPrivate}
+                />
                 <NavbarState>
                   <PrivateRouter
                     path="/booklesson"
@@ -161,6 +165,11 @@ ReactDOM.render(
               </StudentState>
               <PrivateRouter
                 path="/updateinformation"
+                exact
+                component={InformationUpdate}
+              />
+              <TeacherRoutes
+                path="/updateinformationteacher"
                 exact
                 component={InformationUpdate}
               />

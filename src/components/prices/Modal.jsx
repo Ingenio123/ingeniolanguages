@@ -14,6 +14,9 @@ import { GroupPersons } from "../../redux/actions/ItemOnePackageAction";
 import OptionTime from "../modalsPackage/Optiontime";
 import OptionValues from "../modalsPackage/OptionsValues";
 
+//
+import { RESET_PRICES } from "../../redux/actions/types";
+
 import ProgressStetpBar from "../modalsPackage/ProgressStetpBar";
 const Modal = (props) => {
   //react router dom
@@ -23,7 +26,6 @@ const Modal = (props) => {
   //refs
   const InputMonthtow = useRef();
   //states
-
   const [PersonsGroup, setPersonsGroup] = useState({ value: 0 });
 
   const [Valores, setValores] = useState(false);
@@ -42,6 +44,10 @@ const Modal = (props) => {
   );
   const time = useSelector((state) => state.itemPackage.timeLesson.value);
   const MonthsNumber = useSelector((state) => state.itemPackage.numberMonts);
+  const GroupActive = useSelector((state) => state.itemPackage.groupActive);
+  const IndividualActive = useSelector(
+    (state) => state.itemPackage.individualActive
+  );
   //   end selectors
 
   //click marque el inputa que hizo click y cuando haga click en input anterior deje de marcarse
@@ -55,9 +61,14 @@ const Modal = (props) => {
   };
 
   const close = () => {
+    setGroupClass(false);
+    setIndividualClass(true);
     props.setClickModal(false);
     ClearSelectsTime();
     ClearSelectsTimeLesson();
+    dispatch({
+      type: RESET_PRICES,
+    });
   };
 
   /**
@@ -68,7 +79,10 @@ const Modal = (props) => {
   const OnClickIndividual = () => {
     setIndividualClass(true);
     setGroupClass(false);
-
+    dispatch({
+      type: "INIDIVIDUAL_ACTIVE",
+      payload: true,
+    });
     dispatch({
       type: "RESET_PRICES",
     });
@@ -83,7 +97,10 @@ const Modal = (props) => {
   const OnClickGroup = () => {
     setGroupClass(true);
     setIndividualClass(false);
-
+    dispatch({
+      type: "GROUP_ACTIVE",
+      payload: true,
+    });
     dispatch({
       type: "RESET_PRICES",
     });
@@ -133,13 +150,18 @@ const Modal = (props) => {
     );
 
     dispatch({ type: "ADD_CART" });
-    props.setClickModal(false);
     dispatch({
       type: "AddCart",
       payload: 25,
     });
     ClearSelectsTime();
     ClearSelectsTimeLesson();
+    setPersonsGroup(false);
+    setIndividualClass(true);
+    dispatch({
+      type: RESET_PRICES,
+    });
+    props.setClickModal(false);
   };
   // ====================================== //
   const handleNumber = (e) => {
@@ -149,6 +171,8 @@ const Modal = (props) => {
       setPersonsGroup({ value: 0 });
       return;
     }
+    const inputMonth = InputMonthtow.current;
+    inputMonth.value = 1;
     setPersonsGroup({ value: e.target.value });
   };
   // ======================================  //
@@ -163,10 +187,19 @@ const Modal = (props) => {
   //
   const handleChange = () => {
     const input = InputMonthtow.current;
-    dispatch({
-      type: "NUMBER_MONTHS_INDIVIDUAL",
-      payload: input.value,
-    });
+    if (GroupActive) {
+      dispatch({
+        type: "NUMBER_MONTHS_GROUP",
+        payload: input.value,
+      });
+      return;
+    }
+    if (IndividualActive) {
+      dispatch({
+        type: "NUMBER_MONTHS_INDIVIDUAL",
+        payload: input.value,
+      });
+    }
   };
 
   // #########################################
@@ -188,7 +221,7 @@ const Modal = (props) => {
               <Title>{props.nameCourse} lessons</Title>
               <ProgressStetpBar />
               <PricesBox>
-                <h4>${CalculoPrices}</h4>
+                <h4>${CalculoPrices.toFixed(2)}</h4>
               </PricesBox>
               {/* Icons */}
               <ContentIcon>
@@ -231,16 +264,6 @@ const Modal = (props) => {
                 </ContentSelect>
               </ContentGrid>
               <ContentGrid>
-                <ContentSelect>
-                  <span>Number of Months</span>
-                  <MonthNumber
-                    ref={InputMonthtow}
-                    onChange={handleChange}
-                    type="number"
-                    min="1"
-                    max="12"
-                  />
-                </ContentSelect>
                 {GroupClass && (
                   <ContentSelect>
                     <span>Number of students</span>
@@ -253,6 +276,16 @@ const Modal = (props) => {
                     />
                   </ContentSelect>
                 )}
+                <ContentSelect>
+                  <span>Number of Months</span>
+                  <MonthNumber
+                    ref={InputMonthtow}
+                    onChange={handleChange}
+                    type="number"
+                    min="1"
+                    max="12"
+                  />
+                </ContentSelect>
               </ContentGrid>
               {/* End Icons */}
               <ContentButtonFlex>
