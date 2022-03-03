@@ -35,6 +35,7 @@ export default function ModalPackageFrench({
   const dispatch = useDispatch();
 
   //STATE
+  //setIndividualClass setPersonsGroup
   const [GroupClass, setGroupClass] = useState(false);
   const [IndividualClass, setIndividualClass] = useState(true);
   const [PersonsGroup, setPersonsGroup] = useState({ value: 0 });
@@ -45,6 +46,12 @@ export default function ModalPackageFrench({
   const [Time, setTime] = useState(null);
   //END STATE
   const InputMonthtow = useRef();
+  //selectors states
+  const GroupActive = useSelector((state) => state.itemPackage.groupActive);
+  const IndividualActive = useSelector(
+    (state) => state.itemPackage.individualActive
+  );
+  //
 
   const OnClickValores = () => {
     setValores(!Valores);
@@ -108,16 +115,19 @@ export default function ModalPackageFrench({
       });
     };
   }, [dispatch, keyPress]);
-
+  //
   const handleNumber = (e) => {
     var val = parseInt(e.target.value);
-
     if (isNaN(val)) {
       setPersonsGroup({ value: 0 });
       return;
     }
     setPersonsGroup({ value: e.target.value });
+    dispatch({
+      type: "REMOVE_MONTHS",
+    });
   };
+  //
   useEffect(() => {
     dispatch(GroupPersons(PersonsGroup));
   }, [PersonsGroup, dispatch]);
@@ -170,10 +180,20 @@ export default function ModalPackageFrench({
      * 4.
      */
     const input = InputMonthtow.current;
-    dispatch({
-      type: "NUMBER_MONTHS_INDIVIDUAL",
-      payload: input.value,
-    });
+    if (GroupActive) {
+      dispatch({
+        type: "NUMBER_MONTHS_GROUP",
+        payload: input.value,
+      });
+      return;
+    }
+    if (IndividualActive) {
+      dispatch({
+        type: "NUMBER_MONTHS_INDIVIDUAL",
+        payload: input.value,
+      });
+      return;
+    }
   };
 
   const ClearSelectsTimeLesson = () => {
@@ -181,6 +201,14 @@ export default function ModalPackageFrench({
   };
   const ClearSelectsTime = () => {
     setTime(null);
+  };
+
+  const ClickClose = () => {
+    setGroupClass(false);
+    setIndividualClass(true);
+    ClearSelectsTimeLesson();
+    ClearSelectsTime();
+    setShowModalSpanish((prev) => !prev);
   };
 
   return (
@@ -289,13 +317,7 @@ export default function ModalPackageFrench({
                     </div>
                   </MonthPrices>
                 </InformContent>
-                <BtnClose
-                  onClick={() => {
-                    setShowModalSpanish((prev) => !prev);
-                    ClearSelectsTimeLesson();
-                    ClearSelectsTime();
-                  }}
-                />
+                <BtnClose onClick={ClickClose} />
               </ContentModel>
             </div>
           </ModalWrapper>

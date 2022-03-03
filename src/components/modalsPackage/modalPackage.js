@@ -37,7 +37,7 @@ export default function ModalPackage({
     (state) => state.itemPackage.lessonMonth.value
   );
   const dispatch = useDispatch();
-
+  // setGroupClass() setIndividualClass()
   const [GroupClass, setGroupClass] = useState(false);
   const [IndividualClass, setIndividualClass] = useState(true);
   const [PersonsGroup, setPersonsGroup] = useState({ value: 0 });
@@ -45,6 +45,11 @@ export default function ModalPackage({
   const value = useSelector((state) => state.itemPackage.numberMonts);
   const [Lesson, setLessons] = useState(null);
   const [Time, setTime] = useState(null);
+  //selectors states
+  const GroupActive = useSelector((state) => state.itemPackage.groupActive);
+  const IndividualActive = useSelector(
+    (state) => state.itemPackage.individualActive
+  );
   //
   const OnClickValores = () => {
     setValores(!Valores);
@@ -56,6 +61,10 @@ export default function ModalPackage({
   };
 
   const OnClickGroup = () => {
+    dispatch({
+      type: "GROUP_ACTIVE",
+      payload: true,
+    });
     setGroupClass(true);
     setIndividualClass(false);
     dispatch({
@@ -75,18 +84,29 @@ export default function ModalPackage({
     DefaultInputNumber();
     ClearSelectsTimeLesson();
     ClearSelectsTime();
+    dispatch({
+      type: "INIDIVIDUAL_ACTIVE",
+      payload: true,
+    });
+  };
+
+  const ResetState = () => {
+    setGroupClass(false);
   };
 
   const closeModal = (e) => {
     if (modalRef.current === e.target) {
-      setShowModal(false);
+      // ResetState();
 
+      console.log("closeee");
+      setGroupClass(false);
       dispatch({
         type: RESET_PRICES,
       });
       DefaultInputNumber();
       ClearSelectsTime();
       ClearSelectsTimeLesson();
+      setShowModal(false);
     }
   };
 
@@ -152,6 +172,11 @@ export default function ModalPackage({
   // ========>   <===========
   const handleNumber = (e) => {
     var val = parseInt(e.target.value);
+    const input = InputMonthtow.current;
+    input.value = 1;
+    dispatch({
+      type: "REMOVE_MONTHS",
+    });
 
     if (isNaN(val)) {
       setPersonsGroup({ value: 0 });
@@ -185,10 +210,20 @@ export default function ModalPackage({
      * 4.
      */
     const input = InputMonthtow.current;
-    dispatch({
-      type: "NUMBER_MONTHS_INDIVIDUAL",
-      payload: input.value,
-    });
+    if (GroupActive) {
+      dispatch({
+        type: "NUMBER_MONTHS_GROUP",
+        payload: input.value,
+      });
+      return;
+    }
+    if (IndividualActive) {
+      dispatch({
+        type: "NUMBER_MONTHS_INDIVIDUAL",
+        payload: input.value,
+      });
+      return;
+    }
   };
 
   const ClearSelectsTimeLesson = () => {
@@ -198,6 +233,11 @@ export default function ModalPackage({
     setTime(null);
   };
 
+  const clickClose = () => {
+    setShowModal((prev) => !prev);
+    setGroupClass(false);
+    setIndividualClass(true);
+  };
   return (
     <>
       {ShowModal ? (
@@ -307,7 +347,7 @@ export default function ModalPackage({
                     </Content_Buttons>
                   </MonthPrices>
                 </InformContent>
-                <BtnClose onClick={() => setShowModal((prev) => !prev)} />
+                <BtnClose onClick={clickClose} />
               </ContentModel>
             </div>
           </ModalWrapper>

@@ -32,6 +32,7 @@ export default function ModalPackageFrench({
   const MonthsNumber = useSelector((state) => state.itemPackage.numberMonts);
   const dispatch = useDispatch();
   const InputMonthtow = useRef();
+  // setGroupClass()  setIndividualClass
   const [GroupClass, setGroupClass] = useState(false);
   const [IndividualClass, setIndividualClass] = useState(true);
   const [PersonsGroup, setPersonsGroup] = useState({ value: 0 });
@@ -39,7 +40,12 @@ export default function ModalPackageFrench({
   const [Months, setMonths] = useState({ value: 1 });
   const [Lesson, setLessons] = useState(null);
   const [Time, setTime] = useState(null);
-
+  //selectors states
+  const GroupActive = useSelector((state) => state.itemPackage.groupActive);
+  const IndividualActive = useSelector(
+    (state) => state.itemPackage.individualActive
+  );
+  //
   const InputMonths = useRef(0);
   const history = useHistory();
 
@@ -58,6 +64,10 @@ export default function ModalPackageFrench({
     dispatch({
       type: RESET_PRICES,
     });
+    dispatch({
+      type: "GROUP_ACTIVE",
+      payload: true,
+    });
     DefaultInputNumber();
     ClearSelectsTimeLesson();
     ClearSelectsTime();
@@ -69,6 +79,10 @@ export default function ModalPackageFrench({
     dispatch({
       type: RESET_PRICES,
     });
+    dispatch({
+      type: "INDIVIDUAL_ACTIVE",
+      payload: true,
+    });
     DefaultInputNumber();
     ClearSelectsTimeLesson();
     ClearSelectsTime();
@@ -79,6 +93,7 @@ export default function ModalPackageFrench({
       ClearSelectsTimeLesson();
       ClearSelectsTime();
       setShowModalFrench(false);
+
       dispatch({
         type: RESET_PRICES,
       });
@@ -103,16 +118,21 @@ export default function ModalPackageFrench({
       dispatch({ type: RESET_PRICES });
     };
   }, [keyPress]);
-
+  //
   const handleNumber = (e) => {
     var val = parseInt(e.target.value);
-
+    const input = InputMonthtow.current;
+    input.value = 1;
+    dispatch({
+      type: "REMOVE_MONTHS",
+    });
     if (isNaN(val)) {
       setPersonsGroup({ value: 0 });
       return;
     }
     setPersonsGroup({ value: e.target.value });
   };
+  //
 
   useEffect(() => {
     dispatch(GroupPersons(PersonsGroup));
@@ -167,16 +187,34 @@ export default function ModalPackageFrench({
      * 4.
      */
     const input = InputMonthtow.current;
-    dispatch({
-      type: "NUMBER_MONTHS_INDIVIDUAL",
-      payload: input.value,
-    });
+    if (GroupActive) {
+      dispatch({
+        type: "NUMBER_MONTHS_GROUP",
+        payload: input.value,
+      });
+      return;
+    }
+    if (IndividualActive) {
+      dispatch({
+        type: "NUMBER_MONTHS_INDIVIDUAL",
+        payload: input.value,
+      });
+      return;
+    }
   };
   const ClearSelectsTimeLesson = () => {
     setLessons(null);
   };
   const ClearSelectsTime = () => {
     setTime(null);
+  };
+
+  const clickClose = () => {
+    setGroupClass(false);
+    setIndividualClass(true);
+    setShowModalFrench((prev) => !prev);
+    ClearSelectsTimeLesson();
+    ClearSelectsTime();
   };
   return (
     <>
@@ -275,13 +313,7 @@ export default function ModalPackageFrench({
                     </div>
                   </MonthPrices>
                 </InformContent>
-                <BtnClose
-                  onClick={() => {
-                    setShowModalFrench((prev) => !prev);
-                    ClearSelectsTimeLesson();
-                    ClearSelectsTime();
-                  }}
-                />
+                <BtnClose onClick={clickClose} />
               </ContentModel>
             </div>
           </ModalWrapper>

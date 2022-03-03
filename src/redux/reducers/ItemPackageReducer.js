@@ -130,6 +130,8 @@ export default function CreateOnePackage(state = initialState, action) {
         numberMonts: 1,
         calculatePricesGroup: 0,
         timeLesson: {},
+        groupActive: false,
+        individualActive: true,
       };
     case CHANGE_TIME:
       return {
@@ -173,6 +175,11 @@ export default function CreateOnePackage(state = initialState, action) {
         ...state,
         calculatePrices: state.calculatePricesGroup * action.payload,
         numberMonts: action.payload,
+      };
+    case "REMOVE_MONTHS":
+      return {
+        ...state,
+        numberMonts: 1,
       };
     case "GROUP_ACTIVE":
       return {
