@@ -109,7 +109,7 @@ export const Showdata = (datstudent) => {
           </TextNormal>
         </Itemsdata>
         <Itemsdata>
-          <TextBold>Remaining lesson: </TextBold>
+          <TextBold>Remaining lessons: </TextBold>
           <TextNormal>
             {dataArray[0].lessonTotal}
             {dataArray[0].lessonTotal > 1 ? " lessons" : " lesson"}
@@ -166,9 +166,12 @@ export const Showdata = (datstudent) => {
             </TextNormal>
           </Itemsdata>
           <Itemsdata>
-            <TextBold>Remaining lesson: </TextBold>
+            <TextBold>Remaining lessons: </TextBold>
             <TextNormal>
-              {data.lessonTotal} {data.lessonTotal > 1 ? " lessons" : " lesson"}
+              {data.lessonTotal}{" "}
+              {data.lessonTotal > 1 || data.lessonTotal === 0
+                ? " lessons"
+                : " lesson"}
             </TextNormal>
           </Itemsdata>
           <Itemsdata>

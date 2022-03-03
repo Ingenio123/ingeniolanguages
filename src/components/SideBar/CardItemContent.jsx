@@ -12,7 +12,7 @@ const CardItemcontent = (props) => {
         }}
       >
         <Text>{props.firstText}</Text>
-        <IconCourse />
+        <IconProgress />
       </Items>
       <Items
         onClick={() => {
@@ -21,7 +21,7 @@ const CardItemcontent = (props) => {
         }}
       >
         <Text>{props.secondText}</Text>
-        <IconProgress />
+        <IconCourse />
       </Items>
     </CardItems>
   );
