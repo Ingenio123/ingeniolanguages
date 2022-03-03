@@ -15,6 +15,33 @@ export const Showdata = (datstudent) => {
     summary: "",
   });
   //
+  const formatDate = (date) => {
+    const fecha = new Date(date);
+    // fecha.toLocaleFormat("%d-%b-%Y"); // 30-Dec-2011
+    const y = fecha.getFullYear();
+    const d = fecha.getDate();
+    const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+    const months = [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December",
+    ];
+    const m = fecha.getMonth();
+    const month = months[m];
+    const dayIndex = fecha.getDay();
+    const dayName = days[dayIndex];
+    const formatted = `${dayName}, ${d} ${month} ${y}`;
+    return formatted;
+  };
   const { email, courses } = datstudent.datstudent;
   // custom hooks
   const { getData, data, StateSelect, SlectIdiomCallback, handleSubmit } =
@@ -88,6 +115,10 @@ export const Showdata = (datstudent) => {
             {dataArray[0].lessonTotal > 1 ? " lessons" : " lesson"}
           </TextNormal>
         </Itemsdata>
+        <Itemsdata>
+          <TextBold>Expiration date: </TextBold>
+          <TextNormal>{formatDate(dataArray[0].expiresCours)} </TextNormal>
+        </Itemsdata>
       </>
     );
   };
@@ -139,6 +170,10 @@ export const Showdata = (datstudent) => {
             <TextNormal>
               {data.lessonTotal} {data.lessonTotal > 1 ? " lessons" : " lesson"}
             </TextNormal>
+          </Itemsdata>
+          <Itemsdata>
+            <TextBold>Expiration date: </TextBold>
+            <TextNormal>{formatDate(data.expiresCours)}</TextNormal>
           </Itemsdata>
         </>
       )}
