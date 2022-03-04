@@ -395,7 +395,7 @@ export default function ModalRequesFreeClass({
                 </ContentSelectOrganism>
                 <ContentTextArea>
                   <label>My goals and expectations are...</label>
-                  <TextAreaAtom></TextAreaAtom>
+                  <TextAreaAtom {...register("Goals")}></TextAreaAtom>
                 </ContentTextArea>
                 <Content_Center>
                   <ButtonSubmit>
