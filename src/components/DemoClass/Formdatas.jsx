@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { Gender, InputCountry } from "../ModalsForm/styles";
 import PhoneInput from "react-phone-input-2";
 import { useState } from "react";
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 
 import { SendDataDemoClass } from "../../services/UserService";
 
@@ -20,40 +20,19 @@ export default function FormDatas() {
   } = useForm();
   const onSubmit = async (data) => {
     const { Gender } = data;
-    console.log(Gender, valor.phone, ValueCountry);
+    // console.log(Gender, valor.phone, ValueCountry);
     const Phone = valor.phone;
     const Country = ValueCountry;
     const Token = JSON.parse(window.localStorage.getItem("user")).token;
     const res = await SendDataDemoClass({ Gender, Phone, Country, Token });
     const datas = await res.json();
-    console.log(datas);
+    // console.log(datas);
     if (datas.error && datas.status === false) {
       return setError(datas);
     }
     setError(datas);
     reset();
     return;
-
-    // SendDataDemoClass({ Gender, Phone, Country, Token })
-    //   .then((res) => {
-    //     console.log(res);
-    //     if (res.error) {
-    //       return setError({
-    //         ...Error,
-    //         status: res.status,
-    //         error: res.message,
-    //       });
-    //     }
-
-    //     reset();
-    //     return setError({
-    //       ...Error,
-    //       error: false,
-    //       status: res.status,
-    //       message: res.message,
-    //     });
-    //   })
-    //   .catch((err) => console.log(err));
   };
 
   const selectCountry = (val) => {
@@ -95,17 +74,36 @@ export default function FormDatas() {
             <option value="Other">Other</option>
           </Gender>
           {errors.Gender && <span>{errors.Gender.message}</span>}
-          <BoxButton>
-            <ButtonSubmit type="submit" value="Send" />
-          </BoxButton>
+          {/* <div>
+            <label>First Name</label>
+            <InputFirstName
+              type="text"
+              placeholder="First Name"
+              {...register("FirstName", {
+                required: "FirstName is Required",
+              })}
+            />
+          </div> */}
         </FormGroup>
+        <BoxButton>
+          <ButtonSubmit type="submit" value="Send" />
+        </BoxButton>
       </Form>
     </>
   );
 }
 
+const InputFirstName = styled.input`
+  border: 1px solid silver;
+  padding: 0 1rem;
+  border-radius: 0.2rem;
+  min-height: 32px;
+  width: 100%;
+`;
+
 const Form = styled.form`
   margin-top: 10px;
+  height: 100%;
 `;
 const FormGroup = styled.div`
   display: flex;

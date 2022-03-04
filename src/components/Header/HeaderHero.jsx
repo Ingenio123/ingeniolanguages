@@ -41,7 +41,7 @@ const HeaderHero = ({ isLogged, ActivarLoged }) => {
   const { GetData, DataUser, Loading, hasLoginError } = useUserData();
   const [Load, setLoading] = useState(true);
 
-  const { SignUp } = useUser();
+  const { SignUp, send } = useUser();
   const UerData = useSelector((state) => state.UerData);
   console.log(UerData);
   const dispatch = useDispatch();
@@ -158,7 +158,8 @@ const HeaderHero = ({ isLogged, ActivarLoged }) => {
         route="democlass"
         ShowForm={ShowForm}
         setShowForm={setShowForm}
-        SignUp={SignUp}
+        // SignUp={SignUp}
+        sendDataForEmail={send}
         isLogged={isLogged}
         hasLoginError={hasLoginError}
       />

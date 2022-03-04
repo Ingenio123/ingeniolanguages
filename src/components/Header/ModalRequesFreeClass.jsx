@@ -4,10 +4,12 @@ import { Form } from "../ModalsForm/styles";
 import PhoneInput from "react-phone-input-2";
 import GoogleButton from "../GoogleButton/Google";
 import { CountryDropdown } from "react-country-region-selector";
-import { useEffect, useCallback, useRef, useState } from "react";
-import { useForm } from "react-hook-form";
+import { useEffect, useCallback, useRef, useState, CSSProperties } from "react";
+import { useForm, Controller } from "react-hook-form";
 import { useHistory } from "react-router-dom";
 import { isAuth } from "../../helpers/Auth";
+import { SendDataforEmail } from "../../helpers/User";
+import Select from "react-select";
 
 import {
   IoEyeOutline,
@@ -17,6 +19,8 @@ import {
   IoCloseSharp,
 } from "react-icons/io5";
 
+const style = {};
+
 export default function ModalRequesFreeClass({
   route,
   ShowForm,
@@ -24,19 +28,25 @@ export default function ModalRequesFreeClass({
   SignUp,
   isLogged,
   hasLoginError,
+  sendDataForEmail,
 }) {
   const modalRef = useRef();
   const [ShowPassword, setShowPassword] = useState(true);
   const [ShowConfirmPassword, setShowConfirmPassword] = useState(true);
   const [valueCountry, setValueCountry] = useState(null);
   const [valorPhone, setValorPhone] = useState({ phone: null });
-  const [value, setValue] = useState(null);
+  const [value, setValues] = useState(null);
   const history = useHistory();
   const [ClickSubmit, setClickSubmit] = useState(false);
+  const [CountryLive, setCountryLive] = useState(null);
 
   const {
     register,
     handleSubmit,
+    setValue,
+    control,
+    watch,
+    reset,
     formState: { errors },
   } = useForm();
 
@@ -74,32 +84,132 @@ export default function ModalRequesFreeClass({
     setShowConfirmPassword(!ShowConfirmPassword);
   };
 
+  const SelectCountryData = (data) => {
+    setValueCountry(data);
+  };
+
   const SendData = async (data) => {
     console.log(data);
     const country = valueCountry;
     const cellphone = valorPhone.phone;
-    const res = await SignUp({ data, country, cellphone });
-
-    if (res.success) {
-      if (isAuth()) {
-        if (route === "democlass") {
-          return history.push("/democlass");
-        }
-        if (isAuth().rol === "admin") return history.push("/admin");
-        if (isAuth().rol === "teacher") return history.push("/teacherPage");
-        if (isAuth().rol === "user" || isAuth().rol === "student") {
-          return history.push("/private");
-        }
-      }
-    }
+    console.log(country, cellphone, CountryLive);
+    await SendDataforEmail(data, country, cellphone, CountryLive);
   };
 
-  const SelectCountryData = (data) => {
-    setValue(data.toLowerCase());
-    setValueCountry(data);
+  const SelectCountryLive = (data) => {
+    setValues(data.toLowerCase());
+    setCountryLive(data);
 
     setClickSubmit(true);
   };
+
+  const customStyles = {
+    input: (provided, state) => ({
+      ...provided,
+      fontSize: ".9rem",
+      padding: "0.5rem 0.75rem",
+      lineHeight: "normal",
+    }),
+    control: (provided, state) => ({
+      ...provided,
+      height: "20px",
+      borderColor: "silver",
+      minHeight: "37px",
+    }),
+    indicatorSeparator: (provided, state) => ({
+      ...provided,
+      opacity: 0,
+    }),
+    dropdownIndicator: (provided, state) => ({
+      ...provided,
+      color: "#495057",
+      fontSize: ".9rem",
+    }),
+  };
+  const options = [
+    {
+      label: "Spanish",
+      value: "Spanish",
+    },
+    {
+      label: "French",
+      value: "French",
+    },
+    {
+      label: "English",
+      value: "English",
+    },
+    {
+      label: "German",
+      value: "German",
+    },
+    {
+      label: "Korean",
+      value: "Korean",
+    },
+    {
+      label: "Russian",
+      value: "Russian",
+    },
+  ];
+
+  const OptionLevel = [
+    {
+      label: "Beginner(A1)",
+      value: "A1",
+    },
+    {
+      label: "Pre-intermediate (A2)",
+      value: "A2",
+    },
+    {
+      label: "Intermediate (B1)",
+      value: "B1",
+    },
+    {
+      label: "Upper-intermediate (B2)",
+      value: "B2",
+    },
+    {
+      label: "Advanced (C1 - C2)",
+      value: "c1-c2",
+    },
+  ];
+
+  const AboutOptions = [
+    {
+      label: " Search Engines (other websites, blogs, videos, pictures)",
+      value: "Search Engines ",
+    },
+    {
+      label: "Local press",
+      value: "Localpress",
+    },
+    {
+      label: "Internet Ads",
+      value: "InternetAds",
+    },
+    {
+      label: "Social Media",
+      value: "SocialMedia",
+    },
+    {
+      label: "Customer Review Sites",
+      value: "ReviewSites",
+    },
+    {
+      label: "Refferal",
+      value: "Refferal",
+    },
+    {
+      label: "Customer Testimonials",
+      value: "CustomerTestimonials",
+    },
+    {
+      label: "Other",
+      value: "Other",
+    },
+  ];
 
   return (
     <div>
@@ -175,23 +285,6 @@ export default function ModalRequesFreeClass({
                     )}
                   </div>
                 </Form__Content>
-                <Form__Content>
-                  <div>
-                    <SelectCountry
-                      valueType="short"
-                      value={valueCountry}
-                      onChange={(e) => SelectCountryData(e)}
-                    />
-                  </div>
-                  <div>
-                    <PhoneInput
-                      country={value || "us"}
-                      specialLabel={""}
-                      value={valorPhone.phone}
-                      onChange={(phone) => setValorPhone({ phone })}
-                    />
-                  </div>
-                </Form__Content>
                 <Content__Email>
                   <ContenedorRelativo>
                     <Content__Label>E-mail</Content__Label>
@@ -199,7 +292,7 @@ export default function ModalRequesFreeClass({
                       icons={true}
                       type="email"
                       {...register("email", {
-                        required: "E-mail  required", 
+                        required: "E-mail  required",
                       })}
                     />
                     {errors.email && (
@@ -211,94 +304,149 @@ export default function ModalRequesFreeClass({
                   </ContenedorRelativo>
                 </Content__Email>
                 <Form__Content>
-                  <ContenedorRelativo>
-                    <Content__Label>Password</Content__Label>
-                    <InputForm
-                      icons={true}
-                      type={ShowPassword ? "password" : "text"}
-                      {...register("password", {
-                        required: "Password  required",
-                        maxLength: {
-                          value: 20,
-                          message: "Maxiumn character: 20",
-                        },
-                        minLength: {
-                          value: 4,
-                          message: "Miniumn character: 4",
-                        },
-                      })}
+                  <div>
+                    <label>Where do you live?</label>
+                    <SelectCountry
+                      valueType="short"
+                      value={valueCountry}
+                      onChange={(e) => SelectCountryLive(e)}
+                      defaultOptionLabel="Select country "
                     />
-                    {errors.password && (
-                      <span className="text-small text-danger">
-                        {errors.password?.message}{" "}
-                      </span>
-                    )}
-                    <div onClick={() => OnclickShowpassword()}>
-                      {ShowPassword ? <DontShow /> : <Icon />}
-                    </div>
-                    <IconLock />
-                  </ContenedorRelativo>
-                  <ContenedorRelativo>
-                    <Content__Label>Confirm Password</Content__Label>
-                    <InputForm
-                      icons={true}
-                      type={ShowConfirmPassword ? "password" : "text"}
-                      {...register("confirmPassword", {
-                        required: "Confirm password  required",
-                        maxLength: {
-                          value: 20,
-                          message: "Maxiumn character: 20",
-                        },
-                        minLength: {
-                          value: 4,
-                          message: "Miniumn character: 4",
-                        },
-                      })}
+                  </div>
+                  <div>
+                    <label>What's your phone number?</label>
+                    <InputNumber
+                      country={value || "us"}
+                      specialLabel={""}
+                      value={valorPhone.phone}
+                      onChange={(phone) => setValorPhone({ phone })}
+                      inputStyle={{ fontSize: ".9rem" }}
                     />
-                    {errors.confirmPassword && (
-                      <span className="text-small text-danger">
-                        {errors.confirmPassword?.message}
-                      </span>
-                    )}
-                    <div onClick={() => OnclickShowConfirmPassword()}>
-                      {ShowConfirmPassword ? <DontShow /> : <Icon />}
-                    </div>
-                    <IconLock />
-                  </ContenedorRelativo>
+                  </div>
                 </Form__Content>
+                <Form__Content>
+                  <div>
+                    <label>Where are you from?</label>
+                    <SelectCountry
+                      valueType="short"
+                      value={valueCountry}
+                      onChange={(e) => SelectCountryData(e)}
+                      defaultOptionLabel="Select country"
+                    />
+                  </div>
+                  <div>
+                    <label>How did you hear about us?</label>
+                    <Controller
+                      name={"AboutUs"}
+                      control={control}
+                      render={({ field: { value, onChange } }) => {
+                        return (
+                          <SelectAtom
+                            placeholder="Select"
+                            styles={customStyles}
+                            options={AboutOptions}
+                            onChange={(val) => onChange(val.value)}
+                            value={AboutOptions.find((c) => c.value === value)}
+                          />
+                        );
+                      }}
+                    />
+                  </div>
+                </Form__Content>
+
+                <ContentSelectOrganism>
+                  <ContentSelectMolecula>
+                    <label>I want to learn...</label>
+                    <Controller
+                      name={"Language"}
+                      control={control}
+                      render={({ field: { value, onChange } }) => {
+                        return (
+                          <SelectAtom
+                            placeholder="Select language"
+                            styles={customStyles}
+                            options={options}
+                            onChange={(val) => onChange(val.value)}
+                            value={options.find((c) => c.value === value)}
+                          />
+                        );
+                      }}
+                    />
+                  </ContentSelectMolecula>
+                  <ContentSelectMolecula>
+                    <label>My level is...</label>
+
+                    <Controller
+                      name={"Level"}
+                      control={control}
+                      render={({ field: { value, onChange } }) => {
+                        return (
+                          <Select
+                            placeholder="Select level"
+                            options={OptionLevel}
+                            styles={customStyles}
+                            onChange={(val) => onChange(val.value)}
+                            value={OptionLevel.find((c) => c.value === value)}
+                          />
+                        );
+                      }}
+                    />
+                  </ContentSelectMolecula>
+                </ContentSelectOrganism>
+                <ContentTextArea>
+                  <label>My goals and expectations are...</label>
+                  <TextAreaAtom></TextAreaAtom>
+                </ContentTextArea>
                 <Content_Center>
-                  <ButtonSubmit>Sing Up</ButtonSubmit>
+                  <ButtonSubmit>
+                    Submit to request a free demo lesson
+                  </ButtonSubmit>
                 </Content_Center>
               </Form>
-              <LineCenter>Or</LineCenter>
-              <Centrar>
-                <GoogleButton
-                  contentSign={"Sign Up with Google"}
-                  route="democlass"
-                />
-              </Centrar>
+
               <IconClose onClick={() => setShowForm((prev) => !prev)} />
             </ContainerForm>
-            <Card_Publicidad>
-              <TextCardPublicidad>YOUR FIRST CLASS</TextCardPublicidad>
-              <TextBold>100%</TextBold>
-              <TextCardPublicidad>FREE</TextCardPublicidad>
-            </Card_Publicidad>
-            <PositionWave>
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
-                <path
-                  fill="#314584"
-                  fill-opacity="1"
-                  d="M0,96L48,101.3C96,107,192,117,288,122.7C384,128,480,128,576,138.7C672,149,768,171,864,165.3C960,160,1056,128,1152,122.7C1248,117,1344,139,1392,149.3L1440,160L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"
-                ></path>
-              </svg>
-            </PositionWave>
           </ModalWrapper>
         </div>
       ) : null}
     </div>
   );
 }
+
+const InputNumber = styled(PhoneInput)`
+  font-size: 0.9rem;
+`;
+
+const ContentTextArea = styled.div`
+  margin: 0.5rem 0;
+`;
+const TextAreaAtom = styled.textarea`
+  width: 100%;
+  border: 1px solid silver;
+  border-radius: 4px;
+  padding: 0.5rem;
+  &:focus {
+    border-color: #1d4ed8;
+  }
+`;
+
+const ContentSelectOrganism = styled.div`
+  width: 100%;
+  display: flex;
+  column-gap: 0.5rem;
+  margin-bottom: 0.5rem;
+`;
+
+const ContentSelectMolecula = styled.div`
+  /* border: 1px solid red; */
+  width: 50%;
+`;
+
+const SelectAtom = styled(Select)``;
+const LabelAtom = styled.label`
+  font-size: 0.9rem;
+  color: #18181b;
+`;
 
 const ModalWrapper = styled.div`
   width: 40vw;
@@ -333,6 +481,9 @@ const Form__Content = styled.div`
   column-gap: 0.5rem;
   margin: 0;
   margin-bottom: 0.5rem;
+  div {
+    font-size: 0.9rem;
+  }
 `;
 const Content__Label = styled.label`
   font-size: 0.9rem;
@@ -442,12 +593,11 @@ const SelectGender = styled.select`
   width: 100%;
   padding: 0.4rem 1rem 0.4rem 0.5rem;
   /* texto */
-  font-size: 1rem;
+  font-size: 0.9rem;
   line-height: 1.3;
   /* visuales */
   border: 1px solid #e2e8f0;
   border-radius: 4px;
-
   /* otros */
 `;
 
@@ -459,10 +609,11 @@ const Centrar = styled.div`
 const SelectCountry = styled(CountryDropdown)`
   border: 1px solid silver;
   padding: 0.5rem 0.75rem !important;
-  font-size: 1rem;
+
   color: #495057;
   border-radius: 5px;
   width: 100%;
+  font-size: 0.9rem;
 `;
 const Icon = styled(IoEyeOutline)`
   position: absolute;

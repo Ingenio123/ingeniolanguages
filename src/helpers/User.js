@@ -171,3 +171,24 @@ export const SendForgotPassword = async (body) => {
     success: data.success,
   };
 };
+
+export const SendDataforEmail = async (
+  data,
+  contryNationality,
+  phoneNumber,
+  contryLive
+) => {
+  const { url } = Url;
+  // const valores = { data, contryLive, phoneNumber, contryNationality };
+  data.contryLive = contryLive;
+  data.phoneNumber = phoneNumber;
+  data.contryNationality = contryNationality;
+  const res = await fetch(`${url}/addDataDemo`, {
+    method: "POST",
+    headers: {
+      "content-type": "application/json",
+    },
+    body: JSON.stringify(data),
+  });
+  console.log(res);
+};

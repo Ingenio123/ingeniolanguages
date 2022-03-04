@@ -1,6 +1,7 @@
 import { useCallback, useState, useContext } from "react";
 import { LoginUser, SignUpUser } from "../services/UserService";
 import Context from "../components/Context/UserContext";
+import { SendDataforEmail } from "../helpers/User";
 
 export default function useUser() {
   const { UserData, InformUser, setInformUser } = useContext(Context);
@@ -86,6 +87,10 @@ export default function useUser() {
     setState({ loading: true, error: false });
   }, []);
 
+  const SendDataForEmail = useCallback(async (data) => {
+    await SendDataforEmail(data);
+  }, []);
+
   return {
     UserData,
     init: InitialApp,
@@ -98,5 +103,6 @@ export default function useUser() {
     logout,
     VerifyUser,
     messageError: MsgErr,
+    send: SendDataForEmail,
   };
 }
