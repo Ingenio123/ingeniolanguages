@@ -19,7 +19,93 @@ import {
   IoCloseSharp,
 } from "react-icons/io5";
 
-const style = {};
+import {ModalSucess}  from './ModalSuccess'
+const options = [
+  {
+    label: "Spanish",
+    value: "Spanish",
+  },
+  {
+    label: "French",
+    value: "French",
+  },
+  {
+    label: "English",
+    value: "English",
+  },
+  {
+    label: "German",
+    value: "German",
+  },
+  {
+    label: "Korean",
+    value: "Korean",
+  },
+  {
+    label: "Russian",
+    value: "Russian",
+  },
+];
+
+const OptionLevel = [
+  {
+    label: "Beginner(A1)",
+    value: "A1",
+  },
+  {
+    label: "Pre-intermediate (A2)",
+    value: "A2",
+  },
+  {
+    label: "Intermediate (B1)",
+    value: "B1",
+  },
+  {
+    label: "Upper-intermediate (B2)",
+    value: "B2",
+  },
+  {
+    label: "Advanced (C1 - C2)",
+    value: "c1-c2",
+  },
+];
+
+const AboutOptions = [
+  {
+    label: " Search Engines (other websites, blogs, videos, pictures)",
+    value: "Search Engines ",
+  },
+  {
+    label: "Local press",
+    value: "Localpress",
+  },
+  {
+    label: "Internet Ads",
+    value: "InternetAds",
+  },
+  {
+    label: "Social Media",
+    value: "SocialMedia",
+  },
+  {
+    label: "Customer Review Sites",
+    value: "ReviewSites",
+  },
+  {
+    label: "Refferal",
+    value: "Refferal",
+  },
+  {
+    label: "Customer Testimonials",
+    value: "CustomerTestimonials",
+  },
+  {
+    label: "Other",
+    value: "Other",
+  },
+];
+
+
 
 export default function ModalRequesFreeClass({
   route,
@@ -29,6 +115,7 @@ export default function ModalRequesFreeClass({
   isLogged,
   hasLoginError,
   sendDataForEmail,
+  
 }) {
   const modalRef = useRef();
   const [ShowPassword, setShowPassword] = useState(true);
@@ -39,6 +126,8 @@ export default function ModalRequesFreeClass({
   const history = useHistory();
   const [ClickSubmit, setClickSubmit] = useState(false);
   const [CountryLive, setCountryLive] = useState(null);
+
+  const [ModalSuccess, setModalSuccess] = useState(false)
 
   const {
     register,
@@ -93,7 +182,11 @@ export default function ModalRequesFreeClass({
     const country = valueCountry;
     const cellphone = valorPhone.phone;
     console.log(country, cellphone, CountryLive);
-    await SendDataforEmail(data, country, cellphone, CountryLive);
+    const res  = await SendDataforEmail(data, country, cellphone, CountryLive);
+    if(res){
+      setModalSuccess(true)
+      reset();
+    }
   };
 
   const SelectCountryLive = (data) => {
@@ -126,90 +219,15 @@ export default function ModalRequesFreeClass({
       fontSize: ".9rem",
     }),
   };
-  const options = [
-    {
-      label: "Spanish",
-      value: "Spanish",
-    },
-    {
-      label: "French",
-      value: "French",
-    },
-    {
-      label: "English",
-      value: "English",
-    },
-    {
-      label: "German",
-      value: "German",
-    },
-    {
-      label: "Korean",
-      value: "Korean",
-    },
-    {
-      label: "Russian",
-      value: "Russian",
-    },
-  ];
 
-  const OptionLevel = [
-    {
-      label: "Beginner(A1)",
-      value: "A1",
-    },
-    {
-      label: "Pre-intermediate (A2)",
-      value: "A2",
-    },
-    {
-      label: "Intermediate (B1)",
-      value: "B1",
-    },
-    {
-      label: "Upper-intermediate (B2)",
-      value: "B2",
-    },
-    {
-      label: "Advanced (C1 - C2)",
-      value: "c1-c2",
-    },
-  ];
 
-  const AboutOptions = [
-    {
-      label: " Search Engines (other websites, blogs, videos, pictures)",
-      value: "Search Engines ",
-    },
-    {
-      label: "Local press",
-      value: "Localpress",
-    },
-    {
-      label: "Internet Ads",
-      value: "InternetAds",
-    },
-    {
-      label: "Social Media",
-      value: "SocialMedia",
-    },
-    {
-      label: "Customer Review Sites",
-      value: "ReviewSites",
-    },
-    {
-      label: "Refferal",
-      value: "Refferal",
-    },
-    {
-      label: "Customer Testimonials",
-      value: "CustomerTestimonials",
-    },
-    {
-      label: "Other",
-      value: "Other",
-    },
-  ];
+  const goBack = () => {
+    setShowForm(prev => !prev);
+    setModalSuccess(prev => !prev);
+  }
+
+  
+  
 
   return (
     <div>
@@ -407,6 +425,8 @@ export default function ModalRequesFreeClass({
               <IconClose onClick={() => setShowForm((prev) => !prev)} />
             </ContainerForm>
           </ModalWrapper>
+                      {/* modal success */}
+                      {ModalSuccess && <ModalSucess goBackF={goBack} />}
         </div>
       ) : null}
     </div>
@@ -450,7 +470,7 @@ const LabelAtom = styled.label`
 
 const ModalWrapper = styled.div`
   width: 40vw;
-  height: 90vh;
+  height: 560px;
   box-shadow: 0 5px 16px rgba(0, 0, 0, 0.2);
   background: #fff;
   position: relative;
