@@ -18,6 +18,7 @@ const UseProgressContext = () => {
     setStatus,
     Show,
     setShow,
+    setDataScores
   } = contextProgress;
 
   const ScoreAdd = (score) => {
@@ -81,6 +82,89 @@ const UseProgressContext = () => {
 
   const DefaultScore = (initScore) => {
     console.log("Default score");
+    let baseScore =  16.6; 
+    let flag = 0;
+    let baseRuleta = 33.33;
+    if(initScore >= 0 && initScore < 33.25 ){
+      flag = 1;
+      AddLevel(0)
+      for(var i = 0; i < 3; i++ ){
+        var rest = initScore - 5.55;
+        var res =  rest / flag;
+        if(res === 16.66){
+          AddSubLevel(i);
+          break;
+        }
+      }
+    }
+    if(initScore >=  33.25  && initScore < 49.9 ){
+      flag = 2;
+      AddLevel(flag - 1)
+      for(var i = 0; i < 3; i++ ){
+        var rest = initScore - 5.55;
+        var res =  rest / flag;
+        if(res === 16.66){
+          AddSubLevel(i);
+          break;
+        }
+      }
+    }
+    // B1 
+    if(initScore >=  (baseScore * 3)   && initScore < (baseScore * 4) ){
+      flag = 3;
+      AddLevel(flag - 1)
+      for(var i = 0; i < 3; i++ ){
+        var rest = initScore - 5.55;
+        var res =  rest / flag;
+        if(res === 16.66){
+          AddSubLevel(i);
+          break;
+        }
+      }
+    }
+    if(initScore >=  (baseScore * 4)   && initScore < (baseScore * 5) ){
+      flag = 4;
+      AddLevel(flag - 1)
+      for(var i = 0; i < 3; i++ ){
+        var rest = initScore - 5.55;
+        var res =  rest / flag;
+        if(res === 16.66){
+          AddSubLevel(i);
+          break;
+        }
+      }
+    }
+    if(initScore >=  (baseScore * 5)   && initScore < (baseScore * 6) ){
+      flag = 5;
+      AddLevel(flag - 1)
+      for(var i = 0; i < 3; i++ ){
+        var rest = initScore - 5.55;
+        var res =  rest / flag;
+        if(res === 16.66){
+          AddSubLevel(i);
+          break;
+        }
+      }
+    }
+    if(initScore >=  (baseScore * 6)   && initScore < (baseScore * 7) ){
+      flag = 6;
+      console.log("C1")
+      AddLevel(flag - 1)
+      var val =  initScore
+      for(var i= 1; i <= 3; i++ ){
+        console.log(i)
+        val -=  5.55;
+        console.log(val)
+        var res =  val / flag;
+        console.log(res)
+        if(res === 16.6){
+          console.log("Estoy Aqui")
+          AddSubLevel(i);
+          AddScoreRuleta(baseRuleta * i)
+          break;
+        }
+      }
+    }
     defaultScore(initScore);
   };
 
@@ -98,6 +182,10 @@ const UseProgressContext = () => {
   const StartShow = () => {
     setShow(true);
   };
+
+  const SetScore = (param) => {
+    setDataScores({data:param})
+  }
   return {
     score,
     addScore: ScoreAdd,
@@ -111,6 +199,7 @@ const UseProgressContext = () => {
     ResetStatusContext,
     StartShow,
     Show,
+    SetScore
   };
 };
 

@@ -259,23 +259,31 @@ const SendScore = () => {
   };
 
   const filterPackage = () => {
+
+
     const datos = DataScores.data
       .filter((e) => e.kids === ObjecIdiom.kids && e.idiom === e.idiom)
       .pop();
-    return datos;
+      return datos;
   };
   const FilterLevel = (level) => {
-    // console.log(filterPackage());
+    console.log(filterPackage());
     const levelFil = filterPackage();
-    const found = levelFil.level
-      .filter((e) => e.name_level === level.value)
-      .pop();
-    console.log(found);
-    setDatosVerify(found);
+
+    // console.log(Array.isArray(levelFil))
+    if(Array.isArray(levelFil)){
+      const found = levelFil.level
+        .filter((e) => e.name_level === level.value)
+        .pop();
+        console.log(found);
+    }
+    
+    setDatosVerify(levelFil);
   };
 
   const FilterSublevel = (name_sublevel) => {
     // const dat = DatosVerify.subLevel.find((e) => e.subLevel == name_sublevel);
+    
     const dat = DatosVerify.subLevel.filter(
       (e) => e.name_sublevel === name_sublevel
     );
