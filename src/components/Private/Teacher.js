@@ -6,9 +6,11 @@ import { Temary } from "../Private/UserUI/Temary/TemaryForTeachers";
 import styled from "styled-components";
 import { ProviderCalificacion } from "../Context/CalifcacionContext";
 import useCalificacion from "../../hooks/useCalificacion";
+
 import InputSearchElement from "../Search/Search";
 import { GetAllStudents } from "../../helpers/User";
 import { ProviderCourses } from "../Context/CoursesContext";
+import { useCardFeedback } from "../../hooks/useCardFeedBack";
 import { SearchComponent } from "./TeacherComponents/SearchComponent";
 
 export const Teacher = () => {
@@ -22,8 +24,8 @@ export const Teacher = () => {
   const [search, setSearch] = useState("");
   const [SearchResults, setSearchResults] = useState("");
   // end states component Search
-
   const token = getCookie("token");
+  const { getSummary } = useCardFeedback();
 
   useEffect(() => {
     const GetAllStudent = async () => {
@@ -60,14 +62,14 @@ export const Teacher = () => {
         <ProviderCourses>
           <SearchComponent data={ListData} placeholder={"Search Student"} />
         </ProviderCourses>
-        <Temary
+        {/* <Temary
           margin="2rem 0 0 0"
           column={true}
           // UseTeacher={true}
           // Sublevel={Sublevel}
           // Level={Level}
           // IdContent={IdContent}
-        />
+        /> */}
       </Grid>
       <div className="dflex"></div>
     </ProviderCalificacion>

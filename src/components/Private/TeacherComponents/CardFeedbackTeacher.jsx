@@ -83,15 +83,15 @@ export default function CardFeedBack(
                         <ContentHeader>
                           <ContentTeacher>
                             <img
-                              src={
-                                item.teacher?.picture || item.id_Teacher.picture
-                              }
+                              src={item.id_Teacher.picture}
                               alt="imge teacher"
                             />
                             <Text>
                               <h3>Teacher</h3>
                               {/* <h2>{item.teacher.email || item.Teacher.name}</h2> */}
-                              <h2>{item.teacher.name || " name teacher"} </h2>
+                              <h2>
+                                {item.id_Teacher.name || " name teacher"}{" "}
+                              </h2>
                             </Text>
                           </ContentTeacher>
                           <Fecha>
@@ -214,6 +214,7 @@ const Line = styled.div`
 const TextFeedback = styled.h2`
   margin: 0;
   margin-bottom: 1rem;
+  margin-top: 2rem;
   text-align: center;
 `;
 
@@ -244,7 +245,7 @@ const TextCardNotStudent = styled.p`
 const ContentFeddBack = styled.article`
   padding: 0 1rem;
   max-height: calc(100vh - 150px);
-  overflow: hidden;
+  overflow: auto;
 `;
 const Card = styled.section`
   width: 100%;

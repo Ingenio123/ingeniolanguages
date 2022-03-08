@@ -1,9 +1,14 @@
 import styled from "styled-components";
 import { useState } from "react";
-import useSearch from "../../../hooks/useSearch";
 import { BiCheck, BiX } from "react-icons/bi";
+//custom hooks
+import useSearch from "../../../hooks/useSearch";
+import { useCardFeedback } from "../../../hooks/useCardFeedBack";
+//
 // component
 import { Showdata } from "./Showdata";
+import CardFeedBack from "./CardFeedbackTeacher";
+//
 export const SearchComponent = ({ data, placeholder }) => {
   const [filteredData, setFilteredData] = useState([]);
   const [wordEntered, setWordEntered] = useState("");
@@ -11,6 +16,8 @@ export const SearchComponent = ({ data, placeholder }) => {
 
   //custom hooks
   const { reset, FirstDataGet, ResetSelect, Status, ResetStatus } = useSearch();
+  const { getSummary, loading, ItIsEmpty, normal } = useCardFeedback();
+  //
   const handleFilter = (event) => {
     const searchWord = event.target.value;
     setWordEntered(searchWord);
@@ -32,9 +39,11 @@ export const SearchComponent = ({ data, placeholder }) => {
   const handleClickItem = (datos) => {
     clearInput();
     setItem(datos);
+    // console.log(datos);
     FirstDataGet(datos);
     reset();
     ResetSelect();
+    getSummary(datos._id);
   };
 
   const HanldeResetButton = () => {
@@ -93,6 +102,14 @@ export const SearchComponent = ({ data, placeholder }) => {
           </div>
         </Modal>
       ) : null}
+      {item && (
+        <CardFeedBack
+          loading={loading}
+          ItIsEmpty={ItIsEmpty}
+          isStudent={true}
+          Summary={normal}
+        />
+      )}
     </>
   );
 };
