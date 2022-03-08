@@ -8,6 +8,7 @@ const initialState = {
   score: 0,
   scoreRuleta: 0,
   level: "A1",
+  sublevel: ""
 };
 
 const Context = createContext(initialState);
@@ -33,6 +34,7 @@ export const ProgressContext = ({ children }) => {
   async function AddScore(valor) {
     const { score } = state;
     const valtotal = score + valor;
+    //reducer context 
     dispatch({
       type: "ADD_SCORE",
       payload: valtotal,
@@ -119,7 +121,7 @@ export const ProgressContext = ({ children }) => {
         setShow,
         DataScores,
         setDataScores,
-      }}
+        }}
     >
       {children}
     </Context.Provider>

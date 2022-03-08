@@ -191,4 +191,10 @@ export const SendDataforEmail = async (
     body: JSON.stringify(data),
   });
   console.log(res);
+
+  if(res.status > 200){
+    return false;
+  }
+
+  return true;
 };

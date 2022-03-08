@@ -81,6 +81,7 @@ const HeaderHero = ({ isLogged, ActivarLoged }) => {
   };
   // >>--------------------------- OPEN MODAL DEMO END ---------------------------------<<
 
+
   return (
     <>
       <header>
@@ -148,7 +149,7 @@ const HeaderHero = ({ isLogged, ActivarLoged }) => {
           FirstName={UerData.FirstName}
           Email={UerData.email}
         >
-          {UerData.addData === 3 && <FormDatas />}
+          {UerData.addData === 3 && <FormDatas  />}
           {UerData.addData === 1 && <FormDataOne />}
           {UerData.addData === 0 && <Images />}
         </DemoClass>
