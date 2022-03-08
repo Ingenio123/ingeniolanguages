@@ -90,7 +90,7 @@ export default function CardFeedBack(
                               <h3>Teacher</h3>
                               {/* <h2>{item.teacher.email || item.Teacher.name}</h2> */}
                               <h2>
-                                {item.id_Teacher.name || " name teacher"}{" "}
+                                {item.id_Teacher.FirstName || " name teacher"}{" "}
                               </h2>
                             </Text>
                           </ContentTeacher>
@@ -214,7 +214,7 @@ const Line = styled.div`
 const TextFeedback = styled.h2`
   margin: 0;
   margin-bottom: 1rem;
-  margin-top: 2rem;
+  /* margin-top: 2rem; */
   text-align: center;
 `;
 
@@ -246,6 +246,9 @@ const ContentFeddBack = styled.article`
   padding: 0 1rem;
   max-height: calc(100vh - 150px);
   overflow: auto;
+  /* margin: auto 0; */
+
+  margin-top: 2.5rem;
 `;
 const Card = styled.section`
   width: 100%;

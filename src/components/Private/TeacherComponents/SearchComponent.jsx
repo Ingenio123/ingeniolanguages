@@ -102,7 +102,8 @@ export const SearchComponent = ({ data, placeholder }) => {
           </div>
         </Modal>
       ) : null}
-      {item && (
+
+      {Object.keys(item).length > 1 && (
         <CardFeedBack
           loading={loading}
           ItIsEmpty={ItIsEmpty}

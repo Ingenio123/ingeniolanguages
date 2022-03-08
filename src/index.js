@@ -64,6 +64,7 @@ import { InformationUpdate } from "./pages/Private_pages/UserOrStudent/Informati
 import StudentProvider from "./hooks/useStudent";
 
 import { ModalContextProvider } from "./components/Context/modlaContext";
+import CourseContentTeacer from "./pages/teacher/CourseContent";
 
 // Navbar statete -> idiom
 import NavbarState from "./hooks/useNavbar";
@@ -128,6 +129,11 @@ ReactDOM.render(
               exact
               component={TeacherProgress}
             />
+            <TeacherRoutes
+              path="/CourseContentTeacher"
+              exact
+              component={CourseContentTeacer}
+            />
             <UserProvider>
               <ModalContextProvider>
                 <Route exact path="/" component={Home} />
@@ -179,6 +185,7 @@ ReactDOM.render(
                 exact
                 component={UpdatePassword}
               />
+
               <Route
                 path="/siginforgotpassword"
                 component={SignForgotPassword}
