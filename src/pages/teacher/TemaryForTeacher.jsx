@@ -43,31 +43,10 @@ export const Temary = ({ language }) => {
   };
   return (
     <TemaryLayout className="l-section s-border md-pxy  mt-4 brd-radius">
-      <div className="dgrid  al-center header_temary">
-        {/* {StudentContext.student.QueryStudent.courses[0].idiom ? (
-          <h2 className="mb-0">
-            {StudentContext.student.QueryStudent.courses[0].idiom} course
-            content
-          </h2>
-        ) : (
-          <h2 className="mb-0">{Student || "Spanish"} course content </h2>
-        )} */}
+      <div className="al-center header_temary">
         <h2 className="mb-1 text-center">{language} course content</h2>
-        {/* <div>
-          <InputSearch
-            type="search"
-            className="input-form"
-            placeholder="Search"
-          />
-        </div> */}
       </div>
 
-      {/* <div className="md-px-0 ">
-        <div className="s-mb-2 s-cross-center progress-bar s-py-1">
-          <div className="progress-bar__bar"></div>
-          <span className="progess-bar__percentage small">0% Completed</span>
-        </div>
-      </div> */}
       {/* contents */}
       <div className="dgrid lgrid card-template row-gap s-gap-0 s-py-1 ">
         {Valor.map((item, key) => (

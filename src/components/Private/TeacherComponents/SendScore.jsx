@@ -138,10 +138,12 @@ const SendScore = () => {
     success: false,
     error: false,
   });
-  const [DatosVerify, setDatosVerify] = useState("");
+  const [DatosVerify, setDatosVerify] = useState([]);
+  const [DataSublevel, setDatosSubLevel] = useState([]);
   const [DatosScore, setDatosScore] = useState({
     success: false,
     socore: null,
+    date: null,
   });
   const [ModalConfirm, setModalConfirm] = useState(false);
   const [ModalUpdate, setModalUpdate] = useState(false);
@@ -171,6 +173,28 @@ const SendScore = () => {
         return null;
     }
   }
+  const filterPackage = () => {
+    const datos = DataScores.data
+      .filter((e) => e.kids === ObjecIdiom.kids && e.idiom === ObjecIdiom.idiom)
+      .pop();
+    return datos;
+  };
+
+  const FilterLevel = (level) => {
+    console.log(filterPackage());
+    const levelFil = filterPackage();
+
+    // console.log(Array.isArray(levelFil));
+    const found = levelFil.level
+      .filter((e) => e.name_level === level.value)
+      .pop();
+    // console.log(found);
+    setDatosVerify(found);
+    setDatosSubLevel(found?.subLevel);
+    // if (Array.isArray(levelFil)) {
+    //   console.log("IsArray");
+    // }
+  };
 
   const handleChangeLevel = (value) => {
     ResetSublevel();
@@ -181,12 +205,42 @@ const SendScore = () => {
     });
   };
 
+  const FilterSublevel = (name_sublevel) => {
+    if (Array.isArray(DataSublevel)) {
+      const found = DataSublevel.filter(
+        (e) => e.name_sublevel === name_sublevel
+      );
+      if (found.length >= 1) {
+        console.log(found);
+        return {
+          success: true,
+          score: found[0].score,
+          date: found[0].Date,
+        };
+      }
+      return {
+        ...ConfirmSuccess,
+        success: false,
+        score: null,
+      };
+    }
+  };
+
   const handleChangeSubLevel = (value) => {
     console.log(value);
-    FilterSublevel(value.value);
-    return setStateSubLevel({
+    const valores = FilterSublevel(value.value);
+    console.log(valores);
+
+    setStateSubLevel({
       ...stateSubLevel,
       data: value,
+    });
+
+    return setDatosScore({
+      ...StatusValidation,
+      success: valores.success,
+      score: valores.score,
+      date: valores.date,
     });
   };
 
@@ -258,51 +312,6 @@ const SendScore = () => {
     return setModalConfirm(false);
   };
 
-  const filterPackage = () => {
-
-
-    const datos = DataScores.data
-      .filter((e) => e.kids === ObjecIdiom.kids && e.idiom === e.idiom)
-      .pop();
-      return datos;
-  };
-  const FilterLevel = (level) => {
-    console.log(filterPackage());
-    const levelFil = filterPackage();
-
-    // console.log(Array.isArray(levelFil))
-    if(Array.isArray(levelFil)){
-      const found = levelFil.level
-        .filter((e) => e.name_level === level.value)
-        .pop();
-        console.log(found);
-    }
-    
-    setDatosVerify(levelFil);
-  };
-
-  const FilterSublevel = (name_sublevel) => {
-    // const dat = DatosVerify.subLevel.find((e) => e.subLevel == name_sublevel);
-    
-    const dat = DatosVerify.subLevel.filter(
-      (e) => e.name_sublevel === name_sublevel
-    );
-    console.log(dat);
-    if (dat.length == 1) {
-      console.log("Exists");
-      return setDatosScore({
-        ...StatusValidation,
-        success: true,
-        score: dat[0].score,
-      });
-    }
-    return setDatosScore({
-      ...StatusValidation,
-      success: false,
-      score: null,
-    });
-  };
-
   const ClickUpdate = () => {
     setModalUpdate(true);
   };
@@ -337,6 +346,34 @@ const SendScore = () => {
     setModalConfirm((prev) => !prev);
   };
 
+  const formatDate = (date) => {
+    const fecha = new Date(date);
+    // fecha.toLocaleFormat("%d-%b-%Y"); // 30-Dec-2011
+    const y = fecha.getFullYear();
+    const d = fecha.getDate();
+    const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+    const months = [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December",
+    ];
+    const m = fecha.getMonth();
+    const month = months[m];
+    const dayIndex = fecha.getDay();
+    const dayName = days[dayIndex];
+    const formatted = `${dayName}, ${d} ${month} ${y}`;
+    return formatted;
+  };
+
   return (
     <DivBorder>
       <SubLevel
@@ -357,6 +394,7 @@ const SendScore = () => {
       {DatosScore.success ? (
         <CardScoreExist>
           <h6>Exam score </h6>
+          {formatDate(DatosScore.date)}
           <span>Current Score: {DatosScore.score} </span>
           <ButtonChange onClick={ClickUpdate}>
             Change current score
@@ -790,4 +828,8 @@ const InputDate = styled(DatePicker)`
   &:focus {
     border-color: #2563eb;
   }
+`;
+
+const LabelDate = styled.label`
+  font-size: 1rem;
 `;

@@ -62,14 +62,6 @@ export const Teacher = () => {
         <ProviderCourses>
           <SearchComponent data={ListData} placeholder={"Search Student"} />
         </ProviderCourses>
-        {/* <Temary
-          margin="2rem 0 0 0"
-          column={true}
-          // UseTeacher={true}
-          // Sublevel={Sublevel}
-          // Level={Level}
-          // IdContent={IdContent}
-        /> */}
       </Grid>
       <div className="dflex"></div>
     </ProviderCalificacion>

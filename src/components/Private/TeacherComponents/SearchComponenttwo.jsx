@@ -22,12 +22,11 @@ export const SearchComponenttwo = ({ data }) => {
   const [ValorScore, setValorScore] = useState(0);
   const [SubLevel, setSubLevel] = useState(0);
   const [dataIdiom, setDataidiom] = useState({
-    show:false,
-    msg: ""
+    show: false,
+    msg: "",
   });
   //
-  
-  
+
   //custom hooks
   const {
     GetCourse,
@@ -56,47 +55,52 @@ export const SearchComponenttwo = ({ data }) => {
     ResetStatusContext,
     Show,
     StartShow,
-    SetScore
+    SetScore,
   } = useProgressContext();
 
   const { AddIdiom, AddStudentFunc, AddDataScoreExam } = useScoreExam();
   //end custom hooks
 
-  const GetData  = async (idStudent) => {
-    return await GetScoreExamForIdStudent(idStudent)
-  }
+  const GetData = async (idStudent) => {
+    return await GetScoreExamForIdStudent(idStudent);
+  };
 
   //
   useEffect(() => {
-    console.log(Item)
+    console.log(Item);
     // console.log("effect item  depend Item")
 
-    if(Item?.courses) {
+    if (Item?.courses) {
       // console.log("is Courses")
       // console.log(Item)
-      if(Item.courses.length === 1){
-        // console.log(Item.courses[0])
-        const scoreOne = Item.courses[0].score
-        const idiom = Item.courses[0].idiom ;
+      if (Item.courses.length === 1) {
+        console.log("Tiene one course");
+        console.log(Item.courses[0]);
+        const scoreOne = Item.courses[0].score;
+        const idiom = Item.courses[0].idiom;
         const kids = Item.courses[0].kids;
-        var text = `${idiom} ${kids ? "(kids)":""}`
+        var text = `${idiom} ${kids ? "(kids)" : ""}`;
         setDataidiom({
-          show:true,
-          msg: text
+          show: true,
+          msg: text,
         });
         // SetScore(Item.courses)
         DefaultScore(scoreOne);
         AddCourse(Item.courses[0]);
         AddIdiom(idiom, kids);
-      } 
-      GetData(Item._id).then(res => {
-        console.log(res)
-        SetScore(res.data.scoreExam.Content)
-      })
+        GetData(Item._id).then((res) => {
+          console.log(res);
+          SetScore(res.data?.scoreExam.Content);
+        });
+        return;
+      }
+      GetData(Item._id).then((res) => {
+        console.log(res);
+        SetScore(res.data?.scoreExam.Content);
+      });
     }
-  }, [Item])
-//
-
+  }, [Item]);
+  //
 
   const handleFilter = (event) => {
     const searchWord = event.target.value;
@@ -111,6 +115,7 @@ export const SearchComponenttwo = ({ data }) => {
       setFilteredData(newFilter);
     }
   };
+
   const clearInput = () => {
     setFilteredData([]);
     setWordEntered("");
@@ -122,11 +127,11 @@ export const SearchComponenttwo = ({ data }) => {
     ResetSelect();
     ResetScore();
     StartShow();
+    console.log(Object.keys(Item).length);
     if (value.courses.length === 1) {
       const valores = value.courses[0];
       initialScore(valores);
     }
-    
   };
   const filterData = (id) => {
     // return courses.filter((x) => x._id === id);
@@ -146,7 +151,6 @@ export const SearchComponenttwo = ({ data }) => {
     DefaultScore(score);
     AddCourse(datosfiltrados);
     AddIdiom(idiom, kids);
-
   };
   function SelectArray(dataArray) {
     if (dataArray.length > 1) {
@@ -189,10 +193,6 @@ export const SearchComponenttwo = ({ data }) => {
     // setSubLevel(subLevel);
   };
 
-  
-  
-
-  
   return (
     <>
       <ModalConfirm modal={Modal}>
@@ -252,7 +252,9 @@ export const SearchComponenttwo = ({ data }) => {
                 {/* {JSON.stringify(Item)} */}
                 {/* {Item.courses[0].idiom} */}
                 {/* {Object.keys(Item).length ===  5 && dataIdiom } */}
-                <TextCourse>Language: {dataIdiom.show && dataIdiom.msg}</TextCourse>
+                <TextCourse>
+                  Language: {dataIdiom.show && dataIdiom.msg}
+                </TextCourse>
               </div>
 
               <SendScoreComponent
@@ -281,17 +283,15 @@ export const SearchComponenttwo = ({ data }) => {
   );
 };
 
-
-
-const  TextCourse =  styled.p`
+const TextCourse = styled.p`
   margin: 0;
   line-height: normal;
-  font-size:1.2rem;
+  font-size: 1.2rem;
   font-weight: 600;
-  color:#314584;
-  text-align:center ;
+  color: #314584;
+  text-align: center;
   margin-bottom: 1rem;
-`
+`;
 
 const SelectLevel = styled(Select)`
   margin-bottom: 1rem;
