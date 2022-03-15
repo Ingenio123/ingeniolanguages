@@ -56,6 +56,7 @@ export const SearchComponenttwo = ({ data }) => {
     Show,
     StartShow,
     SetScore,
+    AddScoreRuletaSimple,
   } = useProgressContext();
 
   const { AddIdiom, AddStudentFunc, AddDataScoreExam } = useScoreExam();
@@ -73,7 +74,7 @@ export const SearchComponenttwo = ({ data }) => {
     if (Item?.courses) {
       // console.log("is Courses")
       // console.log(Item)
-      if (Item.courses.length === 1) {
+      /* if (Item.courses.length === 1) {
         console.log("Tiene one course");
         console.log(Item.courses[0]);
         const scoreOne = Item.courses[0].score;
@@ -93,7 +94,7 @@ export const SearchComponenttwo = ({ data }) => {
           SetScore(res.data?.scoreExam.Content);
         });
         return;
-      }
+      } */
       GetData(Item._id).then((res) => {
         console.log(res);
         SetScore(res.data?.scoreExam.Content);
@@ -147,13 +148,13 @@ export const SearchComponenttwo = ({ data }) => {
     // debugger;
     // console.log("Datos filtrados"+ JSON.stringify(datosfiltrados));
 
-    console.log("Obejct filter: " + score);
+    // console.log("Obejct filter: " + score);
     DefaultScore(score);
     AddCourse(datosfiltrados);
     AddIdiom(idiom, kids);
   };
   function SelectArray(dataArray) {
-    if (dataArray.length > 1) {
+    if (dataArray.length >= 1) {
       const options = dataArray.map((elem) => {
         return {
           value: elem._id,

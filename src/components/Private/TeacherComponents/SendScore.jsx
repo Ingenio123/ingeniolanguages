@@ -9,6 +9,8 @@ import {
   AddScoreExam,
   UpdateScoreExamForIdStudent,
 } from "../../../helpers/User";
+import { BiCalendar } from "react-icons/bi";
+import { HiOutlineSparkles } from "react-icons/hi";
 import ContextProgress from "../../../context/ProgressContext";
 const OptionsSelect = [
   {
@@ -183,12 +185,12 @@ const SendScore = () => {
   const FilterLevel = (level) => {
     console.log(filterPackage());
     const levelFil = filterPackage();
-
+    console.log(levelFil);
     // console.log(Array.isArray(levelFil));
     const found = levelFil.level
       .filter((e) => e.name_level === level.value)
       .pop();
-    // console.log(found);
+    console.log(found);
     setDatosVerify(found);
     setDatosSubLevel(found?.subLevel);
     // if (Array.isArray(levelFil)) {
@@ -394,8 +396,19 @@ const SendScore = () => {
       {DatosScore.success ? (
         <CardScoreExist>
           <h6>Exam score </h6>
-          {formatDate(DatosScore.date)}
-          <span>Current Score: {DatosScore.score} </span>
+          <LabelData>
+            <ContentIconSendScore>
+              <BiCalendar className="icon green"></BiCalendar>
+            </ContentIconSendScore>
+            {formatDate(DatosScore.date)}{" "}
+          </LabelData>
+          <Line />
+          <LabelData>
+            <ContentIconSendScore blue="true">
+              <HiOutlineSparkles className="icon blue"> </HiOutlineSparkles>
+            </ContentIconSendScore>
+            Current Score: {DatosScore.score}{" "}
+          </LabelData>
           <ButtonChange onClick={ClickUpdate}>
             Change current score
           </ButtonChange>
@@ -830,6 +843,40 @@ const InputDate = styled(DatePicker)`
   }
 `;
 
-const LabelDate = styled.label`
+const LabelData = styled.label`
+  width: 100%;
+  /* margin-bottom: 1rem; */
   font-size: 1rem;
+  color: #18181b;
+  line-height: normal;
+  border-radius: 0.3rem;
+  display: flex;
+  align-items: center;
+
+  .icon {
+    font-size: 1.2rem;
+  }
+  .green {
+    color: #15803d;
+  }
+  .blue {
+    color: #1d4ed8;
+  }
+`;
+
+const ContentIconSendScore = styled.div`
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: ${(props) => (props.blue ? "#93C5FD" : "#86EFAC")};
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 0.5rem;
+`;
+const Line = styled.hr`
+  border-top: 1px solid #a1a1aa;
+  width: 100%;
+  margin: 0;
+  margin: 0.5rem 0;
 `;

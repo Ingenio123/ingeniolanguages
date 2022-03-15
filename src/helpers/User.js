@@ -96,7 +96,7 @@ export const GetScoreExamForIdStudent = async (idStudent) => {
       "Content-type": "application/json",
     },
   });
-  // console.log(resp);
+  console.log(resp);
   if (!resp.ok) return { data: null };
   const data = await resp.json();
   return data;
@@ -192,7 +192,7 @@ export const SendDataforEmail = async (
   });
   console.log(res);
 
-  if(res.status > 200){
+  if (res.status > 200) {
     return false;
   }
 
