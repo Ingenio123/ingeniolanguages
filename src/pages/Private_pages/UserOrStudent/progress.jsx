@@ -4,6 +4,7 @@ import styled, { keyframes } from "styled-components";
 import axios from "axios";
 // hooks
 import { useContext, useState, useEffect, useReducer } from "react";
+import { useParams } from "react-router-dom";
 //  end hooks
 //components
 import CardProgress from "../../../components/Progress_Lesson/CardsChart";
@@ -22,10 +23,12 @@ const initialState = {
   title: null,
   normal: null,
   default: null,
-  loading: true,
+  loading: false,
   error: false,
   emptty: true,
   idiom: null,
+  isStudent: false,
+  empty: true,
 };
 
 const Reducer = (state = initialState, action) => {
@@ -102,22 +105,28 @@ function Progress() {
   const [Idiom, setIdiom] = useState("");
   const [state, dispatch] = useReducer(Reducer, initialState);
   const [Kids, setKids] = useState(null);
+  const [DataScore, seDataScore] = useState([]);
+  const { id } = useParams();
+  const [Loading, setLoading] = useState(false);
+  const [DataIdiom, setDataIdom] = useState({});
 
   useEffect(() => {
     async function GetData() {
       const user = JSON.parse(window.localStorage.getItem("user"));
+      dispatch({
+        type: "LOADING",
+      });
       const resp = await axios.get(`${Url.url}/sudent/summary/getsummary`, {
         headers: {
           Authorization: `Bearer ${user.token}`,
         },
       });
-
-      dispatch({
-        type: "LOADING",
-      });
-
+      // console.log(resp.data);
       //
       if (resp.data.data.length > 0) {
+        dispatch({
+          type: "LOADING_FALSE",
+        });
         dispatch({
           type: "GET_DATA_SERVER",
           payload: resp.data.data,
@@ -140,8 +149,19 @@ function Progress() {
 
     // GetData();
     if (studentContext.student) {
+      console.log(studentContext.student.QueryStudent.courses);
+      const data = studentContext.student.QueryStudent.courses.map((e) => {
+        return {
+          idiom: e.idiom,
+          kids: e.kids,
+          score: e.score,
+        };
+      });
+      // console.log(data);
+      seDataScore([...DataScore, data]);
       GetData(studentContext.student.QueryStudent.courses[0].idiom);
     }
+    console.log(id);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [studentContext.student]);
   //#####################################################################
@@ -170,8 +190,102 @@ function Progress() {
     }
     // state.datos
   };
-
   //####################################################################
+
+  const Score = (score) => {
+    let valores = 0;
+    if (score === 0) {
+      return {
+        level: "A1",
+        score: 0,
+        scoreprint: 0,
+      };
+    }
+    //
+    if (score >= 5.55 && score <= 16.65) {
+      valores = score / 5.55;
+      return {
+        level: "A1",
+        score: score,
+        scoreprint: valores,
+      };
+    }
+    if (score >= 22.2 && score <= 33.3) {
+      valores = score / 5.55 - 3;
+      return {
+        level: "A2",
+        score: score,
+        scoreprint: valores,
+      };
+    }
+    if (score >= 38.85 && score <= 49.94) {
+      valores = score / 5.55 - 6;
+      let calc = valores * 33.33;
+      return {
+        level: "B1",
+        score: calc.toFixed(),
+        scoreprint: valores,
+      };
+    }
+    if (score >= 55.5 && score <= 66.6) {
+      valores = score / 5.55 - 9;
+      return {
+        level: "B2",
+        score: score,
+        scoreprint: valores,
+      };
+    }
+    if (score >= 72.15 && score <= 83.25) {
+      valores = score / 5.55 - 12;
+      return {
+        level: "C1",
+        score: score,
+        scoreprint: valores,
+      };
+    }
+    if (score >= 88.8 && score <= 99.89) {
+      valores = score / 5.55 - 15;
+      return {
+        level: "C2",
+        score: score,
+        scoreprint: valores,
+      };
+    }
+  };
+
+  useEffect(() => {
+    console.log("Changue item menu");
+    if (studentContext.student) {
+      setLoading(true);
+      // console.log("Student");
+      // console.log(studentContext.student.QueryStudent.courses);
+      const valor = studentContext.student.QueryStudent.courses.filter(
+        (e) => e._id === id
+      );
+      // console.log(valor[0]);
+      let valorScore = Score(valor[0].score);
+      setDataIdom({
+        ...DataIdiom,
+        valorScore: valorScore,
+        idiom: valor[0].idiom,
+        kids: valor[0].kids,
+      });
+      // console.log(valorScore);
+      return setLoading(false);
+    }
+    return setDataIdom({
+      ...DataIdiom,
+      valorScore: {
+        level: "A1",
+        score: 0,
+        scoreprint: 0,
+      },
+      idiom: id,
+      kids: false,
+    });
+  }, [id]);
+
+  // useEffect(()=>{})
 
   return (
     <GridColumns>
@@ -189,51 +303,63 @@ function Progress() {
           <>
             {studentContext.student ? (
               <>
-                {studentContext.student.QueryStudent.courses.map(
-                  (item, index) => (
-                    <CardProgressDetails key={index}>
-                      <div className="card__header">
-                        <div className="header__data">
-                          <span className="language">
-                            {item.idiom} {item.kids && " (Kids)"}
-                          </span>
-                        </div>
-                        <button
-                          onClick={() => ClickSummary(item.kids, item.idiom)}
-                          className="btn__summary"
-                        >
-                          Summary
-                        </button>
+                {/* comment (1) */}
+                {Loading ? (
+                  "loading"
+                ) : (
+                  <CardProgressDetails>
+                    <div className="card__header">
+                      <div className="header__data">
+                        <TextFeedbackFirst>
+                          {DataIdiom.idiom} {DataIdiom.kids && " (Kids)"}
+                        </TextFeedbackFirst>
                       </div>
-                      <CardProgresNew score={item.score} />
-                    </CardProgressDetails>
-                  )
+                      {/* <button
+                        onClick={() =>
+                          ClickSummary(DataIdiom.kids, DataIdiom.idiom)
+                        }
+                        className="btn__summary"
+                      >
+                        Summary
+                      </button> */}
+                    </div>
+                    <CardProgresNew
+                      score={DataIdiom.valorScore?.score}
+                      level={DataIdiom.valorScore?.level}
+                      scoreprint={DataIdiom.valorScore?.scoreprint}
+                    />
+                  </CardProgressDetails>
                 )}
+
+                {/* end comment (1) */}
               </>
             ) : (
               <>
-                {Data.map((val, index) => (
-                  <CardProgressDetails notStudent={true}>
-                    <div className="card__header">
-                      <div className="header__data">
-                        <span className="language">{val.idiom}</span>
-                      </div>
-                      <button className="btn__summary">Summary</button>
+                {/* comments (2) */}
+                <CardProgressDetails>
+                  <div className="card__header">
+                    <div className="header__data">
+                      <span className="language">
+                        {DataIdiom.idiom} {DataIdiom.kids && " (Kids)"}
+                      </span>
                     </div>
-                    <CardProgresNew score={val.porcentaje} />
-                  </CardProgressDetails>
-
-                  // <CardProgress
-                  //   idiom={val.idiom}
-                  //   color={val.color}
-                  //   TimeLossons={val.TimeLossons}
-                  //   textColor={val.textColor}
-                  //   primary={val.primary}
-                  //   porcentaje={val.porcentaje}
-                  //   key={index}
-                  //   click={click}
-                  // />
-                ))}
+                    <button
+                      onClick={() =>
+                        ClickSummary(DataIdiom.kids, DataIdiom.idiom)
+                      }
+                      className="btn__summary"
+                    >
+                      Summary
+                    </button>
+                  </div>
+                  <br />
+                  <br />
+                  <CardProgresNew
+                    score={DataIdiom.valorScore?.score}
+                    level={DataIdiom.valorScore?.level}
+                    scoreprint={DataIdiom.valorScore?.scoreprint}
+                  />
+                </CardProgressDetails>
               </>
             )}
           </>
@@ -243,7 +369,7 @@ function Progress() {
         ItIsEmpty={state.empty}
         Summary={state.default}
         loading={state.loading}
-        isStudent={studentContext.student}
+        isStudent={studentContext.student ? true : false}
         idiom={Idiom}
         kids={Kids}
       />
@@ -259,7 +385,7 @@ const CardProgressDetails = styled.div`
   /* border: 1px solid silver; */
   width: ${({ notStudent }) => (notStudent ? "300px" : "470px")};
   align-items: center;
-  max-height: 260px;
+  max-height: 300px;
   box-shadow: 1px 7px 6px -2px rgba(0, 0, 0, 0.2);
   border-radius: 8px;
   .card__header {
@@ -277,7 +403,7 @@ const CardProgressDetails = styled.div`
       padding: 0 1rem;
       background: #dbeafe;
       border-radius: 4px;
-
+      max-height: 48px;
       font-size: 1rem;
       color: #3b82f6;
       font-weight: 600;
@@ -487,4 +613,58 @@ const CardSkeleton = styled.div`
   animation-duration: .8s;
   animation-iteration-count: infinite;
   content: ''; */
+`;
+
+/*
+//comment (1)
+
+{studentContext.student.QueryStudent.courses.map(
+                  (item, index) => (
+                    <CardProgressDetails key={index}>
+                      <div className="card__header">
+                        <div className="header__data">
+                          <span className="language">
+                            {item.idiom} {item.kids && " (Kids)"}
+                          </span>
+                        </div>
+                        <button
+                          onClick={() => ClickSummary(item.kids, item.idiom)}
+                          className="btn__summary"
+                        >
+                          Summary
+                        </button>
+                      </div>
+                      <CardProgresNew
+                        score={Score(item.score).score}
+                        level={Score(item.score).level}
+                        scoreprint={Score(item.score).scoreprint}
+                      />
+                    </CardProgressDetails>
+                  )
+                )}
+                */
+
+/*
+                {
+                  Data.map((val, index) => (
+                    <CardProgressDetails notStudent={true}>
+                      <div className="card__header">
+                        <div className="header__data">
+                          <span className="language">{val.idiom}</span>
+                        </div>
+                        <button className="btn__summary">Summary</button>
+                      </div>
+                      <CardProgresNew score={val.porcentaje} />
+                    </CardProgressDetails>
+                  ));
+                }
+
+                */
+const TextFeedbackFirst = styled.h2`
+  font-family: "Sacramento", cursive;
+  font-size: 2.8rem !important;
+  font-weight: bold;
+  text-align: center;
+  line-height: normal;
+  margin: 0;
 `;

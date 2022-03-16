@@ -250,12 +250,6 @@ export const SearchComponenttwo = ({ data }) => {
                   <TitleSearch>Student: {Item.email} </TitleSearch>
                 )}
                 {Object.keys(Item).length !== 0 && SelectArray(Item.courses)}
-                {/* {JSON.stringify(Item)} */}
-                {/* {Item.courses[0].idiom} */}
-                {/* {Object.keys(Item).length ===  5 && dataIdiom } */}
-                <TextCourse>
-                  Language: {dataIdiom.show && dataIdiom.msg}
-                </TextCourse>
               </div>
 
               <SendScoreComponent
@@ -273,9 +267,6 @@ export const SearchComponenttwo = ({ data }) => {
               <ButtonPlus onClick={() => ClickModal()}>
                 <BsPlusCircleFill size={"1.5rem"} />
               </ButtonPlus>
-              {/* <ButtonPlus onClick={() => addScore()}>
-                <BsPlusCircleFill size={"1.5rem"} />
-              </ButtonPlus> */}
             </ContentBox>
           </>
         )}
@@ -283,49 +274,6 @@ export const SearchComponenttwo = ({ data }) => {
     </>
   );
 };
-
-const TextCourse = styled.p`
-  margin: 0;
-  line-height: normal;
-  font-size: 1.2rem;
-  font-weight: 600;
-  color: #314584;
-  text-align: center;
-  margin-bottom: 1rem;
-`;
-
-const SelectLevel = styled(Select)`
-  margin-bottom: 1rem;
-`;
-
-const ContentsWrapper = styled.div`
-  margin-top: 0.8rem;
-`;
-
-const ButtonCheck = styled.button`
-  height: 20px;
-  width: 20px;
-  background-color: ${({ active }) => (active ? "#4ADE80" : "transparent")};
-  border: ${({ active }) => (active ? "none" : "2px solid #2563eb")};
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: #fff;
-  font-size: 1.25rem;
-  margin: 0;
-`;
-
-const Wrapper = styled.div`
-  margin: 0;
-  display: flex;
-  margin: 0.2rem 0;
-  span {
-    font-size: 1.2rem;
-    margin-left: 0.25rem;
-    line-height: normal;
-  }
-`;
 
 const ContentBox = styled.div`
   /* border: 1px solid red; */

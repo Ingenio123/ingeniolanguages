@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import PropTypes from "prop-types";
 
-export const CardProgresNew = ({ score }) => {
+export const CardProgresNew = ({ score, level, scoreprint }) => {
   return (
     <Donut>
       <div className="donut-default">
@@ -9,18 +9,26 @@ export const CardProgresNew = ({ score }) => {
       </div>
       {/* <div class="donut-line"></div> */}
       <div className="donut-text ">
-        <h2>A1</h2>
+        <h2>{level}</h2>
       </div>
       <div
-        className={score >= 30 ? "donut-case" : "donut-case bg-default"}
+        className={
+          scoreprint >= 1 && scoreprint <= 3
+            ? "donut-case"
+            : "donut-case bg-default"
+        }
       ></div>
 
       <div
-        className={score >= 60 ? "donut-casetwo" : "donut-casetwo bg-default"}
+        className={
+          scoreprint >= 2 && scoreprint <= 3
+            ? "donut-casetwo"
+            : "donut-casetwo bg-default"
+        }
       ></div>
       <div
         className={
-          score >= 90 ? "donut-casethree" : "donut-casethree bg-default"
+          scoreprint === 3 ? "donut-casethree" : "donut-casethree bg-default"
         }
       ></div>
     </Donut>
@@ -29,16 +37,21 @@ export const CardProgresNew = ({ score }) => {
 
 CardProgresNew.defaultProps = {
   score: 0,
+  level: "A1",
+  scoreprint: 0,
 };
 
 CardProgresNew.prototypes = {
   score: PropTypes.number.isRequired,
+  level: PropTypes.string.isRequired,
+  scoreprint: PropTypes.number.isRequired,
 };
 
 const Donut = styled.div`
   position: relative;
   width: 200px;
   height: 200px;
+  margin-top: 20px;
   .donut-text {
     top: 25px;
     left: 25px;
@@ -89,7 +102,7 @@ const Donut = styled.div`
     background-clip: border-box;
     overflow: hidden;
     transform: rotate(210deg);
-    clip: rect(0 165px 100px 0);
+    clip: rect(0 195px 100px 0);
   }
   .donut-casethree {
     width: 100%;
@@ -100,7 +113,7 @@ const Donut = styled.div`
     left: 0;
     background-clip: border-box;
     overflow: hidden;
-    clip: rect(0 100px 135px 0);
+    clip: rect(0 100px 100px 0);
     background: #1d4ed8;
 
     transform: rotate(0deg);

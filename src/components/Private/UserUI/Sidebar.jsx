@@ -197,6 +197,51 @@ export default function Sidebar({ salir, isLogged }) {
                           )}
                         </div>
                       )}
+                      {item.name === "My progress" && (
+                        <div className="dropdown-subitem">
+                          {contextStudent.student || courses.length > 0 ? (
+                            <>
+                              {courses.length > 0 ? (
+                                <>
+                                  {courses.map((item, index) => (
+                                    <Link
+                                      to={`/progress/${item._id}`}
+                                      key={index}
+                                    >
+                                      {item}
+                                    </Link>
+                                  ))}
+                                </>
+                              ) : (
+                                <>
+                                  {contextStudent.student.QueryStudent.courses.map(
+                                    (item, index) => (
+                                      <Link
+                                        to={`/progress/${item._id}`}
+                                        key={index}
+                                      >
+                                        {item.idiom}
+                                        {item.kids && "(Kids)"}
+                                      </Link>
+                                    )
+                                  )}
+                                </>
+                              )}
+                            </>
+                          ) : (
+                            <>
+                              {ItemsNotStudent.map((names, index) => (
+                                <Link
+                                  key={index}
+                                  to={`/progress/${names.idiom}`}
+                                >
+                                  {names.nameItem}
+                                </Link>
+                              ))}
+                            </>
+                          )}
+                        </div>
+                      )}
                       {item.name === "Book a lesson" && (
                         <div className="dropdown-subitem">
                           {contextStudent.student || courses.length > 0 ? (

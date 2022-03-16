@@ -29,11 +29,12 @@ const ComponentTitle = styled.div`
   flex-direction: column;
 `;
 const TextTitle = styled.h2`
-  font-size: 2rem;
-  color: #18181b;
+  font-size: 2.8rem;
+  /* color: #18181b; */
   line-height: 1;
   margin: 0;
   font-weight: 600;
+  font-family: "Sacramento", cursive;
 `;
 const Line = styled.hr`
   width: 80%;

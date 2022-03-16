@@ -163,7 +163,11 @@ ReactDOM.render(
                     component={BookLesson}
                   />
                 </NavbarState>
-                <PrivateRouter path="/progress" exact component={Progress} />
+                <PrivateRouter
+                  path="/progress/:id"
+                  exact
+                  component={Progress}
+                />
               </StudentProvider>
               <PrivateRouter path="/democlass" exact component={Democlass} />
               <StudentState>

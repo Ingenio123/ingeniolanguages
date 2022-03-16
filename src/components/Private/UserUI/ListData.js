@@ -9,7 +9,7 @@ export const Items = [
   },
   {
     name: "My progress",
-    link: "/progress",
+    // link: "/progress",
   },
   {
     name: "Book a lesson",

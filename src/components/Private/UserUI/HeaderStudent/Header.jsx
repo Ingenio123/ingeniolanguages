@@ -1,6 +1,6 @@
 import { useEffect, useState, useContext } from "react";
 import styled, { css } from "styled-components";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useHistory, useParams } from "react-router-dom";
 import useTeacher from "../../../../hooks/useTeachers";
 
 // Ui
@@ -81,6 +81,7 @@ export default function Header() {
   const history = useHistory();
   const contextStudent = useContext(studentContext);
   const { getIdiom } = useCardIdiom();
+  const { id } = useParams();
   const Home = () => {
     history.push("/");
   };
@@ -93,7 +94,6 @@ export default function Header() {
   }, []);
 
   //
-
   const handleClickCardIdiom = (param) => {
     getIdiom(param);
     window.scroll({
@@ -102,6 +102,7 @@ export default function Header() {
       behavior: "smooth",
     });
   };
+
   function FormatDate(date) {
     const dates = new Date(date);
     var year = dates.getFullYear();
@@ -116,6 +117,11 @@ export default function Header() {
     return month + "/" + day + "/" + year;
   }
   //
+
+  useEffect(() => {
+    console.log("Id" + id);
+  }, [id]);
+
   return (
     <ContentCards>
       {contextStudent.student ? (

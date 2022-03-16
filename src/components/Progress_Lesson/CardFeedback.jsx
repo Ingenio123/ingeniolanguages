@@ -54,7 +54,6 @@ export default function CardFeedBack(
                 {isStudent ? (
                   <>
                     <TextFeedback>Summary of lessons {idiom}</TextFeedback>
-
                     <CardItIsEmpty>
                       <TextCardNotStudent>
                         The summaries of your lessons haven't been submitted
@@ -63,19 +62,23 @@ export default function CardFeedBack(
                     </CardItIsEmpty>
                   </>
                 ) : (
-                  <CardNotStudent>
-                    <TextCardNotStudent>
-                      In this Section, you will be able to view your teachers
-                      feedback of the lessons you have h ad
-                    </TextCardNotStudent>
-                  </CardNotStudent>
+                  <>
+                    <TextFeedback>Summary of lessons </TextFeedback>
+                    <CardNotStudent>
+                      <TextCardNotStudent>
+                        In this Section, you will be able to view your teachers
+                        feedback of the lessons you have h ad
+                      </TextCardNotStudent>
+                    </CardNotStudent>
+                  </>
                 )}
               </>
             ) : (
               <>
-                <TextFeedback>
-                  Summary of lessons {idiom} {kids && "(kids)"}
-                </TextFeedback>
+                {/* <TextFeedbackFirst>
+                  {idiom} {kids && "(kids)"}
+                </TextFeedbackFirst> */}
+                <TextFeedbackFirst>Summary of lessons</TextFeedbackFirst>
                 {Summary && (
                   <>
                     {Summary.map((item, index) => (
@@ -211,10 +214,20 @@ const Line = styled.div`
   }
 `;
 
+const TextFeedbackFirst = styled.h2`
+  font-family: "Sacramento", cursive;
+  font-size: 2.8rem !important;
+  font-weight: bold;
+  text-align: center;
+  line-height: normal;
+  margin: 0;
+`;
+
 const TextFeedback = styled.h2`
   margin: 0;
-  margin-bottom: 1rem;
   text-align: center;
+  font-weight: 600;
+  margin-bottom: 1rem;
 `;
 
 const IconHeader = styled(BiChevronDown)`
