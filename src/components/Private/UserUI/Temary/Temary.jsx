@@ -6,7 +6,7 @@ import styled from "styled-components";
 import { ContextCardIdiom } from "../../../../context/CardIdiomContext";
 import ContextStudent from "../../../Context/StudentContext";
 
-export const Temary = () => {
+export const Temary = (props) => {
   const [Valor, setValor] = useState([]);
   const [ClickPrimary, setClickPrimary] = useState(false);
   const [ClickSecondary, setClickSecondary] = useState(false);
@@ -43,7 +43,7 @@ export const Temary = () => {
   };
   return (
     <TemaryLayout className="l-section s-border md-pxy brd-radius">
-      <div className="dgrid m-grid-2 al-center header_temary">
+      <div className="  al-center header_temary">
         {/* {StudentContext.student.QueryStudent.courses[0].idiom ? (
           <h2 className="mb-0">
             {StudentContext.student.QueryStudent.courses[0].idiom} course
@@ -52,8 +52,10 @@ export const Temary = () => {
         ) : (
           <h2 className="mb-0">{Student || "Spanish"} course content </h2>
         )} */}
-        <h2 className="mb-1 text-center">
-          {Student || "English"} course content
+        <h2
+          className={(props.textSacramento ? "font_sacramento " : "") + "mb-1"}
+        >
+          {props.idiom || "English"} {props.kids && "(kids)"} course content
         </h2>
         {/* <div>
           <InputSearch

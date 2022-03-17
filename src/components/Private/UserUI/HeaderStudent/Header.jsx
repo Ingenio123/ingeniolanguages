@@ -77,7 +77,7 @@ const imgFondo = (idiom) => {
   }
 };
 
-export default function Header() {
+export default function Header({ course }) {
   const history = useHistory();
   const contextStudent = useContext(studentContext);
   const { getIdiom } = useCardIdiom();
@@ -88,7 +88,7 @@ export default function Header() {
 
   useEffect(() => {
     console.log(contextStudent);
-    contextStudent.getStudent();
+    // contextStudent.getStudent();
     // console.log(contextStudent);
     // console.log("Header Student", teachers);
   }, []);
@@ -126,59 +126,53 @@ export default function Header() {
     <ContentCards>
       {contextStudent.student ? (
         <>
-          {contextStudent.student.QueryStudent.courses.map((item, index) => (
-            <CardContent
-              key={index}
-              img={item.kids ? imgFondo("Infantil") : imgFondo(item.idiom)}
-            >
-              <ButtonNext onClick={() => handleClickCardIdiom(item.idiom)}>
-                <BiChevronRight size="1.3rem" />
-              </ButtonNext>
-              <CardCourse>
-                <ContentImage>
-                  <Img url={imgs(item.idiom)} width="200px" alt="" />
-                  <ItemsDeCompra flex style={{ width: "100%" }}></ItemsDeCompra>
-                </ContentImage>
-                <div>
-                  <CardHeader>
-                    <span>
-                      {item.idiom} {item.kids && "(Kids)"}
-                    </span>
-                  </CardHeader>
-                  <DatosDeCompra>
-                    <ItemsDeCompra>
-                      <IconTime />
-                      <ItemContent>
-                        Duration of each lesson: {item.time} minutes
-                        {/* Time de cada lessons: 40 min lessons */}
-                      </ItemContent>
-                    </ItemsDeCompra>
-                    <ItemsDeCompra>
-                      <IconNumberLessons />
-                      <ItemContent>
-                        Number of purchased lessons: {item.lesson}
-                        {item.lesson > 1 ? " lessons" : " lesson"}
-                      </ItemContent>
-                    </ItemsDeCompra>
-                    <ItemsDeCompra>
-                      <IconNumberLessons />
-                      <ItemContent>
-                        Number of remaining lessons: {item.lessonTotal}
-                        {item.lesson > 1 ? " lessons" : " lesson"}
-                      </ItemContent>
-                    </ItemsDeCompra>
-                    <ItemsDeCompra>
-                      <IconCalendar />
-                      <ItemContent>
-                        Lessons package expiration date:{" "}
-                        {FormatDate(item.expiresCours)}
-                      </ItemContent>
-                    </ItemsDeCompra>
-                  </DatosDeCompra>
-                </div>
-              </CardCourse>
-            </CardContent>
-          ))}
+          <CardContent
+            img={course.kids ? imgFondo("Infantil") : imgFondo(course.idiom)}
+          >
+            <CardCourse>
+              <ContentImage>
+                <Img url={imgs(course.idiom)} width="200px" alt="" />
+                <ItemsDeCompra flex style={{ width: "100%" }}></ItemsDeCompra>
+              </ContentImage>
+              <div>
+                <CardHeader>
+                  <span>
+                    {course.idiom} {course.kids && "(Kids)"}
+                  </span>
+                </CardHeader>
+                <DatosDeCompra>
+                  <ItemsDeCompra>
+                    <IconTime />
+                    <ItemContent>
+                      Duration of each lesson: {course.time} minutes
+                      {/* Time de cada lessons: 40 min lessons */}
+                    </ItemContent>
+                  </ItemsDeCompra>
+                  <ItemsDeCompra>
+                    <IconNumberLessons />
+                    <ItemContent>
+                      Number of purchased lessons: {course.lesson}
+                      {course.lesson > 1 ? " lessons" : " lesson"}
+                    </ItemContent>
+                  </ItemsDeCompra>
+                  <ItemsDeCompra>
+                    <IconNumberLessons />
+                    <ItemContent>
+                      Number of remaining lessons: {course.lessonTotal}
+                      {course.lesson > 1 ? " lessons" : " lesson"}
+                    </ItemContent>
+                  </ItemsDeCompra>
+                  <ItemsDeCompra>
+                    <IconCalendar />
+                    <ItemContent>
+                      Lessons package expiration date:{" "}
+                      {FormatDate(course.expiresCours)}
+                    </ItemContent>
+                  </ItemsDeCompra>
+                </DatosDeCompra>
+              </div>
+            </CardCourse>
+          </CardContent>
         </>
       ) : (
         <>

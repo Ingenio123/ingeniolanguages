@@ -80,6 +80,10 @@ import SignForgotPassword from "./pages/ForgotPassword/SignForgotPass";
 import { UpdatePassword } from "./pages/ForgotPassword/UpdatedPassword";
 import { PageForgotPassword } from "./pages/ForgotPassword/PageForgot";
 
+//context
+import ContexCardIdiomProvider from "./context/CardIdiomContext";
+import { UserPrivateNotId } from "./pages/Private_pages/UserOrStudent/userPrivateNotId";
+
 // i18next.init({
 //   interpolation: {
 //     escapeValue: false,
@@ -151,11 +155,18 @@ ReactDOM.render(
                 component={Notificacion}
               />
               <StudentProvider>
-                <PrivateRouter
-                  path="/private/:id"
-                  exact
-                  component={UserPrivate}
-                />
+                <ContexCardIdiomProvider>
+                  <PrivateRouter
+                    path="/private"
+                    exact
+                    component={UserPrivateNotId}
+                  />
+                  <PrivateRouter
+                    path="/private/:id"
+                    exact
+                    component={UserPrivate}
+                  />
+                </ContexCardIdiomProvider>
                 <NavbarState>
                   <PrivateRouter
                     path="/booklesson"

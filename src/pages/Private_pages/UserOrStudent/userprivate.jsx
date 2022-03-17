@@ -1,17 +1,48 @@
-import React from "react";
+import { useEffect, useContext, useState } from "react";
+import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import CardLists from "../../../components/Private/UserUI/HeaderStudent/Header";
-
 import { Temary } from "../../../components/Private/UserUI/Temary/Temary";
-import ContexCardIdiomProvider from "../../../context/CardIdiomContext";
+import studentContext from "../../../components/Context/StudentContext";
+
+// import ContexCardIdiomProvider from "../../../context/CardIdiomContext";
 export default function UserPrivate({ children }) {
+  const { id } = useParams();
+  const contextStudent = useContext(studentContext);
+  const [OneCourse, setOneCourse] = useState({
+    course: {},
+  });
+  useEffect(() => {
+    contextStudent.getStudent();
+  }, []);
+
+  useEffect(() => {
+    const idCourse = id;
+    // console.log(idCourse);
+    if (contextStudent.student?.QueryStudent.courses) {
+      // console.log("Course");
+      let getOneCourse = contextStudent.student.QueryStudent.courses.filter(
+        (e) => e._id === idCourse
+      );
+      console.log(getOneCourse[0]);
+      setOneCourse({
+        ...OneCourse,
+        course: getOneCourse[0],
+      });
+    }
+  }, [id]);
+
   return (
     <Container>
       <ContentTemary>
-        <ContexCardIdiomProvider>
-          <CardLists />
-          <Temary />
-        </ContexCardIdiomProvider>
+        {/* <ContexCardIdiomProvider> */}
+        <CardLists course={OneCourse.course} />
+        <Temary
+          idiom={OneCourse.course.idiom}
+          kids={OneCourse.course.kids}
+          textSacramento={true}
+        />
+        {/* </ContexCardIdiomProvider> */}
       </ContentTemary>
     </Container>
   );
