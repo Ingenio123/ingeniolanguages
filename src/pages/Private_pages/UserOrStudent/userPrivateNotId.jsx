@@ -88,7 +88,6 @@ function FormatDate(date) {
 export const UserPrivateNotId = () => {
   const contextStudent = useContext(studentContext);
   useEffect(() => {
-    console.log("private not id");
     contextStudent.getStudent();
     // console.log(contextStudent.student.QueryStudent);
   }, []);
@@ -182,6 +181,14 @@ export const UserPrivateNotId = () => {
     </Container>
   );
 };
+
+const SectionButton = styled.div`
+  .button-primary {
+  }
+  .button-normal {
+  }
+`;
+
 const Container = styled.main`
   margin: 3rem 3rem;
 

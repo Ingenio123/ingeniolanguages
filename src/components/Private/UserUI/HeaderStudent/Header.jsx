@@ -1,7 +1,5 @@
-import { useEffect, useState, useContext } from "react";
+import { useContext } from "react";
 import styled, { css } from "styled-components";
-import { Link, useHistory, useParams } from "react-router-dom";
-import useTeacher from "../../../../hooks/useTeachers";
 
 // Ui
 import {
@@ -10,8 +8,6 @@ import {
   IoBarChartOutline,
   IoDocumentTextOutline,
 } from "react-icons/io5";
-
-import { BiChevronRight } from "react-icons/bi";
 
 import { FaCartPlus } from "react-icons/fa";
 import studentContext from "../../../Context/StudentContext";
@@ -31,9 +27,6 @@ import KoreaImg from "../../../../assets/images/svgs/Korea.png";
 import Francia from "../../../../assets/images/svgs/Francia.png";
 import Inglaterra from "../../../../assets/images/svgs/Inglaterra.png";
 import Infantil from "../../../../assets/images/ImageInfantil.jpg";
-
-//
-import useCardIdiom from "../../../../hooks/useCardIdiom";
 
 const imgs = (idiom) => {
   switch (idiom) {
@@ -78,31 +71,8 @@ const imgFondo = (idiom) => {
 };
 
 export default function Header({ course }) {
-  const history = useHistory();
   const contextStudent = useContext(studentContext);
-  const { getIdiom } = useCardIdiom();
-  const { id } = useParams();
-  const Home = () => {
-    history.push("/");
-  };
-
-  useEffect(() => {
-    console.log(contextStudent);
-    // contextStudent.getStudent();
-    // console.log(contextStudent);
-    // console.log("Header Student", teachers);
-  }, []);
-
   //
-  const handleClickCardIdiom = (param) => {
-    getIdiom(param);
-    window.scroll({
-      top: 104,
-      left: 0,
-      behavior: "smooth",
-    });
-  };
-
   function FormatDate(date) {
     const dates = new Date(date);
     var year = dates.getFullYear();
@@ -117,10 +87,6 @@ export default function Header({ course }) {
     return month + "/" + day + "/" + year;
   }
   //
-
-  useEffect(() => {
-    console.log("Id" + id);
-  }, [id]);
 
   return (
     <ContentCards>
@@ -176,46 +142,48 @@ export default function Header({ course }) {
         </>
       ) : (
         <>
-          {CardList.map((item, index) => (
-            <CardContent key={index} img={imgFondo(item.idiom)}>
-              <ButtonNext onClick={() => handleClickCardIdiom(item.idiom)}>
-                <BiChevronRight size="1.3rem" />
-              </ButtonNext>
-              <CardCourse>
-                <ContentImage>
-                  <Img url={imgs(item.idiom)} alt="" width="200px" />
-                  <ItemsDeCompra flex style={{ width: "100%" }}></ItemsDeCompra>
-                </ContentImage>
-                <div>
-                  <CardHeader>
-                    <span>{item.idiom}</span>
-                    {/* <BuyNewCourse onClick={Home} title="Buy a now package" /> */}
-                  </CardHeader>
-                  <DatosDeCompra>
-                    <ItemsDeCompra>
-                      <IconTime />
-                      <ItemContent>
-                        Duration of each lesson: {item.timeLesson}
-                        {/* Time de cada lessons: 40 min lessons */}
-                      </ItemContent>
-                    </ItemsDeCompra>
-                    <ItemsDeCompra>
-                      <IconNumberLessons />
-                      <ItemContent>
-                        Number of lessons: {item.lessonTotal} lessons
-                      </ItemContent>
-                    </ItemsDeCompra>
-                    <ItemsDeCompra>
-                      <IconCalendar />
-                      <ItemContent>
-                        Lessons package expiration: 00/00/00
-                      </ItemContent>
-                    </ItemsDeCompra>
-                  </DatosDeCompra>
-                </div>
-              </CardCourse>
-            </CardContent>
-          ))}
+          <CardContent img={imgFondo(course.idiom)}>
+            <CardCourse>
+              <ContentImage>
+                <Img url={imgs(course.idiom)} alt="" width="200px" />
+                <ItemsDeCompra flex style={{ width: "100%" }}></ItemsDeCompra>
+              </ContentImage>
+              <div>
+                <CardHeader>
+                  <span>{course.idiom}</span>
+                  {/* <BuyNewCourse onClick={Home} title="Buy a now package" /> */}
+                </CardHeader>
+                <DatosDeCompra>
+                  <ItemsDeCompra>
+                    <IconTime />
+                    <ItemContent>
+                      Duration of each lesson: {course.timeLesson}
+                      {/* Time de cada lessons: 40 min lessons */}
+                    </ItemContent>
+                  </ItemsDeCompra>
+
+                  <ItemsDeCompra>
+                    <IconNumberLessons />
+                    <ItemContent>
+                      Number of purchased lessons: 0 lessons
+                    </ItemContent>
+                  </ItemsDeCompra>
+                  <ItemsDeCompra>
+                    <IconNumberLessons />
+                    <ItemContent>
+                      Number of remaining lessons: {course.lessonTotal}
+                    </ItemContent>
+                  </ItemsDeCompra>
+                  <ItemsDeCompra>
+                    <IconCalendar />
+                    <ItemContent>
+                      Lessons package expiration: 00/00/00
+                    </ItemContent>
+                  </ItemsDeCompra>
+                </DatosDeCompra>
+              </div>
+            </CardCourse>
+          </CardContent>
         </>
       )}
     </ContentCards>

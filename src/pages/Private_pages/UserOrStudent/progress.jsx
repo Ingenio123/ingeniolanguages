@@ -339,21 +339,12 @@ function Progress() {
                 <CardProgressDetails>
                   <div className="card__header">
                     <div className="header__data">
-                      <span className="language">
+                      <TextFeedbackFirst className="language">
                         {DataIdiom.idiom} {DataIdiom.kids && " (Kids)"}
-                      </span>
+                      </TextFeedbackFirst>
                     </div>
-                    <button
-                      onClick={() =>
-                        ClickSummary(DataIdiom.kids, DataIdiom.idiom)
-                      }
-                      className="btn__summary"
-                    >
-                      Summary
-                    </button>
                   </div>
-                  <br />
-                  <br />
+
                   <CardProgresNew
                     score={DataIdiom.valorScore?.score}
                     level={DataIdiom.valorScore?.level}

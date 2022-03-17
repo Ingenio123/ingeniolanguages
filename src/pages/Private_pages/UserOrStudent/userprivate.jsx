@@ -4,6 +4,7 @@ import styled from "styled-components";
 import CardLists from "../../../components/Private/UserUI/HeaderStudent/Header";
 import { Temary } from "../../../components/Private/UserUI/Temary/Temary";
 import studentContext from "../../../components/Context/StudentContext";
+import ListCard from "../../../components/Private/UserUI/HeaderStudent/CardList";
 
 // import ContexCardIdiomProvider from "../../../context/CardIdiomContext";
 export default function UserPrivate({ children }) {
@@ -25,11 +26,17 @@ export default function UserPrivate({ children }) {
         (e) => e._id === idCourse
       );
       console.log(getOneCourse[0]);
-      setOneCourse({
+      return setOneCourse({
         ...OneCourse,
         course: getOneCourse[0],
       });
     }
+    console.log("Not student");
+    let Datos = ListCard.filter((e) => e.idiom === id);
+    return setOneCourse({
+      ...OneCourse,
+      course: Datos[0],
+    });
   }, [id]);
 
   return (

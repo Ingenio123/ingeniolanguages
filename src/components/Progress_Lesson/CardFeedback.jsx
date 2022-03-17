@@ -224,10 +224,12 @@ const TextFeedbackFirst = styled.h2`
 `;
 
 const TextFeedback = styled.h2`
-  margin: 0;
+  font-family: "Sacramento", cursive;
+  font-size: 2.8rem !important;
+  font-weight: bold;
   text-align: center;
-  font-weight: 600;
-  margin-bottom: 1rem;
+  line-height: normal;
+  margin: 0;
 `;
 
 const IconHeader = styled(BiChevronDown)`

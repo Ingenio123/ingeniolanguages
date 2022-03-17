@@ -188,7 +188,7 @@ export default function Sidebar({ salir, isLogged }) {
                               {ItemsNotStudent.map((names, index) => (
                                 <Link
                                   key={index}
-                                  to={`/booklesson?language=${names.idiom}`}
+                                  to={`/private/${names.nameItem}`}
                                 >
                                   {names.nameItem}
                                 </Link>
