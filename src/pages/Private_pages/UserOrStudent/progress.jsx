@@ -10,6 +10,7 @@ import { useParams } from "react-router-dom";
 import CardProgress from "../../../components/Progress_Lesson/CardsChart";
 import CardFeedback from "../../../components/Progress_Lesson/CardFeedback";
 import { CardProgresNew } from "../../../components/Progress_Lesson/CardProgress";
+import { ComponentButtons } from "../../../components/Buttons/ButtonLessonPackage";
 //end components
 import ContextStudent from "../../../components/Context/StudentContext";
 //data Json
@@ -29,6 +30,7 @@ const initialState = {
   idiom: null,
   isStudent: false,
   empty: true,
+  sumSelect: null,
 };
 
 const Reducer = (state = initialState, action) => {
@@ -66,6 +68,12 @@ const Reducer = (state = initialState, action) => {
         loading: false,
         empty: false,
       };
+    case "GET_KIDS":
+      let kids_data = state.datos.filter((x) => x.kids === true);
+      return {
+        ...state,
+        kids: kids_data,
+      };
     case "GET_DATA_NORMAL":
       return {
         ...state,
@@ -87,6 +95,7 @@ const Reducer = (state = initialState, action) => {
           empty: false,
         };
       }
+
       const normal = state.datos.filter((elem) => elem.kids === false);
       return {
         ...state,
@@ -94,6 +103,17 @@ const Reducer = (state = initialState, action) => {
         normal: normal,
         loading: false,
         empty: false,
+      };
+    case "SUMMARY_SELECT":
+      if (action.payload) {
+        return {
+          ...state,
+          sumSelect: state.kids,
+        };
+      }
+      return {
+        ...state,
+        sumSelect: state.normal,
       };
     default:
       return state;
@@ -111,6 +131,7 @@ function Progress() {
   const [DataIdiom, setDataIdom] = useState({});
 
   useEffect(() => {
+    console.log("useEffect #1");
     async function GetData() {
       const user = JSON.parse(window.localStorage.getItem("user"));
       dispatch({
@@ -163,7 +184,7 @@ function Progress() {
     }
     console.log(id);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [studentContext.student]);
+  }, []);
   //#####################################################################
   //                         GET SCORE PROCESS
   //####################################################################
@@ -262,17 +283,40 @@ function Progress() {
       const valor = studentContext.student.QueryStudent.courses.filter(
         (e) => e._id === id
       );
+
       // console.log(valor[0]);
       let valorScore = Score(valor[0].score);
+
+      if (valor[0].kids) {
+        dispatch({
+          type: "GET_KIDS",
+        });
+        dispatch({
+          type: "SUMMARY_SELECT",
+          payload: true,
+        });
+        setDataIdom({
+          ...DataIdiom,
+          valorScore: valorScore,
+          idiom: valor[0].idiom,
+          kids: valor[0].kids,
+        });
+        return setLoading(false);
+      }
+      dispatch({
+        type: "SUMMARY_SELECT",
+        payload: false,
+      });
       setDataIdom({
         ...DataIdiom,
         valorScore: valorScore,
         idiom: valor[0].idiom,
         kids: valor[0].kids,
       });
-      // console.log(valorScore);
       return setLoading(false);
+      // console.log(valorScore);
     }
+
     return setDataIdom({
       ...DataIdiom,
       valorScore: {
@@ -280,7 +324,7 @@ function Progress() {
         score: 0,
         scoreprint: 0,
       },
-      idiom: id,
+      idiom: "loading",
       kids: false,
     });
   }, [id]);
@@ -351,6 +395,8 @@ function Progress() {
                     scoreprint={DataIdiom.valorScore?.scoreprint}
                   />
                 </CardProgressDetails>
+
+                <ComponentButtons />
               </>
             )}
           </>
@@ -358,11 +404,11 @@ function Progress() {
       </ContentFlex>
       <CardFeedback
         ItIsEmpty={state.empty}
-        Summary={state.default}
+        Summary={state.sumSelect}
         loading={state.loading}
         isStudent={studentContext.student ? true : false}
-        idiom={Idiom}
-        kids={Kids}
+        idiom={DataIdiom.idiom}
+        kids={DataIdiom.kids}
       />
     </GridColumns>
   );
@@ -374,7 +420,7 @@ const CardProgressDetails = styled.div`
   padding: 0.5rem;
   flex-direction: column;
   /* border: 1px solid silver; */
-  width: ${({ notStudent }) => (notStudent ? "300px" : "470px")};
+  width: ${({ notStudent }) => (notStudent ? "100%" : "100%")};
   align-items: center;
   max-height: 300px;
   box-shadow: 1px 7px 6px -2px rgba(0, 0, 0, 0.2);

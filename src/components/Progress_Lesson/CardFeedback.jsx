@@ -66,8 +66,8 @@ export default function CardFeedBack(
                     <TextFeedback>Summary of lessons </TextFeedback>
                     <CardNotStudent>
                       <TextCardNotStudent>
-                        In this Section, you will be able to view your teachers
-                        feedback of the lessons you have h ad
+                        In this section, you will be able to view your teachers
+                        feedback.
                       </TextCardNotStudent>
                     </CardNotStudent>
                   </>

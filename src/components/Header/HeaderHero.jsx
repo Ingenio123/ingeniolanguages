@@ -7,7 +7,7 @@ import { useState, useEffect, useContext } from "react";
 
 import { Teachers } from "../SectionTeachers/Teachers";
 import { PriceSection } from "../priceSection/PriceSection";
-import { Link as LinkID } from "react-scroll";
+import { useHistory, Link } from "react-router-dom";
 
 import "./HeaderStyle.scss";
 import ModalRequesFreeClass from "./ModalRequesFreeClass";
@@ -16,7 +16,6 @@ import DemoClass from "../DemoClass/ModalDemoClass";
 import FormDatas from "../DemoClass/Formdatas";
 import FormDataOne from "../DemoClass/FormDemoUser";
 import Url from "../Urls";
-import userContext from "../Context/UserContext";
 
 import useUserData from "../../hooks/useUserData";
 import DataUserContext from "../Context/userDataContext";
@@ -45,7 +44,7 @@ const HeaderHero = ({ isLogged, ActivarLoged }) => {
   const UerData = useSelector((state) => state.UerData);
   console.log(UerData);
   const dispatch = useDispatch();
-
+  const history = useHistory();
   // async function GetDataUserFunct() {
   //   dispatch(GetDataUser());
   //   setLoading(false);
@@ -81,7 +80,6 @@ const HeaderHero = ({ isLogged, ActivarLoged }) => {
   };
   // >>--------------------------- OPEN MODAL DEMO END ---------------------------------<<
 
-
   return (
     <>
       <header>
@@ -107,16 +105,17 @@ const HeaderHero = ({ isLogged, ActivarLoged }) => {
             </p>
             <div className="hero-btns">
               {/* <!-- Hero Btn First --> */}
-              <ButtonBuyaLesson
-                to="Prices"
-                smooth={true}
-                duration={1000}
-                spy={true}
-              >
+              <ButtonBuyaLesson to="/prices">
                 <Icon /> Buy a lesson Package
               </ButtonBuyaLesson>
               {/* <!-- Hero Btn Second --> */}
-              {isLogged ? (
+              <Button
+                onClick={() => OpenModal()}
+                className="request-free-class"
+              >
+                Request Free Demo Lesson
+              </Button>
+              {/* {isLogged ? (
                 <Button
                   className="request-free-class"
                   onClick={() => OnpenModalDemo()}
@@ -124,19 +123,13 @@ const HeaderHero = ({ isLogged, ActivarLoged }) => {
                   Request Free Demo Lesson
                 </Button>
               ) : (
-                <Button
-                  onClick={() => OpenModal()}
-                  className="request-free-class"
-                >
-                  Request Free Demo Lesson
-                </Button>
-              )}
+              )} */}
             </div>
           </div>
         </div>
       </header>
       {/* Object.keys(UerData).length > 0 */}
-      {isLogged && (
+      {/* {isLogged && (
         <DemoClass
           mostrarModal={ShowFormData}
           modificadorModal={setShowFormData}
@@ -149,11 +142,11 @@ const HeaderHero = ({ isLogged, ActivarLoged }) => {
           FirstName={UerData.FirstName}
           Email={UerData.email}
         >
-          {UerData.addData === 3 && <FormDatas  />}
+          {UerData.addData === 3 && <FormDatas />}
           {UerData.addData === 1 && <FormDataOne />}
           {UerData.addData === 0 && <Images />}
         </DemoClass>
-      )}
+      )} */}
 
       <ModalRequesFreeClass
         route="democlass"
@@ -171,7 +164,7 @@ const HeaderHero = ({ isLogged, ActivarLoged }) => {
 };
 export default HeaderHero;
 
-const ButtonBuyaLesson = styled(LinkID)`
+const ButtonBuyaLesson = styled(Link)`
   padding: 17px 30px;
   cursor: pointer;
   font-size: 1.5rem;

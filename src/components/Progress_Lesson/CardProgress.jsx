@@ -50,8 +50,9 @@ CardProgresNew.prototypes = {
 const Donut = styled.div`
   position: relative;
   width: 200px;
-  height: 200px;
+  height: 230px;
   margin-top: 20px;
+
   .donut-text {
     top: 25px;
     left: 25px;

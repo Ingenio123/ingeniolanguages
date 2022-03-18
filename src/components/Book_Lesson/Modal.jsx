@@ -5,10 +5,12 @@ import { IoClose } from "react-icons/io5";
 // import OpsImage from "../../../../assets/images/ops.png";
 import OpsImage from "../../assets/images/ops.png";
 import { useHistory } from "react-router-dom";
+import ModalRequesFreeClass from "../Header/ModalRequesFreeClass";
 
 export default function NotStudent({ notStudent, setNotStudent }) {
   const BackgroundRef = useRef();
   const history = useHistory();
+  const [ShowForm, setShowForm] = useState(false);
   const keyPress = useCallback(
     (e) => {
       if (e.key === "Escape" && notStudent) {
@@ -27,9 +29,7 @@ export default function NotStudent({ notStudent, setNotStudent }) {
       setNotStudent(false);
     }
   };
-  const handleClickHome = () => {
-    return history.push("/prices");
-  };
+
   return (
     <>
       {notStudent ? (
@@ -45,18 +45,34 @@ export default function NotStudent({ notStudent, setNotStudent }) {
                 <DivText start>
                   <Button to="/prices">Buy a lesson</Button>
                   <TextSm>Or</TextSm>
-                  <Button free to="/democlass">
+                  <ButtonFree
+                    free
+                    onClick={() => {
+                      setNotStudent((prev) => !prev);
+                      setShowForm((prev) => !prev);
+                    }}
+                  >
                     Request free lesson
-                  </Button>
+                  </ButtonFree>
                 </DivText>
               </GridText>
             </Content>
             <ContentImg img={OpsImage}>
-              <ButtonClose onClick={() => setNotStudent((prev) => !prev)} />
+              <ButtonClose
+                onClick={() => {
+                  setNotStudent((prev) => !prev);
+                }}
+              />
             </ContentImg>
           </ModalCard>
         </Background>
       ) : null}
+      <ModalRequesFreeClass
+        route="democlass"
+        ShowForm={ShowForm}
+        setShowForm={setShowForm}
+        // SignUp={SignUp}
+      />
     </>
   );
 }
@@ -119,6 +135,24 @@ const DivText = styled.div`
   width: 100%;
   flex-direction: column;
 `;
+
+const ButtonFree = styled.button`
+  transition: all 0.2s ease;
+  padding: 0.2rem 1rem;
+  margin-bottom: 0.5rem;
+  border-radius: 4px;
+  color: #fff;
+  font-size: 1rem;
+  border: none;
+  outline: none;
+  background-color: ${(props) => (props.free ? "#e84f4b" : "#4338ca")};
+
+  :hover {
+    color: #fff;
+    background-color: ${(props) => (props.free ? "#e2231e " : "#3d32bc")};
+  }
+`;
+
 const Button = styled(Link)`
   transition: all 0.2s ease;
   padding: 0.2rem 1rem;

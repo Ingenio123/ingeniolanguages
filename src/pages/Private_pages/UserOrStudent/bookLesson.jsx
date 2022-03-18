@@ -42,17 +42,18 @@ function Index() {
   const OpenModal = () => {
     setShowModal((prev) => !prev);
   };
+
   const valores = useCallback((param) => {
-    console.log("param:", param.calendar);
+    // console.log("param:", param.calendar);
     // console.log(RecorreArray(studentContext.student.QueryStudent.courses));
     // da como resultado un numero int ->  entero  ===>  RecorreArray(student.QueryStudent.courses)
     // console.log(studentContext.student.QueryStudent.courses);
     function RecorreArray(param) {
-      console.log("Recorrer Array param", param);
+      // console.log("Recorrer Array param", param);
       const datos = param.map((item, index) => {
         return item.time;
       });
-      console.log(parseInt(datos[0].slice(0, 2)));
+      // console.log(parseInt(datos[0].slice(0, 2)));
       return parseInt(datos[0].slice(0, 2));
     }
     const val = param.calendar.filter(
@@ -74,6 +75,7 @@ function Index() {
       UserNotStudent();
     }
   };
+
   return (
     <Container>
       <div>
@@ -101,6 +103,7 @@ function Index() {
             />
             {/* component de las cards  */}
             <Grid
+              id
               width="100%"
               column="3,1fr"
               column_gap=".5rem"

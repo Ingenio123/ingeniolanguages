@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import styled, { css } from "styled-components";
-
+import { ComponentButtons } from "../../../Buttons/ButtonLessonPackage";
 // Ui
 import {
   IoCalendarOutline,
@@ -27,6 +27,8 @@ import KoreaImg from "../../../../assets/images/svgs/Korea.png";
 import Francia from "../../../../assets/images/svgs/Francia.png";
 import Inglaterra from "../../../../assets/images/svgs/Inglaterra.png";
 import Infantil from "../../../../assets/images/ImageInfantil.jpg";
+//
+import ModalRequesFreeClass from "../../../Header/ModalRequesFreeClass";
 
 const imgs = (idiom) => {
   switch (idiom) {
@@ -184,6 +186,7 @@ export default function Header({ course }) {
               </div>
             </CardCourse>
           </CardContent>
+          <ComponentButtons />
         </>
       )}
     </ContentCards>

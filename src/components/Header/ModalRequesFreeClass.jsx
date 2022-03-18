@@ -19,7 +19,7 @@ import {
   IoCloseSharp,
 } from "react-icons/io5";
 
-import {ModalSucess}  from './ModalSuccess'
+import { ModalSucess } from "./ModalSuccess";
 const options = [
   {
     label: "Spanish",
@@ -105,8 +105,6 @@ const AboutOptions = [
   },
 ];
 
-
-
 export default function ModalRequesFreeClass({
   route,
   ShowForm,
@@ -115,7 +113,6 @@ export default function ModalRequesFreeClass({
   isLogged,
   hasLoginError,
   sendDataForEmail,
-  
 }) {
   const modalRef = useRef();
   const [ShowPassword, setShowPassword] = useState(true);
@@ -127,7 +124,7 @@ export default function ModalRequesFreeClass({
   const [ClickSubmit, setClickSubmit] = useState(false);
   const [CountryLive, setCountryLive] = useState(null);
 
-  const [ModalSuccess, setModalSuccess] = useState(false)
+  const [ModalSuccess, setModalSuccess] = useState(false);
 
   const {
     register,
@@ -182,9 +179,9 @@ export default function ModalRequesFreeClass({
     const country = valueCountry;
     const cellphone = valorPhone.phone;
     console.log(country, cellphone, CountryLive);
-    const res  = await SendDataforEmail(data, country, cellphone, CountryLive);
-    if(res){
-      setModalSuccess(true)
+    const res = await SendDataforEmail(data, country, cellphone, CountryLive);
+    if (res) {
+      setModalSuccess(true);
       reset();
     }
   };
@@ -220,14 +217,10 @@ export default function ModalRequesFreeClass({
     }),
   };
 
-
   const goBack = () => {
-    setShowForm(prev => !prev);
-    setModalSuccess(prev => !prev);
-  }
-
-  
-  
+    setShowForm((prev) => !prev);
+    setModalSuccess((prev) => !prev);
+  };
 
   return (
     <div>
@@ -413,7 +406,7 @@ export default function ModalRequesFreeClass({
                 </ContentSelectOrganism>
                 <ContentTextArea>
                   <label>My goals and expectations are...</label>
-                  <TextAreaAtom {...register("Goals")}></TextAreaAtom>j
+                  <TextAreaAtom {...register("Goals")}></TextAreaAtom>
                 </ContentTextArea>
                 <Content_Center>
                   <ButtonSubmit>
@@ -425,8 +418,8 @@ export default function ModalRequesFreeClass({
               <IconClose onClick={() => setShowForm((prev) => !prev)} />
             </ContainerForm>
           </ModalWrapper>
-                      {/* modal success */}
-                      {ModalSuccess && <ModalSucess goBackF={goBack} />}
+          {/* modal success */}
+          {ModalSuccess && <ModalSucess goBackF={goBack} />}
         </div>
       ) : null}
     </div>
@@ -470,7 +463,7 @@ const LabelAtom = styled.label`
 
 const ModalWrapper = styled.div`
   width: 40vw;
-  height: 560px;
+  height: 570px;
   box-shadow: 0 5px 16px rgba(0, 0, 0, 0.2);
   background: #fff;
   position: relative;
