@@ -44,15 +44,16 @@ const ContentButtons = styled.div`
   align-items: center;
   width: 100%;
   margin-top: 1.5rem;
+
   button {
     border: none;
     padding: 0.5rem 1rem;
     transition: all 0.2s ease;
-    border-radius: 4px;
-    font-size: 1.3rem;
+    /* border-radius: 4px; */
+    border-radius: 30px;
+    font-size: 1rem;
     line-height: normal;
     color: #fff;
-    margin-right: 1rem;
     /* display: inline-block; */
     /* vertical-align: middle; */
   }

@@ -20,7 +20,7 @@ export const Footer = () => {
             <SubItems to="Prices" offset={50} duration={1000} smooth={true}>
               Prices
             </SubItems>
-            <SubItems to="">Contact Us</SubItems>
+            <AboutUs to="/AboutUs">About Us</AboutUs>
           </Items>
         </Container>
       </SectionFooter>
@@ -121,6 +121,28 @@ const Items = styled.ul`
   width: 100%;
   padding: 2rem 0;
 `;
+
+const AboutUs = styled(Link)`
+  display: block;
+  list-style: none;
+  padding: 10px;
+  font-size: 25px;
+  text-align: center;
+  color: #314584;
+  &::after {
+    content: "";
+    display: flex;
+    margin: 0 auto;
+    background: red;
+    width: 20px;
+    height: 3px;
+  }
+  &:hover {
+    color: red !important;
+    cursor: pointer;
+  }
+`;
+
 const SubItems = styled(LinkFooter)`
   display: block;
   list-style: none;

@@ -75,6 +75,7 @@ import Progress from "./pages/Private_pages/UserOrStudent/progress";
 import Prices from "./pages/prices/Prices";
 import PaypalOrder from "./pages/PaypalOrder/paypalorder";
 import TeacherProgress from "./pages/teacher/studentprogress";
+import AboutUs from "./pages/AboutUs/AboutUs";
 
 import SignForgotPassword from "./pages/ForgotPassword/SignForgotPass";
 import { UpdatePassword } from "./pages/ForgotPassword/UpdatedPassword";
@@ -106,7 +107,9 @@ ReactDOM.render(
       <UserContextProvider>
         <Router>
           <App />
+
           <Switch>
+            <Route exact path="/Aboutus" component={AboutUs} />
             <Route exact path="/prices" component={Prices} />
             <Route exact path="/payclient" component={formCheckOutPay} />
             <Route exact path="/results" component={resultDatafast} />
