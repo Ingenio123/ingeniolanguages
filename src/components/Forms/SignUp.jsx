@@ -106,7 +106,7 @@ const SignUp = (props) => {
     <>
       <Container className="container">
         {IsAuth() ? <Redirect to="/" /> : null}
-        <h1 className="text-center">Welcome</h1>
+        <H2Styles className="text-center">Welcome</H2Styles>
         <ContentRow>
           <div className="">
             <form className="bck-theme p-4" onSubmit={handleSubmit(onSubmit)}>
@@ -563,4 +563,13 @@ const Img = styled.div`
   background-position: center;
   background-size: cover;
   border-radius: 5px;
+`;
+
+const H2Styles = styled.h2`
+  margin: 0;
+  // top b
+  margin: 1rem 0 1rem 0;
+  font-family: "Sacramento", cursive;
+  font-size: 4rem;
+  font-weight: bold;
 `;

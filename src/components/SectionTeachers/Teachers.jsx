@@ -24,11 +24,9 @@ export const Teachers = () => {
     font-size: 1.4rem;
   `;
   return (
-    <>
+    <div id="/Teachers" className="mt-5">
       <div className="container">
-        <h1 id="/Teachers" className="text-center ">
-          Our teachers
-        </h1>
+        <h1 className="text-center ">Our teachers</h1>
         <div className="mb-4 row portafolio__teacher">
           {teachers.map((item, index) => (
             <div className="col-xs-12 col-sm-6 col-md-4" key={index}>
@@ -97,7 +95,7 @@ export const Teachers = () => {
           ))}
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

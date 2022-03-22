@@ -17,9 +17,7 @@ export const Footer = () => {
             <SubItems to="/Teachers" offset={50} duration={1000} smooth={true}>
               Teachers
             </SubItems>
-            <SubItems to="Prices" offset={50} duration={1000} smooth={true}>
-              Prices
-            </SubItems>
+            <AboutUs to="/prices">Packages & Pricing</AboutUs>
             <AboutUs to="/AboutUs">About Us</AboutUs>
           </Items>
         </Container>

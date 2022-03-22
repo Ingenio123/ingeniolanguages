@@ -139,7 +139,7 @@ const SignIn = ({ history }) => {
     <>
       <Container className="container ">
         {isAuth() ? <Redirect to="/" /> : null}
-        <h1 className="text-center">Welcome</h1>
+        <H2Styles className="text-center">Welcome</H2Styles>
         <ContentRow>
           <div>
             <form className="p-4 bck-theme" onSubmit={handleSubmit(onSubmit)}>
@@ -386,4 +386,11 @@ const LinkText = styled(Link)`
   :hover {
     color: #71717a !important;
   }
+`;
+const H2Styles = styled.h2`
+  margin: 0;
+  margin: 1rem 0 1rem 0;
+  font-family: "Sacramento", cursive;
+  font-size: 4rem;
+  font-weight: bold;
 `;

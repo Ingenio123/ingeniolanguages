@@ -1,6 +1,6 @@
 import styled from "styled-components";
 //react
-import { useState } from "react";
+import { useState, useEffect } from "react";
 //data
 import Data from "./data.json";
 import Datakids from "./DataKids.json";
@@ -13,6 +13,21 @@ const PricesPage = () => {
   const [Datas, setDatas] = useState({});
   const [ClickModalKids, setClickModalKids] = useState(false);
   const [DataKids, setDataKids] = useState({});
+
+  useEffect(() => {
+    try {
+      // trying to use new API - https://developer.mozilla.org/en-US/docs/Web/API/Window/scrollTo
+      window.scroll({
+        top: 0,
+        left: 0,
+        behavior: "smooth",
+      });
+    } catch (error) {
+      // just a fallback for older browsers
+      window.scrollTo(0, 0);
+    }
+  }, []);
+
   return (
     <>
       <BoxCart />
@@ -33,7 +48,7 @@ const PricesPage = () => {
           ))}
         </ContentGrid>
         <H2Styles top={true} bottom={true} className="text-center">
-          Lesson packages For Kids
+          Lesson packages for kids
         </H2Styles>
         <ContentGrid>
           {Datakids.map((item) => (
@@ -90,12 +105,10 @@ const ContentGrid = styled.section`
 
 const H2Styles = styled.h2`
   margin: 0;
-  margin: 3rem 0;
-  /* margin-top: ${({ top }) => (top ? "2rem" : "0")};
-  margin-bottom: ${({ bottom }) => (bottom ? "2rem" : "0")} !important; */
-
-  font-size: 2.5rem;
-  /* border: 1px solid black; */
+  margin: 1rem 0 1rem 0;
+  font-family: "Sacramento", cursive;
+  font-size: 4rem;
+  font-weight: bold;
 `;
 
 export default PricesPage;
