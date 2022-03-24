@@ -19,7 +19,7 @@ import Data from "./dataprogress.json";
 import Url from "../../../components/Urls";
 
 const initialState = {
-  datos: null,
+  datos: [],
   kids: null,
   title: null,
   normal: null,
@@ -130,61 +130,6 @@ function Progress() {
   const [Loading, setLoading] = useState(false);
   const [DataIdiom, setDataIdom] = useState({});
 
-  useEffect(() => {
-    console.log("useEffect #1");
-    async function GetData() {
-      const user = JSON.parse(window.localStorage.getItem("user"));
-      dispatch({
-        type: "LOADING",
-      });
-      const resp = await axios.get(`${Url.url}/sudent/summary/getsummary`, {
-        headers: {
-          Authorization: `Bearer ${user.token}`,
-        },
-      });
-      // console.log(resp.data);
-      //
-      if (resp.data.data.length > 0) {
-        dispatch({
-          type: "LOADING_FALSE",
-        });
-        dispatch({
-          type: "GET_DATA_SERVER",
-          payload: resp.data.data,
-        });
-        setIdiom(resp.data.data[0].course);
-        resp.data.data[0].kids ? setKids(true) : setKids(false);
-        return dispatch({
-          type: "DATA_DEFAULT",
-          payload: resp.data.data,
-        });
-      }
-      //
-      dispatch({
-        type: "IT_IS_EMPTY",
-      });
-      return dispatch({
-        type: "LOADING_FALSE",
-      });
-    }
-
-    // GetData();
-    if (studentContext.student) {
-      console.log(studentContext.student.QueryStudent.courses);
-      const data = studentContext.student.QueryStudent.courses.map((e) => {
-        return {
-          idiom: e.idiom,
-          kids: e.kids,
-          score: e.score,
-        };
-      });
-      // console.log(data);
-      seDataScore([...DataScore, data]);
-      GetData(studentContext.student.QueryStudent.courses[0].idiom);
-    }
-    console.log(id);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
   //#####################################################################
   //                         GET SCORE PROCESS
   //####################################################################
@@ -273,10 +218,69 @@ function Progress() {
       };
     }
   };
+  //
+  useEffect(() => {
+    console.log("useEffect #1");
+    async function GetData() {
+      const user = JSON.parse(window.localStorage.getItem("user"));
+      dispatch({
+        type: "LOADING",
+      });
+      const resp = await axios.get(`${Url.url}/sudent/summary/getsummary`, {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      });
+      // console.log(resp.data);
+      //
+      if (resp.data.data.length > 0) {
+        console.log("get Data dispatch");
+        dispatch({
+          type: "LOADING_FALSE",
+        });
+        dispatch({
+          type: "GET_DATA_SERVER",
+          payload: resp.data.data,
+        });
+        setIdiom(resp.data.data[0].course);
+        resp.data.data[0].kids ? setKids(true) : setKids(false);
+        return dispatch({
+          type: "DATA_DEFAULT",
+          payload: resp.data.data,
+        });
+      }
+      //
+      dispatch({
+        type: "IT_IS_EMPTY",
+      });
+      return dispatch({
+        type: "LOADING_FALSE",
+      });
+    }
+
+    // GetData();
+    if (studentContext.student) {
+      console.log("Stundent true");
+      console.log(studentContext.student.QueryStudent.courses);
+      const data = studentContext.student.QueryStudent.courses.map((e) => {
+        return {
+          idiom: e.idiom,
+          kids: e.kids,
+          score: e.score,
+        };
+      });
+      // console.log(data);
+      seDataScore([...DataScore, data]);
+      GetData(studentContext.student.QueryStudent.courses[0].idiom);
+    }
+    console.log(id);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     console.log("Changue item menu");
     if (studentContext.student) {
+      console.log("student true two");
       setLoading(true);
       // console.log("Student");
       // console.log(studentContext.student.QueryStudent.courses);

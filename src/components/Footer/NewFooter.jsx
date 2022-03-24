@@ -30,7 +30,7 @@ export default function NewFooter() {
             <LinkIcon
               to="*"
               onClick={(e) => {
-                window.location = "mailto:languages@ingenioonline.com";
+                window.location = "mailto:ingenio.team@gmail.com";
                 e.preventDefault();
               }}
             >

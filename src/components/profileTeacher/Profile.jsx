@@ -74,7 +74,7 @@ export const Profile = () => {
           </div>
           <div className="profesional_background">
             <span>
-              <h4 className="font-w-600 mb-1">Profesional background</h4>
+              <h4 className="font-w-600 mb-1">Professional background</h4>
             </span>
             <p>{Data.profesionalBackround}</p>
           </div>
