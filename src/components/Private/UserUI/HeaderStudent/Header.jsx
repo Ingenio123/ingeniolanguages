@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import styled, { css } from "styled-components";
+import styled, { css, keyframes } from "styled-components";
 import { ComponentButtons } from "../../../Buttons/ButtonLessonPackage";
 // Ui
 import {
@@ -92,103 +92,107 @@ export default function Header({ course }) {
 
   return (
     <ContentCards>
-      {contextStudent.student ? (
-        <>
-          <CardContent
-            img={course.kids ? imgFondo("Infantil") : imgFondo(course.idiom)}
-          >
-            <CardCourse>
-              <ContentImage>
-                <Img url={imgs(course.idiom)} width="200px" alt="" />
-                <ItemsDeCompra flex style={{ width: "100%" }}></ItemsDeCompra>
-              </ContentImage>
-              <div>
-                <CardHeader>
-                  <span>
-                    {course.idiom} {course.kids && "(Kids)"}
-                  </span>
-                </CardHeader>
-                <DatosDeCompra>
-                  <ItemsDeCompra>
-                    <IconTime />
-                    <ItemContent>
-                      Duration of each lesson: {course.time} minutes
-                      {/* Time de cada lessons: 40 min lessons */}
-                    </ItemContent>
-                  </ItemsDeCompra>
-                  <ItemsDeCompra>
-                    <IconNumberLessons />
-                    <ItemContent>
-                      Number of purchased lessons: {course.lesson}
-                      {course.lesson > 1 ? " lessons" : " lesson"}
-                    </ItemContent>
-                  </ItemsDeCompra>
-                  <ItemsDeCompra>
-                    <IconNumberLessons />
-                    <ItemContent>
-                      Number of remaining lessons: {course.lessonTotal}
-                      {course.lesson > 1 ? " lessons" : " lesson"}
-                    </ItemContent>
-                  </ItemsDeCompra>
-                  <ItemsDeCompra>
-                    <IconCalendar />
-                    <ItemContent>
-                      Lessons package expiration date:{" "}
-                      {FormatDate(course.expiresCours)}
-                    </ItemContent>
-                  </ItemsDeCompra>
-                </DatosDeCompra>
-              </div>
-            </CardCourse>
-          </CardContent>
-        </>
-      ) : (
-        <>
-          <CardContent img={imgFondo(course.idiom)}>
-            <CardCourse>
-              <ContentImage>
-                <Img url={imgs(course.idiom)} alt="" width="200px" />
-                <ItemsDeCompra flex style={{ width: "100%" }}></ItemsDeCompra>
-              </ContentImage>
-              <div>
-                <CardHeader>
-                  <span>{course.idiom}</span>
-                  {/* <BuyNewCourse onClick={Home} title="Buy a now package" /> */}
-                </CardHeader>
-                <DatosDeCompra>
-                  <ItemsDeCompra>
-                    <IconTime />
-                    <ItemContent>
-                      Duration of each lesson: {course.timeLesson}
-                      {/* Time de cada lessons: 40 min lessons */}
-                    </ItemContent>
-                  </ItemsDeCompra>
+      <>
+        {contextStudent.student ? (
+          <>
+            <CardContent
+              img={
+                course?.kids ? imgFondo("Infantil") : imgFondo(course?.idiom)
+              }
+            >
+              <CardCourse>
+                <ContentImage>
+                  <Img url={imgs(course?.idiom)} width="200px" alt="" />
+                  <ItemsDeCompra flex style={{ width: "100%" }}></ItemsDeCompra>
+                </ContentImage>
+                <div>
+                  <CardHeader>
+                    <span>
+                      {course?.idiom} {course?.kids && "(Kids)"}
+                    </span>
+                  </CardHeader>
+                  <DatosDeCompra>
+                    <ItemsDeCompra>
+                      <IconTime />
+                      <ItemContent>
+                        Duration of each lesson: {course?.time} minutes
+                        {/* Time de cada lessons: 40 min lessons */}
+                      </ItemContent>
+                    </ItemsDeCompra>
+                    <ItemsDeCompra>
+                      <IconNumberLessons />
+                      <ItemContent>
+                        Number of purchased lessons: {course?.lesson}
+                        {course?.lesson > 1 ? " lessons" : " lesson"}
+                      </ItemContent>
+                    </ItemsDeCompra>
+                    <ItemsDeCompra>
+                      <IconNumberLessons />
+                      <ItemContent>
+                        Number of remaining lessons: {course?.lessonTotal}
+                        {course?.lesson > 1 ? " lessons" : " lesson"}
+                      </ItemContent>
+                    </ItemsDeCompra>
+                    <ItemsDeCompra>
+                      <IconCalendar />
+                      <ItemContent>
+                        Lessons package expiration date:{" "}
+                        {FormatDate(course?.expiresCours)}
+                      </ItemContent>
+                    </ItemsDeCompra>
+                  </DatosDeCompra>
+                </div>
+              </CardCourse>
+            </CardContent>
+          </>
+        ) : (
+          <>
+            <CardContent img={imgFondo(course.idiom)}>
+              <CardCourse>
+                <ContentImage>
+                  <Img url={imgs(course.idiom)} alt="" width="200px" />
+                  <ItemsDeCompra flex style={{ width: "100%" }}></ItemsDeCompra>
+                </ContentImage>
+                <div>
+                  <CardHeader>
+                    <span>{course.idiom}</span>
+                    {/* <BuyNewCourse onClick={Home} title="Buy a now package" /> */}
+                  </CardHeader>
+                  <DatosDeCompra>
+                    <ItemsDeCompra>
+                      <IconTime />
+                      <ItemContent>
+                        Duration of each lesson: {course.timeLesson}
+                        {/* Time de cada lessons: 40 min lessons */}
+                      </ItemContent>
+                    </ItemsDeCompra>
 
-                  <ItemsDeCompra>
-                    <IconNumberLessons />
-                    <ItemContent>
-                      Number of purchased lessons: 0 lessons
-                    </ItemContent>
-                  </ItemsDeCompra>
-                  <ItemsDeCompra>
-                    <IconNumberLessons />
-                    <ItemContent>
-                      Number of remaining lessons: {course.lessonTotal}
-                    </ItemContent>
-                  </ItemsDeCompra>
-                  <ItemsDeCompra>
-                    <IconCalendar />
-                    <ItemContent>
-                      Lessons package expiration: 00/00/00
-                    </ItemContent>
-                  </ItemsDeCompra>
-                </DatosDeCompra>
-              </div>
-            </CardCourse>
-          </CardContent>
-          <ComponentButtons />
-        </>
-      )}
+                    <ItemsDeCompra>
+                      <IconNumberLessons />
+                      <ItemContent>
+                        Number of purchased lessons: 0 lessons
+                      </ItemContent>
+                    </ItemsDeCompra>
+                    <ItemsDeCompra>
+                      <IconNumberLessons />
+                      <ItemContent>
+                        Number of remaining lessons: {course.lessonTotal}
+                      </ItemContent>
+                    </ItemsDeCompra>
+                    <ItemsDeCompra>
+                      <IconCalendar />
+                      <ItemContent>
+                        Lessons package expiration: 00/00/00
+                      </ItemContent>
+                    </ItemsDeCompra>
+                  </DatosDeCompra>
+                </div>
+              </CardCourse>
+            </CardContent>
+            <ComponentButtons />
+          </>
+        )}
+      </>
     </ContentCards>
   );
 }

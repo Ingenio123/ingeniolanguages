@@ -320,7 +320,7 @@ function Progress() {
       return setLoading(false);
       // console.log(valorScore);
     }
-
+    // console.log(id);
     return setDataIdom({
       ...DataIdiom,
       valorScore: {
@@ -328,7 +328,7 @@ function Progress() {
         score: 0,
         scoreprint: 0,
       },
-      idiom: "loading",
+      idiom: id,
       kids: false,
     });
   }, [id]);
@@ -359,7 +359,7 @@ function Progress() {
                     <div className="card__header">
                       <div className="header__data">
                         <TextFeedbackFirst>
-                          {DataIdiom.idiom} {DataIdiom.kids && " (Kids)"}
+                          {DataIdiom.idiom} {DataIdiom.kids && " (kids)"}
                         </TextFeedbackFirst>
                       </div>
                       {/* <button
@@ -388,7 +388,7 @@ function Progress() {
                   <div className="card__header">
                     <div className="header__data">
                       <TextFeedbackFirst className="language">
-                        {DataIdiom.idiom} {DataIdiom.kids && " (Kids)"}
+                        {DataIdiom.idiom} {DataIdiom.kids && " (kids)"}
                       </TextFeedbackFirst>
                     </div>
                   </div>

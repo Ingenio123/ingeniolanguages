@@ -29,6 +29,7 @@ const StudentState = (props) => {
       }
       const data = await res.json();
       dispatch({ type: "GET_STUDENT", payload: data });
+      dispatch({ type: "LOADING_KILL" });
     } catch (error) {
       console.log("Err student", error);
     }

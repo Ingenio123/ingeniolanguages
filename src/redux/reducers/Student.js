@@ -29,6 +29,12 @@ const Reducer = (state, action) => {
         student: null,
         error: false,
       };
+    case "LOADING_KILL":
+      return {
+        ...state,
+        loading: false,
+        error: false,
+      };
     default:
       return {
         ...state,

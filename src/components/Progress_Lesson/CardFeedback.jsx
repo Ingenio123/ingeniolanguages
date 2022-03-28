@@ -20,7 +20,7 @@ export default function CardFeedBack(
 ) {
   const [Click, setClick] = useState(false);
   const [ClickToggle, setToggle] = useState(false);
-
+  // console.log(Summary);
   //
   const SubToggle = (index) => {
     if (Click === index) return setClick(null);
@@ -79,7 +79,15 @@ export default function CardFeedBack(
                   {idiom} {kids && "(kids)"}
                 </TextFeedbackFirst> */}
                 <TextFeedbackFirst>Summary of lessons</TextFeedbackFirst>
-                {Summary && (
+                {!Summary && (
+                  <CardNotStudent>
+                    <TextCardNotStudent>
+                      In this section, you will be able to view your teachers
+                      feedback.
+                    </TextCardNotStudent>
+                  </CardNotStudent>
+                )}
+                {Summary?.length > 0 && (
                   <>
                     {Summary.map((item, index) => (
                       <Card key={index}>
@@ -140,6 +148,7 @@ export default function CardFeedBack(
                     ))}
                   </>
                 )}
+
                 {/* <Line>view more </Line> */}
               </>
             )}
