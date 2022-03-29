@@ -84,6 +84,7 @@ import { PageForgotPassword } from "./pages/ForgotPassword/PageForgot";
 //context
 import ContexCardIdiomProvider from "./context/CardIdiomContext";
 import { UserPrivateNotId } from "./pages/Private_pages/UserOrStudent/userPrivateNotId";
+import { SummaryProgress } from "./context/SummaryContext";
 
 // i18next.init({
 //   interpolation: {
@@ -177,11 +178,13 @@ ReactDOM.render(
                     component={BookLesson}
                   />
                 </NavbarState>
-                <PrivateRouter
-                  path="/progress/:id"
-                  exact
-                  component={Progress}
-                />
+                <SummaryProgress>
+                  <PrivateRouter
+                    path="/progress/:id"
+                    exact
+                    component={Progress}
+                  />
+                </SummaryProgress>
               </StudentProvider>
               <PrivateRouter path="/democlass" exact component={Democlass} />
               <StudentState>

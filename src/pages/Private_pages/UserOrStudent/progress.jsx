@@ -6,156 +6,32 @@ import axios from "axios";
 import { useContext, useState, useEffect, useReducer } from "react";
 import { useParams } from "react-router-dom";
 //  end hooks
+// useHooks
+import { useGetSummaryHooks } from "../../../hooks/useGetSummary.hooks";
+// end useHooks
 //components
 import CardProgress from "../../../components/Progress_Lesson/CardsChart";
 import CardFeedback from "../../../components/Progress_Lesson/CardFeedback";
 import { CardProgresNew } from "../../../components/Progress_Lesson/CardProgress";
 import { ComponentButtons } from "../../../components/Buttons/ButtonLessonPackage";
-//end components
+//
 import ContextStudent from "../../../components/Context/StudentContext";
+import SummaryProgress from "../../../context/SummaryContext";
 //data Json
 import Data from "./dataprogress.json";
-//end  data Json
-import Url from "../../../components/Urls";
-
-const initialState = {
-  datos: [],
-  kids: null,
-  title: null,
-  normal: null,
-  default: null,
-  loading: false,
-  error: false,
-  emptty: true,
-  idiom: null,
-  isStudent: false,
-  empty: true,
-  sumSelect: null,
-};
-
-const Reducer = (state = initialState, action) => {
-  switch (action.type) {
-    case "IT_IS_EMPTY":
-      return {
-        ...state,
-        idiom: action.payload,
-        empty: true,
-      };
-    case "LOADING":
-      return {
-        ...state,
-        loading: true,
-      };
-    case "LOADING_FALSE":
-      return {
-        ...state,
-        loading: false,
-      };
-    case "GET_DATA_SERVER":
-      return {
-        ...state,
-        datos: action.payload,
-        loading: false,
-        empty: false,
-      };
-    case "GET_DATA_KIDS":
-      console.log("KIS data" + action.payload);
-      return {
-        ...state,
-        titile: "(Kids)",
-        kids: action.payload,
-        default: action.payload,
-        loading: false,
-        empty: false,
-      };
-    case "GET_KIDS":
-      let kids_data = state.datos.filter((x) => x.kids === true);
-      return {
-        ...state,
-        kids: kids_data,
-      };
-    case "GET_DATA_NORMAL":
-      return {
-        ...state,
-        title: "",
-        normal: action.payload,
-        default: action.payload,
-        loading: false,
-        empty: false,
-      };
-    case "DATA_DEFAULT":
-      const flag = action.payload[0].kids ? true : false;
-      if (flag) {
-        const kidsdata = state.datos.filter((elem) => elem.kids === true);
-        return {
-          ...state,
-          kids: kidsdata,
-          default: kidsdata,
-          loading: false,
-          empty: false,
-        };
-      }
-
-      const normal = state.datos.filter((elem) => elem.kids === false);
-      return {
-        ...state,
-        default: normal,
-        normal: normal,
-        loading: false,
-        empty: false,
-      };
-    case "SUMMARY_SELECT":
-      if (action.payload) {
-        return {
-          ...state,
-          sumSelect: state.kids,
-        };
-      }
-      return {
-        ...state,
-        sumSelect: state.normal,
-      };
-    default:
-      return state;
-  }
-};
+//services
 
 function Progress() {
   const studentContext = useContext(ContextStudent);
-  const [Idiom, setIdiom] = useState("");
-  const [state, dispatch] = useReducer(Reducer, initialState);
-  const [Kids, setKids] = useState(null);
-  const [DataScore, seDataScore] = useState([]);
+  const summaryContext = useContext(SummaryProgress);
+  //
   const { id } = useParams();
-  const [Loading, setLoading] = useState(false);
   const [DataIdiom, setDataIdom] = useState({});
+  //useHooks
+  // const { getSummary, loading } = useGetSummaryHooks();
 
   //#####################################################################
   //                         GET SCORE PROCESS
-  //####################################################################
-  const ClickSummary = async (kids, idiom) => {
-    console.log("KIDS: " + kids + " IDIOM: " + idiom);
-    setIdiom(idiom);
-
-    if (state.datos) {
-      if (kids) {
-        setKids(true);
-        const kidsdata = await state.datos.filter((elem) => elem.kids === true);
-        console.log("Kis data" + kidsdata);
-        return dispatch({
-          type: "GET_DATA_KIDS",
-          payload: kidsdata,
-        });
-      }
-      setKids(false);
-      const normal = await state.datos.filter((elem) => elem.kids === false);
-      return dispatch({
-        type: "GET_DATA_NORMAL",
-        payload: normal,
-      });
-    }
-    // state.datos
-  };
   //####################################################################
 
   const Score = (score) => {
@@ -218,122 +94,66 @@ function Progress() {
       };
     }
   };
-  //
-  useEffect(() => {
-    console.log("useEffect #1");
-    async function GetData() {
-      const user = JSON.parse(window.localStorage.getItem("user"));
-      dispatch({
-        type: "LOADING",
-      });
-      const resp = await axios.get(`${Url.url}/sudent/summary/getsummary`, {
-        headers: {
-          Authorization: `Bearer ${user.token}`,
-        },
-      });
-      // console.log(resp.data);
-      //
-      if (resp.data.data.length > 0) {
-        console.log("get Data dispatch");
-        dispatch({
-          type: "LOADING_FALSE",
-        });
-        dispatch({
-          type: "GET_DATA_SERVER",
-          payload: resp.data.data,
-        });
-        setIdiom(resp.data.data[0].course);
-        resp.data.data[0].kids ? setKids(true) : setKids(false);
-        return dispatch({
-          type: "DATA_DEFAULT",
-          payload: resp.data.data,
-        });
-      }
-      //
-      dispatch({
-        type: "IT_IS_EMPTY",
-      });
-      return dispatch({
-        type: "LOADING_FALSE",
-      });
-    }
-
-    // GetData();
-    if (studentContext.student) {
-      console.log("Stundent true");
-      console.log(studentContext.student.QueryStudent.courses);
-      const data = studentContext.student.QueryStudent.courses.map((e) => {
-        return {
-          idiom: e.idiom,
-          kids: e.kids,
-          score: e.score,
-        };
-      });
-      // console.log(data);
-      seDataScore([...DataScore, data]);
-      GetData(studentContext.student.QueryStudent.courses[0].idiom);
-    }
-    console.log(id);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   useEffect(() => {
-    console.log("Changue item menu");
+    //
     if (studentContext.student) {
-      console.log("student true two");
-      setLoading(true);
-      // console.log("Student");
+      summaryContext.GetSummary();
       // console.log(studentContext.student.QueryStudent.courses);
-      const valor = studentContext.student.QueryStudent.courses.filter(
-        (e) => e._id === id
+      let datos = studentContext.student.QueryStudent.courses.filter(
+        (i) => i._id === id
       );
-
-      // console.log(valor[0]);
-      let valorScore = Score(valor[0].score);
-
-      if (valor[0].kids) {
-        dispatch({
-          type: "GET_KIDS",
-        });
-        dispatch({
-          type: "SUMMARY_SELECT",
-          payload: true,
-        });
-        setDataIdom({
-          ...DataIdiom,
-          valorScore: valorScore,
-          idiom: valor[0].idiom,
-          kids: valor[0].kids,
-        });
-        return setLoading(false);
-      }
-      dispatch({
-        type: "SUMMARY_SELECT",
-        payload: false,
-      });
+      // console.log(datos[0].idiom, datos[0].kids);
+      let valorScore = Score(datos[0].score);
       setDataIdom({
         ...DataIdiom,
-        valorScore: valorScore,
-        idiom: valor[0].idiom,
-        kids: valor[0].kids,
+        idiom: datos[0].idiom,
+        kids: datos[0].kids,
+        valorScore,
       });
-      return setLoading(false);
-      // console.log(valorScore);
     }
-    // console.log(id);
-    return setDataIdom({
+    //
+    return () => {
+      console.log("Did mound");
+    };
+  }, [studentContext.loading]);
+
+  useEffect(() => {
+    console.log("Get sumary for id ");
+    if (summaryContext.AllSummary.length > 0) {
+      let datos = studentContext.student.QueryStudent.courses.filter(
+        (i) => i._id === id
+      );
+      summaryContext.SearchForId(datos[0].idiom, datos[0].kids);
+      let valorScore = Score(datos[0].score);
+      return setDataIdom({
+        ...DataIdiom,
+        idiom: datos[0].idiom,
+        kids: datos[0].kids,
+        valorScore,
+      });
+    }
+    let valorScore = Score(0);
+    setDataIdom({
       ...DataIdiom,
-      valorScore: {
-        level: "A1",
-        score: 0,
-        scoreprint: 0,
-      },
       idiom: id,
       kids: false,
+      valorScore,
     });
+    return () => {
+      console.log("Did mount two");
+    };
   }, [id]);
-
-  // useEffect(()=>{})
+  //
+  useEffect(() => {
+    if (summaryContext.AllSummary.length > 0) {
+      let datos = studentContext.student.QueryStudent.courses.filter(
+        (i) => i._id === id
+      );
+      summaryContext.SearchForId(datos[0].idiom, datos[0].kids);
+    }
+    return () => {};
+  }, [summaryContext.loading]);
 
   return (
     <GridColumns>
@@ -352,8 +172,15 @@ function Progress() {
             {studentContext.student ? (
               <>
                 {/* comment (1) */}
-                {Loading ? (
-                  "loading"
+                {summaryContext.loading ? (
+                  <CardSkeleton>
+                    <div className="">
+                      <div className="skeleton title"></div>
+                      <div className="skeleton description"></div>
+                      <div className="skeleton button"></div>
+                    </div>
+                    <div className="skeleton cicle"></div>
+                  </CardSkeleton>
                 ) : (
                   <CardProgressDetails>
                     <div className="card__header">
@@ -362,14 +189,6 @@ function Progress() {
                           {DataIdiom.idiom} {DataIdiom.kids && " (kids)"}
                         </TextFeedbackFirst>
                       </div>
-                      {/* <button
-                        onClick={() =>
-                          ClickSummary(DataIdiom.kids, DataIdiom.idiom)
-                        }
-                        className="btn__summary"
-                      >
-                        Summary
-                      </button> */}
                     </div>
                     <CardProgresNew
                       score={DataIdiom.valorScore?.score}
@@ -392,7 +211,6 @@ function Progress() {
                       </TextFeedbackFirst>
                     </div>
                   </div>
-
                   <CardProgresNew
                     score={DataIdiom.valorScore?.score}
                     level={DataIdiom.valorScore?.level}
@@ -407,9 +225,9 @@ function Progress() {
         )}
       </ContentFlex>
       <CardFeedback
-        ItIsEmpty={state.empty}
-        Summary={state.sumSelect}
-        loading={state.loading}
+        ItIsEmpty={summaryContext.data.length > 0 ? false : true}
+        Summary={summaryContext.data}
+        loading={summaryContext.loading}
         isStudent={studentContext.student ? true : false}
         idiom={DataIdiom.idiom}
         kids={DataIdiom.kids}
