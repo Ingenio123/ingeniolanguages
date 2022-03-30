@@ -98,6 +98,7 @@ function Progress() {
   useEffect(() => {
     //
     if (studentContext.student) {
+      console.log("#### GET SUMARY ######");
       summaryContext.GetSummary();
       // console.log(studentContext.student.QueryStudent.courses);
       let datos = studentContext.student.QueryStudent.courses.filter(
@@ -120,11 +121,25 @@ function Progress() {
 
   useEffect(() => {
     console.log("Get sumary for id ");
-    if (summaryContext.AllSummary.length > 0) {
+    if (studentContext.student) {
+      if (summaryContext.AllSummary.length > 0) {
+        let datos = studentContext.student.QueryStudent.courses.filter(
+          (i) => i._id === id
+        );
+        summaryContext.SearchForId(datos[0].idiom, datos[0].kids);
+        let valorScore = Score(datos[0].score);
+        return setDataIdom({
+          ...DataIdiom,
+          idiom: datos[0].idiom,
+          kids: datos[0].kids,
+          valorScore,
+        });
+      }
+      summaryContext.GetSummary();
       let datos = studentContext.student.QueryStudent.courses.filter(
         (i) => i._id === id
       );
-      summaryContext.SearchForId(datos[0].idiom, datos[0].kids);
+      // console.log(datos[0].idiom, datos[0].kids);
       let valorScore = Score(datos[0].score);
       return setDataIdom({
         ...DataIdiom,
