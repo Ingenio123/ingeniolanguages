@@ -19,6 +19,22 @@ export default function UserPrivate({ children }) {
 
   useEffect(() => {
     const idCourse = id;
+    if (contextStudent.student?.QueryStudent.courses) {
+      // console.log("Course");
+      let getOneCourse = contextStudent.student.QueryStudent.courses.filter(
+        (e) => e._id === idCourse
+      );
+      // console.log(getOneCourse[0]);
+      return setOneCourse({
+        ...OneCourse,
+        course: getOneCourse[0],
+      });
+    }
+    return () => {};
+  }, [contextStudent.loading]);
+
+  useEffect(() => {
+    const idCourse = id;
     // console.log(idCourse);
     if (contextStudent.student?.QueryStudent.courses) {
       // console.log("Course");
