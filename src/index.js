@@ -85,6 +85,8 @@ import { PageForgotPassword } from "./pages/ForgotPassword/PageForgot";
 import ContexCardIdiomProvider from "./context/CardIdiomContext";
 import { UserPrivateNotId } from "./pages/Private_pages/UserOrStudent/userPrivateNotId";
 import { SummaryProgress } from "./context/SummaryContext";
+import { MaterialsPage } from "./pages/Private_pages/UserOrStudent/materials";
+import { MaterialsAddTeacher } from "./pages/teacher/Materials";
 
 // i18next.init({
 //   interpolation: {
@@ -200,6 +202,11 @@ ReactDOM.render(
                 exact
                 component={InformationUpdate}
               />
+              <TeacherRoutes
+                path="/teacher/materials"
+                exact
+                component={MaterialsAddTeacher}
+              />
               <Route path="/forgotpassword" component={PageForgotPassword} />
               <PrivateRouter
                 path="/updatePassword"
@@ -207,10 +214,11 @@ ReactDOM.render(
                 component={UpdatePassword}
               />
 
-              <Route
+              <PrivateRouter
                 path="/siginforgotpassword"
                 component={SignForgotPassword}
               />
+              <PrivateRouter path="/user/materials" component={MaterialsPage} />
             </UserProvider>
           </Switch>
         </Router>

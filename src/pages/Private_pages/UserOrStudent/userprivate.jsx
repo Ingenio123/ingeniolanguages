@@ -14,44 +14,50 @@ export default function UserPrivate({ children }) {
     course: null,
   });
   useEffect(() => {
+    console.log("Initialize useEffect");
     contextStudent.getStudent();
   }, []);
 
-  useEffect(() => {
-    const idCourse = id;
-    if (contextStudent.student?.QueryStudent.courses) {
-      // console.log("Course");
-      let getOneCourse = contextStudent.student.QueryStudent.courses.filter(
-        (e) => e._id === idCourse
-      );
-      // console.log(getOneCourse[0]);
-      return setOneCourse({
-        ...OneCourse,
-        course: getOneCourse[0],
-      });
-    }
-    return () => {};
-  }, [contextStudent.loading]);
+  // useEffect(() => {
+  //   const idCourse = id;
+  //   console.log(idCourse);
+  //   if (contextStudent.student?.QueryStudent.courses) {
+  //     // console.log("Course");
+  //     let getOneCourse = contextStudent.student.QueryStudent.courses.filter(
+  //       (e) => e._id === idCourse
+  //     );
+  //     // console.log(getOneCourse[0]);
+  //     return setOneCourse({
+  //       ...OneCourse,
+  //       course: getOneCourse[0],
+  //     });
+  //   }
+  //   return () => {};
+  // }, [contextStudent.loading]);
 
+  //
   useEffect(() => {
     const idCourse = id;
-    // console.log(idCourse);
-    if (contextStudent.student?.QueryStudent.courses) {
-      // console.log("Course");
+    console.log(contextStudent.student);
+    //
+    if (contextStudent.student) {
+      console.log("Existe el student");
       let getOneCourse = contextStudent.student.QueryStudent.courses.filter(
         (e) => e._id === idCourse
       );
-      // console.log(getOneCourse[0]);
+      //
       return setOneCourse({
         ...OneCourse,
         course: getOneCourse[0],
       });
     }
-    // console.log("Not student");
-    let Datos = ListCard.filter((e) => e.idiom === id);
+
+    let Datos = ListCard.filter((e) => e.idiom === id).pop();
+    console.log(Datos);
+
     return setOneCourse({
       ...OneCourse,
-      course: Datos[0],
+      course: Datos,
     });
   }, [id]);
 
@@ -70,7 +76,13 @@ export default function UserPrivate({ children }) {
             <div className="skeleton cicle"></div>
           </CardSkeleton>
         ) : (
-          <CardLists course={OneCourse?.course} />
+          <>
+            {contextStudent.student ? (
+              <CardLists course={OneCourse?.course} />
+            ) : (
+              <CardLists course={OneCourse.course} />
+            )}
+          </>
         )}
         {/* end loading */}
         <Temary

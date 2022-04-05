@@ -114,9 +114,6 @@ function Progress() {
       });
     }
     //
-    return () => {
-      console.log("Did mound");
-    };
   }, [studentContext.loading]);
 
   useEffect(() => {
@@ -155,9 +152,6 @@ function Progress() {
       kids: false,
       valorScore,
     });
-    return () => {
-      console.log("Did mount two");
-    };
   }, [id]);
   //
   useEffect(() => {
@@ -167,7 +161,6 @@ function Progress() {
       );
       summaryContext.SearchForId(datos[0].idiom, datos[0].kids);
     }
-    return () => {};
   }, [summaryContext.loading]);
 
   return (

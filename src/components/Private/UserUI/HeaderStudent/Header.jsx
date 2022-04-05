@@ -93,7 +93,7 @@ export default function Header({ course }) {
   return (
     <ContentCards>
       <>
-        {contextStudent.student ? (
+        {contextStudent.student !== null || contextStudent.student === false ? (
           <>
             <CardContent
               img={
@@ -189,6 +189,7 @@ export default function Header({ course }) {
                 </div>
               </CardCourse>
             </CardContent>
+            {/* end */}
             <ComponentButtons />
           </>
         )}

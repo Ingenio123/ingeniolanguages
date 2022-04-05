@@ -14,6 +14,9 @@ export const Items = [
   {
     name: "Book a lesson",
   },
+  {
+    name: "Materials",
+  },
 ];
 export const ItemsNotStudent = [
   {
@@ -57,5 +60,9 @@ export const ItemsTeacher = [
   {
     name: "Student's  Progress",
     link: "/studentProgress",
+  },
+  {
+    name: "Materials",
+    link: "/teacher/materials",
   },
 ];

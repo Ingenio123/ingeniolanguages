@@ -288,6 +288,53 @@ export default function Sidebar({ salir, isLogged }) {
                           )}
                         </div>
                       )}
+
+                      {item.name === "Materials" && (
+                        <div className="dropdown-subitem">
+                          {contextStudent.student || courses.length > 0 ? (
+                            <>
+                              {courses.length > 0 ? (
+                                <>
+                                  {courses.map((item, index) => (
+                                    <Link
+                                      to={`/user/materials?language=${item}`}
+                                      key={index}
+                                    >
+                                      {item}
+                                    </Link>
+                                  ))}
+                                </>
+                              ) : (
+                                <>
+                                  {contextStudent.student.QueryStudent.courses.map(
+                                    (item, index) => (
+                                      <Link
+                                        to={`/user/materials?language=${item.idiom}`}
+                                        key={index}
+                                      >
+                                        {item.idiom}
+                                        {""}
+                                        {item.kids && "(Kids)"}
+                                      </Link>
+                                    )
+                                  )}
+                                </>
+                              )}
+                            </>
+                          ) : (
+                            <>
+                              {ItemsNotStudent.map((names, index) => (
+                                <Link
+                                  key={index}
+                                  to={`/user/materials?language=${names.idiom}`}
+                                >
+                                  {names.nameItem}
+                                </Link>
+                              ))}
+                            </>
+                          )}
+                        </div>
+                      )}
                     </span>
                   </ItemsNav>
                 );
