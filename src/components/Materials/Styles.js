@@ -5,10 +5,7 @@ export const ListIcons = styled.section`
   grid-template-columns: repeat(6, 1fr);
   column-gap: 2rem;
 `;
-export const Container = styled.main`
-  margin: 0 auto;
-  max-width: 1200px;
-`;
+export const Container = styled.main``;
 export const ContentIcons = styled.div``;
 export const BoxIcon = styled.div`
   display: flex;

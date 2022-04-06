@@ -1,70 +1,32 @@
-import styled from "styled-components";
-import { useState, useReducer, useEffect, useCallback } from "react";
-import ProgressComponent from "./ProgressComponent";
+import styled, { css } from "styled-components";
+import { useState, useRef } from "react";
 import Select from "react-select";
-import useProgress from "../../../hooks/useProgress";
-import useProgressContext from "../../../hooks/useProgressContext";
-import { BsPlusCircleFill } from "react-icons/bs";
-import { BiCheck, BiChevronDown, BiLockAlt, BiX } from "react-icons/bi";
-import { ModalConfirm } from "./modal";
-import Data from "./Levels.json";
-import SendScoreComponent from "./SendScore";
-import { useScoreExam } from "../../../hooks/useScoreExam";
-import { GetScoreExamForIdStudent } from "../../../helpers/User";
+import { IoLogoYoutube, IoDocumentText } from "react-icons/io5"; // logo de Youtobe
+import { FaFilePowerpoint } from "react-icons/fa";
+import { MdQuiz, MdModeEdit } from "react-icons/md";
+import { AddMAterialsTeacher } from "../../../services/MaterialsHttp";
+
+const options = [
+  { value: "A1", label: "A1" },
+  { value: "A2", label: "A2" },
+  { value: "B1", label: "B1" },
+  { value: "B2", label: "B2" },
+  { value: "C1", label: "C1" },
+  { value: "C2", label: "C2" },
+];
 
 export const SearchComponentthree = ({ data }) => {
   //states
   const [filteredData, setFilteredData] = useState([]);
   const [wordEntered, setWordEntered] = useState("");
   const [Item, setItem] = useState({});
-  const [Modal, setModal] = useState(false);
-  const [toggle, setToggle] = useState(null);
-  const [ValorScore, setValorScore] = useState(0);
-  const [SubLevel, setSubLevel] = useState(0);
-  const [dataIdiom, setDataidiom] = useState({
-    show: false,
-    msg: "",
-  });
-  //
-
-  //custom hooks
-  const {
-    GetCourse,
-    stateData,
-    ResetSelect,
-    AddScore,
-    ResetScore,
-    initialScore,
-    AddCourse,
-    status,
-    ResetStatus,
-    ScoreValue,
-    levelSup,
-    setValorSup,
-    Course,
-  } = useProgress();
-  const {
-    addScore,
-    level,
-    scoreRuleta,
-    sublevel,
-    DefaultScore,
-    sendScore,
-    score,
-    Status,
-    ResetStatusContext,
-    Show,
-    StartShow,
-    SetScore,
-    AddScoreRuletaSimple,
-  } = useProgressContext();
-
-  const { AddIdiom, AddStudentFunc, AddDataScoreExam } = useScoreExam();
+  const [Idiom, setIdiom] = useState("");
+  const [Kids, setKids] = useState(false);
+  const [Icon, setIcon] = useState(false);
+  const [Level, setLevel] = useState(false);
+  const inputOne = useRef();
+  const inputTwo = useRef();
   //end custom hooks
-
-  const GetData = async (idStudent) => {
-    return await GetScoreExamForIdStudent(idStudent);
-  };
 
   const handleFilter = (event) => {
     const searchWord = event.target.value;
@@ -95,18 +57,17 @@ export const SearchComponentthree = ({ data }) => {
   };
   const handleSelect = (select) => {
     const { value } = select;
-    GetCourse(select);
+
     const datosfiltrados = filterData(value);
     const { score, idiom, kids } = datosfiltrados;
-    setDataidiom(idiom);
-    // console.log(datosfiltrados)
-    // debugger;
-    // console.log("Datos filtrados"+ JSON.stringify(datosfiltrados));
+    console.log(idiom);
+    setIdiom(idiom);
+    setKids(kids);
+  };
 
-    // console.log("Obejct filter: " + score);
-    DefaultScore(score);
-    AddCourse(datosfiltrados);
-    AddIdiom(idiom, kids);
+  const handleSelectLevel = (select) => {
+    let { value } = select;
+    setLevel(value);
   };
   function SelectArray(dataArray) {
     if (dataArray.length >= 1) {
@@ -122,32 +83,50 @@ export const SearchComponentthree = ({ data }) => {
           placeholder="Select package"
           options={options}
           onChange={handleSelect}
-          value={stateData.valor}
         />
       );
     }
+    return <span>asdasd</span>;
   }
-  const ConfirmModala = () => {
-    // AddScore(33, Item);
-    addScore(score);
-    sendScore(score, Item, Course);
+
+  const handleItem = (item) => {
+    setIcon(item);
   };
-  const handleDismiss = () => {
-    // ResetStatus();
-    ResetStatusContext();
-    setModal((prev) => !prev);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    let inputTitle = inputOne.current.value;
+    let inputUrl = inputTwo.current.value;
+    //
+    let user = JSON.parse(localStorage.getItem("user"));
+    let data = {
+      id_student: Item._id,
+      id_teacher: user._id,
+      languages: [
+        {
+          idiom: Idiom, // ->  data idiom
+          kids: Kids,
+          material: [
+            {
+              level_material: Level,
+              levels_materials: [
+                {
+                  type_Material: "624cb382059dbc385c039356",
+                  name_material: inputTitle,
+                  link_material: inputUrl,
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    };
+    // console.log(inputTwo.current.value);
+    // console.log(inputOne.current.value);
+    AddMAterialsTeacher(data);
   };
-  const ToggleItem = (index) => {
-    if (toggle === index) {
-      return setToggle(null);
-    }
-    setToggle(index);
-  };
-  const ClickModal = (score, subLevel) => {
-    // setValorScore(score);
-    setModal(true);
-    // setSubLevel(subLevel);
-  };
+
+  // codigo de programacion y maquetacion web
 
   return (
     <>
@@ -175,9 +154,162 @@ export const SearchComponentthree = ({ data }) => {
           )}
         </ContentBox>
       </BoxSearch>
+      <Main>
+        <p>
+          Name: <TextBold>{Item?.email}</TextBold>
+        </p>
+        {Object.keys(Item).length >= 1 && SelectArray(Item?.courses)}
+        <Select options={options} onChange={handleSelectLevel} />
+        <ContentIconsBox>
+          <BoxIcons
+            active={Icon === "Video" ? true : false}
+            onClick={() => handleItem("Video")}
+          >
+            <IconYoutube />
+          </BoxIcons>
+          <BoxIcons
+            active={Icon === "Document" ? true : false}
+            onClick={() => handleItem("Document")}
+          >
+            <IconText />
+          </BoxIcons>
+          <BoxIcons
+            active={Icon === "Slide" ? true : false}
+            onClick={() => handleItem("Slide")}
+          >
+            <IconSlides />
+          </BoxIcons>
+          <BoxIcons
+            active={Icon === "Quiz" ? true : false}
+            onClick={() => handleItem("Quiz")}
+          >
+            <IconQuiz />
+          </BoxIcons>
+          <BoxIcons
+            active={Icon === "Homework" ? true : false}
+            onClick={() => handleItem("Homework")}
+          >
+            <IconHomeWork />
+          </BoxIcons>
+        </ContentIconsBox>
+        <form onSubmit={(e) => handleSubmit(e)}>
+          <InputGroups>
+            <span class="input-group-addon">{Icon}:</span>
+            <input type="text" ref={inputOne} />
+          </InputGroups>
+          <InputGroupsUI>
+            <label>Url</label>
+            <input
+              type="text"
+              ref={inputTwo}
+              placeholder="https://www.example.com"
+            />
+          </InputGroupsUI>
+          <div
+            style={{ width: "100%", display: "flex", justifyContent: "center" }}
+          >
+            <ButtonSubmit type="submit">Submit</ButtonSubmit>
+          </div>
+        </form>
+      </Main>
+      {/* <ModalWrap>
+        <CardModal>
+          <button className="goback">Go Back</button>
+        </CardModal>
+      </ModalWrap> */}
     </>
   );
 };
+
+// codigo de estilo
+
+const styleIcons = css`
+  height: 25px;
+  width: 25px;
+`;
+
+const ModalWrap = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const CardModal = styled.div`
+  background-color: #fff;
+  width: 40%;
+  height: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .header {
+    border-bottom: 1px solid silver;
+    font-size: 1.5rem;
+  }
+  .goback {
+    background-color: black;
+    color: #fff;
+  }
+`;
+
+const ButtonSubmit = styled.button`
+  color: #fff;
+  background: #2980b9;
+  padding: 0.4rem 1rem;
+  border-radius: 4px;
+  font-size: 1rem;
+  font-weight: 600;
+  margin-top: 1rem;
+  min-width: 250px;
+  :hover {
+    background-color: #3498db;
+  }
+`;
+//
+const ContentIconsBox = styled.div`
+  width: 100%;
+  display: flex;
+  margin: 1rem 0;
+  column-gap: 1rem;
+`;
+
+const IconYoutube = styled(IoLogoYoutube)`
+  ${styleIcons};
+`;
+const IconText = styled(IoDocumentText)`
+  ${styleIcons};
+`;
+const IconSlides = styled(FaFilePowerpoint)`
+  ${styleIcons};
+`;
+const IconQuiz = styled(MdQuiz)`
+  ${styleIcons};
+`;
+const IconHomeWork = styled(MdModeEdit)`
+  ${styleIcons};
+`;
+//
+const BoxIcons = styled.div`
+  display: flex;
+  align-items: center;
+  transition: all 0.8s ease;
+  border-radius: 3px;
+  box-shadow: -3px 5px 9px -3px rgba(0, 0, 0, 0.3);
+  padding: 0.5rem;
+  background-color: ${({ active }) => (active ? "#2979ff" : "#fff")};
+  color: ${({ active }) => (active ? "#fff" : "#9e9e9e")};
+  :hover {
+    background-color: #2979ff;
+    color: #fff;
+    cursor: pointer;
+  }
+`;
 
 const ContentBox = styled.div`
   /* border: 1px solid red; */
@@ -189,85 +321,6 @@ const TitleSearch = styled.h2`
   line-height: normal;
   font-weight: 700;
   margin-bottom: 0.5rem;
-`;
-
-const CardCheck = styled.div`
-  padding: 0.5rem;
-  display: flex;
-  flex-direction: column;
-  border-bottom: 1px solid #a1a1aa;
-  color: #18181b;
-  .card_header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    cursor: pointer;
-
-    span {
-      font-size: 1.5rem;
-      line-height: normal;
-    }
-  }
-`;
-
-const Button = styled.button`
-  background-color: ${(props) => (props.primary ? "#93c5fd" : "#D4D4D8")};
-  transition: all 0.3s ease;
-  :hover {
-    color: #fff;
-    background-color: ${(props) => (props.primary ? "#1D4ED8" : "#737373")};
-  }
-  color: #3f3f46;
-  padding: 0.8rem 0;
-  min-width: 120px;
-  font-size: 1rem;
-  line-height: normal;
-  font-weight: 600;
-  border-radius: 4px;
-  margin-right: 0.5rem;
-`;
-
-const ButtonPlus = styled.button`
-  padding: 0.25rem;
-  border: none;
-  background-color: #2563eb;
-  color: #fff;
-  border-radius: 50%;
-  position: absolute;
-  bottom: 40px;
-  bottom: 110px;
-  right: 230px;
-  :active {
-    transform: scale(0.9);
-  }
-`;
-
-const TextSublevel = styled.h2`
-  position: absolute;
-  margin: 0;
-  color: #2563eb;
-  /* top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0; */
-  bottom: 140px;
-  right: 230px;
-`;
-
-const TextName = styled.span`
-  font-size: 1.3rem;
-  color: #1d4ed8;
-  /* margin-top: 2rem; */
-  margin: 0;
-`;
-
-const Text = styled.h3`
-  font-size: ${(props) => (props.size ? props.size : "2rem")};
-  font-weight: 600;
-  color: #1d4ed8;
-  margin: 0.5rem 0;
-  text-align: center;
-  font-weight: ${(props) => (props.bold ? "700" : "500")};
 `;
 
 const SelectIdiom = styled(Select)`
@@ -320,106 +373,64 @@ const InputSearch = styled.input`
     border: 2px solid #2989ff;
   }
 `;
-const Texto = styled.h2`
-  text-align: center;
-  margin: 0;
-  margin-bottom: 2rem;
-  color: #737373;
+
+const Main = styled.div`
+  border: 1px solid silver;
+  width: 50%;
+  border-radius: 0.5rem;
+  padding: 0.8rem;
+  background-color: #f4f4f5;
+  margin-top: 1rem;
+  p {
+    line-height: normal;
+    font-size: 1rem;
+    margin-bottom: 0.3rem;
+  }
+`;
+const TextBold = styled.span`
   font-weight: 600;
+  font-size: 1rem;
 `;
-const ContentFlex = styled.div`
+const InputGroups = styled.div`
+  margin-top: 1rem;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  align-items: stretch;
+  span {
+    font-size: 1rem;
+  }
+  input {
+    border: 1px solid silver;
+    font-size: 1rem;
+    padding: 0.3rem;
+    width: calc(100% - 92px);
+    color: #7f8c8d;
+  }
+  .input-group-addon {
+    border: none;
+    padding: 0 0.3rem;
+    background-color: #a8a29e;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+  }
 `;
-const ContentSuccess = styled.div`
+const InputGroupsUI = styled.div`
   display: flex;
-  align-items: center;
-  justify-content: center;
   flex-direction: column;
+  label {
+    font-size: 1rem;
+    margin: 0.3rem 0;
+    color: #2c3e50;
+    font-weight: 600;
+  }
+  input {
+    background-color: #fff;
+    border: 1px solid silver;
+    padding: 0.3rem;
+    font-size: 1rem;
+    border-radius: 0.3rem;
+    color: #7f8c8d;
+  }
 `;
-
-const ContentICon = styled.div`
-  width: 60px;
-  height: 60px;
-  background-color: ${(props) => (props.error ? "#FCA5A5" : " #bbf7d0")};
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
-const IconSuccess = styled(BiCheck)`
-  font-size: 2.5rem;
-  color: #18181b; ;
-`;
-const ButtonDissmis = styled.button`
-  color: #fff;
-  padding: 0.5rem 1rem;
-  border: none;
-  background-color: #18181b;
-  border-radius: 6px;
-  min-width: 250px;
-  font-size: 1.2rem;
-  letter-spacing: 1px;
-`;
-const ContentText = styled.p`
-  text-align: center;
-  line-height: 1.2;
-  margin: 1rem 0;
-`;
-const IconRow = styled(BiChevronDown)`
-  font-size: 1.5rem;
-  cursor: pointer;
-  ${(prosp) => prosp.rotate && `transform: rotate(180deg);`}
-`;
-const IconLock = styled(BiLockAlt)`
-  font-size: 1.2rem;
-  cursor: pointer;
-`;
-const IconError = styled(BiX)`
-  font-size: 2.5rem;
-  color: #18181b; ;
-`;
-
-// {
-//   Data.map((elm, index) => (
-//     <>
-//       <CardCheck>
-//         <div
-//           onClick={
-//             elm.puntuacion > ScoreValue
-//               ? () => {
-//                   ToggleItem(index);
-//                 }
-//               : null
-//           }
-//           className="card_header"
-//         >
-//           <span>{elm.name_level}</span>
-//           {elm.puntuacion > ScoreValue ? (
-//             <IconRow rotate={toggle === index && true} />
-//           ) : (
-//             <IconLock />
-//           )}
-//         </div>
-//         {toggle === index && (
-//           <ContentsWrapper>
-//             {elm.sub_level.map((elm) => (
-//               <Wrapper>
-//                 {/* <input type="checkbox" onChange={ClickModal} /> */}
-//                 <ButtonCheck
-//                   active={false}
-//                   onClick={() => ClickModal(elm.puntuacion, elm.sublevel)}
-//                 >
-//                   {false && <BiCheck />}
-//                 </ButtonCheck>
-//                 <span>{elm.sublevel}</span>
-//               </Wrapper>
-//             ))}
-//           </ContentsWrapper>
-//         )}
-//       </CardCheck>
-//     </>
-//   ));
-// }
