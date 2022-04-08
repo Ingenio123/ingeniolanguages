@@ -72,29 +72,6 @@ export const SearchComponenttwo = ({ data }) => {
     // console.log("effect item  depend Item")
 
     if (Item?.courses) {
-      // console.log("is Courses")
-      // console.log(Item)
-      /* if (Item.courses.length === 1) {
-        console.log("Tiene one course");
-        console.log(Item.courses[0]);
-        const scoreOne = Item.courses[0].score;
-        const idiom = Item.courses[0].idiom;
-        const kids = Item.courses[0].kids;
-        var text = `${idiom} ${kids ? "(kids)" : ""}`;
-        setDataidiom({
-          show: true,
-          msg: text,
-        });
-        // SetScore(Item.courses)
-        DefaultScore(scoreOne);
-        AddCourse(Item.courses[0]);
-        AddIdiom(idiom, kids);
-        GetData(Item._id).then((res) => {
-          console.log(res);
-          SetScore(res.data?.scoreExam.Content);
-        });
-        return;
-      } */
       GetData(Item._id).then((res) => {
         console.log(res);
         SetScore(res.data?.scoreExam.Content);

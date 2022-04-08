@@ -22,3 +22,24 @@ export const AddMAterialsTeacher = async (DATA) => {
     data: data,
   };
 };
+
+export const GetMareialsName = async () => {
+  const user = JSON.parse(localStorage.getItem("user"));
+  const resp = await fetch(`${url.url}/teacher/getmaterials`, {
+    method: "GET",
+    headers: {
+      "Content-type": "application/json",
+      Authorization: `Bearer ${user.token}`,
+    },
+  });
+  if (!resp.ok) {
+    return {
+      error: true,
+    };
+  }
+  const data = await resp.json();
+  return {
+    error: false,
+    data: data.materials,
+  };
+};

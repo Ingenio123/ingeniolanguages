@@ -4,6 +4,7 @@ import Select from "react-select";
 import { IoLogoYoutube, IoDocumentText } from "react-icons/io5"; // logo de Youtobe
 import { FaFilePowerpoint } from "react-icons/fa";
 import { MdQuiz, MdModeEdit } from "react-icons/md";
+import { HiOutlineCheck, HiOutlineX } from "react-icons/hi";
 import { AddMAterialsTeacher } from "../../../services/MaterialsHttp";
 
 const options = [
@@ -15,7 +16,31 @@ const options = [
   { value: "C2", label: "C2" },
 ];
 
-export const SearchComponentthree = ({ data }) => {
+function ReturnIcons(type) {
+  switch (type) {
+    case "Video":
+      return <IconYoutube />;
+    case "Homework":
+      return <IconHomeWork />;
+    case "Document":
+      return <IconText />;
+    case "Slide":
+      return <IconSlides />;
+    case "Quiz":
+      return <IconQuiz />;
+    default:
+      return <IconYoutube />;
+  }
+}
+
+/**
+ *
+ * @param {data} param1 Array de objects [{},{}]
+ * @param {ListMaterials} param2 Array objects [{},{}]
+ * @returns  Component.React
+ */
+
+export const SearchComponentthree = ({ data, ListMaterials }) => {
   //states
   const [filteredData, setFilteredData] = useState([]);
   const [wordEntered, setWordEntered] = useState("");
@@ -24,8 +49,12 @@ export const SearchComponentthree = ({ data }) => {
   const [Kids, setKids] = useState(false);
   const [Icon, setIcon] = useState(false);
   const [Level, setLevel] = useState(false);
+  const [Modal, setModal] = useState(false);
+  const [Id, setId] = useState("");
+  //refs
   const inputOne = useRef();
   const inputTwo = useRef();
+
   //end custom hooks
 
   const handleFilter = (event) => {
@@ -89,8 +118,9 @@ export const SearchComponentthree = ({ data }) => {
     return <span>asdasd</span>;
   }
 
-  const handleItem = (item) => {
+  const handleItem = (item, id) => {
     setIcon(item);
+    setId(id);
   };
 
   const handleSubmit = (e) => {
@@ -111,7 +141,7 @@ export const SearchComponentthree = ({ data }) => {
               level_material: Level,
               levels_materials: [
                 {
-                  type_Material: "624cb382059dbc385c039356",
+                  type_Material: Id,
                   name_material: inputTitle,
                   link_material: inputUrl,
                 },
@@ -124,6 +154,14 @@ export const SearchComponentthree = ({ data }) => {
     // console.log(inputTwo.current.value);
     // console.log(inputOne.current.value);
     AddMAterialsTeacher(data);
+    setModal((prev) => !prev);
+  };
+
+  const handleClose = () => {
+    let inputTitle = (inputOne.current.value = "");
+    let inputUrl = (inputTwo.current.value = "");
+    setModal((prev) => !prev);
+    setItem({});
   };
 
   // codigo de programacion y maquetacion web
@@ -154,69 +192,63 @@ export const SearchComponentthree = ({ data }) => {
           )}
         </ContentBox>
       </BoxSearch>
-      <Main>
-        <p>
-          Name: <TextBold>{Item?.email}</TextBold>
-        </p>
-        {Object.keys(Item).length >= 1 && SelectArray(Item?.courses)}
-        <Select options={options} onChange={handleSelectLevel} />
-        <ContentIconsBox>
-          <BoxIcons
-            active={Icon === "Video" ? true : false}
-            onClick={() => handleItem("Video")}
-          >
-            <IconYoutube />
-          </BoxIcons>
-          <BoxIcons
-            active={Icon === "Document" ? true : false}
-            onClick={() => handleItem("Document")}
-          >
-            <IconText />
-          </BoxIcons>
-          <BoxIcons
-            active={Icon === "Slide" ? true : false}
-            onClick={() => handleItem("Slide")}
-          >
-            <IconSlides />
-          </BoxIcons>
-          <BoxIcons
-            active={Icon === "Quiz" ? true : false}
-            onClick={() => handleItem("Quiz")}
-          >
-            <IconQuiz />
-          </BoxIcons>
-          <BoxIcons
-            active={Icon === "Homework" ? true : false}
-            onClick={() => handleItem("Homework")}
-          >
-            <IconHomeWork />
-          </BoxIcons>
-        </ContentIconsBox>
-        <form onSubmit={(e) => handleSubmit(e)}>
-          <InputGroups>
-            <span class="input-group-addon">{Icon}:</span>
-            <input type="text" ref={inputOne} />
-          </InputGroups>
-          <InputGroupsUI>
-            <label>Url</label>
-            <input
-              type="text"
-              ref={inputTwo}
-              placeholder="https://www.example.com"
-            />
-          </InputGroupsUI>
-          <div
-            style={{ width: "100%", display: "flex", justifyContent: "center" }}
-          >
-            <ButtonSubmit type="submit">Submit</ButtonSubmit>
-          </div>
-        </form>
-      </Main>
-      {/* <ModalWrap>
-        <CardModal>
-          <button className="goback">Go Back</button>
-        </CardModal>
-      </ModalWrap> */}
+      {Object.keys(Item).length > 0 && (
+        <Main>
+          <p>
+            Name: <TextBold>{Item?.email}</TextBold>
+          </p>
+          {Object.keys(Item).length >= 1 && SelectArray(Item?.courses)}
+          <Select options={options} onChange={handleSelectLevel} />
+          <ContentIconsBox>
+            {ListMaterials.map((i) => (
+              <BoxIcons
+                active={Icon === i.name_type ? true : false}
+                onClick={() => handleItem(i.name_type, i._id)}
+              >
+                {ReturnIcons(i.name_type)}
+              </BoxIcons>
+            ))}
+          </ContentIconsBox>
+          <form onSubmit={(e) => handleSubmit(e)}>
+            <InputGroups>
+              <span class="input-group-addon">{Icon}:</span>
+              <input type="text" ref={inputOne} />
+            </InputGroups>
+            <InputGroupsUI>
+              <label>Url</label>
+              <input
+                type="text"
+                ref={inputTwo}
+                placeholder="https://www.example.com"
+              />
+            </InputGroupsUI>
+            <div
+              style={{
+                width: "100%",
+                display: "flex",
+                justifyContent: "center",
+              }}
+            >
+              <ButtonSubmit type="submit">Submit</ButtonSubmit>
+            </div>
+          </form>
+        </Main>
+      )}
+
+      {Modal && (
+        <ModalWrap>
+          <CardModal>
+            <IconClose onClick={handleClose} />
+            <span className="icon">
+              <HiOutlineCheck />
+            </span>
+            <p className="text">Se envio correctamente</p>
+            <button className="goback" onClick={handleClose}>
+              Go Back
+            </button>
+          </CardModal>
+        </ModalWrap>
+      )}
     </>
   );
 };
@@ -228,6 +260,17 @@ const styleIcons = css`
   width: 25px;
 `;
 
+const IconClose = styled(HiOutlineX)`
+  ${styleIcons};
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  :hover {
+    cursor: pointer;
+  }
+`;
+{
+}
 const ModalWrap = styled.div`
   position: fixed;
   top: 0;
@@ -243,18 +286,49 @@ const ModalWrap = styled.div`
 
 const CardModal = styled.div`
   background-color: #fff;
-  width: 40%;
-  height: 200px;
+  width: 30%;
+  height: 250px;
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
+  padding: 1rem 2rem;
+  position: relative;
   .header {
     border-bottom: 1px solid silver;
     font-size: 1.5rem;
   }
+  .icon {
+    border-radius: 50%;
+    background-color: #86efac;
+    color: #18181b;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+  }
+  .text {
+    font-size: 1rem;
+    margin: 1rem 0;
+    text-align: center;
+    line-height: normal;
+  }
+  .icon_close {
+    color: #0e0c0c;
+  }
   .goback {
-    background-color: black;
+    background-color: #0e0c0c;
     color: #fff;
+    padding: 1rem 2rem;
+    min-width: 300px;
+    border-radius: 4px;
+    font-size: 1rem;
+    line-height: normal;
+    :hover {
+      background-color: #000000;
+    }
   }
 `;
 
