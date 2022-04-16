@@ -2,8 +2,8 @@ import { MaterialsLayout } from "../../../components/Materials/LayoutMaterial";
 import { ListMaterials } from "../../../components/Materials/ListMaterials";
 import { DropDowns } from "../../../components/Materials/DropDowns";
 import { Divider, Title } from "../../../components/Materials/Styles";
-import { useState } from "react";
-
+import { useState, useEffect } from "react";
+import { GetMaterialForStudent } from "../../../services/MaterialsHttp";
 const Items = [
   {
     _id: 1,
@@ -46,6 +46,14 @@ export const MaterialsPage = () => {
     }
     setActive(key);
   };
+  useEffect(() => {
+    const GetMarialsForToken = async () => {
+      let datos = await GetMaterialForStudent();
+      console.log(datos);
+    };
+    GetMarialsForToken();
+    return () => {};
+  }, []);
 
   return (
     <MaterialsLayout>

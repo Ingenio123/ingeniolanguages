@@ -5,7 +5,10 @@ import { IoLogoYoutube, IoDocumentText } from "react-icons/io5"; // logo de Yout
 import { FaFilePowerpoint } from "react-icons/fa";
 import { MdQuiz, MdModeEdit } from "react-icons/md";
 import { HiOutlineCheck, HiOutlineX } from "react-icons/hi";
-import { AddMAterialsTeacher } from "../../../services/MaterialsHttp";
+import {
+  AddMAterialsTeacher,
+  GetMaterialByIdStudent,
+} from "../../../services/MaterialsHttp";
 
 const options = [
   { value: "A1", label: "A1" },
@@ -40,7 +43,12 @@ function ReturnIcons(type) {
  * @returns  Component.React
  */
 
-export const SearchComponentthree = ({ data, ListMaterials }) => {
+export const SearchComponentthree = ({
+  data,
+  ListMaterials,
+  DataStudent,
+  setIdiomSelect,
+}) => {
   //states
   const [filteredData, setFilteredData] = useState([]);
   const [wordEntered, setWordEntered] = useState("");
@@ -75,8 +83,13 @@ export const SearchComponentthree = ({ data, ListMaterials }) => {
     setFilteredData([]);
     setWordEntered("");
   };
-  const handleClickItem = (value) => {
+  const handleClickItem = async (value) => {
     console.log(value);
+    let { _id } = value;
+    // console.log(_id);
+    let data = await GetMaterialByIdStudent(_id);
+    // console.log(data.data.materials);
+    DataStudent(data.data?.materials);
     setItem(value);
     clearInput();
   };
@@ -92,6 +105,7 @@ export const SearchComponentthree = ({ data, ListMaterials }) => {
     console.log(idiom);
     setIdiom(idiom);
     setKids(kids);
+    setIdiomSelect({ idiom, kids });
   };
 
   const handleSelectLevel = (select) => {
@@ -131,7 +145,6 @@ export const SearchComponentthree = ({ data, ListMaterials }) => {
     let user = JSON.parse(localStorage.getItem("user"));
     let data = {
       id_student: Item._id,
-      id_teacher: user._id,
       languages: [
         {
           idiom: Idiom, // ->  data idiom
@@ -141,6 +154,7 @@ export const SearchComponentthree = ({ data, ListMaterials }) => {
               level_material: Level,
               levels_materials: [
                 {
+                  id_teacher: user._id,
                   type_Material: Id,
                   name_material: inputTitle,
                   link_material: inputUrl,
@@ -450,7 +464,7 @@ const InputSearch = styled.input`
 
 const Main = styled.div`
   border: 1px solid silver;
-  width: 50%;
+  width: 100%;
   border-radius: 0.5rem;
   padding: 0.8rem;
   background-color: #f4f4f5;

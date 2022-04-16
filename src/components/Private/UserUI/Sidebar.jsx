@@ -309,11 +309,10 @@ export default function Sidebar({ salir, isLogged }) {
                                   {contextStudent.student.QueryStudent.courses.map(
                                     (item, index) => (
                                       <Link
-                                        to={`/user/materials?language=${item.idiom}`}
+                                        to={`/user/materials/${item._id}`}
                                         key={index}
                                       >
                                         {item.idiom}
-                                        {""}
                                         {item.kids && "(Kids)"}
                                       </Link>
                                     )

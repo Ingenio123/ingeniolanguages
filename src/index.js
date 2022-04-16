@@ -218,7 +218,10 @@ ReactDOM.render(
                 path="/siginforgotpassword"
                 component={SignForgotPassword}
               />
-              <PrivateRouter path="/user/materials" component={MaterialsPage} />
+              <PrivateRouter
+                path="/user/materials/:id"
+                component={MaterialsPage}
+              />
             </UserProvider>
           </Switch>
         </Router>

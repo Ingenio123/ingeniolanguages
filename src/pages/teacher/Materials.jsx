@@ -1,10 +1,21 @@
 import { SearchComponentthree } from "../../components/Private/TeacherComponents/SearchComponentThree";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { GetAllStudents } from "../../helpers/User";
-import { GetMareialsName } from "../../services/MaterialsHttp";
+import {
+  GetMareialsName,
+  GetMaterialByIdStudent,
+} from "../../services/MaterialsHttp";
+import { ContentGrid } from "./styles";
+import { SectionMaterials } from "./PartesMateriales";
 export const MaterialsAddTeacher = () => {
   const [ListData, setListData] = useState([]);
   const [ListMaterials, setListMaterials] = useState([]);
+  const [DataStudent, setDataStudent] = useState([]);
+  const [IdiomSelect, setIdiomSelect] = useState({
+    idiom: "",
+    kids: false,
+  });
+
   useEffect(() => {
     async function GetData() {
       const resultado = await GetAllStudents();
@@ -19,8 +30,18 @@ export const MaterialsAddTeacher = () => {
   }, []);
 
   return (
-    <div className="container">
-      <SearchComponentthree data={ListData} ListMaterials={ListMaterials} />;
-    </div>
+    <ContentGrid className="container">
+      <div>
+        <SearchComponentthree
+          data={ListData}
+          ListMaterials={ListMaterials}
+          DataStudent={setDataStudent}
+          setIdiomSelect={setIdiomSelect}
+        />
+      </div>
+      <div>
+        <SectionMaterials IdiomSelect={IdiomSelect} DataStudent={DataStudent} />
+      </div>
+    </ContentGrid>
   );
 };
