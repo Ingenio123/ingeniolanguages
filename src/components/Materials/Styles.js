@@ -1,4 +1,19 @@
 import styled from "styled-components";
+import { Link } from "react-router-dom";
+
+export const ToolTip = styled.div`
+  opacity: 0;
+  position: absolute;
+  top: 20%;
+  right: -20px;
+  background-color: #52525b;
+  color: #fff;
+  border-radius: 0.2rem;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  line-height: normal;
+  box-shadow: -1px 3px 5px 0px rgba(0, 0, 0, 0.3);
+`;
 
 export const ListIcons = styled.section`
   display: grid;
@@ -6,13 +21,19 @@ export const ListIcons = styled.section`
   column-gap: 2rem;
 `;
 export const Container = styled.main``;
-export const ContentIcons = styled.div``;
-export const BoxIcon = styled.div`
+export const BoxIcon = styled(Link)`
   display: flex;
   justify-content: center;
   width: 100%;
   margin-bottom: 0.5rem;
   color: #1d4ed8;
+  :hover {
+    color: #1d4ed8 !important;
+    cursor: pointer;
+  }
+  :focus {
+    color: #16a34a;
+  }
 `;
 export const Text = styled.p`
   font-size: 1.2rem;
@@ -20,6 +41,13 @@ export const Text = styled.p`
   margin: 0;
   line-height: normal;
   letter-spacing: -1px;
+`;
+export const ContentIcons = styled.div`
+  position: relative;
+
+  & ${BoxIcon}:hover + ${ToolTip} {
+    opacity: 1;
+  }
 `;
 export const DropDownsStyle = styled.div`
   width: 60px;

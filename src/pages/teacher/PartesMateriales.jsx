@@ -13,7 +13,9 @@ import { BiPlus, BiMinus } from "react-icons/bi";
 import { IoLogoYoutube, IoDocumentText } from "react-icons/io5"; // logo de Youtobe
 import { FaFilePowerpoint } from "react-icons/fa";
 import { MdQuiz, MdModeEdit, MdOutlineRestoreFromTrash } from "react-icons/md";
-import { HiOutlineTrash } from "react-icons/hi";
+import { HiOutlineTrash, HiX } from "react-icons/hi";
+//services http
+import { DeleteMaterialForTeacher } from "../../services/MaterialsHttp";
 
 export const SectionMaterials = ({ IdiomSelect, DataStudent, ...props }) => {
   const [DataStudentState, setDataStudent] = useState({});
@@ -47,18 +49,26 @@ export const SectionMaterials = ({ IdiomSelect, DataStudent, ...props }) => {
     console.log("Cambio de props de idiom");
     setIdiom(IdiomSelect);
     console.log(filterData()?.material[0]?.levels_materials[0]?.name_material);
+
+    if (!filterData()) {
+      return setDataMaterial(null);
+    }
     setDataMaterial(filterData()?.material);
+
     return () => {};
   }, [IdiomSelect]);
 
   const filterData = () => {
-    if (Object.keys(DataStudent).length > 0) {
-      let data = DataStudent.languages.filter(
-        (e) => e.kids === IdiomSelect.kids && e.idiom === IdiomSelect.idiom
-      );
-      console.log(data.length > 0 ? true : false);
-      return data[0];
+    if (DataStudent) {
+      if (Object.keys(DataStudent).length > 0) {
+        let data = DataStudent.languages.filter(
+          (e) => e.kids === IdiomSelect.kids && e.idiom === IdiomSelect.idiom
+        );
+        console.log(data.length > 0 ? true : false);
+        return data[0];
+      }
     }
+    return null;
   };
 
   const ClickDropdown = (index) => {
@@ -66,6 +76,18 @@ export const SectionMaterials = ({ IdiomSelect, DataStudent, ...props }) => {
       return setDropDown(0);
     }
     setDropDown(index);
+  };
+
+  const handleDelete = async (id_material, levelMaterial) => {
+    console.log("handle delete");
+    console.log(levelMaterial);
+    let datos = await DeleteMaterialForTeacher(
+      DataStudentState.id_student,
+      idiom.idiom,
+      idiom.kids,
+      id_material,
+      levelMaterial
+    );
   };
 
   return (
@@ -85,7 +107,7 @@ export const SectionMaterials = ({ IdiomSelect, DataStudent, ...props }) => {
               {DropDown === i._id && (
                 <ListIcons>
                   {i.levels_materials.map((e) => (
-                    <div>
+                    <div style={{ position: "relative" }}>
                       <BoxIcon>
                         {IconsSwitch(e.type_Material.name_type)}
                       </BoxIcon>
@@ -99,8 +121,15 @@ export const SectionMaterials = ({ IdiomSelect, DataStudent, ...props }) => {
                         }}
                       >
                         <Text>{e.name_material}</Text>
-                        <ButtonDelete>
-                          <HiOutlineTrash />
+                        <ButtonDelete
+                          disabled={true}
+                          onClick={
+                            true
+                              ? null
+                              : () => handleDelete(e._id, i.level_material)
+                          }
+                        >
+                          <HiX />
                         </ButtonDelete>
                       </div>
                     </div>

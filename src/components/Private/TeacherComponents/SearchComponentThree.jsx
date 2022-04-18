@@ -256,7 +256,9 @@ export const SearchComponentthree = ({
             <span className="icon">
               <HiOutlineCheck />
             </span>
-            <p className="text">Se envio correctamente</p>
+            <p className="text">
+              This material has been submitted succesfully!
+            </p>
             <button className="goback" onClick={handleClose}>
               Go Back
             </button>

@@ -8,6 +8,7 @@ import {
   BoxIcon,
   Text,
   BoxTextMaterials,
+  ToolTip,
 } from "./Styles";
 
 export const ListMaterials = ({ materials }) => {
@@ -16,9 +17,15 @@ export const ListMaterials = ({ materials }) => {
       {materials ? (
         <ListIcons>
           <ContentIcons>
-            <BoxIcon>
+            <BoxIcon
+              to={{
+                pathname: "https://www.google.com",
+              }}
+              target="_blank"
+            >
               <IoLogoYoutube fontSize={"3rem"} />
             </BoxIcon>
+            <ToolTip>Video</ToolTip>
             <Text>numbers</Text>
           </ContentIcons>
           <ContentIcons>
@@ -40,7 +47,7 @@ export const ListMaterials = ({ materials }) => {
             <Text>Verb to be</Text>
           </ContentIcons>
           <ContentIcons>
-            <BoxIcon>
+            <BoxIcon to="www.google.com" target="_blank">
               <MdQuiz fontSize={"3rem"} />
             </BoxIcon>
             <Text>Quiz</Text>

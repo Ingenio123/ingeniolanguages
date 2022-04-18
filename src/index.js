@@ -187,6 +187,10 @@ ReactDOM.render(
                     component={Progress}
                   />
                 </SummaryProgress>
+                <PrivateRouter
+                  path="/user/materials/:id"
+                  component={MaterialsPage}
+                />
               </StudentProvider>
               <PrivateRouter path="/democlass" exact component={Democlass} />
               <StudentState>
@@ -217,10 +221,6 @@ ReactDOM.render(
               <PrivateRouter
                 path="/siginforgotpassword"
                 component={SignForgotPassword}
-              />
-              <PrivateRouter
-                path="/user/materials/:id"
-                component={MaterialsPage}
               />
             </UserProvider>
           </Switch>

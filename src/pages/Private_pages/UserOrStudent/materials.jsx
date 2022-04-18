@@ -2,8 +2,10 @@ import { MaterialsLayout } from "../../../components/Materials/LayoutMaterial";
 import { ListMaterials } from "../../../components/Materials/ListMaterials";
 import { DropDowns } from "../../../components/Materials/DropDowns";
 import { Divider, Title } from "../../../components/Materials/Styles";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { GetMaterialForStudent } from "../../../services/MaterialsHttp";
+import ContextStudent from "../../../components/Context/StudentContext";
+import { useParams } from "react-router-dom";
 const Items = [
   {
     _id: 1,
@@ -39,7 +41,8 @@ const Items = [
 
 export const MaterialsPage = () => {
   const [Active, setActive] = useState(false);
-
+  const studentContext = useContext(ContextStudent);
+  let idLanguage = useParams();
   const handleClick = (key) => {
     if (Active === key) {
       return setActive(false);
@@ -47,17 +50,24 @@ export const MaterialsPage = () => {
     setActive(key);
   };
   useEffect(() => {
-    const GetMarialsForToken = async () => {
-      let datos = await GetMaterialForStudent();
-      console.log(datos);
-    };
-    GetMarialsForToken();
+    // console.log(studentContext.student.QueryStudent._id);
+    if (studentContext?.student) {
+      console.log(idLanguage);
+      const GetMarialsForToken = async () => {
+        let datos = await GetMaterialForStudent(
+          studentContext.student.QueryStudent._id,
+          idLanguage.id
+        );
+        console.log(datos);
+      };
+      return GetMarialsForToken();
+    }
     return () => {};
   }, []);
 
   return (
     <MaterialsLayout>
-      <Title>Materials</Title>
+      <Title>My materials</Title>
       {Items.map((i) => (
         <>
           <DropDowns

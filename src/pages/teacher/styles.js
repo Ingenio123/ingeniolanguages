@@ -16,6 +16,7 @@ export const Card = styled.div`
   ${({ top }) => top && `margin-top: 2rem;`};
   margin-bottom: 0.45rem;
   border-bottom: 1px solid silver;
+  margin-left: 4rem;
 `;
 export const TextLevel = styled.span`
   font-size: 1.2rem;
@@ -65,13 +66,16 @@ export const ButtonDelete = styled.div`
   align-items: center;
   justify-content: center;
   color: #fff;
-  height: 30px;
-  width: 30px;
-  background-color: #ef4444;
+  height: 18px;
+  width: 18px;
+  background-color: ${({ disabled }) => (disabled ? "#F87171" : "#ef4444")};
   border-radius: 50%;
-  font-size: 1.2rem;
+  font-size: 0.8rem;
   margin-bottom: 0.3rem;
+  position: absolute;
+  top: 0;
+  right: 0;
   :hover {
-    cursor: pointer;
+    ${({ disabled }) => !disabled && `cursor: pointer`};
   }
 `;
