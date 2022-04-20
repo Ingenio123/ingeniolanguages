@@ -13,15 +13,21 @@ import { BiPlus, BiMinus } from "react-icons/bi";
 import { IoLogoYoutube, IoDocumentText } from "react-icons/io5"; // logo de Youtobe
 import { FaFilePowerpoint } from "react-icons/fa";
 import { MdQuiz, MdModeEdit, MdOutlineRestoreFromTrash } from "react-icons/md";
-import { HiOutlineTrash, HiX } from "react-icons/hi";
+import { HiOutlineTrash, HiX, HiOutlineCheck } from "react-icons/hi";
 //services http
 import { DeleteMaterialForTeacher } from "../../services/MaterialsHttp";
 
-export const SectionMaterials = ({ IdiomSelect, DataStudent, ...props }) => {
+export const SectionMaterials = ({
+  IdiomSelect,
+  DataStudent,
+  changueGoBack,
+  ...props
+}) => {
   const [DataStudentState, setDataStudent] = useState({});
   const [idiom, setIdiom] = useState({});
   const [dataMaterial, setDataMaterial] = useState(null);
   const [DropDown, setDropDown] = useState(false);
+  const [Modal, setModal] = useState(false);
   const IconsSwitch = (nameIcon) => {
     switch (nameIcon) {
       case "Video":
@@ -79,8 +85,8 @@ export const SectionMaterials = ({ IdiomSelect, DataStudent, ...props }) => {
   };
 
   const handleDelete = async (id_material, levelMaterial) => {
-    console.log("handle delete");
-    console.log(levelMaterial);
+    // console.log("handle delete");
+    // console.log(levelMaterial);
     let datos = await DeleteMaterialForTeacher(
       DataStudentState.id_student,
       idiom.idiom,
@@ -88,8 +94,16 @@ export const SectionMaterials = ({ IdiomSelect, DataStudent, ...props }) => {
       id_material,
       levelMaterial
     );
+    // console.log(datos);
+    if (!datos.error) {
+      setModal((prev) => !prev);
+    }
   };
-
+  const handleGoBack = () => {
+    changueGoBack((prev) => !prev);
+    setDataMaterial(null);
+    setModal((prev) => !prev);
+  };
   return (
     <>
       {dataMaterial && (
@@ -122,9 +136,9 @@ export const SectionMaterials = ({ IdiomSelect, DataStudent, ...props }) => {
                       >
                         <Text>{e.name_material}</Text>
                         <ButtonDelete
-                          disabled={true}
+                          disabled={false}
                           onClick={
-                            true
+                            false
                               ? null
                               : () => handleDelete(e._id, i.level_material)
                           }
@@ -140,9 +154,72 @@ export const SectionMaterials = ({ IdiomSelect, DataStudent, ...props }) => {
           ))}
         </>
       )}
+      {Modal && (
+        <ContentModal>
+          <div>
+            <BoxIconSuccess>
+              <HiOutlineCheck />
+            </BoxIconSuccess>
+            <p>Se elimino correctamente</p>
+            <button onClick={handleGoBack}>Go Back</button>
+          </div>
+        </ContentModal>
+      )}
     </>
   );
 };
+
+const BoxIconSuccess = styled.div`
+  border-radius: 50%;
+  height: 40px;
+  width: 40px;
+  font-size: 2rem;
+  background-color: #86efac;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #000;
+`;
+
+const ContentModal = styled.div`
+  background-color: rgba(0, 0, 0, 0.3);
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 999;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  & > div {
+    color: #3f3f46;
+    width: 30%;
+    height: 250px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background-color: #fff;
+    border-radius: 0.5rem;
+    & > p {
+      font-size: 1.3rem;
+      line-height: normal;
+      margin: 0;
+      margin: 1rem 0;
+    }
+    & > button {
+      background-color: #18181b;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      font-size: 1.125rem;
+      padding: 0.5rem 1rem;
+      min-width: 150px;
+      line-height: normal;
+    }
+  }
+`;
 
 const IconMinus = styled(BiMinus)`
   height: 30px;

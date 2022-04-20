@@ -15,7 +15,8 @@ export const MaterialsAddTeacher = () => {
     idiom: "",
     kids: false,
   });
-
+  const [GoBack, setGoBack] = useState(false);
+  //
   useEffect(() => {
     async function GetData() {
       const resultado = await GetAllStudents();
@@ -37,10 +38,15 @@ export const MaterialsAddTeacher = () => {
           ListMaterials={ListMaterials}
           DataStudent={setDataStudent}
           setIdiomSelect={setIdiomSelect}
+          changueGoBack={GoBack}
         />
       </div>
       <div>
-        <SectionMaterials IdiomSelect={IdiomSelect} DataStudent={DataStudent} />
+        <SectionMaterials
+          IdiomSelect={IdiomSelect}
+          DataStudent={DataStudent}
+          changueGoBack={setGoBack}
+        />
       </div>
     </ContentGrid>
   );

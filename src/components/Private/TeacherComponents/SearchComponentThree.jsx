@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import Select from "react-select";
 import { IoLogoYoutube, IoDocumentText } from "react-icons/io5"; // logo de Youtobe
 import { FaFilePowerpoint } from "react-icons/fa";
@@ -48,6 +48,7 @@ export const SearchComponentthree = ({
   ListMaterials,
   DataStudent,
   setIdiomSelect,
+  changueGoBack,
 }) => {
   //states
   const [filteredData, setFilteredData] = useState([]);
@@ -179,6 +180,11 @@ export const SearchComponentthree = ({
   };
 
   // codigo de programacion y maquetacion web
+
+  useEffect(() => {
+    setItem({});
+    return () => {};
+  }, [changueGoBack]);
 
   return (
     <>

@@ -65,7 +65,7 @@ export const ButtonDelete = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #fff;
+  color: #ffff;
   height: 18px;
   width: 18px;
   background-color: ${({ disabled }) => (disabled ? "#F87171" : "#ef4444")};
@@ -76,6 +76,7 @@ export const ButtonDelete = styled.div`
   top: 0;
   right: 0;
   :hover {
+    ${({ disabled }) => !disabled && `background-color: #DC2626`};
     ${({ disabled }) => !disabled && `cursor: pointer`};
   }
 `;

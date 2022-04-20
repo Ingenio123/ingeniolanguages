@@ -20,8 +20,9 @@ import Url from "../Urls";
 import useUserData from "../../hooks/useUserData";
 import DataUserContext from "../Context/userDataContext";
 import { useDispatch, useSelector } from "react-redux";
-
 import { GetDataUser } from "../../redux/actions/UserData";
+
+import SectionReviews from "../SectionReviews";
 
 const Icon = styled(AiOutlineShoppingCart)`
   height: 30px;
@@ -158,6 +159,7 @@ const HeaderHero = ({ isLogged, ActivarLoged }) => {
         hasLoginError={hasLoginError}
       />
       <Teachers />
+      <SectionReviews />
       <PriceSection />
     </>
   );
