@@ -32,24 +32,33 @@ export const ListMaterials = ({ materials }) => {
             <BoxIcon>
               <IoDocumentText fontSize={"3rem"} />
             </BoxIcon>
+            <ToolTip>Document</ToolTip>
             <Text>Home work #1</Text>
           </ContentIcons>
           <ContentIcons>
-            <BoxIcon>
+            <BoxIcon
+              to={{
+                pathname: "https://www.google.com",
+              }}
+              target="_blank"
+            >
               <FaFilePowerpoint fontSize={"3rem"} />
             </BoxIcon>
+            <ToolTip>Slide</ToolTip>
             <Text>Countries & nationalitites</Text>
           </ContentIcons>
           <ContentIcons>
             <BoxIcon>
               <MdModeEdit fontSize={"3rem"} />
             </BoxIcon>
+            <ToolTip>Homework</ToolTip>
             <Text>Verb to be</Text>
           </ContentIcons>
           <ContentIcons>
             <BoxIcon to="www.google.com" target="_blank">
               <MdQuiz fontSize={"3rem"} />
             </BoxIcon>
+            <ToolTip>Quiz</ToolTip>
             <Text>Quiz</Text>
           </ContentIcons>
           <ContentIcons>
@@ -57,6 +66,7 @@ export const ListMaterials = ({ materials }) => {
               <IoDocumentText fontSize={"3rem"} />
             </BoxIcon>
             <Text>Job & ocupations</Text>
+            <ToolTip>Document</ToolTip>
           </ContentIcons>
         </ListIcons>
       ) : (

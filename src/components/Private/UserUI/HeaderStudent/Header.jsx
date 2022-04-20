@@ -27,8 +27,6 @@ import KoreaImg from "../../../../assets/images/svgs/Korea.png";
 import Francia from "../../../../assets/images/svgs/Francia.png";
 import Inglaterra from "../../../../assets/images/svgs/Inglaterra.png";
 import Infantil from "../../../../assets/images/ImageInfantil.jpg";
-//
-import ModalRequesFreeClass from "../../../Header/ModalRequesFreeClass";
 
 const imgs = (idiom) => {
   switch (idiom) {
@@ -93,7 +91,7 @@ export default function Header({ course }) {
   return (
     <ContentCards>
       <>
-        {contextStudent.student !== null || contextStudent.student === false ? (
+        {contextStudent.student !== null && !contextStudent.loading ? (
           <>
             <CardContent
               img={
@@ -146,49 +144,55 @@ export default function Header({ course }) {
             </CardContent>
           </>
         ) : (
+          // not student down
           <>
-            <CardContent img={imgFondo(course.idiom)}>
-              <CardCourse>
-                <ContentImage>
-                  <Img url={imgs(course.idiom)} alt="" width="200px" />
-                  <ItemsDeCompra flex style={{ width: "100%" }}></ItemsDeCompra>
-                </ContentImage>
-                <div>
-                  <CardHeader>
-                    <span>{course.idiom}</span>
-                    {/* <BuyNewCourse onClick={Home} title="Buy a now package" /> */}
-                  </CardHeader>
-                  <DatosDeCompra>
-                    <ItemsDeCompra>
-                      <IconTime />
-                      <ItemContent>
-                        Duration of each lesson: {course.timeLesson}
-                        {/* Time de cada lessons: 40 min lessons */}
-                      </ItemContent>
-                    </ItemsDeCompra>
+            {!contextStudent.loading && (
+              <CardContent img={imgFondo(course.idiom)}>
+                <CardCourse>
+                  <ContentImage>
+                    <Img url={imgs(course.idiom)} alt="" width="200px" />
+                    <ItemsDeCompra
+                      flex
+                      style={{ width: "100%" }}
+                    ></ItemsDeCompra>
+                  </ContentImage>
+                  <div>
+                    <CardHeader>
+                      <span>{course.idiom}</span>
+                      {/* <BuyNewCourse onClick={Home} title="Buy a now package" /> */}
+                    </CardHeader>
+                    <DatosDeCompra>
+                      <ItemsDeCompra>
+                        <IconTime />
+                        <ItemContent>
+                          Duration of each lesson: {course.timeLesson}
+                          {/* Time de cada lessons: 40 min lessons */}
+                        </ItemContent>
+                      </ItemsDeCompra>
 
-                    <ItemsDeCompra>
-                      <IconNumberLessons />
-                      <ItemContent>
-                        Number of purchased lessons: 0 lessons
-                      </ItemContent>
-                    </ItemsDeCompra>
-                    <ItemsDeCompra>
-                      <IconNumberLessons />
-                      <ItemContent>
-                        Number of remaining lessons: {course.lessonTotal}
-                      </ItemContent>
-                    </ItemsDeCompra>
-                    <ItemsDeCompra>
-                      <IconCalendar />
-                      <ItemContent>
-                        Lessons package expiration: 00/00/00
-                      </ItemContent>
-                    </ItemsDeCompra>
-                  </DatosDeCompra>
-                </div>
-              </CardCourse>
-            </CardContent>
+                      <ItemsDeCompra>
+                        <IconNumberLessons />
+                        <ItemContent>
+                          Number of purchased lessons: 0 lessons
+                        </ItemContent>
+                      </ItemsDeCompra>
+                      <ItemsDeCompra>
+                        <IconNumberLessons />
+                        <ItemContent>
+                          Number of remaining lessons: {course.lessonTotal}
+                        </ItemContent>
+                      </ItemsDeCompra>
+                      <ItemsDeCompra>
+                        <IconCalendar />
+                        <ItemContent>
+                          Lessons package expiration: 00/00/00
+                        </ItemContent>
+                      </ItemsDeCompra>
+                    </DatosDeCompra>
+                  </div>
+                </CardCourse>
+              </CardContent>
+            )}
             {/* end */}
             <ComponentButtons />
           </>

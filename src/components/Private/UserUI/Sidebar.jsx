@@ -141,7 +141,7 @@ export default function Sidebar({ salir, isLogged }) {
         </section>
       ) : (
         <section className="l-navigation">
-          <nav className="ml-5 navigation ">
+          <nav className="ml-5 navigation">
             <ul>
               {Items.map((item, index) => {
                 return (
@@ -150,7 +150,11 @@ export default function Sidebar({ salir, isLogged }) {
                       {item.link ? (
                         <LinkItems to={item.link}>{item.name}</LinkItems>
                       ) : (
-                        item.name
+                        <>
+                          {item.name === "Materials" && !contextStudent.student
+                            ? ""
+                            : item.name}
+                        </>
                       )}
                       {item.name === "Course content" && (
                         <div className="dropdown-subitem">
@@ -289,50 +293,54 @@ export default function Sidebar({ salir, isLogged }) {
                         </div>
                       )}
 
-                      {item.name === "Materials" && (
-                        <div className="dropdown-subitem">
-                          {contextStudent.student || courses.length > 0 ? (
-                            <>
-                              {courses.length > 0 ? (
+                      {!!contextStudent.student && (
+                        <>
+                          {item.name === "Materials" && (
+                            <div className="dropdown-subitem">
+                              {contextStudent.student || courses.length > 0 ? (
                                 <>
-                                  {courses.map((item, index) => (
-                                    <Link
-                                      to={`/user/materials?language=${item}`}
-                                      key={index}
-                                    >
-                                      {item}
-                                    </Link>
-                                  ))}
+                                  {courses.length > 0 ? (
+                                    <>
+                                      {courses.map((item, index) => (
+                                        <Link
+                                          to={`/user/materials?language=${item}`}
+                                          key={index}
+                                        >
+                                          {item}
+                                        </Link>
+                                      ))}
+                                    </>
+                                  ) : (
+                                    <>
+                                      {contextStudent.student.QueryStudent.courses.map(
+                                        (item, index) => (
+                                          <Link
+                                            to={`/user/materials/${item._id}`}
+                                            key={index}
+                                          >
+                                            {item.idiom}
+                                            {item.kids && "(Kids)"}
+                                          </Link>
+                                        )
+                                      )}
+                                    </>
+                                  )}
                                 </>
                               ) : (
                                 <>
-                                  {contextStudent.student.QueryStudent.courses.map(
-                                    (item, index) => (
-                                      <Link
-                                        to={`/user/materials/${item._id}`}
-                                        key={index}
-                                      >
-                                        {item.idiom}
-                                        {item.kids && "(Kids)"}
-                                      </Link>
-                                    )
-                                  )}
+                                  {ItemsNotStudent.map((names, index) => (
+                                    <Link
+                                      key={index}
+                                      to={`/user/materials?language=${names.idiom}`}
+                                    >
+                                      {names.nameItem}
+                                    </Link>
+                                  ))}
                                 </>
                               )}
-                            </>
-                          ) : (
-                            <>
-                              {ItemsNotStudent.map((names, index) => (
-                                <Link
-                                  key={index}
-                                  to={`/user/materials?language=${names.idiom}`}
-                                >
-                                  {names.nameItem}
-                                </Link>
-                              ))}
-                            </>
+                            </div>
                           )}
-                        </div>
+                        </>
                       )}
                     </span>
                   </ItemsNav>

@@ -89,9 +89,10 @@ export const GetMaterialForStudent = async (id_student, id_language) => {
   }
 
   let data = await resp.json();
+  // console.log(data);
   return {
-    error: false,
-    data: data,
+    error: data.error,
+    data: data.data,
   };
 };
 

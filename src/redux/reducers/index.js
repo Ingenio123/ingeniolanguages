@@ -10,6 +10,7 @@ import Proced_to_pay from "./procedTopayment";
 import GetIdiomReducer from "./getIdiomReducer";
 import Method from "./method";
 import MenuIdiom from "./menuIdiom";
+import MaterialsReducer from "./materialsReducer";
 //
 //
 export default combineReducers({
@@ -25,4 +26,5 @@ export default combineReducers({
   GetIdiomReducer,
   Method,
   Menu: MenuIdiom,
+  materials: MaterialsReducer,
 });

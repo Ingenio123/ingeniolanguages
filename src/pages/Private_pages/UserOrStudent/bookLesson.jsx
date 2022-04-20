@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 //components
 import BookLessonTitleComponent from "../../../components/Book_Lesson/Title";
 import SectionCardComponent from "../../../components/Book_Lesson/SectionCards";
@@ -142,6 +142,48 @@ function Index() {
 }
 
 export default Index;
+
+const skeletonKeyframes = keyframes`
+  0% {
+    background-position: -200px 0;
+  }
+  100% {
+    background-position: calc(200px + 100%) 0;
+  }
+`;
+
+const CardSkeleton = styled.div`
+  width: 100%;
+  height: 200px;
+  /* display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center; */
+  position: relative;
+  /* border: 1px solid #f00909; */
+`;
+
+const ProductSkeleton = styled.div`
+  display: inline-block;
+  height: ${(props) => props.height || "14px"};
+  width: ${(props) => props.width || "80%"};
+  animation: ${skeletonKeyframes} 1300ms ease-in-out infinite;
+  background-color: #eee;
+  background-image: linear-gradient(90deg, #9d9d9d, #f5f5f5, #eee);
+  background-size: 200px 100%;
+  background-repeat: no-repeat;
+  border-radius: 4px;
+  margin-bottom: 8px;
+  margin-top: ${(props) => props.marginTop || "0"};
+`;
+
+const PictureSkeleton = styled(ProductSkeleton)`
+  margin-bottom: 16px;
+  width: ${({ width }) => width || "20px"};
+  height: ${({ height }) => height || "20px"};
+  /* margin: auto; */
+  display: block;
+`;
 
 const Container = styled.div`
   margin: 1rem 0;

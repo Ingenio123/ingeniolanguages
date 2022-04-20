@@ -25,11 +25,20 @@ const StudentState = (props) => {
         },
       });
       if (res.status >= 400 && res.status < 500) {
-        return dispatch({ type: "NOT_STUDENT" });
+        dispatch({ type: "LOADING_KILL" });
+        dispatch({ type: "NOT_STUDENT" });
+        return {
+          error: true,
+          student: false,
+        };
       }
       const data = await res.json();
       dispatch({ type: "GET_STUDENT", payload: data });
       dispatch({ type: "LOADING_KILL" });
+      return {
+        error: false,
+        student: true,
+      };
     } catch (error) {
       console.log("Err student", error);
     }

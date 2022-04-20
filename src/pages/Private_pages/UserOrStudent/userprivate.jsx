@@ -11,31 +11,14 @@ export default function UserPrivate({ children }) {
   const { id } = useParams();
   const contextStudent = useContext(studentContext);
   const [OneCourse, setOneCourse] = useState({
-    course: null,
+    course: {},
   });
   useEffect(() => {
     console.log("Initialize useEffect");
-    contextStudent.getStudent();
+    contextStudent.getStudent().then((res) => console.log(res));
+    // console.log(response);
   }, []);
 
-  // useEffect(() => {
-  //   const idCourse = id;
-  //   console.log(idCourse);
-  //   if (contextStudent.student?.QueryStudent.courses) {
-  //     // console.log("Course");
-  //     let getOneCourse = contextStudent.student.QueryStudent.courses.filter(
-  //       (e) => e._id === idCourse
-  //     );
-  //     // console.log(getOneCourse[0]);
-  //     return setOneCourse({
-  //       ...OneCourse,
-  //       course: getOneCourse[0],
-  //     });
-  //   }
-  //   return () => {};
-  // }, [contextStudent.loading]);
-
-  //
   useEffect(() => {
     const idCourse = id;
     console.log(contextStudent.student);
@@ -80,7 +63,11 @@ export default function UserPrivate({ children }) {
             {contextStudent.student ? (
               <CardLists course={OneCourse?.course} />
             ) : (
-              <CardLists course={OneCourse.course} />
+              <>
+                {Object.keys(OneCourse.course).length > 0 && (
+                  <CardLists course={OneCourse.course} />
+                )}
+              </>
             )}
           </>
         )}
