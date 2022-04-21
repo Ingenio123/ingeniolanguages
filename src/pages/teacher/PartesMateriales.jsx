@@ -23,11 +23,12 @@ export const SectionMaterials = ({
   changueGoBack,
   ...props
 }) => {
-  const [DataStudentState, setDataStudent] = useState({});
-  const [idiom, setIdiom] = useState({});
-  const [dataMaterial, setDataMaterial] = useState(null);
-  const [DropDown, setDropDown] = useState(false);
-  const [Modal, setModal] = useState(false);
+  const [DataStudentState, setDataStudent] = useState({}); //state 1
+  const [idiom, setIdiom] = useState({}); //state 2
+  const [dataMaterial, setDataMaterial] = useState(null); //state 3
+  const [DropDown, setDropDown] = useState(false); //state 4
+  const [Modal, setModal] = useState(false); //state 4
+  //
   const IconsSwitch = (nameIcon) => {
     switch (nameIcon) {
       case "Video":
@@ -106,10 +107,15 @@ export const SectionMaterials = ({
   };
   return (
     <>
+      {!dataMaterial && idiom.idiom !== "" ? (
+        <CardNotData>
+          <h6>No tiene materials add</h6>
+        </CardNotData>
+      ) : null}
       {dataMaterial && (
         <>
           {dataMaterial.map((i, index) => (
-            <Card top={index === 0 && true}>
+            <Card key={i._id} top={index === 0 && true}>
               <DropDownsStyle>
                 {DropDown === i._id ? (
                   <IconMinus onClick={() => ClickDropdown(i._id)} />
@@ -168,6 +174,24 @@ export const SectionMaterials = ({
     </>
   );
 };
+
+const CardNotData = styled.section`
+  margin: 2rem 0 0 0 !important;
+  width: 100%;
+  height: 62px;
+  border-radius: 4px;
+  background-color: #bbf7d0;
+  display: flex;
+  justify-content: center;
+  align-items: center !important;
+
+  & > h6 {
+    font-size: 1.2rem;
+    color: #18181b;
+    line-height: normal;
+    margin-bottom: 0;
+  }
+`;
 
 const BoxIconSuccess = styled.div`
   border-radius: 50%;
