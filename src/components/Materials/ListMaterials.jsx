@@ -65,8 +65,8 @@ export const ListMaterials = ({ materials }) => {
             <BoxIcon>
               <IoDocumentText fontSize={"3rem"} />
             </BoxIcon>
-            <Text>Job & ocupations</Text>
             <ToolTip>Document</ToolTip>
+            <Text>Job & ocupations</Text>
           </ContentIcons>
         </ListIcons>
       ) : (

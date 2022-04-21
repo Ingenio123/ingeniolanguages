@@ -14,8 +14,14 @@ import { IoLogoYoutube, IoDocumentText } from "react-icons/io5"; // logo de Yout
 import { FaFilePowerpoint } from "react-icons/fa";
 import { MdQuiz, MdModeEdit, MdOutlineRestoreFromTrash } from "react-icons/md";
 import { HiOutlineTrash, HiX, HiOutlineCheck } from "react-icons/hi";
+import { VscRefresh } from "react-icons/vsc";
 //services http
-import { DeleteMaterialForTeacher } from "../../services/MaterialsHttp";
+import {
+  DeleteMaterialForTeacher,
+  RefreshDataMaterials,
+  GetMaterialByIdStudent,
+} from "../../services/MaterialsHttp";
+import { IoWarningOutline } from "react-icons/io5";
 
 export const SectionMaterials = ({
   IdiomSelect,
@@ -28,6 +34,14 @@ export const SectionMaterials = ({
   const [dataMaterial, setDataMaterial] = useState(null); //state 3
   const [DropDown, setDropDown] = useState(false); //state 4
   const [Modal, setModal] = useState(false); //state 4
+  const [DataParamsDelete, setDataParamsDelete] = useState({
+    id_student: "",
+    idiom: "",
+    kids: "",
+    id_material: "",
+    level_material: "",
+  });
+  const [fetchSucces, setFetchSuccess] = useState(undefined);
   //
   const IconsSwitch = (nameIcon) => {
     switch (nameIcon) {
@@ -88,34 +102,92 @@ export const SectionMaterials = ({
   const handleDelete = async (id_material, levelMaterial) => {
     // console.log("handle delete");
     // console.log(levelMaterial);
-    let datos = await DeleteMaterialForTeacher(
-      DataStudentState.id_student,
-      idiom.idiom,
-      idiom.kids,
-      id_material,
-      levelMaterial
-    );
-    // console.log(datos);
-    if (!datos.error) {
-      setModal((prev) => !prev);
-    }
-  };
-  const handleGoBack = () => {
-    changueGoBack((prev) => !prev);
-    setDataMaterial(null);
+    setDataParamsDelete({
+      ...DataParamsDelete,
+      id_student: DataStudentState.id_student,
+      idiom: idiom.idiom,
+      kids: idiom.kids,
+      id_material: id_material,
+      level_material: levelMaterial,
+    });
+    // let datos = await DeleteMaterialForTeacher(
+    //   DataStudentState.id_student,
+    //   idiom.idiom,
+    //   idiom.kids,
+    //   id_material,
+    //   levelMaterial
+    // );
+
+    // // console.log(datos);
+    // if (!datos.error) {
+    // }
     setModal((prev) => !prev);
   };
+  const handleGoBack = () => {
+    setFetchSuccess(false);
+    setModal((prev) => !prev);
+  };
+
+  const handleClickConfirm = async () => {
+    let findNest = (obj, parent, value, i) => {
+      if (obj._id === value) {
+        console.log("DELETE");
+        parent.splice(i, 1);
+      }
+      if (obj && obj.levels_materials && obj.levels_materials.length > 0) {
+        for (let j = 0; j < obj.levels_materials.length; j++) {
+          findNest(obj.levels_materials[j], obj.levels_materials, value, j);
+        }
+      }
+    };
+    let datos = await DeleteMaterialForTeacher(DataParamsDelete);
+
+    if (!datos.error) {
+      for (let i = 0; i < dataMaterial.length; i++) {
+        findNest(
+          dataMaterial[i],
+          dataMaterial,
+          DataParamsDelete.id_material,
+          i
+        );
+      }
+      setFetchSuccess(true);
+    }
+  };
+
+  const handleClickCancel = () => {
+    setModal(false);
+  };
+
+  const handleRefresh = async () => {
+    console.log(DataStudentState.id_student);
+    let responseRefresh = await GetMaterialByIdStudent(
+      DataStudentState.id_student
+    );
+    console.log(responseRefresh);
+    let datos = responseRefresh.data.materials.languages.filter(
+      (e) => e.idiom === idiom.idiom && e.kids === idiom.kids
+    );
+    // console.log(datos[0].material);
+    setDataMaterial(datos[0].material);
+  };
+
   return (
     <>
       {!dataMaterial && idiom.idiom !== "" ? (
         <CardNotData>
-          <h6>No tiene materials add</h6>
+          <h6>No materials have been submitted </h6>
         </CardNotData>
       ) : null}
       {dataMaterial && (
         <>
+          <BoxRefresh>
+            <ContentBoxIcons onClick={handleRefresh}>
+              <VscRefresh />
+            </ContentBoxIcons>
+          </BoxRefresh>
           {dataMaterial.map((i, index) => (
-            <Card key={i._id} top={index === 0 && true}>
+            <Card key={i._id} top={index === 0 && false}>
               <DropDownsStyle>
                 {DropDown === i._id ? (
                   <IconMinus onClick={() => ClickDropdown(i._id)} />
@@ -163,17 +235,72 @@ export const SectionMaterials = ({
       {Modal && (
         <ContentModal>
           <div>
-            <BoxIconSuccess>
-              <HiOutlineCheck />
+            <BoxIconSuccess background={fetchSucces ? "#00E676" : "#FFF176"}>
+              {fetchSucces ? <HiOutlineCheck /> : <IoWarningOutline />}
             </BoxIconSuccess>
-            <p>Se elimino correctamente</p>
-            <button onClick={handleGoBack}>Go Back</button>
+            <p>
+              {fetchSucces
+                ? "Deleted Successfully"
+                : "Are you sure that you want to delete this material?"}
+            </p>
+
+            <div className="content__buttons">
+              {fetchSucces ? (
+                <button className="go_back" onClick={handleGoBack}>
+                  Go Back
+                </button>
+              ) : (
+                <>
+                  <button
+                    className="buttons bg-gray mr-4"
+                    type="button"
+                    onClick={handleClickCancel}
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    className="buttons bg_green"
+                    type="button"
+                    onClick={handleClickConfirm}
+                  >
+                    Confirm
+                  </button>
+                </>
+              )}
+            </div>
+            {/*  */}
           </div>
         </ContentModal>
       )}
     </>
   );
 };
+
+const BoxRefresh = styled.div`
+  width: 100%;
+  /* border: 1px solid blue; */
+  text-align: end;
+  margin-top: 1.5rem;
+`;
+
+const ContentBoxIcons = styled.div`
+  transition: all 0.3s ease;
+  margin-left: auto;
+  background-color: #eeeeee;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.3rem;
+  color: #757575;
+  :hover {
+    color: #424242;
+    cursor: pointer;
+    background-color: #e0e0e0;
+  }
+`;
 
 const CardNotData = styled.section`
   margin: 2rem 0 0 0 !important;
@@ -197,8 +324,9 @@ const BoxIconSuccess = styled.div`
   border-radius: 50%;
   height: 40px;
   width: 40px;
-  font-size: 2rem;
-  background-color: #86efac;
+  font-size: 1.5rem;
+  background-color: ${({ background }) =>
+    (background && background) || "#81C784"};
   display: flex;
   align-items: center;
   justify-content: center;
@@ -231,16 +359,46 @@ const ContentModal = styled.div`
       line-height: normal;
       margin: 0;
       margin: 1rem 0;
+      text-align: center;
+      /* border: 1px solid red; */
+      width: 80%;
     }
-    & > button {
-      background-color: #18181b;
-      color: #fff;
-      border: none;
-      border-radius: 4px;
-      font-size: 1.125rem;
-      padding: 0.5rem 1rem;
-      min-width: 150px;
-      line-height: normal;
+    .content__buttons {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      /* border: 1px solid red; */
+      width: 60%;
+      .go_back {
+        background-color: #18181b;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        font-size: 1.125rem;
+        padding: 0.5rem 1rem;
+        min-width: 150px;
+        line-height: normal;
+      }
+
+      .buttons {
+        padding: 0.3rem 1rem;
+        font-size: 1rem;
+        border-radius: 4px;
+        min-width: 100px;
+      }
+      .bg-gray {
+        background-color: #bdbdbd;
+        :hover {
+          background-color: #acabab;
+        }
+      }
+      .bg_green {
+        background-color: #2962ff;
+        color: #fff;
+        :hover {
+          background-color: #1565c0;
+        }
+      }
     }
   }
 `;

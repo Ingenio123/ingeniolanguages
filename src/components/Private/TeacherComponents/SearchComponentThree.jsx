@@ -176,7 +176,7 @@ export const SearchComponentthree = ({
     let inputTitle = (inputOne.current.value = "");
     let inputUrl = (inputTwo.current.value = "");
     setModal((prev) => !prev);
-    setItem({});
+    // setItem({});
   };
 
   // codigo de programacion y maquetacion web

@@ -96,28 +96,27 @@ export const GetMaterialForStudent = async (id_student, id_language) => {
   };
 };
 
-export const DeleteMaterialForTeacher = async (
-  idStudent,
-  idiom,
-  kids,
-  id_material,
-  level_material
-) => {
+export const DeleteMaterialForTeacher = async (dataObject) => {
+  // idStudent,
+  // idiom,
+  // kids,
+  // id_material,
+  // level_material
   const user = JSON.parse(localStorage.getItem("user"));
-  let dataBody = {
-    id_student: idStudent,
-    idiom,
-    kids,
-    id_material,
-    level_material,
-  };
+  // let dataBody = {
+  //   id_student: idStudent,
+  //   idiom,
+  //   kids,
+  //   id_material,
+  //   level_material,
+  // };
   let resp = await fetch(`${url.url}/v1/data/delete/materials`, {
     method: "DELETE",
     headers: {
       "content-type": "Application/json",
       Authorization: `Bearer ${user.token}`,
     },
-    body: JSON.stringify(dataBody),
+    body: JSON.stringify(dataObject),
   });
   if (!resp.ok) {
     return {
@@ -127,6 +126,31 @@ export const DeleteMaterialForTeacher = async (
   //
   let data = await resp.json();
 
+  return {
+    error: false,
+    data: data,
+  };
+};
+
+export const RefreshDataMaterials = async (idStudentParam) => {
+  const user = JSON.parse(localStorage.getItem("user"));
+
+  let resp = await fetch(
+    `${url.url}/v1/data/get/materials/refresh/${idStudentParam}`,
+    {
+      method: "GET",
+      headers: {
+        "content-type": "Application/json",
+        Authorization: `Bearer ${user.token}`,
+      },
+    }
+  );
+  if (!resp.ok) {
+    return {
+      error: true,
+    };
+  }
+  let data = await resp.json();
   return {
     error: false,
     data: data,
