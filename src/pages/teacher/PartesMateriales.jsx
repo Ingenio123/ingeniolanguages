@@ -123,6 +123,7 @@ export const SectionMaterials = ({
     // }
     setModal((prev) => !prev);
   };
+
   const handleGoBack = () => {
     setFetchSuccess(false);
     setModal((prev) => !prev);
