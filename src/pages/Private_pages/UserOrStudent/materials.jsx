@@ -137,16 +137,18 @@ export const MaterialsPage = () => {
         <>
           {Items.map((i) => (
             <>
-              <DropDowns
-                click={handleClick}
-                level={i.level}
-                active={i._id === Active ? true : false}
-                id={i._id}
-              />
-              {i._id === Active && (
-                <ListMaterials materials={i.materials ? true : false} />
-              )}
-              <Divider />
+              <BoxContent>
+                <DropDowns
+                  click={handleClick}
+                  level={i.level}
+                  active={i._id === Active ? true : false}
+                  id={i._id}
+                />
+                {i._id === Active && (
+                  <ListMaterials materials={i.materials ? true : false} />
+                )}
+                {/* <Divider /> */}
+              </BoxContent>
             </>
           ))}
         </>
@@ -156,6 +158,14 @@ export const MaterialsPage = () => {
     </MaterialsLayout>
   );
 };
+
+const BoxContent = styled.div`
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  margin-bottom: 0.5rem;
+  box-shadow: 0px 7px 15px -1px rgb(0 0 0 / 3%);
+  padding: 0.5rem 0;
+`;
 
 const skeletonKeyframes = keyframes`
   0% {

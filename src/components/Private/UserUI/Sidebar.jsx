@@ -36,9 +36,10 @@ export default function Sidebar({ salir, isLogged }) {
   const history = useHistory();
   const [Active, setActive] = useState("");
   const [Roles, setRoles] = useState(false);
-  const [clickImgProfile, setClickImgProfile] = useState(false);
+  const [clickfImgProfile, setClickImgProfile] = useState(false);
   const [Click, setClick] = useState(false);
   const [Card, setClickCard] = useState(false);
+  const [Activate, setActivate] = useState(null);
   //ref
   const PropsRef = useRef();
 
@@ -94,6 +95,14 @@ export default function Sidebar({ salir, isLogged }) {
     return (PropsRef.current.style.transform = "translate(0)");
   }, [Card]);
 
+  const handleClick = (index) => {
+    // index === Active ?  null : setActive(index)
+    console.log("index", index);
+    if (Activate === index) {
+      return null;
+    }
+    setActivate(index);
+  };
   return (
     <div>
       <header className="header" id="header">
@@ -125,10 +134,16 @@ export default function Sidebar({ salir, isLogged }) {
             <ul>
               {ItemsTeacher.map((item, index) => {
                 return (
-                  <ItemsNav key={index} className="dropdown">
+                  <ItemsNav key={index} className={"dropdown"}>
                     <span className="items">
                       {item.link ? (
-                        <LinkItems to={item.link}>{item.name}</LinkItems>
+                        <LinkItems
+                          onClick={() => handleClick(index)}
+                          to={item.link}
+                          active={Activate === index}
+                        >
+                          {item.name}
+                        </LinkItems>
                       ) : (
                         item.name
                       )}
@@ -145,10 +160,18 @@ export default function Sidebar({ salir, isLogged }) {
             <ul>
               {Items.map((item, index) => {
                 return (
-                  <ItemsNav key={index} className="dropdown">
-                    <span className="items">
+                  <ItemsNav
+                    key={index}
+                    className="dropdown"
+                    active={Activate === index}
+                  >
+                    <span
+                      className={`items ${Activate == index ? "active" : ""}`}
+                    >
                       {item.link ? (
-                        <LinkItems to={item.link}>{item.name}</LinkItems>
+                        <LinkItems active={Activate === index} to={item.link}>
+                          {item.name}
+                        </LinkItems>
                       ) : (
                         <>
                           {item.name === "Materials" && !contextStudent.student
@@ -162,10 +185,10 @@ export default function Sidebar({ salir, isLogged }) {
                             <>
                               {courses.length > 0 ? (
                                 <>
-                                  {courses.map((item, index) => (
+                                  {courses.map((item, indexsubmap) => (
                                     <Link
                                       to={`/private?language=${item}`}
-                                      key={index}
+                                      key={indexsubmap}
                                     >
                                       {item}
                                     </Link>
@@ -174,10 +197,11 @@ export default function Sidebar({ salir, isLogged }) {
                               ) : (
                                 <>
                                   {contextStudent.student.QueryStudent.courses.map(
-                                    (item, index) => (
+                                    (item, indexSubmap) => (
                                       <Link
+                                        onClick={() => handleClick(index)}
                                         to={`/private/${item._id}`}
-                                        key={index}
+                                        key={indexSubmap}
                                       >
                                         {item.idiom}
                                         {item.kids && "(Kids)"}
@@ -219,10 +243,11 @@ export default function Sidebar({ salir, isLogged }) {
                               ) : (
                                 <>
                                   {contextStudent.student.QueryStudent.courses.map(
-                                    (item, index) => (
+                                    (item, indexSubmap) => (
                                       <Link
+                                        onClick={() => handleClick(index)}
                                         to={`/progress/${item._id}`}
-                                        key={index}
+                                        key={indexSubmap}
                                       >
                                         {item.idiom}
                                         {item.kids && "(Kids)"}
@@ -264,13 +289,13 @@ export default function Sidebar({ salir, isLogged }) {
                               ) : (
                                 <>
                                   {contextStudent.student.QueryStudent.courses.map(
-                                    (item, index) => (
+                                    (item, indexSubmap) => (
                                       <Link
+                                        onClick={() => handleClick(index)}
                                         to={`/booklesson?language=${item.idiom}`}
-                                        key={index}
+                                        key={indexSubmap}
                                       >
                                         {item.idiom}
-                                        {""}
                                         {item.kids && "(Kids)"}
                                       </Link>
                                     )
@@ -301,10 +326,10 @@ export default function Sidebar({ salir, isLogged }) {
                                 <>
                                   {courses.length > 0 ? (
                                     <>
-                                      {courses.map((item, index) => (
+                                      {courses.map((item, indexSubmap) => (
                                         <Link
                                           to={`/user/materials?language=${item}`}
-                                          key={index}
+                                          key={indexSubmap}
                                         >
                                           {item}
                                         </Link>
@@ -313,10 +338,11 @@ export default function Sidebar({ salir, isLogged }) {
                                   ) : (
                                     <>
                                       {contextStudent.student.QueryStudent.courses.map(
-                                        (item, index) => (
+                                        (item, indexSubmap) => (
                                           <Link
+                                            onClick={() => handleClick(index)}
                                             to={`/user/materials/${item._id}`}
-                                            key={index}
+                                            key={indexSubmap}
                                           >
                                             {item.idiom}
                                             {item.kids && "(Kids)"}
@@ -354,6 +380,26 @@ export default function Sidebar({ salir, isLogged }) {
   );
 }
 
+const StyledDiv = styled.div`
+  /* ${({ active }) =>
+    active ? `color:#314584 !important` : `color: #636ab6 !important`}; */
+
+  transition: all 0.3s ease;
+  font-weight: 600;
+  letter-spacing: normal;
+  padding: 0.5rem 0.5rem;
+  border-radius: 4px;
+  position: relative;
+  :hover {
+    ${({ active }) => active === false && `background-color:#DBEAFE`};
+    ${({ active }) =>
+      active ? `color:#314584 !important;` : `color: #1E3A8A !important;`};
+  }
+  :focus {
+    color: rgb(49, 69, 132) !important;
+  }
+`;
+
 const FlexBox = styled.div`
   display: flex;
   align-items: center;
@@ -364,16 +410,52 @@ const ItemsNav = styled.li`
   letter-spacing: 1px;
   transition: all 0.3s ease;
   padding: 0.5rem 0;
-  margin-right: 2rem;
+  ${({ active }) =>
+    active &&
+    `
+  ::before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 30%;
+    height: 3px;
+    background-color: #314584;
+    bottom: 0;
+  }    
+  `}
 `;
 const LinkItems = styled(Link)`
-  color: rgba(255, 255, 255, 0.515);
-  transition: all 0.3s ease;
+  /* color: rgba(255, 255, 255, 0.515); */
+  ${({ active }) =>
+    active ? `color:#314584 !important` : `color: #636ab6 !important`};
 
+  transition: all 0.3s ease;
+  font-weight: 600;
+  letter-spacing: normal;
+  padding: 0.5rem 0.5rem;
+  border-radius: 4px;
+  position: relative;
   :hover {
-    color: #fff;
+    ${({ active }) => active === false && `background-color:#DBEAFE`};
+    ${({ active }) =>
+      active ? `color:#314584 !important;` : `color: #1E3A8A !important;`};
   }
   :focus {
-    color: rgb(255, 255, 255);
+    color: #314584 !important;
   }
+  ${({ active }) =>
+    active &&
+    `
+  ::before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 30%;
+    height: 3px;
+    background-color: #314584;
+    bottom: 0;
+  }    
+  `}
 `;

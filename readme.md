@@ -1,0 +1,1 @@
+TextTitleStudent = 2.8rem

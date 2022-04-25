@@ -19,6 +19,7 @@ export const ListIcons = styled.section`
   display: grid;
   grid-template-columns: repeat(6, 1fr);
   column-gap: 2rem;
+  /* border: 1px solid green; */
 `;
 export const Container = styled.main``;
 export const BoxIcon = styled(Link)`
@@ -30,6 +31,7 @@ export const BoxIcon = styled(Link)`
   :hover {
     color: #1d4ed8 !important;
     cursor: pointer;
+    background: transparent !important;
   }
   :focus {
     color: #16a34a;
@@ -44,7 +46,7 @@ export const Text = styled.p`
 `;
 export const ContentIcons = styled.div`
   position: relative;
-
+  margin-bottom: 0.5rem;
   & ${BoxIcon}:hover + ${ToolTip} {
     opacity: 1;
   }
@@ -78,6 +80,8 @@ export const Title = styled.h2`
   font-family: "Sacramento", cursive;
   text-align: center;
   font-weight: 600;
+  margin: 0;
+  margin: 1rem 0;
 `;
 
 export const BoxTextMaterials = styled.div`
