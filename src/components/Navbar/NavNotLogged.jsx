@@ -161,8 +161,10 @@ const NavLink = css`
 `;
 
 const SuperLink = styled(Link)`
+  ${NavLink};
   :hover {
     color: #314584 !important;
+    background-color: transparent;
   }
   color: #314584;
   font-weight: 700;
@@ -178,6 +180,7 @@ const NavMenuLinks = styled(LinkID)`
   }
   :hover {
     color: #314584 !important;
+    background-color: transparent;
   }
   .active {
     color: #314584 !important;
@@ -187,6 +190,7 @@ const ItemUrl = styled(Link)`
   ${NavLink};
   :hover {
     color: #314584 !important;
+    background-color: transparent;
   }
 `;
 
@@ -195,6 +199,7 @@ const ItemAuth = styled(Link)`
   color: #314584 !important;
   :hover {
     color: #314584 !important;
+    background-color: transparent;
   }
 `;
 

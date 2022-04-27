@@ -193,6 +193,12 @@ const SearchInput = styled.input`
   border: 1px solid silver;
   margin: 0.5rem 0 0 0;
   width: 60%;
+  ::placeholder {
+    color: silver;
+  }
+  :focus {
+    border: 2px solid #2989ff;
+  }
 `;
 const DataResult = styled.div`
   border: 1px solid silver;

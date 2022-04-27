@@ -169,7 +169,11 @@ export default function Sidebar({ salir, isLogged }) {
                       className={`items ${Activate == index ? "active" : ""}`}
                     >
                       {item.link ? (
-                        <LinkItems active={Activate === index} to={item.link}>
+                        <LinkItems
+                          active={Activate === index}
+                          to={item.link}
+                          className="hovers"
+                        >
                           {item.name}
                         </LinkItems>
                       ) : (
@@ -187,6 +191,7 @@ export default function Sidebar({ salir, isLogged }) {
                                 <>
                                   {courses.map((item, indexsubmap) => (
                                     <Link
+                                      className="hovers"
                                       to={`/private?language=${item}`}
                                       key={indexsubmap}
                                     >
@@ -199,6 +204,7 @@ export default function Sidebar({ salir, isLogged }) {
                                   {contextStudent.student.QueryStudent.courses.map(
                                     (item, indexSubmap) => (
                                       <Link
+                                        className="hovers"
                                         onClick={() => handleClick(index)}
                                         to={`/private/${item._id}`}
                                         key={indexSubmap}
@@ -217,6 +223,7 @@ export default function Sidebar({ salir, isLogged }) {
                                 <Link
                                   key={index}
                                   to={`/private/${names.nameItem}`}
+                                  className="hovers"
                                 >
                                   {names.nameItem}
                                 </Link>
@@ -233,6 +240,7 @@ export default function Sidebar({ salir, isLogged }) {
                                 <>
                                   {courses.map((item, index) => (
                                     <Link
+                                      className="hovers"
                                       to={`/progress/${item._id}`}
                                       key={index}
                                     >
@@ -245,6 +253,7 @@ export default function Sidebar({ salir, isLogged }) {
                                   {contextStudent.student.QueryStudent.courses.map(
                                     (item, indexSubmap) => (
                                       <Link
+                                        className="hovers"
                                         onClick={() => handleClick(index)}
                                         to={`/progress/${item._id}`}
                                         key={indexSubmap}
@@ -261,6 +270,7 @@ export default function Sidebar({ salir, isLogged }) {
                             <>
                               {ItemsNotStudent.map((names, index) => (
                                 <Link
+                                  className="hovers"
                                   key={index}
                                   to={`/progress/${names.idiom}`}
                                 >
@@ -279,6 +289,7 @@ export default function Sidebar({ salir, isLogged }) {
                                 <>
                                   {courses.map((item, index) => (
                                     <Link
+                                      className="hovers"
                                       to={`/booklesson?language=${item}`}
                                       key={index}
                                     >
@@ -291,6 +302,7 @@ export default function Sidebar({ salir, isLogged }) {
                                   {contextStudent.student.QueryStudent.courses.map(
                                     (item, indexSubmap) => (
                                       <Link
+                                        className="hovers"
                                         onClick={() => handleClick(index)}
                                         to={`/booklesson?language=${item.idiom}`}
                                         key={indexSubmap}
@@ -307,6 +319,7 @@ export default function Sidebar({ salir, isLogged }) {
                             <>
                               {ItemsNotStudent.map((names, index) => (
                                 <Link
+                                  className="hovers"
                                   key={index}
                                   to={`/booklesson?language=${names.idiom}`}
                                 >
@@ -328,6 +341,7 @@ export default function Sidebar({ salir, isLogged }) {
                                     <>
                                       {courses.map((item, indexSubmap) => (
                                         <Link
+                                          className="hovers"
                                           to={`/user/materials?language=${item}`}
                                           key={indexSubmap}
                                         >
@@ -340,6 +354,7 @@ export default function Sidebar({ salir, isLogged }) {
                                       {contextStudent.student.QueryStudent.courses.map(
                                         (item, indexSubmap) => (
                                           <Link
+                                            className="hovers"
                                             onClick={() => handleClick(index)}
                                             to={`/user/materials/${item._id}`}
                                             key={indexSubmap}
@@ -356,6 +371,7 @@ export default function Sidebar({ salir, isLogged }) {
                                 <>
                                   {ItemsNotStudent.map((names, index) => (
                                     <Link
+                                      className="hovers"
                                       key={index}
                                       to={`/user/materials?language=${names.idiom}`}
                                     >
@@ -428,10 +444,10 @@ const ItemsNav = styled.li`
 const LinkItems = styled(Link)`
   /* color: rgba(255, 255, 255, 0.515); */
   ${({ active }) =>
-    active ? `color:#314584 !important` : `color: #636ab6 !important`};
-
+    active ? `color:#636ab6 !important` : `color: #314584 !important`};
   transition: all 0.3s ease;
-  font-weight: 600;
+  font-weight: 700;
+  font-size: 1rem;
   letter-spacing: normal;
   padding: 0.5rem 0.5rem;
   border-radius: 4px;

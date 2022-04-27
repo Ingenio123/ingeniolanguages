@@ -323,8 +323,8 @@ img {
   letter-spacing: 1px;
   transition: all 0.3s ease;
   padding: 0.2rem 0;
-  color: #636ab6;
-  font-weight: 600;
+  color: #314584;
+  font-weight: 700;
   letter-spacing: normal;
 }
 
@@ -362,8 +362,7 @@ img {
   border-radius: 4px;
   transition: all 0.3s ease;
 }
-.dropdown-subitem > a:focus,
-a:hover {
+.dropdown-subitem .hovers:hover {
   color: #1e3a8a !important;
   background-color: #dbeafe;
 }
