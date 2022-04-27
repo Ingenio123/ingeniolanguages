@@ -2,58 +2,53 @@ import { SectionReviewContain, Image, CardContent } from "./style";
 import { useState, useEffect } from "react";
 
 let ItemsData = [
-  [
-    {
-      urlImage:
-        "https://scdn.italki.com/ng/static/image/home/students/gianni.jpg",
-      name: "Jhon",
-      learning: "English",
-      description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi a obcaecati praesentium natus debitis assumenda quam optio quasi voluptate maxime!",
-    },
-    {
-      urlImage:
-        "https://scdn.italki.com/ng/static/image/home/students/gianni.jpg",
-      name: "Jhon",
-      learning: "English",
-      description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi a obcaecati praesentium natus debitis assumenda quam optio quasi voluptate maxime!ipsum dolor sit amet consectetur adipisicing elit. Sequi a obcaecati praesentium natus debitis assumenda quam optio quasi voluptate maxime!",
-    },
-    {
-      urlImage:
-        "https://scdn.italki.com/ng/static/image/home/students/gianni.jpg",
-      name: "Jhon",
-      learning: "English",
-      description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi a obcaecati praesentium natus debitis assumenda quam optio quasi voluptate maxime!",
-    },
-  ],
-  [
-    {
-      urlImage:
-        "https://scdn.italki.com/ng/static/image/home/students/cassie.jpg",
-      name: "Jhon2",
-      learning: "English",
-      description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi a obcaecati praesentium natus debitis assumenda quam optio quasi voluptate maxime!",
-    },
-    {
-      urlImage:
-        "https://scdn.italki.com/ng/static/image/home/students/andy2.jpg",
-      name: "Jhon2",
-      learning: "English",
-      description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi a obcaecati praesentium natus debitis assumenda quam optio quasi voluptate maxime!dolor sit amet consectetur adipisicing elit. Sequi a obcaecati praesentium natus debitis assumenda quam optio quasi voluptate maxime!",
-    },
-    {
-      urlImage:
-        "https://scdn.italki.com/ng/static/image/home/students/gianni.jpg",
-      name: "Jhon2",
-      learning: "English",
-      description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi a obcaecati praesentium natus debitis assumenda quam optio quasi voluptate maxime!",
-    },
-  ],
+  {
+    urlImage:
+      "https://scdn.italki.com/ng/static/image/home/students/gianni.jpg",
+    name: "Jhon",
+    learning: "English",
+    description:
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi a obcaecati praesentium natus debitis assumenda quam optio quasi voluptate maxime!",
+  },
+  {
+    urlImage:
+      "https://scdn.italki.com/ng/static/image/home/students/gianni.jpg",
+    name: "Jhon",
+    learning: "English",
+    description:
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi a obcaecati praesentium natus debitis assumenda quam optio quasi voluptate maxime!ipsum dolor sit amet consectetur adipisicing elit. Sequi a obcaecati praesentium natus debitis assumenda quam optio quasi voluptate maxime!",
+  },
+  {
+    urlImage:
+      "https://scdn.italki.com/ng/static/image/home/students/gianni.jpg",
+    name: "Jhon",
+    learning: "English",
+    description:
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi a obcaecati praesentium natus debitis assumenda quam optio quasi voluptate maxime!",
+  },
+  {
+    urlImage:
+      "https://scdn.italki.com/ng/static/image/home/students/cassie.jpg",
+    name: "Jhon2",
+    learning: "English",
+    description:
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi a obcaecati praesentium natus debitis assumenda quam optio quasi voluptate maxime!",
+  },
+  {
+    urlImage: "https://scdn.italki.com/ng/static/image/home/students/andy2.jpg",
+    name: "Jhon2",
+    learning: "English",
+    description:
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi a obcaecati praesentium natus debitis assumenda quam optio quasi voluptate maxime!dolor sit amet consectetur adipisicing elit. Sequi a obcaecati praesentium natus debitis assumenda quam optio quasi voluptate maxime!",
+  },
+  {
+    urlImage:
+      "https://scdn.italki.com/ng/static/image/home/students/gianni.jpg",
+    name: "Jhon2",
+    learning: "English",
+    description:
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi a obcaecati praesentium natus debitis assumenda quam optio quasi voluptate maxime!",
+  },
 ];
 
 export default function SectionReviews() {

@@ -22,8 +22,11 @@ import DataUserContext from "../Context/userDataContext";
 import { useDispatch, useSelector } from "react-redux";
 import { GetDataUser } from "../../redux/actions/UserData";
 
+//
 import SectionReviews from "../SectionReviews";
-
+// import Carousel from "../Carousel";
+import Carousel from "../Carousel/Carousel";
+//
 const Icon = styled(AiOutlineShoppingCart)`
   height: 30px;
   width: 30px;
@@ -159,12 +162,20 @@ const HeaderHero = ({ isLogged, ActivarLoged }) => {
         hasLoginError={hasLoginError}
       />
       <Teachers />
-      <SectionReviews />
+      <Carousel />
       <PriceSection />
     </>
   );
 };
+// {/* <Content>{/* <Carousel /> */}</Content> */}
 export default HeaderHero;
+
+const Content = styled.div`
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  border: 1px solid red;
+`;
 
 const ButtonBuyaLesson = styled(Link)`
   padding: 17px 30px;
@@ -216,3 +227,5 @@ const FormInput = styled.input`
   padding: 0.5rem;
   border: 1px solid silver;
 `;
+
+// styles cars
