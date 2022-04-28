@@ -154,7 +154,7 @@ const CarrouselVersionTwo = () => {
                 />
               </div>
               <div className="name">{i.name}</div>
-              <div className="aprendiendo">APRENDIENDO {i.learning}</div>
+              <div className="aprendiendo">{i.learning} student</div>
               <div className="textp">{i.description}</div>
             </CardContent>
           ))}
@@ -249,7 +249,7 @@ export const CardContent = styled.div`
   position: relative;
   margin: 0 1rem;
   margin-top: 2rem;
-  padding: 0 1rem;
+  padding: 0 1.5rem;
   padding-bottom: 48px;
   border-radius: 8px;
   max-width: calc(33.33% - 30px);
@@ -314,15 +314,17 @@ export const CardContent = styled.div`
     margin-bottom: 1.5rem;
   }
   & .aprendiendo {
-    font-size: 13px;
-    font-weight: 500;
+    font-size: 1.1rem;
+    font-weight: 700;
     line-height: 18px;
+    margin-bottom: 0.5rem;
   }
   & .textp {
-    font-size: 13px;
+    font-size: 1.1rem;
     font-weight: 500;
     line-height: 18px;
     color: #666666;
+    text-align: justify;
   }
 `;
 
