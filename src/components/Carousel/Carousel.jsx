@@ -1,6 +1,7 @@
 import styled from "styled-components";
-import { useRef, useCallback, useEffect } from "react";
+import { useRef, useCallback, useEffect, useState } from "react";
 import { HiOutlineChevronRight, HiOutlineChevronLeft } from "react-icons/hi";
+import { url } from "../Urls";
 let ItemsData = [
   {
     urlImage:
@@ -61,6 +62,10 @@ let ItemsData = [
 const CarrouselVersionTwo = () => {
   const slideshow = useRef(null);
   const intervaloSlideshow = useRef(null);
+  const [Reviews, setReviews] = useState({
+    loading: true,
+    reviews: [],
+  });
 
   const Next = useCallback(() => {
     if (slideshow.current.children.length > 0) {
@@ -113,6 +118,21 @@ const CarrouselVersionTwo = () => {
   };
 
   useEffect(() => {
+    let functAsync = async () => {
+      const getReviews = await fetch(`${url}/v1/data/get/reviews`);
+      let datas = await getReviews.json();
+      // console.log(datas.reviews);
+      setReviews({
+        ...Reviews,
+        loading: false,
+        reviews: datas.reviews,
+      });
+    };
+    functAsync();
+    return () => {};
+  }, []);
+
+  useEffect(() => {
     intervaloSlideshow.current = setInterval(() => {
       Next();
     }, 8000);
@@ -136,28 +156,34 @@ const CarrouselVersionTwo = () => {
       <h1 className="text-center">What our students say</h1>
       <ContenedorPrincipal>
         <ContenedorSileShow ref={slideshow}>
-          {ItemsData.map((i) => (
-            <CardContent>
-              <div className="headerCard">
-                <span>
-                  <img
-                    src={i.urlImage}
-                    alt="it"
-                    style={{ width: "76px", height: "76px" }}
-                  />
-                </span>
-              </div>
-              <div className="scores">
-                <img
-                  src="https://scdn.italki.com/ng/static/image/milkway/homepage/rate.svg"
-                  alt="lazy"
-                />
-              </div>
-              <div className="name">{i.name}</div>
-              <div className="aprendiendo">{i.learning} student</div>
-              <div className="textp">{i.description}</div>
-            </CardContent>
-          ))}
+          {!Reviews.loading && (
+            <>
+              {Reviews.reviews.map((i) => (
+                <CardContent>
+                  <div className="headerCard">
+                    <span>
+                      <img
+                        src={i.url_image}
+                        alt="it"
+                        style={{ width: "76px", height: "76px" }}
+                      />
+                    </span>
+                  </div>
+                  <div className="scores">
+                    <img
+                      src="https://scdn.italki.com/ng/static/image/milkway/homepage/rate.svg"
+                      alt="lazy"
+                    />
+                  </div>
+                  <div className="name">{i.name_user}</div>
+                  <div className="aprendiendo">
+                    {i.languages_is_learning} student
+                  </div>
+                  <div className="textp">{i.description}</div>
+                </CardContent>
+              ))}
+            </>
+          )}
         </ContenedorSileShow>
         <Controles>
           <Boton derecho onClick={Next}>
