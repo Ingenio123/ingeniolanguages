@@ -6,8 +6,8 @@ import Success from "../../assets/images/Success.svg";
 import { Link } from "react-router-dom";
 import DataServer from "./DataServer";
 import { IoArrowForwardCircle } from "react-icons/io5";
-import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
-import Spinner from "react-loader-spinner";
+// import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
+// import Spinner from "react-loader-spinner";
 import { url } from "../Urls";
 
 // actions
@@ -44,14 +44,15 @@ export default function Redirect() {
         </CentrarBoxSmall>
         <ContentDataServer>
           {!Loader ? (
-            <Spinner
-              type="Puff"
-              color="#1E3A8A"
-              height={50}
-              width={50}
-              timeout={2000} //3 secs
-            />
+            <></>
           ) : (
+            // <Spinner
+            //   type="Puff"
+            //   color="#1E3A8A"
+            //   height={50}
+            //   width={50}
+            //   timeout={2000} //3 secs
+            // />
             <DataServer Data={Data} />
           )}
         </ContentDataServer>
