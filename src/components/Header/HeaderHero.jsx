@@ -3,7 +3,7 @@ import "../../assets/components/HeaderHero.css";
 import imgHero from "../../assets/images/LibaryPortada.png";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import styled from "styled-components";
-import { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 
 import { Teachers } from "../SectionTeachers/Teachers";
 import { PriceSection } from "../priceSection/PriceSection";
