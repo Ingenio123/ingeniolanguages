@@ -339,7 +339,7 @@ export const CardContent = styled.div`
     font-size: 3.5rem;
     font-family: "Sacramento", cursive;
     font-weight: 600;
-    margin-bottom: 1.5rem;
+    margin: 1.5rem 0;
   }
   & .aprendiendo {
     font-size: 1.1rem;
