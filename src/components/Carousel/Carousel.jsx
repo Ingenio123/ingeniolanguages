@@ -169,6 +169,7 @@ const CarrouselVersionTwo = () => {
                         alt="it"
                         style={{ width: "76px", height: "76px" }}
                       />
+                      <ImageFlag image={i.countryIso}></ImageFlag>
                     </span>
                   </div>
                   <div className="scores">
@@ -310,19 +311,6 @@ export const CardContent = styled.div`
         max-width: 100%;
         object-fit: cover;
       }
-      i {
-        position: absolute;
-        display: inline-block;
-        background-size: contain;
-        background-position: 50% center;
-        background-repeat: no-repeat;
-        border-radius: 50%;
-        border: 2px solid white;
-        right: 0px;
-        width: 24px;
-        height: 24px;
-        background-image: url(https://scdn.italki.com/orion/static/flags/cn.svg);
-      }
     }
   }
 
@@ -354,6 +342,24 @@ export const CardContent = styled.div`
     color: #666666;
     text-align: justify;
   }
+`;
+
+const ImageFlag = styled.i`
+  position: absolute;
+  display: inline-block;
+  background-size: cover;
+  background-position: 50% center;
+  background-repeat: no-repeat;
+  border-radius: 50%;
+  border: 2px solid white;
+  right: -10px;
+  bottom: -5px;
+  width: 30px;
+  height: 30px;
+  /* background-image: url("https://flagcdn.com/za.svg");
+   */
+  ${({ image }) =>
+    image && `background-image: url('https://flagcdn.com/${image}.svg')`};
 `;
 
 export const Image = styled.img`
