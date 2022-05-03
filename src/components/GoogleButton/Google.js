@@ -22,12 +22,14 @@ export default function GoogleButton({ contentSign, route }) {
         idToken: tokenId,
       })
       .then((res) => {
-        ActivarLoged({ res });
+        console.log(res);
         informParent(res);
+        ActivarLoged({ res });
       })
       .catch((err) => console.log("GOOGLE SIGNIN ERROR", err));
   };
   const informParent = (response) => {
+    console.log("Inform Parent => " + response);
     authenticate(response, () => {
       if (isAuth()) {
         if (route === "clientPay") {

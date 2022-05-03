@@ -148,6 +148,8 @@ const CarrouselVersionTwo = () => {
         Next();
       }, 8000);
     });
+
+    return () => clearInterval(intervaloSlideshow.current);
     // if (autoplay) {
     // }
   }, [Next]);

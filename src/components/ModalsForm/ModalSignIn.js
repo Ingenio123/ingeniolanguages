@@ -128,7 +128,7 @@ function ModalSignIn({ history, ShowModal, setShowModal }) {
                   ref={FormModal}
                   onSubmit={handleSubmit((data) => handleSubmitForm(data))}
                 >
-                  <div class="form-group" style={{ margin: "0" }}>
+                  <div className="form-group" style={{ margin: "0" }}>
                     <label for="Email">Email</label>
                     <InputWhithIcon>
                       <input
@@ -147,7 +147,7 @@ function ModalSignIn({ history, ShowModal, setShowModal }) {
                       </span>
                     </InputWhithIcon>
                   </div>
-                  <div class="form-group">
+                  <div className="form-group">
                     <label for="Password">Password</label>
                     <InputWhithIcon>
                       <input
