@@ -166,15 +166,15 @@ export default function OrderPay(props) {
           <Box>
             <BoxPrices>
               <TextPrices>$ {res} </TextPrices>
-              <img
+              {/* <img
                 src={marcasTarjetas}
                 alt="iumages"
                 style={{ width: "196px", marginBottom: ".5rem" }}
-              />
-              <ProceedPay onClick={items.length > 0 ? VerifyIsAuth : null}>
+              /> */}
+              {/* <ProceedPay onClick={items.length > 0 ? VerifyIsAuth : null}>
                 <IconsCard /> Debit or Credit card
-              </ProceedPay>
-              <span className="or">or</span>
+              </ProceedPay> */}
+              {/* <span className="or">or</span> */}
               <Paypaypal
                 onClick={items.length > 0 ? () => HanldePay(res) : null}
               >

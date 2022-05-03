@@ -356,8 +356,7 @@ const ImageFlag = styled.i`
   bottom: -5px;
   width: 30px;
   height: 30px;
-  /* background-image: url("https://flagcdn.com/za.svg");
-   */
+
   ${({ image }) =>
     image && `background-image: url('https://flagcdn.com/${image}.svg')`};
 `;
