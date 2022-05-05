@@ -149,6 +149,12 @@ export default function OrderPay(props) {
                       <TextFuerte>Number of months:</TextFuerte> {item.months}{" "}
                       {item.months > 1 ? "months" : "month"}
                     </ItemListContent>
+                    {item?.cantPersons > 1 && (
+                      <ItemListContent>
+                        <TextFuerte>Number of students:</TextFuerte>{" "}
+                        {item.cantPersons} students
+                      </ItemListContent>
+                    )}
                     <br />
                     <ItemListContent>Subtotal: ${item.price}</ItemListContent>
                   </ListContent>

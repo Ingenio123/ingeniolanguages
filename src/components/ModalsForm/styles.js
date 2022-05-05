@@ -153,7 +153,6 @@ export const TextGray = styled.span`
   margin: 0;
   margin-right: 0.2rem;
   text-align: center;
-  width: 100%;
   @media screen and (max-width: 400px) {
     line-height: 1;
   }

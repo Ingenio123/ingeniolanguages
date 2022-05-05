@@ -29,6 +29,7 @@ export default function cases(state = { items: [] }, action) {
               months: item.months,
               kids: item.kids,
               img: item.img,
+              cantPersons: item.cantPersons,
             },
           ],
         };

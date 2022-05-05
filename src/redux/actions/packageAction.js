@@ -9,12 +9,15 @@ import { PRICE_LESSON } from "./types";
  * @param {*} months
  * @param {true | false } kids
  * @param {*} id
+ * @param {string} cantidad_de_personas
  * @returns dispatch
  */
 
 export const Select_Package =
-  (price, idiom, lesson, time, months, kids, id, img) => (dispatch) => {
+  (price, idiom, lesson, time, months, kids, id, cantPersons, img) =>
+  (dispatch) => {
     if (!months) months = 1;
+    console.log(cantPersons);
     return dispatch({
       type: PRICE_LESSON,
       payload: {
@@ -25,6 +28,7 @@ export const Select_Package =
         months,
         kids,
         id,
+        cantPersons,
         img,
       },
     });

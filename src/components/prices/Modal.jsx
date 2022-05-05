@@ -45,6 +45,7 @@ const Modal = (props) => {
   const time = useSelector((state) => state.itemPackage.timeLesson.value);
   const MonthsNumber = useSelector((state) => state.itemPackage.numberMonts);
   const GroupActive = useSelector((state) => state.itemPackage.groupActive);
+  const CantPersons = useSelector((state) => state.itemPackage.cantPersons);
   const IndividualActive = useSelector(
     (state) => state.itemPackage.individualActive
   );
@@ -126,6 +127,7 @@ const Modal = (props) => {
         MonthsNumber,
         props.kids,
         props.id,
+        CantPersons,
         props.img
       )
     );

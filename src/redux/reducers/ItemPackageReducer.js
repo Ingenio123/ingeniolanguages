@@ -132,6 +132,7 @@ export default function CreateOnePackage(state = initialState, action) {
         timeLesson: {},
         groupActive: false,
         individualActive: true,
+        cantPersons: 1,
       };
     case CHANGE_TIME:
       return {

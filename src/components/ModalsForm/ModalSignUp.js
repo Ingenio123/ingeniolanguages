@@ -337,13 +337,13 @@ const ModalSignUp = ({ showSignUp, setSignUp }) => {
         </Centrar>
       </Form>
 
-      <LineCenter>Or Sign Up with</LineCenter>
+      <LineCenter>Or</LineCenter>
       <Centrar>
-        <GoogleButton contentSign={"Sign Up"} />
+        <GoogleButton contentSign={"Sign up with Google"} />
       </Centrar>
       <Centrar>
         <div>
-          <TextGray>if you alrady have account </TextGray>
+          <TextGray>If you already have an account</TextGray>
           <Button onClick={() => setSignUp((prev) => !prev)}> Sign In</Button>
         </div>
       </Centrar>

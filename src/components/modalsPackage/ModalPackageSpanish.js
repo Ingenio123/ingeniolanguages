@@ -29,6 +29,7 @@ export default function ModalPackageFrench({
   const history = useHistory();
   const LessonsMonth = useSelector((state) => state.itemPackage.numberMonts);
   const time = useSelector((state) => state.itemPackage.timeLesson.value);
+  const cantPersons = useSelector((state) => state.itemPackage.cantPersons);
   const numberLessons = useSelector(
     (state) => state.itemPackage.lessonMonth.value
   );
@@ -166,7 +167,21 @@ export default function ModalPackageFrench({
     setMonths({ value: InputMonths.current.value });
   }, []);
   const handleProcced = () => {
-    dispatch(Select_Package(CalculoPrices, "Spanish", LessonsMonth, time));
+    // dispatch(Select_Package(CalculoPrices, "Spanish", LessonsMonth, time));
+    let kids = false;
+    const id = 3;
+    dispatch(
+      Select_Package(
+        CalculoPrices,
+        "Spanish",
+        numberLessons,
+        time,
+        parseInt(LessonsMonth),
+        kids,
+        id,
+        cantPersons
+      )
+    );
     setShowModalSpanish(false);
     return history.push("/orderSummary");
   };
