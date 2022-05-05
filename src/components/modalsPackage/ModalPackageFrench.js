@@ -246,7 +246,7 @@ export default function ModalPackageFrench({
                       activado={GroupClass}
                       onClick={OnClickGroup}
                     >
-                      Group Class
+                      Group lessons
                     </ButoonIndividual>
                   </ContentIcon>
 
