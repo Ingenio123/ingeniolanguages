@@ -110,7 +110,6 @@ ReactDOM.render(
       <UserContextProvider>
         <Router>
           <App />
-
           <Switch>
             <Route exact path="/Aboutus" component={AboutUs} />
             <Route exact path="/prices" component={Prices} />

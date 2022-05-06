@@ -19,7 +19,7 @@ import { FiShoppingCart } from "react-icons/fi";
 import SdtudentState from "../../hooks/useStudent";
 import NavBarNotLogged from "./NavNotLogged";
 
-const Navbar = ({ toggle, history, isLogged }) => {
+const Navbar = ({ toggle, history, isLogged, isSticky, element }) => {
   const { logout, init, isLoginLoading, hasLoginError, UserData } = useUser();
   const auth = useSelector((state) => state.auth);
   const { items } = useSelector((state) => state.package);
@@ -57,7 +57,13 @@ const Navbar = ({ toggle, history, isLogged }) => {
           <SideBar isLogged={isLogged} salir={logout} />
         </SdtudentState>
       ) : (
-        <NavBarNotLogged toggle={toggle} isLogged={isLogged} logout={logout} />
+        <NavBarNotLogged
+          element={element}
+          isSticky={isSticky}
+          toggle={toggle}
+          isLogged={isLogged}
+          logout={logout}
+        />
       )}
     </div>
   );

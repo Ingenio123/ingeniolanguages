@@ -46,7 +46,7 @@ export const PriceSection = () => {
             <div className="">
               <div className="image_card france" onClick={OpenModalFrench}>
                 {" "}
-                <TitleCard className="text-center">French </TitleCard>{" "}
+                <TitleCard className="text-center">French</TitleCard>{" "}
               </div>
             </div>
           </div>

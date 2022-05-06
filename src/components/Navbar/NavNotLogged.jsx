@@ -11,7 +11,7 @@ import { useGoogleLogin } from "react-use-googlelogin";
 import { authData } from "../../data/AuthData";
 import { Button } from "./Button";
 
-function NavNotLogged({ toggle, isLogged, logout }) {
+function NavNotLogged({ toggle, isLogged, logout, element, isSticky }) {
   const auth = useSelector((state) => state.auth);
   const { items } = useSelector((state) => state.package);
   const [NavBar, setNavBar] = useState(false);
@@ -31,12 +31,12 @@ function NavNotLogged({ toggle, isLogged, logout }) {
   const profileUser = () => {
     return history.push("/Private");
   };
-  useEffect(() => {
-    window.document.body.style.paddingTop = "60px";
-  }, []);
+  // useEffect(() => {
+  //   window.document.body.style.paddingTop = "60px";
+  // }, []);
   return (
-    <div>
-      <Nav NavBar={NavBar}>
+    <>
+      <Nav NavBar={NavBar} isSticky>
         <LogoImage to="/">
           <img src={ingenio} alt="" />
         </LogoImage>
@@ -106,7 +106,7 @@ function NavNotLogged({ toggle, isLogged, logout }) {
           </NaVBtn>
         )}
       </Nav>
-    </div>
+    </>
   );
 }
 
@@ -117,10 +117,13 @@ const Nav = styled.nav`
   display: flex;
   justify-content: space-between;
   padding: 1rem 2rem;
-  position: fixed;
+  /* position: fixed;
+   */
+  position: sticky;
   z-index: 3;
   left: 0;
   top: 0;
+  /* top: ${({ isSticky }) => (isSticky ? `45px` : `0`)}; */
   width: 100%;
   background: white;
   box-shadow: ${({ NavBar }) =>
