@@ -17,7 +17,7 @@ const App = () => {
   return (
     <>
       {/* element={element} */}
-      <NavBanner />
+      {/* <NavBanner /> */}
       {/* isSticky={isSticky} */}
       <Navbar toggle={toggle} isAuth={IsAuth()} isLogged={isLogged} />
       <DropDown isOpen={isOpen} toggle={toggle} />

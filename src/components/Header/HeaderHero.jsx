@@ -3,7 +3,7 @@ import "../../assets/components/HeaderHero.css";
 import imgHero from "../../assets/images/LibaryPortada.png";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import styled from "styled-components";
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useRef } from "react";
 
 import { Teachers } from "../SectionTeachers/Teachers";
 import { PriceSection } from "../priceSection/PriceSection";
@@ -22,11 +22,13 @@ import DataUserContext from "../Context/userDataContext";
 import { useDispatch, useSelector } from "react-redux";
 import { GetDataUser } from "../../redux/actions/UserData";
 
+import ModalPromo from "./ModalPromo";
 //
 import SectionReviews from "../SectionReviews";
 // import Carousel from "../Carousel";
 import Carousel from "../Carousel/Carousel";
 //
+
 const Icon = styled(AiOutlineShoppingCart)`
   height: 30px;
   width: 30px;
@@ -34,27 +36,38 @@ const Icon = styled(AiOutlineShoppingCart)`
     display: none;
   }
 `;
-
 // import Formtreedata  from "../DemoClass/Formdatas";
 
 const HeaderHero = ({ isLogged, ActivarLoged }) => {
   const [ShowForm, setShowForm] = useState(false);
   const [ShowFormData, setShowFormData] = useState(false);
-  const dataUserContext = useContext(DataUserContext);
+  // const dataUserContext = useContext(DataUserContext);
   const { GetData, DataUser, Loading, hasLoginError } = useUserData();
-  const [Load, setLoading] = useState(true);
-
+  const [DataPromo, setDataPromo] = useState({});
+  const [ModalPromoState, setModalPromo] = useState(false);
   const { SignUp, send } = useUser();
   const UerData = useSelector((state) => state.UerData);
   console.log(UerData);
   const dispatch = useDispatch();
   const history = useHistory();
+  // const history = useHistory();
+
+  let refSetTimeout = useRef(null);
   // async function GetDataUserFunct() {
   //   dispatch(GetDataUser());
   //   setLoading(false);
   // }
 
   useEffect(() => {
+    const funAsync = async () => {
+      let response = await fetch(`${Url.url}/v1/data/getOne/promo`);
+      let data = await response.json();
+      console.log(data);
+      setDataPromo(data.promo);
+    };
+    refSetTimeout.current = setTimeout(() => {
+      setModalPromo((prev) => !prev);
+    }, 4000);
     try {
       // trying to use new API - https://developer.mozilla.org/en-US/docs/Web/API/Window/scrollTo
       window.scroll({
@@ -62,6 +75,7 @@ const HeaderHero = ({ isLogged, ActivarLoged }) => {
         left: 0,
         behavior: "smooth",
       });
+      funAsync();
     } catch (error) {
       // just a fallback for older browsers
       window.scrollTo(0, 0);
@@ -70,7 +84,13 @@ const HeaderHero = ({ isLogged, ActivarLoged }) => {
       console.log(Object.keys(UerData).length);
       return dispatch(GetDataUser());
     }
+
+    return () => clearTimeout(refSetTimeout.current);
   }, []);
+
+  const closeModal = () => {
+    setModalPromo((prev) => !prev);
+  };
 
   const OpenModal = () => {
     console.log("Open");
@@ -86,6 +106,13 @@ const HeaderHero = ({ isLogged, ActivarLoged }) => {
 
   return (
     <>
+      {ModalPromoState && (
+        <ModalPromo
+          data={DataPromo}
+          closeModal={closeModal}
+          history={history}
+        />
+      )}
       <header>
         {/* <!-- HERO SECTION -->     */}
         <div className="container-fluid hero">

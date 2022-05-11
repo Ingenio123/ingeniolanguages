@@ -43,7 +43,16 @@ const NavBanner = ({ element }) => {
     intervaloSlideshow.current = setInterval(() => {
       siguiente();
     }, 5000);
-
+    // Eliminamos los intervalos
+    slideshow.current.addEventListener("mouseenter", () => {
+      clearInterval(intervaloSlideshow.current);
+    });
+    // Volvemos a poner el intervalo cuando saquen el cursor del slideshow
+    slideshow.current.addEventListener("mouseleave", () => {
+      intervaloSlideshow.current = setInterval(() => {
+        siguiente();
+      }, 5000);
+    });
     return () => clearInterval(intervaloSlideshow.current);
   }, [siguiente]);
 
@@ -91,6 +100,9 @@ const ContentSection = styled.div`
   width: 100%;
   height: 45px;
   position: absolute;
+  :hover {
+    cursor: context-menu;
+  }
 `;
 
 const ContentText = styled.div`
