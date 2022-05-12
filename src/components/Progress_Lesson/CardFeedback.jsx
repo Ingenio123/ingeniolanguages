@@ -189,7 +189,7 @@ const IconArrowHeader = styled(BiChevronDown)`
 `;
 
 const Fecha = styled.div`
-  position: relative;
+  /* position: relative; */
   color: #71717a;
   display: flex;
   flex-direction: column;
@@ -230,6 +230,9 @@ const TextFeedbackFirst = styled.h2`
   text-align: center;
   line-height: normal;
   margin: 0;
+  position: sticky;
+  top: 0;
+  background-color: #fff;
 `;
 
 const TextFeedback = styled.h2`
@@ -267,7 +270,9 @@ const TextCardNotStudent = styled.p`
 `;
 const ContentFeddBack = styled.article`
   padding: 0 1rem;
-  max-height: calc(100vh - 150px);
+  max-height: calc(100vh - 200px);
+
+  /* max-height: 400px; */
   overflow-y: auto;
 `;
 const Card = styled.section`
