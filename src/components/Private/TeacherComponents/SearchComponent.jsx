@@ -109,7 +109,7 @@ export const SearchComponent = ({ data, placeholder }) => {
           loading={loading}
           ItIsEmpty={ItIsEmpty}
           isStudent={true}
-          Summary={normal}
+          Summary={normal.length > 0 ? normal : dataKids}
           // Summary={
           //   item.courses.length > 1
           //     ? item.courses[0].kids
