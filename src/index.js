@@ -87,7 +87,7 @@ import { UserPrivateNotId } from "./pages/Private_pages/UserOrStudent/userPrivat
 import { SummaryProgress } from "./context/SummaryContext";
 import { MaterialsPage } from "./pages/Private_pages/UserOrStudent/materials";
 import { MaterialsAddTeacher } from "./pages/teacher/Materials";
-
+import { ExpredToken } from "./pages/expiredToken";
 // i18next.init({
 //   interpolation: {
 //     escapeValue: false,
@@ -111,7 +111,7 @@ ReactDOM.render(
         <Router>
           <App />
           <Switch>
-            <Route exact path="/expiredToken" component={AboutUs} />
+            <Route exact path="/expiredToken" component={ExpredToken} />
             <Route exact path="/Aboutus" component={AboutUs} />
             <Route exact path="/prices" component={Prices} />
             <Route exact path="/payclient" component={formCheckOutPay} />

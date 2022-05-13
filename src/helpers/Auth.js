@@ -23,6 +23,12 @@ export const getCookie = (key) => {
   }
 };
 
+export const setSessionStorage = (key, value) => {
+  if (window !== undefined) {
+    window.sessionStorage.setItem(key, JSON.stringify(value));
+  }
+};
+
 // set in localStorage
 export const setLocalStorage = (key, value) => {
   if (window !== "undefined") {
@@ -64,6 +70,25 @@ export const authenticate = (response, next) => {
   console.log("AUTHENTICATE HELPER ON SIGNIN RESPONSE", response);
   setCookie("token", response.data.user.token);
   setLocalStorage("user", response.data.user);
+  next();
+};
+
+export const authenticateFetch = (response, next) => {
+  console.log("AUTHENTICATE HELPER ON SIGNIN WITH FETCH RESPONSE", response);
+  setCookie("token", response.token);
+  setLocalStorage("user", response);
+  next();
+};
+
+/**
+ *
+ * @param {* tiene que enviar solo los datos del usuario} response
+ * @param {* es_un_callback } next
+ */
+
+export const AuthSessionStorage = (response, next) => {
+  console.log("AUTHENTICATE HELPER ON SIGNIN RESPONSE", response);
+  setSessionStorage("user", response);
   next();
 };
 

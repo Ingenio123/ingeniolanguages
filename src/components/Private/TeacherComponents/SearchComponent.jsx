@@ -16,7 +16,8 @@ export const SearchComponent = ({ data, placeholder }) => {
 
   //custom hooks
   const { reset, FirstDataGet, ResetSelect, Status, ResetStatus } = useSearch();
-  const { getSummary, loading, ItIsEmpty, normal } = useCardFeedback();
+  const { getSummary, loading, ItIsEmpty, normal, dataKids } =
+    useCardFeedback();
   //
   const handleFilter = (event) => {
     const searchWord = event.target.value;
@@ -108,7 +109,14 @@ export const SearchComponent = ({ data, placeholder }) => {
           loading={loading}
           ItIsEmpty={ItIsEmpty}
           isStudent={true}
-          Summary={normal}
+          // Summary={normal}
+          Summary={
+            item.courses.length > 1
+              ? item.courses[0].kids
+              : item.courses[0].kids
+              ? dataKids
+              : normal
+          }
         />
       )}
     </>
