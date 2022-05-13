@@ -109,14 +109,14 @@ export const SearchComponent = ({ data, placeholder }) => {
           loading={loading}
           ItIsEmpty={ItIsEmpty}
           isStudent={true}
-          // Summary={normal}
-          Summary={
-            item.courses.length > 1
-              ? item.courses[0].kids
-              : item.courses[0].kids
-              ? dataKids
-              : normal
-          }
+          Summary={normal}
+          // Summary={
+          //   item.courses.length > 1
+          //     ? item.courses[0].kids
+          //     : item.courses[0].kids
+          //     ? dataKids
+          //     : normal
+          // }
         />
       )}
     </>

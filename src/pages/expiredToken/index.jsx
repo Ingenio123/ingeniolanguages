@@ -5,15 +5,15 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import URI from "../../components/Urls";
-import {
-  AuthSessionStorage,
-  authenticateFetch,
-  isAuth,
-} from "../../helpers/Auth";
+import { authenticateFetch, isAuth } from "../../helpers/Auth";
 
 const schema = yup.object().shape({
-  email: yup.string().email().required(),
-  password: yup.string().min(8).max(32).required(),
+  email: yup.string().email().required("Email is a required field"),
+  password: yup
+    .string()
+    .min(8, "Password must be at least 8 characters")
+    .max(32, "Password must be at most 32 characters")
+    .required("Password is a required field"),
 });
 
 const ExpredToken = ({ history }) => {
