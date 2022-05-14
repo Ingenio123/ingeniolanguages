@@ -1,7 +1,3 @@
-import { IoLogoYoutube, IoDocumentText } from "react-icons/io5"; // logo de Youtobe
-import { FaFilePowerpoint } from "react-icons/fa";
-import { MdQuiz, MdModeEdit } from "react-icons/md";
-
 import {
   ListIcons,
   ContentIcons,
@@ -11,63 +7,29 @@ import {
   ToolTip,
 } from "./Styles";
 
-export const ListMaterials = ({ materials }) => {
+import { Icon } from "./RetunIcon";
+export const ListMaterials = ({ materials, materialsArray }) => {
   return (
     <>
       {materials ? (
         <ListIcons>
-          <ContentIcons>
-            <BoxIcon
-              to={{
-                pathname: "https://www.google.com",
-              }}
-              target="_blank"
-            >
-              <IoLogoYoutube fontSize={"3rem"} />
-            </BoxIcon>
-            <ToolTip>Video</ToolTip>
-            <Text>numbers</Text>
-          </ContentIcons>
-          <ContentIcons>
-            <BoxIcon>
-              <IoDocumentText fontSize={"3rem"} />
-            </BoxIcon>
-            <ToolTip>Document</ToolTip>
-            <Text>Home work #1</Text>
-          </ContentIcons>
-          <ContentIcons>
-            <BoxIcon
-              to={{
-                pathname: "https://www.google.com",
-              }}
-              target="_blank"
-            >
-              <FaFilePowerpoint fontSize={"3rem"} />
-            </BoxIcon>
-            <ToolTip>Slide</ToolTip>
-            <Text>Countries & nationalitites</Text>
-          </ContentIcons>
-          <ContentIcons>
-            <BoxIcon>
-              <MdModeEdit fontSize={"3rem"} />
-            </BoxIcon>
-            <ToolTip>Homework</ToolTip>
-            <Text>Verb to be</Text>
-          </ContentIcons>
-          <ContentIcons>
-            <BoxIcon to="www.google.com" target="_blank">
-              <MdQuiz fontSize={"3rem"} />
-            </BoxIcon>
-            <ToolTip>Quiz</ToolTip>
-            <Text>Quiz</Text>
-          </ContentIcons>
-          <ContentIcons>
-            <BoxIcon>
-              <IoDocumentText fontSize={"3rem"} />
-            </BoxIcon>
-            <ToolTip>Document</ToolTip>
-            <Text>Job & ocupations</Text>
-          </ContentIcons>
+          {materialsArray.map((i) => (
+            <ContentIcons>
+              <BoxIcon
+                to={{
+                  pathname: `${i.link_material}`,
+                }}
+                target="_blank"
+              >
+                <Icon
+                  font_size={"3rem"}
+                  type_icon={i.type_Material.name_type}
+                />
+              </BoxIcon>
+              <ToolTip>{i.type_Material.name_type}</ToolTip>
+              <Text>{i.name_material}</Text>
+            </ContentIcons>
+          ))}
         </ListIcons>
       ) : (
         <BoxTextMaterials>

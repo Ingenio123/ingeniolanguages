@@ -1,5 +1,9 @@
 import { createContext } from "react";
-
-const Context = createContext();
+let student = {
+  student: null,
+  loading: undefined,
+  error: false,
+};
+const Context = createContext({ student });
 
 export default Context;

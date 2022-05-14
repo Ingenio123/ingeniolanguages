@@ -45,6 +45,7 @@ const Items = [
 export const MaterialsPage = () => {
   const dispatch = useDispatch();
   const materials = useSelector((state) => state.materials);
+  const [MaterialsFilter, setMaterialsFilter] = useState([]);
   //
   const [Active, setActive] = useState(false);
   const [Loading, setLoading] = useState(true);
@@ -91,26 +92,25 @@ export const MaterialsPage = () => {
   useEffect(() => {
     console.log("Changue Context student ");
     console.log("Context", studentContext);
-    if (!studentContext.loading) {
-      if (studentContext?.student) {
-        const GetMarialsForToken = async () => {
-          return await GetMaterialForStudent(
-            studentContext.student.QueryStudent._id,
-            idLanguage.id
-          );
-        };
-        if (Object.keys(materials).length === 0) {
-          GetMarialsForToken().then((res) => {
-            console.log("RES_2", res);
-            dispatch({
-              type: "ADD_MATERIALS",
-              payload: res.data,
-            });
-          });
-        }
-        return setLoading(false);
-      }
+    const GetMarialsForToken = async () => {
+      return await GetMaterialForStudent(
+        studentContext.student.QueryStudent._id,
+        idLanguage.id
+      );
+    };
+    if (studentContext?.student) {
+      console.log("GET MATERIALS");
+      GetMarialsForToken().then((res) => {
+        console.log("RES_2", res);
+        dispatch({
+          type: "ADD_MATERIALS",
+          payload: res.data,
+        });
+      });
+      return setLoading(false);
     }
+    // if (!studentContext.loading) {
+    // }
     return () => {};
   }, [studentContext.loading]);
   //
@@ -120,7 +120,8 @@ export const MaterialsPage = () => {
       let datamaterials = materials.materials.filter(
         (e) => e._id === idLanguage.id
       );
-      console.log(datamaterials);
+      console.log("DATA MATERIALS:", datamaterials[0]);
+      setMaterialsFilter(...MaterialsFilter, datamaterials[0].material);
     }
     return () => {};
   }, [idLanguage.id]);
@@ -135,29 +136,84 @@ export const MaterialsPage = () => {
         </CardSkeleton>
       ) : (
         <>
-          {Items.map((i) => (
+          {/* {JSON.stringify(materials)} */}
+          {MaterialsFilter.length > 0 ? (
             <>
-              <BoxContent>
-                <DropDowns
-                  click={handleClick}
-                  level={i.level}
-                  active={i._id === Active ? true : false}
-                  id={i._id}
-                />
-                {i._id === Active && (
-                  <ListMaterials materials={i.materials ? true : false} />
-                )}
-                {/* <Divider /> */}
-              </BoxContent>
+              {MaterialsFilter.map((i) => (
+                <>
+                  <BoxContent>
+                    <DropDowns
+                      click={handleClick}
+                      level={i.level_material}
+                      active={i._id === Active ? true : false}
+                      id={i._id}
+                    />
+                    {i._id === Active && (
+                      <ListMaterials
+                        materials={i.levels_materials ? true : false}
+                        materialsArray={i.levels_materials}
+                      />
+                    )}
+                    {/* <Divider /> */}
+                  </BoxContent>
+                </>
+              ))}
             </>
-          ))}
+          ) : (
+            <>
+              {materials?.materials.length > 0 && (
+                <>
+                  {materials.materials[0].material.map((i) => (
+                    <>
+                      <BoxContent>
+                        <DropDowns
+                          click={handleClick}
+                          level={i.level_material}
+                          active={i._id === Active ? true : false}
+                          id={i._id}
+                        />
+                        {i._id === Active && (
+                          <ListMaterials
+                            materials={i.levels_materials ? true : false}
+                            materialsArray={i.levels_materials}
+                          />
+                        )}
+                        {/* <Divider /> */}
+                      </BoxContent>
+                    </>
+                  ))}
+                </>
+              )}
+            </>
+          )}
         </>
       )}
-
-      {/* <span>{JSON.stringify(materials.materials)}</span> */}
     </MaterialsLayout>
   );
 };
+
+// {
+//   Array.isArray(materials.materials) &&
+//     materials.materials[0].material.map((i) => (
+//       <>
+//         <BoxContent>
+//           <DropDowns
+//             click={handleClick}
+//             level={i.level_material}
+//             active={i._id === Active ? true : false}
+//             id={i._id}
+//           />
+//           {i._id === Active && (
+//             <ListMaterials
+//               materials={i.levels_materials ? true : false}
+//               materialsArray={i.levels_materials}
+//             />
+//           )}
+//           {/* <Divider /> */}
+//         </BoxContent>
+//       </>
+//     ));
+// }
 
 const BoxContent = styled.div`
   border: 1px solid #e0e0e0;

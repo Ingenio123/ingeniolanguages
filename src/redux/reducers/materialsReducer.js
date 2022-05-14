@@ -1,5 +1,5 @@
 const initialState = {
-  materials: {},
+  materials: [],
 };
 export default function MaterialsReducer(state = initialState, action) {
   console.log(action.payload);
