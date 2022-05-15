@@ -111,6 +111,7 @@ ReactDOM.render(
         <Router>
           <App />
           <Switch>
+            <Route exact path="/expiredToken" component={AboutUs} />
             <Route exact path="/Aboutus" component={AboutUs} />
             <Route exact path="/prices" component={Prices} />
             <Route exact path="/payclient" component={formCheckOutPay} />

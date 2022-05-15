@@ -21,7 +21,7 @@ export default function UserPrivate({ children }) {
 
   useEffect(() => {
     const idCourse = id;
-    console.log(contextStudent.student);
+    // console.log(contextStudent.student);
     //
     if (contextStudent.student) {
       console.log("Existe el student");

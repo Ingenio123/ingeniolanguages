@@ -2,7 +2,7 @@ import StudentContext from "../components/Context/StudentContext";
 import axios from "axios";
 import { useReducer, useEffect } from "react";
 import ReducerStudent from "../redux/reducers/Student";
-import { url } from "../components/Urls";
+import URI, { url } from "../components/Urls";
 
 const StudentState = (props) => {
   const EndPoint = url + "/data/verifyIstudent";
@@ -24,6 +24,14 @@ const StudentState = (props) => {
           authorization: `Bearer ${Token}`,
         },
       });
+      if (res.status === 498) {
+        window.location.href = `${URI.urlClient}/expiredToken`;
+        window.localStorage.clear();
+        return {
+          error: true,
+          student: false,
+        };
+      }
       if (res.status >= 400 && res.status < 500) {
         dispatch({ type: "LOADING_KILL" });
         dispatch({ type: "NOT_STUDENT" });

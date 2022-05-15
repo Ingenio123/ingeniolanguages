@@ -152,6 +152,10 @@ export const UpdatePasswordSend = async (body) => {
       "Content-type": "application/json",
     },
   });
+  if (res.status === 498) {
+    window.location.href = `${Url.urlClient}/expiredToken`;
+    return;
+  }
   const data = await res.json();
   return {
     success: data.success,
