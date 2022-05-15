@@ -268,7 +268,7 @@ const TextCardNotStudent = styled.p`
 const ContentFeddBack = styled.article`
   padding: 0 1rem;
   max-height: calc(100vh - 150px);
-  overflow: hidden;
+  overflow-y: auto;
 `;
 const Card = styled.section`
   width: 100%;
