@@ -76,7 +76,7 @@ const UseProgressContext = () => {
         loading: false,
         error: true,
         success: false,
-        message: "Error Idiom not select",
+        message: "Error. You need to select a lessons package first.",
       });
     }
   };
