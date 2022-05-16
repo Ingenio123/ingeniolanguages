@@ -119,27 +119,26 @@ const BoxContentText = styled.div`
   justify-content: center;
   height: 100%;
   width: 360px;
-  font-family: "Helvetica";
-  color: #1a202c;
   ${({ template }) =>
     template === 1 ? "padding-right:20px" : "padding-left:20px"};
 `;
 const TextH3 = styled.h3`
-  font-family: "Helvetica";
-  font-weight: 600;
+  font-weight: 700;
   line-height: normal;
   margin-bottom: 1rem;
   font-size: 2.25rem;
   color: inherit;
+  letter-spacing: -1px;
 `;
 
 const TextDescrip = styled.p`
   font-size: 1.5rem;
-  font-weight: 300;
+  font-weight: 400;
   line-height: normal;
   text-align: center;
   color: inherit;
   margin-bottom: 2rem;
+  letter-spacing: -1px;
 `;
 
 const TextPormoCode = styled.p`
