@@ -140,7 +140,9 @@ const SendScore = () => {
     success: false,
     error: false,
   });
-  const [DatosVerify, setDatosVerify] = useState([]);
+  const [DatosVerify, setDatosVerify] = useState({
+    success: false,
+  });
   const [DataSublevel, setDatosSubLevel] = useState([]);
   const [DatosScore, setDatosScore] = useState({
     success: false,
@@ -182,28 +184,30 @@ const SendScore = () => {
     return datos;
   };
 
-  const FilterLevel = (level) => {
+  const FilterLevel = (level, next) => {
     console.log(filterPackage());
     const levelFil = filterPackage();
     console.log(levelFil);
-    // console.log(Array.isArray(levelFil));
+    console.log(Array.isArray(levelFil));
+    if (!levelFil) {
+      console.log("ESTAS AQUI LINE 191");
+      //undefined => true
+      return next();
+    }
     const found = levelFil.level
       .filter((e) => e.name_level === level.value)
       .pop();
     console.log(found);
-    setDatosVerify(found);
-    setDatosSubLevel(found?.subLevel);
-    // if (Array.isArray(levelFil)) {
-    //   console.log("IsArray");
-    // }
+    setDatosVerify({ ...DatosVerify, success: true, data: found });
+    next();
   };
 
   const handleChangeLevel = (value) => {
-    ResetSublevel();
-    FilterLevel(value);
-    return setState({
-      ...State,
-      data: value,
+    FilterLevel(value, () => {
+      setState({
+        ...State,
+        data: value,
+      });
     });
   };
 
@@ -256,14 +260,15 @@ const SendScore = () => {
     setMessageError(false);
   };
 
-  // function submit form
+  /**
+   *
+   * @param {*} e
+   * @returns {*} State
+   *
+   */
   const handleSubmit = async (e) => {
     e.preventDefault();
-    /**
-     * @_1__states
-     * @_2__es
-     */
-    if (!State.data || !stateSubLevel.data) return setMessageError(true);
+    if (!State.data) return setMessageError(true);
     const Body = {
       idStudent: AddStudent,
       idiom: ObjecIdiom.idiom,
@@ -271,7 +276,7 @@ const SendScore = () => {
       dateCalendar: DateCalendar,
       score: InputValues.inpScore,
       name_level: State.data.value,
-      name_sublevel: stateSubLevel.data.value,
+      Date: DateCalendar,
     };
     AddScoreExam(Body).then((res) => {
       if (res.success) {
@@ -384,30 +389,30 @@ const SendScore = () => {
         value={State.data}
         onChange={handleChangeLevel}
       />
-      <SubLevel
+      {/* <SubLevel
         placeholder="Select SubLevel"
         options={ReturnOptions(State.data ? State.data.value : null)}
         value={stateSubLevel.data}
         onChange={handleChangeSubLevel}
-      />
+      /> */}
       {/*
         Cuando el Score existe ejecutar este code
       */}
-      {DatosScore.success ? (
+      {DatosVerify.success && DatosVerify.data ? (
         <CardScoreExist>
           <h6>Exam score </h6>
           <LabelData>
             <ContentIconSendScore>
               <BiCalendar className="icon green"></BiCalendar>
             </ContentIconSendScore>
-            {formatDate(DatosScore.date)}{" "}
+            {formatDate(DatosVerify.data.Date)}{" "}
           </LabelData>
           <Line />
           <LabelData>
             <ContentIconSendScore blue="true">
               <HiOutlineSparkles className="icon blue"> </HiOutlineSparkles>
             </ContentIconSendScore>
-            Current Score: {DatosScore.score}{" "}
+            Current Score: {DatosVerify.data.score}{" "}
           </LabelData>
           <ButtonChange onClick={ClickUpdate}>
             Change current score

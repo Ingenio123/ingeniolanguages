@@ -74,7 +74,9 @@ export const SearchComponenttwo = ({ data }) => {
     if (Item?.courses) {
       GetData(Item._id).then((res) => {
         console.log(res);
-        SetScore(res.data?.scoreExam.Content);
+        SetScore(
+          res.data?.scoreExam.Content ? res.data?.scoreExam.Content : []
+        );
       });
     }
   }, [Item]);
