@@ -101,14 +101,14 @@ const CardRigth = (props) => {
         )}
       </form>
       <CardEdit rol={rol} />
-      <ItemsComponent
+      {/* <ItemsComponent
         clickCard={props.clickCard}
         clikcRedirect={props.clickRedirect}
         secondText={rol !== "teacher" ? "Course content" : "Student's Progress"}
         firstText={rol !== "teacher" ? "My progress " : "Student's Feedback"}
         urlSecond={rol !== "teacher" ? "/private" : "/studentProgress"}
         urlfirst={rol !== "teacher" ? "/progress" : "/teacherPage"}
-      />
+      /> */}
       <SalirComponent logout={props.logout} clickCard={props.clickCard} />
     </Card>
   );
@@ -136,10 +136,11 @@ const Card = styled.div`
   top: 60px;
   right: 0;
   width: 345.605px;
-  height: 368px;
+  height: auto;
   z-index: 99;
   display: flex;
   align-items: center;
+  align-content: space-between;
   flex-direction: column;
   padding: 16px;
   background-color: #fff;
@@ -148,6 +149,7 @@ const Card = styled.div`
   transition: all 0.5s ease;
   border-radius: 4px;
   transform: translate(100%);
+
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   form {
     display: flex;
@@ -161,7 +163,7 @@ const ContentImg = styled.div`
   border-radius: 50%;
   overflow: hidden;
   transition: all 0.5s ease;
-  background-color: rgba(0, 0, 0, 0.3);\
+  background-color: rgba(0, 0, 0, 0.3);
   margin: 0 0 1rem 0;
   img {
     width: 100%;

@@ -1,6 +1,8 @@
 import { useContext } from "react";
+import { Link } from "react-router-dom";
 import styled, { css, keyframes } from "styled-components";
 import { ComponentButtons } from "../../../Buttons/ButtonLessonPackage";
+
 // Ui
 import {
   IoCalendarOutline,
@@ -11,7 +13,6 @@ import {
 
 import { FaCartPlus } from "react-icons/fa";
 import studentContext from "../../../Context/StudentContext";
-import CardList from "./CardList";
 import French from "../../../../assets/images/svgs/French.svg";
 import English from "../../../../assets/images/svgs/Inglaterra.svg";
 import Spanish from "../../../../assets/images/svgs/Espanish.svg";
@@ -142,56 +143,66 @@ export default function Header({ course }) {
                 </div>
               </CardCourse>
             </CardContent>
+            <CardExpired>
+              <ButtonStyled bg="#ff3946">
+                Renew my current lessons package
+              </ButtonStyled>
+              <LinkText>Change my current lessons package</LinkText>
+            </CardExpired>
+            {/* {course?.ExpiresCourse && (
+            )} */}
           </>
         ) : (
           // not student down
           <>
             {!contextStudent.loading && (
-              <CardContent img={imgFondo(course.idiom)}>
-                <CardCourse>
-                  <ContentImage>
-                    <Img url={imgs(course.idiom)} alt="" width="200px" />
-                    <ItemsDeCompra
-                      flex
-                      style={{ width: "100%" }}
-                    ></ItemsDeCompra>
-                  </ContentImage>
-                  <div>
-                    <CardHeader>
-                      <span>{course.idiom}</span>
-                      {/* <BuyNewCourse onClick={Home} title="Buy a now package" /> */}
-                    </CardHeader>
-                    <DatosDeCompra>
-                      <ItemsDeCompra>
-                        <IconTime />
-                        <ItemContent>
-                          Duration of each lesson: {course.timeLesson}
-                          {/* Time de cada lessons: 40 min lessons */}
-                        </ItemContent>
-                      </ItemsDeCompra>
+              <>
+                <CardContent img={imgFondo(course.idiom)}>
+                  <CardCourse>
+                    <ContentImage>
+                      <Img url={imgs(course.idiom)} alt="" width="200px" />
+                      <ItemsDeCompra
+                        flex
+                        style={{ width: "100%" }}
+                      ></ItemsDeCompra>
+                    </ContentImage>
+                    <div>
+                      <CardHeader>
+                        <span>{course.idiom}</span>
+                        {/* <BuyNewCourse onClick={Home} title="Buy a now package" /> */}
+                      </CardHeader>
+                      <DatosDeCompra>
+                        <ItemsDeCompra>
+                          <IconTime />
+                          <ItemContent>
+                            Duration of each lesson: {course.timeLesson}
+                            {/* Time de cada lessons: 40 min lessons */}
+                          </ItemContent>
+                        </ItemsDeCompra>
 
-                      <ItemsDeCompra>
-                        <IconNumberLessons />
-                        <ItemContent>
-                          Number of purchased lessons: 0 lessons
-                        </ItemContent>
-                      </ItemsDeCompra>
-                      <ItemsDeCompra>
-                        <IconNumberLessons />
-                        <ItemContent>
-                          Number of remaining lessons: {course.lessonTotal}
-                        </ItemContent>
-                      </ItemsDeCompra>
-                      <ItemsDeCompra>
-                        <IconCalendar />
-                        <ItemContent>
-                          Lessons package expiration: 00/00/00
-                        </ItemContent>
-                      </ItemsDeCompra>
-                    </DatosDeCompra>
-                  </div>
-                </CardCourse>
-              </CardContent>
+                        <ItemsDeCompra>
+                          <IconNumberLessons />
+                          <ItemContent>
+                            Number of purchased lessons: 0 lessons
+                          </ItemContent>
+                        </ItemsDeCompra>
+                        <ItemsDeCompra>
+                          <IconNumberLessons />
+                          <ItemContent>
+                            Number of remaining lessons: {course.lessonTotal}
+                          </ItemContent>
+                        </ItemsDeCompra>
+                        <ItemsDeCompra>
+                          <IconCalendar />
+                          <ItemContent>
+                            Lessons package expiration: 00/00/00
+                          </ItemContent>
+                        </ItemsDeCompra>
+                      </DatosDeCompra>
+                    </div>
+                  </CardCourse>
+                </CardContent>
+              </>
             )}
             {/* end */}
             <ComponentButtons />
@@ -205,6 +216,51 @@ export default function Header({ course }) {
 // const Icons = styled(BiChevronRight)`
 //   font-size:
 // `;
+const CardExpired = styled.section`
+  /* border: 1px solid black; */
+  padding: 0 0.5rem;
+  width: 100%;
+  height: auto;
+  color: #fff;
+  font-size: 1rem;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+`;
+
+const Button = css`
+  border-radius: 30px;
+  font-weight: 700;
+  color: inherit;
+  background-color: ${(props) => (props.bg ? props.bg : "#4299e1")};
+  padding: 0.5rem 1rem;
+  line-height: 26px;
+  display: inline-block;
+  max-width: 350px;
+  border: 3px solid #ff3946;
+`;
+
+const ButtonStyled = styled.button`
+  ${Button};
+  transition: all 0.3s ease;
+  margin-bottom: 1rem;
+  :hover {
+    background-color: transparent;
+    border: 3px solid #ff3946;
+    color: #364d92;
+  }
+`;
+
+const LinkText = styled(Link)`
+  font-size: 1rem;
+  color: #364d92;
+  opacity: 1;
+  font-weight: 700;
+  :hover {
+    color: #ff3946;
+  }
+`;
 
 const ButtonNext = styled.button`
   position: absolute;
@@ -236,6 +292,7 @@ const CardContent = styled.div`
   position: relative;
   max-height: 175px;
 `;
+
 const ContentCards = styled.div`
   width: 490px;
   row-gap: 1rem;
