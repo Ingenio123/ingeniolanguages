@@ -468,22 +468,34 @@ const SendScore = () => {
         <ModalFromUpdateScore>
           <CardForm>
             <IconCloseModal onClick={() => setModalUpdate(false)} />
+            <h6>Update exam score</h6>
+            <span>Date of exam</span>
+
             <Form onSubmit={(e) => handleUpdateSubmite(e)}>
-              <h6>Update exam score</h6>
-              <span>Date of exam</span>
-              <InputDate
-                selected={DateCalendar}
-                onChange={(date) => setDateCalendar(date)}
-              />
               <ContentInput>
-                <Input
-                  type="text"
-                  placeholder="Enter Score"
-                  onChange={handleChange}
-                  name="inpScore"
+                <InputDate
+                  selected={DateCalendar}
+                  onChange={(date) => setDateCalendar(date)}
                 />
-                <ButtonSubmit type="submit">Submit</ButtonSubmit>
+                <div
+                  style={{
+                    display: "inline-block",
+                    padding: 0,
+                    border: 0,
+                    widh: "100%",
+                  }}
+                >
+                  <Input
+                    type="text"
+                    placeholder="Enter Score"
+                    onChange={handleChange}
+                    name="inpScore"
+                  />
+                </div>
               </ContentInput>
+              <Flex>
+                <ButtonSubmit type="submit">Submit</ButtonSubmit>
+              </Flex>
             </Form>
           </CardForm>
         </ModalFromUpdateScore>
@@ -542,6 +554,13 @@ export default SendScore;
  * button => Go back => background:  #000
  *
  */
+
+const Flex = styled.div`
+  display: flex;
+  align-items: center;
+  width: 100%;
+  justify-content: center;
+`;
 
 const ModalAreSure = styled.div`
   position: fixed;
@@ -616,13 +635,30 @@ const ModalFromUpdateScore = styled.div`
 const CardForm = styled.div`
   position: relative;
   width: 320px;
-  height: 250px;
+  height: auto;
   background-color: #fff;
-  border-radius: 4px;
-  padding: 1rem;
+  border-radius: 1rem;
+
   display: flex;
   flex-direction: column;
   justify-content: center;
+  padding: 1rem 1.5rem;
+  span {
+    color: #71717a;
+    font-size: 1rem;
+    line-height: normal;
+    margin-left: 0.5rem;
+    display: block;
+    text-align: center;
+  }
+  h6 {
+    text-align: center;
+    font-size: 1.25rem;
+    color: #71717a;
+    line-height: normal;
+    font-weight: 600;
+    letter-spacing: -1px;
+  }
 `;
 
 const IconCloseModal = styled(BiX)`
@@ -786,65 +822,78 @@ const SubLevel = styled(Select)`
 
 const Form = styled.form`
   margin-top: 1rem;
-  border: 1px solid silver;
+
   border-radius: 4px;
   width: 100%;
   padding: 0.5rem;
   display: block;
-  span {
-    color: #71717a;
-    font-size: 0.89rem;
-    line-height: normal;
-    margin-left: 0.5rem;
-  }
-  h6 {
-    text-align: center;
-    font-size: 1.25rem;
-    color: #71717a;
-    line-height: normal;
-    font-weight: 600;
-    letter-spacing: -1px;
-  }
 `;
 const ContentInput = styled.div`
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
   column-gap: 0.5rem;
 `;
 const Input = styled.input`
-  padding: 0.3rem 0.5rem;
-  border: 1px solid silver;
-  border-radius: 4px;
+  width: 100%;
+  padding: 0.5rem 1rem;
 
+  line-height: 1.5rem;
+  flex: 1 1 0%;
+  border-color: rgba(209, 213, 219, 1);
+  border-width: 1px;
+  border-style: solid;
+  margin-bottom: 0.5rem;
+
+  outline: transparent solid 2px;
+  outline-offset: 2px;
+  height: 2.5rem;
+  transition-duration: 200ms;
+  transition-property: border-color, box-shadow;
+  appearance: none;
   &:focus {
-    border-color: #2563eb;
+    z-index: 1;
+    border-color: rgb(49, 130, 206);
+    box-shadow: rgb(49 130 206) 0px 0px 0px 1px;
   }
 `;
 
 const ButtonSubmit = styled.button`
-  padding: 0.5rem 0.8rem;
+  padding: 0.5rem 1rem;
   border: none;
   background-color: #1d4ed8;
   color: #fff;
-  line-height: normal;
+  line-height: 1.5rem;
   font-size: 1rem;
-  border-radius: 4px;
+  font-weight: bold;
+  border-radius: 0.25rem;
+  min-width: 50%;
+  margin-top: 1rem;
   :hover {
     background-color: #2563eb;
   }
 `;
 const InputDate = styled(DatePicker)`
-  padding: 0.1rem 0.5rem;
-  border: 1px solid blue;
-  border: 1px solid silver;
-  border-radius: 4px;
-  font-size: 1rem;
-  line-height: 1.3;
-  margin-bottom: 1rem;
-  color: #52525b;
-  width: 170px;
+  width: 100%;
+  padding: 0.5rem 1rem;
+
+  line-height: 1.5rem;
+  flex: 1 1 0%;
+  border-color: rgba(209, 213, 219, 1);
+  border-width: 1px;
+  border-style: solid;
+  margin-bottom: 0.5rem;
+
+  outline: transparent solid 2px;
+  outline-offset: 2px;
+  height: 2.5rem;
+  transition-duration: 200ms;
+  transition-property: border-color, box-shadow;
+  appearance: none;
   &:focus {
-    border-color: #2563eb;
+    z-index: 1;
+    border-color: rgb(49, 130, 206);
+    box-shadow: rgb(49 130 206) 0px 0px 0px 1px;
   }
 `;
 
