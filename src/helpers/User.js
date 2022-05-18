@@ -109,13 +109,8 @@ export const UpdateScoreExamForIdStudent = async (body) => {
         level: [
           {
             name_level: body.name_level,
-            subLevel: [
-              {
-                name_sublevel: body.name_sublevel,
-                score: parseInt(body.score),
-                Date: body.dateCalendar,
-              },
-            ],
+            score: parseInt(body.score),
+            Date: body.dateCalendar,
           },
         ],
       },

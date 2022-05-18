@@ -337,7 +337,6 @@ const SendScore = () => {
       dateCalendar: DateCalendar,
       score: InputValues.inpScore,
       name_level: State.data.value,
-      name_sublevel: stateSubLevel.data.value,
     };
     UpdateScoreExamForIdStudent(Body).then((res) => {
       console.log(res);
