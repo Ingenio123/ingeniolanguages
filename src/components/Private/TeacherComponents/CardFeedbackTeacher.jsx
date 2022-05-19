@@ -1,6 +1,7 @@
 import styled, { keyframes } from "styled-components";
-import { BiCalendarWeek, BiChevronDown } from "react-icons/bi";
+import { BiCalendarWeek, BiChevronDown, BiX } from "react-icons/bi";
 import { useState } from "react";
+import useFeedback from "../../../hooks/useFeedback";
 
 function RenderDate(date) {
   let day;
@@ -15,9 +16,10 @@ function RenderDate(date) {
 }
 
 export default function CardFeedBack(
-  { Summary, loading, ItIsEmpty, isStudent, idiom, kids },
+  { Summary, loading, ItIsEmpty, isStudent, idiom, kids, deleteProps },
   props
 ) {
+  const { verify } = useFeedback();
   const [Click, setClick] = useState(false);
   const [ClickToggle, setToggle] = useState(false);
 
@@ -79,61 +81,69 @@ export default function CardFeedBack(
                 {Summary && (
                   <>
                     {Summary.map((item, index) => (
-                      <Card key={index}>
-                        <ContentHeader>
-                          <ContentTeacher>
-                            <img
-                              src={item.id_Teacher.picture}
-                              alt="imge teacher"
-                            />
-                            <Text>
-                              <h3>Teacher</h3>
-                              {/* <h2>{item.teacher.email || item.Teacher.name}</h2> */}
-                              <h2>
-                                {item.id_Teacher.FirstName || " name teacher"}{" "}
-                              </h2>
-                            </Text>
-                          </ContentTeacher>
-                          <Fecha>
-                            <span>
-                              <Icon style={{ marginRight: ".5rem" }} />
-                              {RenderDate(item.content.date) || "01/02/2022"}
-                            </span>
-                            <ViewClassSummary onClick={() => Toggle(index)}>
-                              <span>view class summary</span>
-                              <IconArrowHeader
-                                bottom={true}
-                                giro={ClickToggle === index ? true : false}
+                      <CardContentSection>
+                        {verify(item.id_Teacher._id) ? (
+                          <ButtonDelete onClick={() => deleteProps(item._id)}>
+                            <BiX />
+                          </ButtonDelete>
+                        ) : null}
+
+                        <Card key={index}>
+                          <ContentHeader>
+                            <ContentTeacher>
+                              <img
+                                src={item.id_Teacher.picture}
+                                alt="imge teacher"
                               />
-                            </ViewClassSummary>
-                          </Fecha>
-                        </ContentHeader>
-                        {ClickToggle === index && (
-                          <>
-                            <Acordion>
-                              <div
-                                className="content"
-                                onClick={() => SubToggle(index)}
-                              >
-                                <span className="text">Class Summary</span>
-                              </div>
-                              <div className="content_two">
-                                <hr />
-                                <p>{item.content.classSummary}</p>
-                              </div>
-                            </Acordion>
-                            <Acordion>
-                              <div className="content">
-                                <span className="text">Comments </span>
-                              </div>
-                              <div className="content_two">
-                                <hr />
-                                <p>{item.content.comments}</p>
-                              </div>
-                            </Acordion>
-                          </>
-                        )}
-                      </Card>
+                              <Text>
+                                <h3>Teacher</h3>
+                                {/* <h2>{item.teacher.email || item.Teacher.name}</h2> */}
+                                <h2>
+                                  {item.id_Teacher.FirstName || " name teacher"}{" "}
+                                </h2>
+                              </Text>
+                            </ContentTeacher>
+                            <Fecha>
+                              <span>
+                                <Icon style={{ marginRight: ".5rem" }} />
+                                {RenderDate(item.content.date) || "01/02/2022"}
+                              </span>
+                              <ViewClassSummary onClick={() => Toggle(index)}>
+                                <span>view class summary</span>
+                                <IconArrowHeader
+                                  bottom={true}
+                                  giro={ClickToggle === index ? true : false}
+                                />
+                              </ViewClassSummary>
+                            </Fecha>
+                          </ContentHeader>
+                          {ClickToggle === index && (
+                            <>
+                              <Acordion>
+                                <div
+                                  className="content"
+                                  onClick={() => SubToggle(index)}
+                                >
+                                  <span className="text">Class Summary</span>
+                                </div>
+                                <div className="content_two">
+                                  <hr />
+                                  <p>{item.content.classSummary}</p>
+                                </div>
+                              </Acordion>
+                              <Acordion>
+                                <div className="content">
+                                  <span className="text">Comments </span>
+                                </div>
+                                <div className="content_two">
+                                  <hr />
+                                  <p>{item.content.comments}</p>
+                                </div>
+                              </Acordion>
+                            </>
+                          )}
+                        </Card>
+                      </CardContentSection>
                     ))}
                   </>
                 )}
@@ -250,14 +260,34 @@ const ContentFeddBack = styled.article`
 
   margin-top: 2.5rem;
 `;
-const Card = styled.section`
+const CardContentSection = styled.section`
+  margin-top: 0 !important;
+  padding: 0.5rem !important;
+  /* border: 1px solid red; */
+  position: relative;
+`;
+const ButtonDelete = styled.button`
+  background-color: #ea546c;
+  color: #fff;
+  border-radius: 50%;
+  width: 15px;
+  height: 15px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5rem;
+`;
+
+const Card = styled.div`
   width: 100%;
   padding: 0.5rem !important;
   background-color: #fafafa;
   border-radius: 8px;
   border: 1px solid #e4e4e7;
   margin-top: 0 !important;
-  margin-bottom: 0.5rem;
 `;
 const ContentHeader = styled.div`
   display: flex;

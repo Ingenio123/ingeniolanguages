@@ -8,7 +8,11 @@ import { useCardFeedback } from "../../../hooks/useCardFeedBack";
 // component
 import { Showdata } from "./Showdata";
 import CardFeedBack from "./CardFeedbackTeacher";
+//services
+import FeedbackServices from "../../../services/feedback.services";
+
 //
+
 export const SearchComponent = ({ data, placeholder }) => {
   const [filteredData, setFilteredData] = useState([]);
   const [wordEntered, setWordEntered] = useState("");
@@ -51,6 +55,10 @@ export const SearchComponent = ({ data, placeholder }) => {
     setFilteredData([]);
     setItem({});
     ResetStatus();
+  };
+
+  const handleDeleteFeedback = async (idFeedback) => {
+    await FeedbackServices.deleteFeedback(idFeedback);
   };
 
   return (
@@ -110,6 +118,7 @@ export const SearchComponent = ({ data, placeholder }) => {
           ItIsEmpty={ItIsEmpty}
           isStudent={true}
           Summary={normal.length > 0 ? normal : dataKids}
+          deleteProps={handleDeleteFeedback}
         />
       )}
     </>
