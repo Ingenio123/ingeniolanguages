@@ -20,11 +20,13 @@ const UseProgressContext = () => {
     setShow,
     setDataScores,
     AddScoreRuletaSimple,
+    QuitScore,
+    QuitSocreRuleta,
   } = contextProgress;
 
   const ScoreAdd = (score) => {
     console.log("AddScore");
-    if (score >= 16 && score < 34) {
+    if (score >= 16 && score <= 34) {
       AddLevel(1);
     }
     if (score >= 33 && score <= 50) {
@@ -43,15 +45,37 @@ const UseProgressContext = () => {
       AddLevel(6);
     }
   };
+  //
+  const QuitScoreAdd = (score) => {
+    if (score >= 88.82 && score <= 100) {
+      return AddLevel(5);
+    }
+    if (score >= 72.14 && score <= 83.25) {
+      return AddLevel(4);
+    }
+    if (score >= 55.5 && score <= 66.6) {
+      return AddLevel(3); //B2
+    }
+    if (score >= 38.85 && score <= 49.95) {
+      return AddLevel(2);
+    }
+    if (score >= 22.2 && score <= 33.33) {
+      return AddLevel(1);
+    }
+    if (score >= 5.55 && score <= 16.65) {
+      return AddLevel(0);
+    }
+  };
+  //
 
   //score => number / obeject = datos del student selecionado / course => {kids: boolean , idiom: string }
-  const SendDataServerScore = async (score, objec, course) => {
+  const SendDataServerScore = async (score, objec, course, minus) => {
     const { email } = objec;
     const { kids, idiom } = course;
 
     const { token } = JSON.parse(localStorage.getItem("user"));
 
-    const body = { score: score, kids, idiom, email };
+    const body = { score: score, kids, idiom, email, minus };
     // setStatus({ loading: true, error: false });
     const resp = await fetch(`${url}/teacher/summary/score`, {
       method: "POST",
@@ -61,10 +85,21 @@ const UseProgressContext = () => {
       },
       body: JSON.stringify(body),
     });
-    console.log(resp);
+    let dataServer = await resp.json();
     if (resp.status === 200) {
-      AddScore(5.55);
-      AddScoreRuleta(33);
+      let minusServer = dataServer.minus;
+      if (!minusServer) {
+        console.log("NOT MINUS SERVER");
+        AddScore(5.55);
+        AddScoreRuleta(33);
+        return setStatus({
+          loading: false,
+          error: false,
+          success: true,
+        });
+      }
+      QuitScore(5.55); //texto
+      QuitSocreRuleta(33); //ruleta
       setStatus({
         loading: false,
         error: false,
@@ -188,6 +223,7 @@ const UseProgressContext = () => {
     Show,
     SetScore,
     AddScoreRuletaSimple,
+    QuitScoreAdd,
   };
 };
 

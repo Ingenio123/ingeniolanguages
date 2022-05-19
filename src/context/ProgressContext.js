@@ -40,6 +40,15 @@ export const ProgressContext = ({ children }) => {
       payload: valtotal,
     });
   }
+  //controla las letras.
+  function QuitScore(valor) {
+    const { score } = state;
+    let total = score - valor;
+    return dispatch({
+      type: "QUIT_SCORE",
+      payload: total,
+    });
+  }
 
   function defaultScore(initScore) {
     return dispatch({
@@ -58,7 +67,7 @@ export const ProgressContext = ({ children }) => {
   }
 
   function AddSubLevel(val) {
-    const levels = [".1", ".2", ".3"];
+    const levels = [".1", ".2", ".3", ".0"];
     dispatch({
       type: "ADD_SUBLEVEL",
       payload: levels[val],
@@ -100,6 +109,41 @@ export const ProgressContext = ({ children }) => {
     });
   }
 
+  //controla la ruleta
+  function QuitSocreRuleta(val) {
+    let scoreR = state.scoreRuleta;
+    if (scoreR >= 99) {
+      //.3
+      const total = scoreR - val;
+      AddSubLevel(1);
+      dispatch({
+        type: "QUIT_SCORE_RULETA",
+        payload: total,
+      });
+      return;
+    }
+    if (scoreR >= 59) {
+      //.2
+      const total = scoreR - val;
+      AddSubLevel(0);
+      dispatch({
+        type: "QUIT_SCORE_RULETA",
+        payload: total,
+      });
+      return;
+    }
+    if (scoreR >= 33) {
+      //.2
+      // const total = scoreR - val;
+      AddSubLevel(2);
+      dispatch({
+        type: "QUIT_SCORE_RULETA",
+        payload: 99,
+      });
+      return;
+    }
+  }
+
   function ResetScore() {
     dispatch({
       type: "RESET_SCORE",
@@ -115,6 +159,8 @@ export const ProgressContext = ({ children }) => {
         scoreRuleta: state.scoreRuleta,
         sublevel: state.sublevel,
         AddScore,
+        QuitScore,
+        QuitSocreRuleta,
         defaultScore,
         AddLevel,
         AddScoreRuleta,

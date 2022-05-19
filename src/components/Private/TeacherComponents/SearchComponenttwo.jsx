@@ -5,6 +5,7 @@ import Select from "react-select";
 import useProgress from "../../../hooks/useProgress";
 import useProgressContext from "../../../hooks/useProgressContext";
 import { BsPlusCircleFill } from "react-icons/bs";
+import { AiOutlineMinus } from "react-icons/ai";
 import { BiCheck, BiChevronDown, BiLockAlt, BiX } from "react-icons/bi";
 import { ModalConfirm } from "./modal";
 import Data from "./Levels.json";
@@ -20,11 +21,11 @@ export const SearchComponenttwo = ({ data }) => {
   const [Modal, setModal] = useState(false);
   const [toggle, setToggle] = useState(null);
   const [ValorScore, setValorScore] = useState(0);
-  const [SubLevel, setSubLevel] = useState(0);
   const [dataIdiom, setDataidiom] = useState({
     show: false,
     msg: "",
   });
+  const [MinusActive, setMinus] = useState(false);
   //
 
   //custom hooks
@@ -57,6 +58,7 @@ export const SearchComponenttwo = ({ data }) => {
     StartShow,
     SetScore,
     AddScoreRuletaSimple,
+    QuitScoreAdd,
   } = useProgressContext();
 
   const { AddIdiom, AddStudentFunc, AddDataScoreExam } = useScoreExam();
@@ -152,14 +154,27 @@ export const SearchComponenttwo = ({ data }) => {
     }
   }
   const ConfirmModala = () => {
+    console.log(MinusActive ? "AMinus Activate" : "Minus desactive");
+    if (MinusActive) {
+      let scoreR = score;
+      let scoreT = score - 5.55;
+      console.log("SCORE => ", score);
+      console.log("SCORE TOTAL => ", scoreT);
+      console.log("Minus Score Scpre:", scoreR);
+      QuitScoreAdd(scoreT);
+      sendScore(score, Item, Course, true);
+      return;
+    }
     // AddScore(33, Item);
+    console.log("SCORE =>", score);
     addScore(score);
-    sendScore(score, Item, Course);
+    sendScore(score, Item, Course, false);
   };
   const handleDismiss = () => {
     // ResetStatus();
     ResetStatusContext();
     setModal((prev) => !prev);
+    setMinus(false);
   };
   const ToggleItem = (index) => {
     if (toggle === index) {
@@ -171,6 +186,10 @@ export const SearchComponenttwo = ({ data }) => {
     // setValorScore(score);
     setModal(true);
     // setSubLevel(subLevel);
+  };
+
+  const ClickModalMinus = () => {
+    setMinus(true);
   };
 
   return (
@@ -243,9 +262,19 @@ export const SearchComponenttwo = ({ data }) => {
                 {level}
                 {sublevel}
               </TextSublevel>
-              <ButtonPlus onClick={() => ClickModal()}>
-                <BsPlusCircleFill size={"1.5rem"} />
-              </ButtonPlus>
+              <BoxButtons>
+                <ButtonPlus
+                  onClick={() => {
+                    ClickModal();
+                    ClickModalMinus();
+                  }}
+                >
+                  <AiOutlineMinus size={"1.5rem"} />
+                </ButtonPlus>
+                <ButtonPlus onClick={() => ClickModal()}>
+                  <BsPlusCircleFill size={"1.5rem"} />
+                </ButtonPlus>
+              </BoxButtons>
             </ContentBox>
           </>
         )}
@@ -253,6 +282,14 @@ export const SearchComponenttwo = ({ data }) => {
     </>
   );
 };
+
+const BoxButtons = styled.div`
+  position: absolute;
+  bottom: 100px;
+  right: 42%;
+  display: flex;
+  justify-content: center;
+`;
 
 const ContentBox = styled.div`
   /* border: 1px solid red; */
@@ -305,16 +342,10 @@ const Button = styled.button`
 const ButtonPlus = styled.button`
   padding: 0.25rem;
   border: none;
-  background-color: #2563eb;
+  background-color: #2564eb;
   color: #fff;
   border-radius: 50%;
-  position: absolute;
-  bottom: 40px;
-  bottom: 110px;
-  right: 230px;
-  :active {
-    transform: scale(0.9);
-  }
+  margin-right: 0.5rem;
 `;
 
 const TextSublevel = styled.h2`

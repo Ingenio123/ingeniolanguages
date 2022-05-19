@@ -6,6 +6,11 @@ export default function progressReduccer(state, action) {
         ...state,
         score: payload,
       };
+    case "QUIT_SCORE":
+      return {
+        ...state,
+        score: payload,
+      };
     case "DEFAULT_SCORE":
       return {
         ...state,
@@ -22,6 +27,11 @@ export default function progressReduccer(state, action) {
         scoreRuleta: payload,
       };
     case "ADD_SCORE_RULETA":
+      return {
+        ...state,
+        scoreRuleta: payload,
+      };
+    case "QUIT_SCORE_RULETA":
       return {
         ...state,
         scoreRuleta: payload,
