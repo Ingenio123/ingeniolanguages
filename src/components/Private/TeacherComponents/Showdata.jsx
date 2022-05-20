@@ -7,8 +7,9 @@ import { BiCheck } from "react-icons/bi";
 import SelectReact from "react-select";
 //custom hooks
 import useSearch from "../../../hooks/useSearch";
+// import { useCardFeedback } from "../../../hooks/useCardFeedBack";
 
-export const Showdata = (datstudent) => {
+export const Showdata = ({ datstudent, getSummaryForPackage }) => {
   const [DateCalendar, setDateCalendar] = useState(new Date());
   const [values, setValues] = useState({
     comments: "",
@@ -42,20 +43,25 @@ export const Showdata = (datstudent) => {
     const formatted = `${dayName}, ${d} ${month} ${y}`;
     return formatted;
   };
-  const { email, courses } = datstudent.datstudent;
+  const { email, courses } = datstudent;
   // custom hooks
   const { getData, data, StateSelect, SlectIdiomCallback, handleSubmit } =
     useSearch();
+
+  //
   const filterData = (id) => {
-    // return courses.filter((x) => x._id === id);
     return courses.find((x) => x._id === id);
   };
 
   const handleSelect = (select) => {
     const { value } = select;
     const datosfiltrados = filterData(value);
+    console.log(datosfiltrados);
+    let { kids, idiom } = datosfiltrados;
     getData(datosfiltrados);
     SlectIdiomCallback(select);
+    let datosRes = getSummaryForPackage(idiom, kids);
+    console.log(datosRes);
   };
 
   const ShowDataArray = (dataArray) => {

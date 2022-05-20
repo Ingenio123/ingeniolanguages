@@ -43,6 +43,7 @@ const useSearch = () => {
       const kids = firstData.courses[0].kids;
       const idiom = firstData.courses[0].idiom;
       const email = firstData.email;
+      const time = firstData.courses[0]?.time;
       const body = {
         SummaryInput: summary,
         Comments: comments,
@@ -50,6 +51,7 @@ const useSearch = () => {
         email: email,
         date: DateCalendar,
         kids: kids,
+        time,
       };
       setStatus({
         loading: true,
@@ -91,6 +93,7 @@ const useSearch = () => {
       email: email,
       date: DateCalendar,
       kids: kistwo,
+      time: data.time,
     };
     setStatus({
       loading: true,
@@ -130,6 +133,12 @@ const useSearch = () => {
     });
   };
 
+  const getDataStorage = (idiom, kids) => {
+    if (kids) {
+      return;
+    }
+  };
+
   return {
     data,
     reset,
@@ -142,6 +151,7 @@ const useSearch = () => {
     handleSubmit,
     Status,
     ResetStatus,
+    getDataStorage,
   };
 };
 

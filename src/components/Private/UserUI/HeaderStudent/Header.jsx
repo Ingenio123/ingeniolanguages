@@ -143,14 +143,14 @@ export default function Header({ course }) {
                 </div>
               </CardCourse>
             </CardContent>
-            <CardExpired>
-              <ButtonStyled bg="#ff3946">
-                Renew my current lessons package
-              </ButtonStyled>
-              <LinkText>Change my current lessons package</LinkText>
-            </CardExpired>
-            {/* {course?.ExpiresCourse && (
-            )} */}
+            {course?.ExpiresCourse && (
+              <CardExpired>
+                <ButtonStyled bg="#ff3946">
+                  Renew my current lessons package
+                </ButtonStyled>
+                <LinkText>Change my current lessons package</LinkText>
+              </CardExpired>
+            )}
           </>
         ) : (
           // not student down

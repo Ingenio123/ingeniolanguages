@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { useState } from "react";
 import { BiCheck, BiX } from "react-icons/bi";
+import { FaTrashAlt } from "react-icons/fa";
 //custom hooks
 import useSearch from "../../../hooks/useSearch";
 import { useCardFeedback } from "../../../hooks/useCardFeedBack";
@@ -14,14 +15,25 @@ import FeedbackServices from "../../../services/feedback.services";
 //
 
 export const SearchComponent = ({ data, placeholder }) => {
+  const [ModalDelete, setModalDelete] = useState(false);
   const [filteredData, setFilteredData] = useState([]);
   const [wordEntered, setWordEntered] = useState("");
   const [item, setItem] = useState({}); // item => {}
+  const [Feedback, setIdFeedback] = useState("");
 
   //custom hooks
   const { reset, FirstDataGet, ResetSelect, Status, ResetStatus } = useSearch();
-  const { getSummary, loading, ItIsEmpty, normal, dataKids } =
-    useCardFeedback();
+  const {
+    getSummary,
+    loading,
+    ItIsEmpty,
+    normal,
+    dataKids,
+    DataSelect,
+    getSummaryForPackage,
+    deleteFeedbak,
+    ResetSelectFeedback,
+  } = useCardFeedback();
   //
   const handleFilter = (event) => {
     const searchWord = event.target.value;
@@ -44,7 +56,7 @@ export const SearchComponent = ({ data, placeholder }) => {
   const handleClickItem = (datos) => {
     clearInput();
     setItem(datos);
-    // console.log(datos);
+    ResetSelectFeedback();
     FirstDataGet(datos);
     reset();
     ResetSelect();
@@ -57,8 +69,14 @@ export const SearchComponent = ({ data, placeholder }) => {
     ResetStatus();
   };
 
-  const handleDeleteFeedback = async (idFeedback) => {
-    await FeedbackServices.deleteFeedback(idFeedback);
+  const handleDeleteFeedback = async () => {
+    deleteFeedbak(Feedback);
+    await FeedbackServices.deleteFeedback(Feedback);
+    setModalDelete((prev) => !prev);
+  };
+  const ModalDeleteClick = (id) => {
+    setIdFeedback(id);
+    setModalDelete((prev) => !prev);
   };
 
   return (
@@ -86,7 +104,12 @@ export const SearchComponent = ({ data, placeholder }) => {
             ))}
           </DataResult>
         )}
-        {Object.keys(item).length !== 0 && <Showdata datstudent={item} />}
+        {Object.keys(item).length !== 0 && (
+          <Showdata
+            datstudent={item}
+            getSummaryForPackage={getSummaryForPackage}
+          />
+        )}
       </div>
       {Status.succes || Status.error ? (
         <Modal>
@@ -117,13 +140,49 @@ export const SearchComponent = ({ data, placeholder }) => {
           loading={loading}
           ItIsEmpty={ItIsEmpty}
           isStudent={true}
-          Summary={normal.length > 0 ? normal : dataKids}
-          deleteProps={handleDeleteFeedback}
+          Summary={
+            item.courses.length > 1
+              ? DataSelect
+              : normal.length > 0
+              ? normal
+              : dataKids
+          }
+          deleteProps={ModalDeleteClick}
         />
+      )}
+      {ModalDelete && (
+        <Modal>
+          <div className="card">
+            <IconFaTrash />
+            <p className="text-bold">Are you sure?</p>
+            <p> This action cannot be undone.</p>
+            <div className="box__buttons">
+              <button
+                className="button__box primary"
+                onClick={handleDeleteFeedback}
+              >
+                Confirm
+              </button>
+              <button
+                className="button__box default"
+                onClick={ModalDeleteClick}
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        </Modal>
       )}
     </>
   );
 };
+
+//  DataSelect.length > 0 ? DataSelect : normal.length > 0 ? normal : dataKids;
+
+const IconFaTrash = styled(FaTrashAlt)`
+  font-size: 3rem;
+  color: #1d4ed8;
+`;
 
 const Modal = styled.div`
   position: fixed;
@@ -143,16 +202,55 @@ const Modal = styled.div`
     background-color: #fff;
     padding: 0.8rem;
     display: flex;
-    justify-content: center;
+    justify-content: space-evenly;
     align-items: center;
-    width: 450px;
-    height: 200px;
+    width: 350px;
+    height: 250px;
     border-radius: 4px;
     p {
       line-height: normal;
       text-align: center;
       margin: 0;
+      color: #52525b;
+      line-height: 1rem;
+      font-size: 1rem;
       /* margin: 0.5rem 0; */
+    }
+    .text-bold {
+      font-weight: 700;
+      font-size: 1.5rem;
+      color: #27272a;
+    }
+    .box__buttons {
+      width: 80%;
+      /* border: 1px solid red; */
+      height: auto;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-evenly;
+      .button__box {
+        padding: 0.5rem 1rem;
+        border: none;
+        font-size: 1rem;
+        letter-spacing: normal;
+        border-radius: 0.5rem;
+        font-weight: 500;
+      }
+      .primary {
+        background-color: #1d4ed8 !important;
+        color: #fff;
+        &:hover {
+          background-color: #2563eb !important;
+        }
+      }
+      .default {
+        color: #1d4ed8;
+        background-color: transparent;
+        box-shadow: 0px 2px 4px 0px rgba(10, 9, 9, 0.12);
+        :hover {
+          background-color: rgba(243, 244, 246, 1) !important;
+        }
+      }
     }
   }
 `;

@@ -1,4 +1,5 @@
 import styled, { keyframes } from "styled-components";
+import { FiClock } from "react-icons/fi";
 import { BiCalendarWeek, BiChevronDown, BiX } from "react-icons/bi";
 import { useState } from "react";
 import useFeedback from "../../../hooks/useFeedback";
@@ -104,10 +105,17 @@ export default function CardFeedBack(
                               </Text>
                             </ContentTeacher>
                             <Fecha>
-                              <span>
-                                <Icon style={{ marginRight: ".5rem" }} />
-                                {RenderDate(item.content.date) || "01/02/2022"}
-                              </span>
+                              <BoxInformationDate>
+                                <IconClock style={{ marginRight: ".3rem" }} />
+                                <span className="text__bold">
+                                  {item.content.timeLesson} min
+                                </span>
+                                <Icon style={{ marginRight: ".3rem" }} />
+                                <span>
+                                  {RenderDate(item.content.date) ||
+                                    "01/02/2022"}
+                                </span>
+                              </BoxInformationDate>
                               <ViewClassSummary onClick={() => Toggle(index)}>
                                 <span>view class summary</span>
                                 <IconArrowHeader
@@ -157,6 +165,15 @@ export default function CardFeedBack(
   );
 }
 
+const BoxInformationDate = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: auto;
+
+  overflow: hidden;
+`;
+
 const CardItIsEmpty = styled.div`
   padding: 1rem;
   border: 1px solid silver;
@@ -166,11 +183,18 @@ const CardItIsEmpty = styled.div`
   background-color: #f0fdf4;
 `;
 
-const Icon = styled(BiCalendarWeek)``;
+const Icon = styled(BiCalendarWeek)`
+  line-height: 0;
+  font-size: 1.2rem;
+`;
+const IconClock = styled(FiClock)`
+  line-height: 0;
+  font-size: 1.2rem;
+`;
 const ViewClassSummary = styled.div`
   font-size: 2rem;
   line-height: 0;
-  justify-self: end;
+
   :hover {
     color: #6e6e74;
     cursor: pointer;
@@ -191,12 +215,14 @@ const Fecha = styled.div`
   color: #71717a;
   display: flex;
   flex-direction: column;
+  align-items: end;
   span {
-    line-height: 0;
     font-size: 1rem;
     font-weight: 600;
-    align-self: flex-end;
     letter-spacing: 1px;
+    &.text__bold {
+      font-weight: 700;
+    }
   }
 `;
 
@@ -267,7 +293,7 @@ const CardContentSection = styled.section`
   position: relative;
 `;
 const ButtonDelete = styled.button`
-  background-color: #ea546c;
+  background-color: #ef4444;
   color: #fff;
   border-radius: 50%;
   width: 15px;

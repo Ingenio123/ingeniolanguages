@@ -7,6 +7,7 @@ const initialState = {
   data: [],
   dataNormal: [],
   dataKids: [],
+  dataSelect: [],
 };
 
 const Reducer = (state = initialState, action) => {
@@ -36,6 +37,11 @@ const Reducer = (state = initialState, action) => {
       return {
         ...state,
         dataKids: action.payload,
+      };
+    case "DATA_SELECT":
+      return {
+        ...state,
+        dataSelect: action.payload,
       };
     default:
       return state;
@@ -67,12 +73,6 @@ export const useCardFeedback = () => {
       };
     }
     const data = await res.json();
-
-    dispatch({
-      type: "LOADING",
-      payload: false,
-    });
-
     dispatch({
       type: "GET_DATA",
       payload: data.feedBack,
@@ -89,7 +89,34 @@ export const useCardFeedback = () => {
       type: "DATA_KIDS",
       payload: datakids,
     });
+    dispatch({
+      type: "LOADING",
+      payload: false,
+    });
   }, []);
+
+  const getSummaryForPackage = (idiom, kids) => {
+    let datos = [];
+    if (kids) {
+      console.log(state.dataKids);
+      datos = state.dataKids.filter(
+        (e) => e.kids === kids && e.id_Course.nameCourse === idiom
+      );
+      return dispatch({ type: "DATA_SELECT", payload: datos });
+    }
+    datos = state.dataNormal.filter(
+      (e) => e.kids === kids && e.id_Course.nameCourse === idiom
+    );
+    return dispatch({ type: "DATA_SELECT", payload: datos });
+  };
+
+  const deleteFeedbak = (id) => {
+    let datos = state.dataSelect.filter((e) => e._id !== id);
+    return dispatch({ type: "DATA_SELECT", payload: datos });
+  };
+  const ResetSelectFeedback = () => {
+    return dispatch({ type: "DATA_SELECT", payload: [] });
+  };
 
   return {
     AllData: state,
@@ -97,6 +124,11 @@ export const useCardFeedback = () => {
     dataKids: state.dataKids,
     loading: state.loading,
     ItIsEmpty: state.isEmppty,
+    DataSelect: state.dataSelect,
+    // methods
     getSummary,
+    getSummaryForPackage,
+    deleteFeedbak,
+    ResetSelectFeedback,
   };
 };
