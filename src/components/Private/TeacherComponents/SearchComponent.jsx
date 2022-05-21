@@ -67,6 +67,7 @@ export const SearchComponent = ({ data, placeholder }) => {
     setFilteredData([]);
     setItem({});
     ResetStatus();
+    window.location.reload();
   };
 
   const handleDeleteFeedback = async () => {
