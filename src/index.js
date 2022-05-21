@@ -218,7 +218,7 @@ ReactDOM.render(
                 component={UpdatePassword}
               />
 
-              <PrivateRouter
+              <Route
                 path="/siginforgotpassword"
                 component={SignForgotPassword}
               />

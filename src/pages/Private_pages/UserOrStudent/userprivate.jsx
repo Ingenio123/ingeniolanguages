@@ -11,14 +11,14 @@ export default function UserPrivate({ children }) {
   const { id } = useParams();
   const contextStudent = useContext(studentContext);
   const [OneCourse, setOneCourse] = useState({
-    course: {},
+    course: null,
   });
 
-  useEffect(() => {
-    console.log("Initialize useEffect");
-    contextStudent.getStudent().then((res) => console.log(res));
-    // console.log(response);
-  }, []);
+  // useEffect(() => {
+  //   console.log("Initialize useEffect");
+  //   // contextStudent.getStudent().then((res) => console.log(res));
+  //   // console.log(response);
+  // }, []);
 
   useEffect(() => {
     const idCourse = id;
@@ -36,7 +36,7 @@ export default function UserPrivate({ children }) {
       });
     }
 
-    let Datos = ListCard.filter((e) => e.idiom === id).pop();
+    let Datos = ListCard.filter((e) => e.idiom === id);
     console.log(Datos);
 
     return setOneCourse({
@@ -45,12 +45,35 @@ export default function UserPrivate({ children }) {
     });
   }, [id]);
 
+  useEffect(() => {
+    const idCourse = id;
+    // console.log(contextStudent.student);
+    //
+    if (contextStudent.student) {
+      console.log("Existe el student");
+      let getOneCourse = contextStudent.student.QueryStudent.courses.filter(
+        (e) => e._id === idCourse
+      );
+      //
+      return setOneCourse({
+        ...OneCourse,
+        course: getOneCourse[0],
+      });
+    }
+
+    let Datos = ListCard.filter((e) => e.idiom === id);
+    console.log(Datos);
+
+    return setOneCourse({
+      ...OneCourse,
+      course: Datos,
+    });
+  }, [contextStudent.loading]);
+
   return (
     <Container>
       <ContentTemary>
-        {/* <ContexCardIdiomProvider> */}
-        {/* loading */}
-        {contextStudent.loading ? (
+        {contextStudent.loading || !OneCourse.course ? (
           <CardSkeleton>
             <div>
               <div className="skeleton title"></div>
@@ -62,11 +85,14 @@ export default function UserPrivate({ children }) {
         ) : (
           <>
             {contextStudent.student ? (
-              <CardLists course={OneCourse?.course} />
+              <>
+                <CardLists course={OneCourse.course} />
+              </>
             ) : (
               <>
+                <span>test</span>
                 {Object.keys(OneCourse.course).length > 0 && (
-                  <CardLists course={OneCourse.course} />
+                  <CardLists course={OneCourse?.course} />
                 )}
               </>
             )}
