@@ -217,8 +217,7 @@ const SignIn = ({ history }) => {
             </form>
             <div className="mt-3 text-center">
               <TextGray>
-                If you are new at <TextBold> Ingenio Languages, </TextBold>
-                create an account
+                If you are new at <TextBold> Ingenio Languages </TextBold>
               </TextGray>
               <ButtonSignIn to="/SignUp">Sign Up</ButtonSignIn>
             </div>

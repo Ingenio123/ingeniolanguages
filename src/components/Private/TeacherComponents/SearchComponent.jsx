@@ -300,7 +300,7 @@ const SearchInput = styled.input`
   border-radius: 4px;
   border: 1px solid silver;
   margin: 0.5rem 0 0 0;
-  width: 60%;
+  width: 300px;
   ::placeholder {
     color: silver;
   }
