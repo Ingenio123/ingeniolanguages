@@ -13,6 +13,7 @@ export default function UserPrivate({ children }) {
   const [OneCourse, setOneCourse] = useState({
     course: {},
   });
+
   useEffect(() => {
     console.log("Initialize useEffect");
     contextStudent.getStudent().then((res) => console.log(res));
