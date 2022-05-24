@@ -201,7 +201,12 @@ export const SectionMaterials = ({
                 <ListIcons>
                   {i.levels_materials.map((e) => (
                     <div style={{ position: "relative" }}>
-                      <BoxIcon>
+                      <BoxIcon
+                        to={{
+                          pathname: `${e.link_material}`,
+                        }}
+                        target="_blank"
+                      >
                         {IconsSwitch(e.type_Material.name_type)}
                       </BoxIcon>
                       <div

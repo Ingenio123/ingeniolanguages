@@ -73,6 +73,7 @@ const imgFondo = (idiom) => {
 
 export default function Header({ course }) {
   const contextStudent = useContext(studentContext);
+  console.log(course);
   //
   function FormatDate(date) {
     const dates = new Date(date);
@@ -157,10 +158,10 @@ export default function Header({ course }) {
           <>
             {!contextStudent.loading && (
               <>
-                <CardContent img={imgFondo(course.idiom)}>
+                <CardContent img={imgFondo(course[0].idiom)}>
                   <CardCourse>
                     <ContentImage>
-                      <Img url={imgs(course.idiom)} alt="" width="200px" />
+                      <Img url={imgs(course[0].idiom)} alt="" width="200px" />
                       <ItemsDeCompra
                         flex
                         style={{ width: "100%" }}
@@ -168,14 +169,14 @@ export default function Header({ course }) {
                     </ContentImage>
                     <div>
                       <CardHeader>
-                        <span>{course.idiom}</span>
+                        <span>{course[0].idiom}</span>
                         {/* <BuyNewCourse onClick={Home} title="Buy a now package" /> */}
                       </CardHeader>
                       <DatosDeCompra>
                         <ItemsDeCompra>
                           <IconTime />
                           <ItemContent>
-                            Duration of each lesson: {course.timeLesson}
+                            Duration of each lesson: {course[0].timeLesson}
                             {/* Time de cada lessons: 40 min lessons */}
                           </ItemContent>
                         </ItemsDeCompra>
@@ -189,7 +190,7 @@ export default function Header({ course }) {
                         <ItemsDeCompra>
                           <IconNumberLessons />
                           <ItemContent>
-                            Number of remaining lessons: {course.lessonTotal}
+                            Number of remaining lessons: {course[0].lessonTotal}
                           </ItemContent>
                         </ItemsDeCompra>
                         <ItemsDeCompra>

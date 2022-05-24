@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 export const ContentGrid = styled.main`
@@ -46,7 +47,7 @@ export const ListIcons = styled.section`
   grid-template-columns: repeat(6, 1fr);
   column-gap: 2rem;
 `;
-export const BoxIcon = styled.div`
+export const BoxIcon = styled(Link)`
   display: flex;
   justify-content: center;
   width: 100%;
