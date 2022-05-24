@@ -302,11 +302,12 @@ const SendScore = () => {
 
   const handleGoBack = () => {
     setShow(false);
-    return setValidation({
+    setValidation({
       ...StatusValidation,
       error: false,
       success: false,
     });
+    return window.location.reload();
   };
 
   const handleGoBackUpdt = () => {
@@ -316,7 +317,8 @@ const SendScore = () => {
       success: false,
       error: false,
     });
-    return setModalConfirm(false);
+    setModalConfirm(false);
+    return window.location.reload();
   };
 
   const ClickUpdate = () => {
@@ -452,9 +454,7 @@ const SendScore = () => {
             <ContentText>
               <span>{StatusValidation.success ? "Success" : "Error"} </span>
               <p>
-                {StatusValidation.success
-                  ? "Submited succesfully"
-                  : "Error Lorem ipsum dolor sit, amet consectetur adipisicing elit Debitis, sunt."}
+                {StatusValidation.success ? "Submited succesfully" : "Error"}
               </p>
             </ContentText>
             <Button onClick={() => handleGoBack()}>Go back</Button>
@@ -511,9 +511,7 @@ const SendScore = () => {
                 <ContentText>
                   <span>{ConfirmSuccess.success ? "Success" : "Error"} </span>
                   <p>
-                    {ConfirmSuccess.success
-                      ? "Submited succesfully"
-                      : "Error Lorem ipsum dolor sit, amet consectetur adipisicing elit Debitis, sunt."}
+                    {ConfirmSuccess.success ? "Submited succesfully" : "Error "}
                   </p>
                 </ContentText>
                 <Button onClick={() => handleGoBackUpdt()}>Go back</Button>

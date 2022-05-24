@@ -176,6 +176,7 @@ export const SearchComponentthree = ({
     let inputTitle = (inputOne.current.value = "");
     let inputUrl = (inputTwo.current.value = "");
     setModal((prev) => !prev);
+    window.location.reload();
     // setItem({});
   };
 
