@@ -1,7 +1,8 @@
 import { useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import styled, { css, keyframes } from "styled-components";
 import { ComponentButtons } from "../../../Buttons/ButtonLessonPackage";
+import { useDispatch } from "react-redux";
 
 // Ui
 import {
@@ -73,7 +74,8 @@ const imgFondo = (idiom) => {
 
 export default function Header({ course }) {
   const contextStudent = useContext(studentContext);
-  console.log(course);
+  const dispatch = useDispatch();
+  const history = useHistory();
   //
   function FormatDate(date) {
     const dates = new Date(date);
@@ -89,7 +91,35 @@ export default function Header({ course }) {
     return month + "/" + day + "/" + year;
   }
   //
-
+  const handleClickRenewPackage = () => {
+    console.log(course);
+    let { idiom, lesson, kids, months, time } = course;
+    console.log(idiom, lesson, kids, months, time);
+    let pricesTime = time === 30 ? 15 : time === 45 ? 22.5 : 30;
+    let id = idiom == "English" ? 12 : "";
+    let calculo = pricesTime * lesson;
+    calculo = calculo * months;
+    let image =
+      idiom == "English"
+        ? "https://res.cloudinary.com/ingenio/image/upload/v1643997592/WhatsApp_Image_2022-02-04_at_12.47.34_gllinv.jpg"
+        : idiom == "Spanish"
+        ? "https://res.cloudinary.com/ingenio/image/upload/v1643997515/WhatsApp_Image_2022-02-04_at_11.13.46_ju3ays.jpg"
+        : "";
+    dispatch({
+      type: "PRICE_LESSON",
+      payload: {
+        idiom,
+        lesson,
+        kids,
+        months,
+        time,
+        price: calculo,
+        id,
+        img: image,
+      },
+    });
+    history.push("/orderSummary");
+  };
   return (
     <ContentCards>
       <>
@@ -144,14 +174,17 @@ export default function Header({ course }) {
                 </div>
               </CardCourse>
             </CardContent>
-            {course?.ExpiresCourse && (
-              <CardExpired>
-                <ButtonStyled bg="#ff3946">
-                  Renew my current lessons package
-                </ButtonStyled>
-                <LinkText>Change my current lessons package</LinkText>
-              </CardExpired>
-            )}
+            <CardExpired>
+              <ButtonStyled bg="#ff3946" onClick={handleClickRenewPackage}>
+                Renew my current lessons package
+              </ButtonStyled>
+              <TextOr>or</TextOr>
+              <LinkText to="/prices">
+                Change my current lessons package
+              </LinkText>
+            </CardExpired>
+            {/* {course?.ExpiresCourse && (
+            )} */}
           </>
         ) : (
           // not student down
@@ -213,7 +246,11 @@ export default function Header({ course }) {
     </ContentCards>
   );
 }
-
+const TextOr = styled.span`
+  font-size: 1rem;
+  color: #364d92;
+  font-weight: 700;
+`;
 // const Icons = styled(BiChevronRight)`
 //   font-size:
 // `;
@@ -245,7 +282,7 @@ const Button = css`
 const ButtonStyled = styled.button`
   ${Button};
   transition: all 0.3s ease;
-  margin-bottom: 1rem;
+
   :hover {
     background-color: transparent;
     border: 3px solid #ff3946;

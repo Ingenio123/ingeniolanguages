@@ -7,7 +7,7 @@ import studentContext from "../../../components/Context/StudentContext";
 import ListCard from "../../../components/Private/UserUI/HeaderStudent/CardList";
 
 // import ContexCardIdiomProvider from "../../../context/CardIdiomContext";
-export default function UserPrivate({ children }) {
+export default function UserPrivate({ children, ...props }) {
   const { id } = useParams();
   const contextStudent = useContext(studentContext);
   const [OneCourse, setOneCourse] = useState({
@@ -90,9 +90,8 @@ export default function UserPrivate({ children }) {
               </>
             ) : (
               <>
-                <span>test</span>
                 {Object.keys(OneCourse.course).length > 0 && (
-                  <CardLists course={OneCourse?.course} />
+                  <CardLists course={OneCourse?.course} {...props} />
                 )}
               </>
             )}
