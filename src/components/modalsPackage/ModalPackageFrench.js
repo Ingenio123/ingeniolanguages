@@ -240,7 +240,7 @@ export default function ModalPackageFrench({
                       activado={IndividualClass}
                       onClick={OnClickIndividual}
                     >
-                      One-to-One
+                      One to one
                     </ButoonIndividual>
                     <ButoonIndividual
                       activado={GroupClass}

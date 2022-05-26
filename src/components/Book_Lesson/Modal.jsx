@@ -2,14 +2,25 @@ import { useCallback, useEffect, useState, useRef } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { IoClose } from "react-icons/io5";
-// import OpsImage from "../../../../assets/images/ops.png";
-import OpsImage from "../../assets/images/ops.png";
+import OpsImagee from "../../assets/images/Ops.png";
+// import OpsImage from "../../assets/images/ops.png";
+import OpsImage from "../../assets/images/Opps.jpg";
 import { useHistory } from "react-router-dom";
 import ModalRequesFreeClass from "../Header/ModalRequesFreeClass";
-
-export default function NotStudent({ notStudent, setNotStudent }) {
+import ButtonComponentRenew from "../ButtonsRenewPackage/buttons";
+/**
+ *
+ * @param {ExipiredLessons} boolean
+ * @returns Component UI
+ */
+export default function NotStudent({
+  notStudent,
+  setNotStudent,
+  expiredLessons,
+  handleClickButtonsRenew,
+}) {
   const BackgroundRef = useRef();
-  const history = useHistory();
+
   const [ShowForm, setShowForm] = useState(false);
   const keyPress = useCallback(
     (e) => {
@@ -37,27 +48,41 @@ export default function NotStudent({ notStudent, setNotStudent }) {
           <ModalCard>
             <Content>
               <GridText>
-                <DivText>
-                  <TextXL>OOPS!</TextXL>
-                  <TextMd>You can't schedule a class yet.</TextMd>
-                  <TextSm>To schedule your lessons</TextSm>
-                </DivText>
-                <DivText start>
-                  <Button to="/prices">Buy a lesson</Button>
-                  <TextSm>Or</TextSm>
-                  <ButtonFree
-                    free
-                    onClick={() => {
-                      setNotStudent((prev) => !prev);
-                      setShowForm((prev) => !prev);
-                    }}
-                  >
-                    Request free lesson
-                  </ButtonFree>
-                </DivText>
+                {expiredLessons ? (
+                  <DivText>
+                    <TextXL>OOPS!</TextXL>
+                    <TextMd>It's time to renew your lessons package!</TextMd>
+                    <TextSm>To schedule your next lessons, please</TextSm>
+                  </DivText>
+                ) : (
+                  <DivText>
+                    <TextXL>OOPS!</TextXL>
+                    <TextMd>You can't schedule a class yet.</TextMd>
+                    <TextSm>To schedule your lessons</TextSm>
+                  </DivText>
+                )}
+                {expiredLessons ? (
+                  <ButtonComponentRenew
+                    handleClickPackage={handleClickButtonsRenew}
+                  />
+                ) : (
+                  <DivText start>
+                    <Button to="/prices">Buy a lesson</Button>
+                    <TextSm>Or</TextSm>
+                    <ButtonFree
+                      free
+                      onClick={() => {
+                        setNotStudent((prev) => !prev);
+                        setShowForm((prev) => !prev);
+                      }}
+                    >
+                      Request free lesson
+                    </ButtonFree>
+                  </DivText>
+                )}
               </GridText>
             </Content>
-            <ContentImg img={OpsImage}>
+            <ContentImg img={expiredLessons ? OpsImage : OpsImagee}>
               <ButtonClose
                 onClick={() => {
                   setNotStudent((prev) => !prev);
@@ -112,6 +137,7 @@ const ContentImg = styled.div`
   position: relative;
   background-image: url(${(props) => props.img});
   background-size: cover;
+  object-fit: cover;
   width: 100%;
   height: 100%;
   -webkit-border-top-right-radius: 10px;
@@ -129,7 +155,7 @@ const GridText = styled.div`
 `;
 const DivText = styled.div`
   display: flex;
-  justify-content: ${(props) => (props.start ? "start" : "center")};
+  justify-content: ${(props) => (props.start ? "start" : "end")};
   align-items: center;
   height: 100%;
   width: 100%;
@@ -190,11 +216,17 @@ const TextXL = styled.h2`
 const TextMd = styled.h3`
   color: #212121;
   margin: 0;
+  margin-top: 0.5rem;
   letter-spacing: -1px;
   font-size: 1.563rem;
+  line-height: normal;
+  text-align: center;
 `;
 const TextSm = styled.p`
   color: #616161;
   margin: 0;
+  margin-top: 0.5rem !important;
   font-size: 1.21875rem;
+  text-align: center;
+  line-height: normal;
 `;

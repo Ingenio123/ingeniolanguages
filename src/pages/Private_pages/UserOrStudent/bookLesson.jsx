@@ -16,7 +16,7 @@ import StudentContext from "../../../components/Context/StudentContext";
 import { Link } from "react-router-dom";
 import { useEffect, useContext, useState, useCallback } from "react";
 import { useLocation } from "react-router-dom";
-
+import { useURLSearch } from "../../../hooks/useUrlSearch";
 function Index() {
   // const { idiom } = useSelector((state) => state.GetIdiomReducer);
   const location = useLocation();
@@ -24,8 +24,10 @@ function Index() {
   const contextNavbar = useContext(NavbarContext);
   const contextStudent = useContext(StudentContext);
   const [ShowModal, setShowModal] = useState(false);
+  const [Expired, setExipred] = useState(false);
   const [state, setstate] = useState(false);
   const [ValorCalendar, setValorCalendar] = useState("");
+  const { get } = useURLSearch();
   //
   const handleClickModal = () => {
     return setShowModal(true);
@@ -65,15 +67,34 @@ function Index() {
   }, []);
 
   const ShowTypeModal = (param) => {
-    if (contextStudent.student) {
-      valores(param);
-      setstate(true);
-      OpenModal();
-      return;
-    } else {
-      setstate(false);
-      UserNotStudent();
+    let { existe, data } = get(queryLocation, "language");
+    if (existe) {
+      if (contextStudent.student) {
+        let { lessonTotal, ExpiresCourse } =
+          contextStudent.student.QueryStudent.courses.filter(
+            (e) => e.idiom === data
+          )[0];
+
+        if (lessonTotal <= 0 || ExpiresCourse) {
+          setstate(false);
+          setExipred(true);
+          UserNotStudent();
+          return;
+        }
+        valores(param);
+        setstate(true);
+        OpenModal();
+        return;
+      } else {
+        setstate(false);
+        UserNotStudent();
+      }
     }
+  };
+
+  const handleClickButtonsRenew = () => {
+    // console.log(contextStudent.student.QueryStudent.courses);
+    console.log("Buttons");
   };
 
   return (
@@ -95,6 +116,8 @@ function Index() {
             <ModalComponent
               notStudent={ShowModal}
               setNotStudent={setShowModal}
+              expiredLessons={Expired}
+              handleClickButtonsRenew={handleClickButtonsRenew}
             />
             <BookLessonTitleComponent
               text="Book your"

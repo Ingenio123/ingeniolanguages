@@ -188,8 +188,8 @@ const HeaderHero = ({ isLogged, ActivarLoged }) => {
         isLogged={isLogged}
         hasLoginError={hasLoginError}
       />
-      <Teachers />
       <Carousel />
+      <Teachers />
       <PriceSection />
     </>
   );

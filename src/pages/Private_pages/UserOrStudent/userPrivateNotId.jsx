@@ -137,10 +137,10 @@ export const UserPrivateNotId = () => {
                     <ItemContent>
                       Number of purchased lessons:{" "}
                       {contextStudent.student?.QueryStudent.courses[0].lesson}
-                      {contextStudent.student?.QueryStudent.courses[0].lesson >
+                      {contextStudent.student?.QueryStudent.courses[0].lesson ==
                       1
-                        ? " lessons"
-                        : " lesson"}
+                        ? " lesson"
+                        : " lessons"}
                     </ItemContent>
                   </ItemsDeCompra>
                   <ItemsDeCompra>
@@ -152,9 +152,9 @@ export const UserPrivateNotId = () => {
                           .lessonTotal
                       }
                       {contextStudent.student?.QueryStudent.courses[0]
-                        .lessonTotal > 1
-                        ? " lessons"
-                        : " lesson"}
+                        .lessonTotal == 1
+                        ? " lesson"
+                        : " lessons"}
                     </ItemContent>
                   </ItemsDeCompra>
                   <ItemsDeCompra>

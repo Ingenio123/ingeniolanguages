@@ -263,7 +263,7 @@ export default function ModalPackage({
                       activado={IndividualClass}
                       onClick={OnClickIndividual}
                     >
-                      One-to-One
+                      One to one
                     </ButoonIndividual>
                     <ButoonIndividual
                       activado={GroupClass}

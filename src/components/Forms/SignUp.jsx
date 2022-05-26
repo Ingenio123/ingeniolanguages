@@ -122,8 +122,7 @@ const SignUp = (props) => {
                         required: "First Name is required",
                         pattern: {
                           value: /^[A-Za-z]+$/i,
-                          message:
-                            "Character no permitidos/ no debe tener espacios",
+                          message: "Please enter a valid name.",
                         },
                       })}
                     />
@@ -145,8 +144,7 @@ const SignUp = (props) => {
                         required: "Last Name is required",
                         pattern: {
                           value: /^[A-Za-z]+$/i,
-                          message:
-                            "Character no permitidos/ no debe tener espacios",
+                          message: "Please enter a valid name.",
                         },
                       })}
                     />
@@ -168,15 +166,11 @@ const SignUp = (props) => {
                         required: "Age is required",
                         maxLength: {
                           value: 2,
-                          message: "Age max NN",
+                          message: "Age is incorrect.",
                         },
                         min: {
                           value: 6,
-                          message: "Age min 6 to 80",
-                        },
-                        max: {
-                          value: 80,
-                          message: "Age max 80",
+                          message: "Minimum age is 6.",
                         },
                       })}
                     />
@@ -254,14 +248,15 @@ const SignUp = (props) => {
                         type={types ? "password" : "text"}
                         className="form-control"
                         {...register("password", {
-                          required: "password required",
+                          required: "Password is required",
                           maxLength: {
                             value: 20,
-                            message: "max length character is 8",
+                            message: "Password cannot exceed 20 characters.",
                           },
                           minLength: {
                             value: 8,
-                            message: "min lingth character is 4",
+                            message:
+                              "Password cannot have less than 8 characters.",
                           },
                         })}
                       />
@@ -288,14 +283,15 @@ const SignUp = (props) => {
                       type={types2 ? "password" : "text"}
                       className="form-control"
                       {...register("confirmPassword", {
-                        required: "Confirm password  is required",
+                        required: "Please, confirm password",
                         maxLength: {
                           value: 20,
-                          message: "max length character is 20",
+                          message: "Password cannot exceed 20 characters.",
                         },
                         minLength: {
                           value: 8,
-                          message: "min lingth character is 8",
+                          message:
+                            "Password cannot have less than 8 characters.",
                         },
                       })}
                     />

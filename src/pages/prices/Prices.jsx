@@ -33,7 +33,7 @@ const PricesPage = () => {
       <BoxCart />
       <Container className="container">
         <H2Styles top={true} className="text-center">
-          Lesson packages
+          Lessons packages
         </H2Styles>
         <ContentGrid bottom={true}>
           {Data.map((item) => (
@@ -48,7 +48,7 @@ const PricesPage = () => {
           ))}
         </ContentGrid>
         <H2Styles top={true} bottom={true} className="text-center">
-          Lesson packages for kids
+          Lessons packages for kids
         </H2Styles>
         <ContentGrid>
           {Datakids.map((item) => (

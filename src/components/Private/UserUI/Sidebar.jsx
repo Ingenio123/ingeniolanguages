@@ -183,7 +183,7 @@ export default function Sidebar({ salir, isLogged }) {
                             : item.name}
                         </>
                       )}
-                      {item.name === "Course content" && (
+                      {item.name === "My learning plan" && (
                         <div className="dropdown-subitem">
                           {contextStudent.student || courses.length > 0 ? (
                             <>
@@ -281,59 +281,10 @@ export default function Sidebar({ salir, isLogged }) {
                           )}
                         </div>
                       )}
-                      {item.name === "Book a lesson" && (
-                        <div className="dropdown-subitem">
-                          {contextStudent.student || courses.length > 0 ? (
-                            <>
-                              {courses.length > 0 ? (
-                                <>
-                                  {courses.map((item, index) => (
-                                    <Link
-                                      className="hovers"
-                                      to={`/booklesson?language=${item}`}
-                                      key={index}
-                                    >
-                                      {item}
-                                    </Link>
-                                  ))}
-                                </>
-                              ) : (
-                                <>
-                                  {contextStudent.student.QueryStudent.courses.map(
-                                    (item, indexSubmap) => (
-                                      <Link
-                                        className="hovers"
-                                        onClick={() => handleClick(index)}
-                                        to={`/booklesson?language=${item.idiom}`}
-                                        key={indexSubmap}
-                                      >
-                                        {item.idiom}
-                                        {item.kids && "(Kids)"}
-                                      </Link>
-                                    )
-                                  )}
-                                </>
-                              )}
-                            </>
-                          ) : (
-                            <>
-                              {ItemsNotStudent.map((names, index) => (
-                                <Link
-                                  className="hovers"
-                                  key={index}
-                                  to={`/booklesson?language=${names.idiom}`}
-                                >
-                                  {names.nameItem}
-                                </Link>
-                              ))}
-                            </>
-                          )}
-                        </div>
-                      )}
 
                       {!!contextStudent.student && (
                         <>
-                          {item.name === "Materials" && (
+                          {item.name === "My materials" && (
                             <div className="dropdown-subitem">
                               {contextStudent.student || courses.length > 0 ? (
                                 <>
@@ -383,6 +334,55 @@ export default function Sidebar({ salir, isLogged }) {
                             </div>
                           )}
                         </>
+                      )}
+                      {item.name === "Book my lessons" && (
+                        <div className="dropdown-subitem">
+                          {contextStudent.student || courses.length > 0 ? (
+                            <>
+                              {courses.length > 0 ? (
+                                <>
+                                  {courses.map((item, index) => (
+                                    <Link
+                                      className="hovers"
+                                      to={`/booklesson?language=${item}`}
+                                      key={index}
+                                    >
+                                      {item}
+                                    </Link>
+                                  ))}
+                                </>
+                              ) : (
+                                <>
+                                  {contextStudent.student.QueryStudent.courses.map(
+                                    (item, indexSubmap) => (
+                                      <Link
+                                        className="hovers"
+                                        onClick={() => handleClick(index)}
+                                        to={`/booklesson?language=${item.idiom}`}
+                                        key={indexSubmap}
+                                      >
+                                        {item.idiom}
+                                        {item.kids && "(Kids)"}
+                                      </Link>
+                                    )
+                                  )}
+                                </>
+                              )}
+                            </>
+                          ) : (
+                            <>
+                              {ItemsNotStudent.map((names, index) => (
+                                <Link
+                                  className="hovers"
+                                  key={index}
+                                  to={`/booklesson?language=${names.idiom}`}
+                                >
+                                  {names.nameItem}
+                                </Link>
+                              ))}
+                            </>
+                          )}
+                        </div>
                       )}
                     </span>
                   </ItemsNav>

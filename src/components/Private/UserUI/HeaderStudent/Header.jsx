@@ -10,6 +10,8 @@ import {
   IoTimeOutline,
   IoBarChartOutline,
   IoDocumentTextOutline,
+  IoAlertCircleOutline,
+  IoCartOutline,
 } from "react-icons/io5";
 
 import { FaCartPlus } from "react-icons/fa";
@@ -150,17 +152,17 @@ export default function Header({ course }) {
                       </ItemContent>
                     </ItemsDeCompra>
                     <ItemsDeCompra>
-                      <IconNumberLessons />
+                      <PurchaseIcon />
                       <ItemContent>
                         Number of purchased lessons: {course?.lesson}
-                        {course?.lesson > 1 ? " lessons" : " lesson"}
+                        {course?.lesson === "1" ? " lesson" : " lessons"}
                       </ItemContent>
                     </ItemsDeCompra>
                     <ItemsDeCompra>
-                      <IconNumberLessons />
+                      <AlertIcons />
                       <ItemContent>
                         Number of remaining lessons: {course?.lessonTotal}
-                        {course?.lesson > 1 ? " lessons" : " lesson"}
+                        {course?.lesson === 1 ? " lesson" : " lessons"}
                       </ItemContent>
                     </ItemsDeCompra>
                     <ItemsDeCompra>
@@ -215,7 +217,7 @@ export default function Header({ course }) {
                         </ItemsDeCompra>
 
                         <ItemsDeCompra>
-                          <IconNumberLessons />
+                          <PurchaseIcon />
                           <ItemContent>
                             Number of purchased lessons: 0 lessons
                           </ItemContent>
@@ -441,6 +443,14 @@ const IconTemary = styled(IoDocumentTextOutline)`
 const IconNumberLessons = styled(IoBarChartOutline)`
   ${StyleIcon};
 `;
+const AlertIcons = styled(IoAlertCircleOutline)`
+  ${StyleIcon};
+`;
+
+const PurchaseIcon = styled(IoCartOutline)`
+  ${StyleIcon};
+`;
+
 const ItemContent = styled.span`
   font-size: calc(1em + 2px);
 `;

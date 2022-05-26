@@ -4,7 +4,7 @@ export const Items = [
     link: "/",
   },
   {
-    name: "Course content",
+    name: "My learning plan",
     // link: "/private",
   },
   {
@@ -12,10 +12,10 @@ export const Items = [
     // link: "/progress",
   },
   {
-    name: "Book a lesson",
+    name: "My materials",
   },
   {
-    name: "Materials",
+    name: "Book my lessons",
   },
 ];
 export const ItemsNotStudent = [

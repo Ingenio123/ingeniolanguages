@@ -55,7 +55,7 @@ export const Temary = (props) => {
         <h2
           className={(props.textSacramento ? "font_sacramento " : "") + "mb-1"}
         >
-          {props.idiom || "English"} {props.kids && "(kids)"} course content
+          {props.idiom || "English"} {props.kids && "(kids)"} learning plan
         </h2>
         {/* <div>
           <InputSearch

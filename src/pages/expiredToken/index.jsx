@@ -6,7 +6,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import URI from "../../components/Urls";
 import { authenticateFetch, isAuth } from "../../helpers/Auth";
-
+import useUser from "../../hooks/useUser";
 const schema = yup.object().shape({
   email: yup.string().email().required("Email is a required field"),
   password: yup
@@ -27,9 +27,9 @@ const ExpredToken = ({ history }) => {
     formState: { errors },
     reset,
   } = useForm({ resolver: yupResolver(schema), mode: "all" });
-
+  const { ActivarLoged } = useUser();
   const onSubmitHandler = async (data) => {
-    console.log({ data });
+    // console.log({ data });
     let response = await fetch(`${URI.url}/data/userSignIn`, {
       method: "POST",
       body: JSON.stringify(data),
@@ -46,16 +46,23 @@ const ExpredToken = ({ history }) => {
       });
       return reset();
     }
+    console.log(dataResponse);
     // AuthSessionStorage(dataResponse.user, () => {});
     authenticateFetch(dataResponse.user, () => {
       if (isAuth()) {
-        if (isAuth().rol === "admin") return history.push("/admin");
-        if (isAuth().rol === "teacher") return history.push("/teacherPage");
-        return history.push("/private");
+        console.log("Estas aqui en line 53");
+        if (isAuth().rol === "teacher") {
+          console.log("Teacher page");
+          ActivarLoged(isAuth());
+          return history.push("/teacherPage");
+        }
+        if (isAuth().rol === "user" || isAuth().rol === "student") {
+          console.log("stundet | user page");
+          ActivarLoged(isAuth());
+          return history.push("/private");
+        }
       }
     });
-
-    return history.push("/");
   };
   return (
     <>
@@ -85,7 +92,7 @@ const ExpredToken = ({ history }) => {
               />
               <span>{errors.password?.message}</span>
             </ContentInputsGrpup>
-            <ButtonSubmit type="submit">Submit</ButtonSubmit>
+            <ButtonSubmit type="submit">Sign in</ButtonSubmit>
           </Form>
           <LineCenter>Or</LineCenter>
           <BoxCenter>

@@ -231,7 +231,7 @@ const Modal = (props) => {
                   activado={IndividualClass}
                   onClick={OnClickIndividual}
                 >
-                  one to one
+                  One to one
                 </ButtonType>
                 <ButtonType activado={GroupClass} onClick={OnClickGroup}>
                   Group lessons
