@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState, useRef } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { IoClose } from "react-icons/io5";
-import OpsImagee from "../../assets/images/Ops.png";
+import OpsImagee from "../../assets/images/ops.png";
 import OpsImage from "../../assets/images/Opps.jpg";
 
 import ModalRequesFreeClass from "../Header/ModalRequesFreeClass";
