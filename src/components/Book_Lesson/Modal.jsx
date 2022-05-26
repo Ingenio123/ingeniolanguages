@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { IoClose } from "react-icons/io5";
 import OpsImagee from "../../assets/images/Ops.png";
 import OpsImage from "../../assets/images/Opps.jpg";
-import { useHistory } from "react-router-dom";
+
 import ModalRequesFreeClass from "../Header/ModalRequesFreeClass";
 import ButtonComponentRenew from "../ButtonsRenewPackage/buttons";
 /**
