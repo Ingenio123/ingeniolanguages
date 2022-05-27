@@ -250,6 +250,7 @@ export const SearchComponentthree = ({
                 justifyContent: "center",
               }}
             >
+              <section></section>
               <ButtonSubmit type="submit">Submit</ButtonSubmit>
             </div>
           </form>

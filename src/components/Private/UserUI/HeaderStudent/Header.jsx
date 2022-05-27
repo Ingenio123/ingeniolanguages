@@ -97,6 +97,7 @@ export default function Header({ course }) {
     console.log(course);
     let { idiom, lesson, kids, months, time } = course;
     console.log(idiom, lesson, kids, months, time);
+    time = parseInt(time);
     let pricesTime = time === 30 ? 15 : time === 45 ? 22.5 : 30;
     let id = idiom == "English" ? 12 : "";
     let calculo = pricesTime * lesson;

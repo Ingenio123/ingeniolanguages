@@ -50,7 +50,7 @@ export const ItemsTeacher = [
     link: "/",
   },
   {
-    name: "Course content",
+    name: "Learning plan",
     link: "/CourseContentTeacher",
   },
   {

@@ -17,6 +17,8 @@ import { Link } from "react-router-dom";
 import { useEffect, useContext, useState, useCallback } from "react";
 import { useLocation } from "react-router-dom";
 import { useURLSearch } from "../../../hooks/useUrlSearch";
+import { useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
 function Index() {
   // const { idiom } = useSelector((state) => state.GetIdiomReducer);
   const location = useLocation();
@@ -28,6 +30,8 @@ function Index() {
   const [state, setstate] = useState(false);
   const [ValorCalendar, setValorCalendar] = useState("");
   const { get } = useURLSearch();
+  const dispatch = useDispatch();
+  const history = useHistory();
   //
   const handleClickModal = () => {
     return setShowModal(true);
@@ -94,7 +98,39 @@ function Index() {
 
   const handleClickButtonsRenew = () => {
     // console.log(contextStudent.student.QueryStudent.courses);
-    console.log("Buttons");
+    let { existe, data } = get(queryLocation, "language");
+    if (existe) {
+      if (contextStudent.student) {
+        let valores = contextStudent.student.QueryStudent.courses.filter(
+          (e) => e.idiom === data
+        )[0];
+        console.log(valores);
+        let { idiom, kids, lesson, months, time } = valores;
+        time = parseInt(time);
+        let priceTime = time == 30 ? 15 : time == 45 ? 22.5 : 30;
+        let calculo = priceTime * parseInt(lesson);
+        calculo = calculo * parseInt(months);
+        let image =
+          idiom == "English"
+            ? "https://res.cloudinary.com/ingenio/image/upload/v1643997592/WhatsApp_Image_2022-02-04_at_12.47.34_gllinv.jpg"
+            : idiom == "Spanish"
+            ? "https://res.cloudinary.com/ingenio/image/upload/v1643997515/WhatsApp_Image_2022-02-04_at_11.13.46_ju3ays.jpg"
+            : "";
+        dispatch({
+          type: "PRICE_LESSON",
+          payload: {
+            idiom,
+            lesson,
+            kids,
+            months,
+            time,
+            price: calculo,
+            img: image,
+          },
+        });
+        return history.push("/orderSummary");
+      }
+    }
   };
 
   return (
