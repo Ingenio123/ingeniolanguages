@@ -59,6 +59,7 @@ export const SearchComponentthree = ({
   const [Icon, setIcon] = useState(false);
   const [Level, setLevel] = useState(false);
   const [Modal, setModal] = useState(false);
+  const [Check, setCheck] = useState(false);
   const [Id, setId] = useState("");
   //refs
   const inputOne = useRef();
@@ -175,9 +176,19 @@ export const SearchComponentthree = ({
   const handleClose = () => {
     let inputTitle = (inputOne.current.value = "");
     let inputUrl = (inputTwo.current.value = "");
+    if (Check) {
+      setLevel(false);
+      setIcon(false);
+      return setModal((prev) => !prev);
+    }
     setModal((prev) => !prev);
     window.location.reload();
+
     // setItem({});
+  };
+
+  const handleChangueInput = (e) => {
+    setCheck(e.target.checked);
   };
 
   // codigo de programacion y maquetacion web
@@ -243,6 +254,13 @@ export const SearchComponentthree = ({
                 placeholder="https://www.example.com"
               />
             </InputGroupsUI>
+            <ContentCheck>
+              <AddMoreData
+                type="checkbox"
+                onChange={(e) => handleChangueInput(e)}
+              />
+              <span>Add more data</span>
+            </ContentCheck>
             <div
               style={{
                 width: "100%",
@@ -250,7 +268,6 @@ export const SearchComponentthree = ({
                 justifyContent: "center",
               }}
             >
-              <section></section>
               <ButtonSubmit type="submit">Submit</ButtonSubmit>
             </div>
           </form>
@@ -278,6 +295,30 @@ export const SearchComponentthree = ({
 };
 
 // codigo de estilo
+const ContentCheck = styled.section`
+  width: 100%;
+  display: flex;
+  align-content: center;
+  height: 1.25rem;
+  span {
+    font-size: 1rem;
+    line-height: 1;
+    font-weight: medium;
+  }
+`;
+
+const AddMoreData = styled.input`
+  margin-right: 0.3rem;
+  width: 1rem;
+  height: 1rem;
+  :focus {
+    outline: 2px solid transparent;
+    outline-offset: 2px;
+  }
+  :hover {
+    cursor: pointer;
+  }
+`;
 
 const styleIcons = css`
   height: 25px;

@@ -29,6 +29,8 @@ import SectionReviews from "../SectionReviews";
 import Carousel from "../Carousel/Carousel";
 //
 
+import TeachersComponent from "./TeachersComponent";
+
 const Icon = styled(AiOutlineShoppingCart)`
   height: 30px;
   width: 30px;
@@ -189,7 +191,7 @@ const HeaderHero = ({ isLogged, ActivarLoged }) => {
         hasLoginError={hasLoginError}
       />
       <Carousel />
-      <Teachers />
+      <TeachersComponent />
       <PriceSection />
     </>
   );

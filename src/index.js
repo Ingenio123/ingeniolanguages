@@ -88,6 +88,7 @@ import { SummaryProgress } from "./context/SummaryContext";
 import { MaterialsPage } from "./pages/Private_pages/UserOrStudent/materials";
 import { MaterialsAddTeacher } from "./pages/teacher/Materials";
 import { ExpredToken } from "./pages/expiredToken";
+import { TeacherSection } from "./pages/teachers";
 // i18next.init({
 //   interpolation: {
 //     escapeValue: false,
@@ -116,6 +117,7 @@ ReactDOM.render(
             <Route exact path="/prices" component={Prices} />
             <Route exact path="/payclient" component={formCheckOutPay} />
             <Route exact path="/results" component={resultDatafast} />
+            <Route exact path="/teachers" component={TeacherSection} />
             <Route
               exact
               path="/politicasPrivacidad"
