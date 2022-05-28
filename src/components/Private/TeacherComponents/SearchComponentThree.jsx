@@ -177,7 +177,6 @@ export const SearchComponentthree = ({
     let inputTitle = (inputOne.current.value = "");
     let inputUrl = (inputTwo.current.value = "");
     if (Check) {
-      setLevel(false);
       setIcon(false);
       return setModal((prev) => !prev);
     }

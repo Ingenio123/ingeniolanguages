@@ -44,7 +44,7 @@ export const Temary = ({ language }) => {
   return (
     <TemaryLayout className="l-section s-border md-pxy  mt-4 brd-radius">
       <div className="al-center header_temary">
-        <h2 className="mb-1 ">{language} course content</h2>
+        <h2 className="mb-1 ">{language} learning plan</h2>
       </div>
 
       {/* contents */}
