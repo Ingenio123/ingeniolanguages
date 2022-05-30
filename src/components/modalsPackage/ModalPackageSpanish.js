@@ -234,7 +234,7 @@ export default function ModalPackageFrench({
             <ContentImg>
               <ImageModal src={ImageFrench} alt="image " />
             </ContentImg>
-            <div>
+            <ContentInformation>
               <HeaderInformContent>
                 <TitlePackage>Spanish Lessons </TitlePackage>
               </HeaderInformContent>
@@ -273,7 +273,7 @@ export default function ModalPackageFrench({
                     </ContentSelect>
 
                     <ContentSelect>
-                      <TextLesson>Duration of each lesson</TextLesson>
+                      <TextLesson>Lessons length</TextLesson>
                       <OptionTime
                         Time={Time}
                         setTime={setTime}
@@ -308,7 +308,7 @@ export default function ModalPackageFrench({
                       handleMonth={handleMonth}
                     /> */}
                     <div>
-                      <sTextLessonpan>Number of months</sTextLessonpan>
+                      <span>Number of months</span>
                       <MonthNumber
                         ref={InputMonthtow}
                         onChange={handleChange}
@@ -317,7 +317,7 @@ export default function ModalPackageFrench({
                         max="12"
                       />
                     </div>
-                    <div>
+                    <ContentButtons>
                       <Buttons Cart title="add to cart" onClick={handleCart}>
                         add to cart
                       </Buttons>
@@ -326,21 +326,26 @@ export default function ModalPackageFrench({
                         disabled={CalculoPrices > 0 ? false : true}
                         title="Procced to pay"
                         onClick={handleProcced}
+                        left={true}
                       >
                         Checkout
                       </Buttons>
-                    </div>
+                    </ContentButtons>
                   </MonthPrices>
                 </InformContent>
                 <BtnClose onClick={ClickClose} />
               </ContentModel>
-            </div>
+            </ContentInformation>
           </ModalWrapper>
         </Background>
       ) : null}
     </>
   );
 }
+
+const ContentInformation = styled.div`
+  width: 100%;
+`;
 
 const MonthNumber = styled.input`
   background: transparent;
@@ -349,7 +354,10 @@ const MonthNumber = styled.input`
   padding: 5px 4px;
   width: 42%;
   border-radius: 5px;
-  height: 100%;
+
+  @media screen and (max-width: 768px) {
+    width: 80%;
+  }
 `;
 
 const Background = styled.div`
@@ -373,6 +381,9 @@ const ModalWrapper = styled.div`
 
   display: grid;
   grid-template-columns: repeat(2, 1fr);
+  @media screen and (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
 `;
 
 const ContentModel = styled.div`
@@ -396,6 +407,9 @@ const ContentImg = styled.div`
   justify-content: center;
   height: 100%;
   width: 100%;
+  @media screen and (max-width: 769px) {
+    display: none;
+  }
 `;
 
 const ImageModal = styled.img`
@@ -448,10 +462,15 @@ const SelectPerMonth = styled.select`
 `;
 const MonthPrices = styled.div`
   display: flex;
-  justify-content: space-between;
+
   align-items: flex-end;
+  @media screen and (max-width: 768px) {
+  }
 `;
 
+const ContentButtons = styled.div`
+  width: 50%;
+`;
 const Buttons = styled.button`
   padding: 0.4rem 8px;
   border: none;
@@ -459,8 +478,12 @@ const Buttons = styled.button`
   font-size: 1rem;
   background: ${({ Cart }) => (Cart ? "#ff3946" : "#314584")};
   border-radius: 6px;
-  margin-left: 5px;
   opacity: ${({ opacity }) => (opacity ? 0.5 : 1)};
+  margin-left: ${({ left }) => (left ? "0.3rem" : 0)};
+  @media screen and (max-width: 768px) {
+    padding: 0.4rem 4px;
+    margin-left: ${({ left }) => (left ? ".2rem" : 0)};
+  }
 `;
 const MonthBuy = styled.input`
   background: transparent;

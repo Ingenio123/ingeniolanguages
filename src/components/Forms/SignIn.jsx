@@ -370,6 +370,9 @@ const ContentRow = styled.div`
   grid-template-columns: repeat(2, 1fr);
   width: 100%;
   column-gap: 1rem;
+  @media screen and (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
 `;
 const ContentImg = styled.div`
   width: 100%;
@@ -378,6 +381,9 @@ const ContentImg = styled.div`
   background-image: url("https://images.unsplash.com/photo-1581547848400-c2d06d641a65?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80");
   background-position: center;
   background-size: cover;
+  @media screen and (max-width: 768px) {
+    display: none;
+  }
 `;
 const LinkText = styled(Link)`
   font-size: 0.9rem;

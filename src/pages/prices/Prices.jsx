@@ -109,6 +109,11 @@ const H2Styles = styled.h2`
   font-family: "Sacramento", cursive;
   font-size: 4rem;
   font-weight: bold;
+
+  @media screen and (max-width: 768px) {
+    font-size: 2.5rem;
+    letter-spacing: 1px;
+  }
 `;
 
 export default PricesPage;

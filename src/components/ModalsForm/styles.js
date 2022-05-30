@@ -9,7 +9,7 @@ import {
 
 export const Form = styled.form`
   margin: 0 auto;
-  padding: 0 1rem;
+  padding: 0 0.5rem;
 `;
 // export const Gender = styled.p`
 //     margin:0;

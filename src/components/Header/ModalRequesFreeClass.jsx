@@ -472,8 +472,9 @@ const ModalWrapper = styled.div`
   @media screen and (max-width: 900px) {
     width: 50vw;
   }
-  @media screen and (max-width: 800px) {
-    width: 80vw;
+  @media screen and (max-width: 768px) {
+    width: 100%;
+    height: 580px;
   }
   @media screen and (max-width: 400px) {
     width: 90vw;
@@ -484,7 +485,7 @@ const ContainerForm = styled.div`
   top: 0;
   background-color: transparent;
   width: 100%;
-  padding: 1rem;
+  padding: 1rem 0;
   z-index: 2;
 `;
 const Form__Content = styled.div`
@@ -496,6 +497,7 @@ const Form__Content = styled.div`
   margin-bottom: 0.5rem;
   div {
     font-size: 0.9rem;
+    align-self: flex-end;
   }
 `;
 const Content__Label = styled.label`

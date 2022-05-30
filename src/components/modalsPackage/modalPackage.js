@@ -40,7 +40,8 @@ export default function ModalPackage({
   // setGroupClass() setIndividualClass()
   const [GroupClass, setGroupClass] = useState(false);
   const [IndividualClass, setIndividualClass] = useState(true);
-  const [PersonsGroup, setPersonsGroup] = useState({ value: 0 });
+  const [ErrorInputNumber, setErrorInputNumber] = useState(false);
+  const [PersonsGroup, setPersonsGroup] = useState({ value: 2 });
   const [Valores, setValores] = useState(false);
   const value = useSelector((state) => state.itemPackage.numberMonts);
   const [Lesson, setLessons] = useState(null);
@@ -171,6 +172,9 @@ export default function ModalPackage({
 
   // ========>   <===========
   const handleNumber = (e) => {
+    if (e.target.value <= 1) {
+      setErrorInputNumber(false);
+    }
     var val = parseInt(e.target.value);
     const input = InputMonthtow.current;
     input.value = 1;
@@ -286,7 +290,7 @@ export default function ModalPackage({
                     </ContentSelect>
 
                     <ContentSelect>
-                      <TextLesson>Duration of each lesson</TextLesson>
+                      <TextLesson>Lessons length</TextLesson>
                       <OptionTime
                         setTime={setTime}
                         Time={Time}
@@ -301,6 +305,7 @@ export default function ModalPackage({
                         <TextLesson>Number of students </TextLesson>
                         {/* <NumberStudent /> */}
                         <MonthBuy
+                          error={ErrorInputNumber}
                           type="number"
                           value={PersonsGroup.value}
                           min="2"
@@ -330,7 +335,7 @@ export default function ModalPackage({
 
                     {/* end number Months */}
 
-                    <Content_Buttons>
+                    <ContentButtons>
                       <Buttons Cart title="add to cart" onClick={handleCart}>
                         add to cart
                       </Buttons>
@@ -339,12 +344,13 @@ export default function ModalPackage({
                         title="Procced to pay"
                         disabled={CalculoPrices > 0 ? false : true}
                         onClick={handleProcced}
+                        left={true}
                       >
                         Checkout
                       </Buttons>
                       {/* <Link to="/payclient">
                       </Link> */}
-                    </Content_Buttons>
+                    </ContentButtons>
                   </MonthPrices>
                 </InformContent>
                 <BtnClose onClick={clickClose} />
@@ -362,8 +368,9 @@ const ContentModel = styled.div`
   grid-template-columns: 1fr;
 `;
 
-const Content_Buttons = styled.div`
+const ContentButtons = styled.div`
   align-self: flex-end;
+  width: 60%;
 `;
 
 const Background = styled.div`
@@ -386,6 +393,9 @@ const ModalWrapper = styled.div`
   padding: 1rem;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
+  @media screen and (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
 `;
 
 const BtnClose = styled(MdClose)`
@@ -401,6 +411,9 @@ const BtnClose = styled(MdClose)`
 const ContentImg = styled.div`
   height: 100%;
   width: 100%;
+  @media screen and (max-width: 769px) {
+    display: none;
+  }
 `;
 
 const ImageModal = styled.img`
@@ -444,7 +457,7 @@ const TextLesson = styled.span`
 
 const MonthPrices = styled.div`
   display: flex;
-  margin-top: 0.5rem;
+  align-items: flex-end;
 `;
 
 const Buttons = styled.button`
@@ -454,14 +467,17 @@ const Buttons = styled.button`
   font-size: 1rem;
   background: ${({ Cart }) => (Cart ? "#ff3946" : "#314584")};
   border-radius: 6px;
-  margin-left: 5px;
+  margin-left: ${({ left }) => (left ? "0.3rem" : 0)};
   /* opacity: 0.5; */
   opacity: ${({ opacity }) => (opacity ? 0.5 : 1)};
+  @media screen and (max-width: 768px) {
+    margin-left: ${({ left }) => (left ? "0.3rem" : 0)};
+  }
 `;
 const MonthBuy = styled.input`
   background: transparent;
   font-size: 1rem;
-  border: 1px solid silver;
+  border: ${({ error }) => (error ? "1px solid red" : "1px solid silver")};
   padding: 5px 4px;
   width: ${({ Month }) => (Month ? "100%" : "100%")};
   border-radius: 5px;
@@ -511,4 +527,7 @@ const MonthNumber = styled.input`
   padding: 5px 4px;
   width: 50%;
   border-radius: 5px;
+  @media screen and (max-width: 768px) {
+    width: 80%;
+  }
 `;

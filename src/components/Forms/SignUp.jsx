@@ -548,9 +548,15 @@ const ContentRow = styled.div`
   width: 100%;
   grid-template-columns: repeat(2, 1fr);
   column-gap: 1rem;
+  @media screen and (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
 `;
 const ContentImg = styled.div`
   margin-left: 10px;
+  @media screen and (max-width: 768px) {
+    display: none;
+  }
 `;
 const Img = styled.div`
   width: 100%;

@@ -33,11 +33,10 @@ export const PriceSection = () => {
         <div className="mt-3"></div>
         <br />
         <br />
-        <div className="row">
+        <Row>
           <div className="col-md-4">
             <div className="">
               <div className="image_card english" onClick={OpenModal}>
-                {" "}
                 <TitleCard className="text-center">English</TitleCard>{" "}
               </div>
             </div>
@@ -57,7 +56,7 @@ export const PriceSection = () => {
               </div>
             </div>
           </div>
-        </div>
+        </Row>
         <div className="viewmore">
           <Link to="/prices" className="btn btn-view mr-405">
             view more
@@ -87,6 +86,11 @@ export const PriceSection = () => {
     </>
   );
 };
+
+const Row = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+`;
 
 const TitleCard = styled.h4`
   font-size: 1.5rem;

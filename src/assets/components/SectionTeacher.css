@@ -55,10 +55,12 @@ section {
 .block {
   display: inline-block !important;
 }
-.btn__demo {
+.center {
+  width: 100%;
   display: flex;
-  align-items: center;
   justify-content: center;
+}
+.btn__demo {
   font-size: 1.3rem;
   padding: 0.5rem 0.8rem;
   letter-spacing: normal;

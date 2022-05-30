@@ -1,8 +1,8 @@
 export const MenuData = [
   {
+    verify: true,
     title: "Teachers",
-    Link: "/Teachers",
-    verify: false,
+    SuperLink: "/teachers",
   },
   {
     verify: true,

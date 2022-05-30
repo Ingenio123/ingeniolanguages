@@ -252,7 +252,7 @@ export default function ModalPackageFrench({
 
                   <LessonMonth>
                     <ContentSelect>
-                      <TextLesson>Lessons per month </TextLesson>
+                      <TextLesson>Lessons per month</TextLesson>
                       <OptionValues
                         valor={OnClickValores}
                         GroupLessons={GroupClass}
@@ -263,7 +263,7 @@ export default function ModalPackageFrench({
                     </ContentSelect>
 
                     <ContentSelect>
-                      <TextLesson>Duration of each lesson</TextLesson>
+                      <TextLesson>Lessons length</TextLesson>
                       <OptionTime
                         valor={OnClickValores}
                         GroupLessons={GroupClass}
@@ -298,7 +298,7 @@ export default function ModalPackageFrench({
                         onChange={handleChange}
                       />
                     </div>
-                    <div>
+                    <ContentButtons>
                       <Buttons Cart title="add to cart" onClick={handleCart}>
                         add to cart
                       </Buttons>
@@ -307,10 +307,11 @@ export default function ModalPackageFrench({
                         opacity={CalculoPrices > 0 ? false : true}
                         disabled={CalculoPrices > 0 ? false : true}
                         onClick={handleProcced}
+                        left={true}
                       >
                         Checkout
                       </Buttons>
-                    </div>
+                    </ContentButtons>
                   </MonthPrices>
                 </InformContent>
                 <BtnClose onClick={clickClose} />
@@ -322,6 +323,9 @@ export default function ModalPackageFrench({
     </>
   );
 }
+const ContentButtons = styled.div`
+  width: 60%;
+`;
 
 const MonthNumber = styled.input`
   background: transparent;
@@ -330,6 +334,9 @@ const MonthNumber = styled.input`
   padding: 5px 4px;
   width: 50%;
   border-radius: 5px;
+  @media screen and (max-width: 768px) {
+    width: 80%;
+  }
 `;
 
 const Background = styled.div`
@@ -352,6 +359,9 @@ const ModalWrapper = styled.div`
   padding: 1rem;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
+  @media screen and (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
 `;
 
 const ContentModel = styled.div`
@@ -371,6 +381,9 @@ const BtnClose = styled(MdClose)`
 `;
 const ContentImg = styled.div`
   height: 100%;
+  @media screen and (max-width: 769px) {
+    display: none;
+  }
 `;
 
 const ImageModal = styled.img`
@@ -424,9 +437,8 @@ const SelectPerMonth = styled.select`
 `;
 const MonthPrices = styled.div`
   display: flex;
-  justify-content: space-between;
+
   align-items: flex-end;
-  padding: 4px 8px;
 `;
 
 const Buttons = styled.button`
@@ -436,8 +448,12 @@ const Buttons = styled.button`
   font-size: 1rem;
   background: ${({ Cart }) => (Cart ? "#ff3946" : "#314584")};
   border-radius: 6px;
-  margin-left: 5px;
   opacity: ${({ opacity }) => (opacity ? 0.5 : 1)};
+  margin-left: ${({ left }) => (left ? "0.3rem" : 0)};
+  @media screen and (max-width: 768px) {
+    margin-left: ${({ left }) => (left ? ".3rem" : 0)};
+    padding: 0.4rem 4px;
+  }
 `;
 const MonthBuy = styled.input`
   background: transparent;

@@ -256,7 +256,7 @@ const Modal = (props) => {
                   />
                 </ContentSelect>
                 <ContentSelect>
-                  <span>Duration of each lesson</span>
+                  <span>lessons length </span>
                   <OptionTime
                     valor={OnClickValores}
                     Time={Time}
@@ -334,6 +334,11 @@ const ContentButtonFlex = styled.div`
   margin-top: 2rem;
   display: flex;
   justify-content: flex-end;
+  @media screen and (max-width: 768px) {
+    justify-content: center;
+
+    width: 100%;
+  }
 `;
 
 const Content = styled.main`
@@ -359,6 +364,9 @@ const Card = styled.div`
   grid-template-columns: 320px 1fr;
   padding: 1rem;
   column-gap: 0.5rem;
+  @media screen and (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
 `;
 
 const BtnClose = styled(IoCloseSharp)`
@@ -380,6 +388,9 @@ const ImageContent = styled.div`
   background-size: cover;
   background-position: center;
   border-radius: 0.5rem;
+  @media screen and (max-width: 768px) {
+    display: none;
+  }
 `;
 const CardContent = styled.div`
   width: 100%;

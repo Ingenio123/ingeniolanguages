@@ -57,11 +57,11 @@ export const HeaderHero = ({ data }) => {
           {isLogged ? null : (
             <>
               <div className="or">Or</div>
-              <p>
+              <div className="center">
                 <button className="btn__demo" onClick={OpenModal}>
                   Request a free demo lesson
                 </button>
-              </p>
+              </div>
             </>
           )}
         </div>
