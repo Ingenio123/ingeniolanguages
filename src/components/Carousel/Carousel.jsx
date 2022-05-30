@@ -207,7 +207,9 @@ const Controles = styled.div`
   z-index: 20;
   width: 100%;
   height: 100%;
+  /* border: 1px solid green; */
   pointer-events: none;
+  z-index: 999;
 `;
 
 const Boton = styled.button`
@@ -236,6 +238,9 @@ const Boton = styled.button`
       : "drop-shadow(2px 0px 0px #fff)"};
   } */
   ${(props) => (props.derecho ? "right: -10px" : "left: -10px")};
+  @media screen and (max-width: 768px) {
+    ${(props) => (props.derecho ? "right: 0px" : "left: 0px")};
+  }
 `;
 
 const Main = styled.main`
@@ -275,6 +280,7 @@ export const SectionReviewContain = styled.section`
 `;
 
 export const CardContent = styled.div`
+  font-size: 1rem;
   position: relative;
   margin: 0 1rem;
   margin-top: 2rem;
@@ -341,6 +347,13 @@ export const CardContent = styled.div`
     line-height: 18px;
     color: #666666;
     text-align: justify;
+  }
+
+  @media screen and (max-width: 768px) {
+    max-width: 90%;
+    & .name {
+      font-size: 2.5em;
+    }
   }
 `;
 

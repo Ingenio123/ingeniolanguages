@@ -24,7 +24,7 @@ const ComponentTeachers = () => {
   return (
     <>
       <div className="container">
-        <h1 className="text-center">Our teachers</h1>
+        <h1 className="text-center mt-4">Our teachers</h1>
         <div className="row">
           {ArrayTeachers.map((item, index) => (
             <div className="col-xs-12 col-sm-6 col-md-4" key={index}>
@@ -55,8 +55,7 @@ const ComponentTeachers = () => {
                           LANGUAGES THAT
                         </h6>
                         <h4 className="mb-1 card-title cursive">
-                          {" "}
-                          {item.firstName}{" "}
+                          {item.firstName}
                         </h4>
                         <h6 className="">TEACHES</h6>
                         <div className="separador">

@@ -81,6 +81,13 @@ const ContentModal = styled.section`
   display: flex;
   column-gap: 20px;
   border-radius: 0.375rem;
+  @media screen and (max-width: 768px) {
+    display: flex;
+    flex-direction: column;
+
+    width: 80%;
+    height: 460px;
+  }
 `;
 const BoxIcon = styled.div`
   position: absolute;
@@ -106,11 +113,15 @@ const BoxImage = styled.div`
     template == 1
       ? "border-top-left-radius: 0.375rem; border-bottom-left-radius: 0.375rem;"
       : "border-top-right-radius: 0.375rem; border-bottom-right-radius: 0.375rem;"}
+  @media screen and (max-width: 768px) {
+    width: 100%;
+  }
 `;
 
 const ImagePromo = styled.img`
   object-fit: cover;
   height: 100%;
+  width: 100%;
 `;
 const BoxContentText = styled.div`
   display: flex;
@@ -121,54 +132,66 @@ const BoxContentText = styled.div`
   width: 360px;
   ${({ template }) =>
     template === 1 ? "padding-right:20px" : "padding-left:20px"};
+  font-size: 1rem;
+  @media screen and (max-width: 768px) {
+    width: 100%;
+    font-size: 0.8rem;
+    padding: 0.5em;
+  }
 `;
 const TextH3 = styled.h3`
   font-weight: 700;
   line-height: normal;
   margin-bottom: 1rem;
-  font-size: 2.25rem;
+  font-size: 2.25em;
   color: inherit;
   letter-spacing: -1px;
 `;
 
 const TextDescrip = styled.p`
-  font-size: 1.5rem;
+  font-size: 1.5em;
   font-weight: 400;
   line-height: normal;
   text-align: center;
   color: inherit;
-  margin-bottom: 2rem;
+  margin-bottom: 2em;
   letter-spacing: -1px;
+  @media screen and (max-width: 768px) {
+    margin-bottom: 1em;
+  }
 `;
 
 const TextPormoCode = styled.p`
   text-align: center;
   font-weight: 700;
   line-height: normal;
-  margin-bottom: 1rem;
-  font-size: 1.875rem;
+  margin-bottom: 1em;
+  font-size: 1.875em;
   color: inherit;
+  @media screen and (max-width: 768px) {
+    margin-bottom: 0.67em;
+  }
 `;
 const ButtonShopNow = styled.button`
   background-color: #4561ba;
   color: #fff;
   padding-inline-start: 1rem;
   padding-inline-end: 1rem;
-  font-size: 1rem;
+  font-size: 1em;
   font-weight: 600;
   border-radius: 0.367rem;
-  height: 2.5rem;
+  height: 2.5em;
   line-height: 1.2;
   min-width: 200px;
   letter-spacing: normal;
-  margin-bottom: 3rem;
+  margin-bottom: 2em;
   :hover {
     background-color: #374e95;
   }
 `;
 
 const PromoConditions = styled.p`
-  font-size: 0.8rem;
+  font-size: 0.8em;
   text-align: center;
   color: inherit;
   line-height: normal;
