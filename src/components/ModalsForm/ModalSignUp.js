@@ -248,7 +248,7 @@ const ModalSignUp = ({ showSignUp, setSignUp }) => {
                 })}
               />
               {/* icon */}
-              <i style={{ top: "-8px" }}>
+              <i className="icon__email">
                 <IoMailOutline />{" "}
               </i>
               <span className="text-small text-danger">
@@ -277,14 +277,18 @@ const ModalSignUp = ({ showSignUp, setSignUp }) => {
                     },
                   })}
                 />
-                <i style={{ top: "6px" }}>
+                <i className="icon__left">
                   {" "}
                   <IoLockClosedOutline />{" "}
                 </i>
                 {types ? (
-                  <Icon_i onClick={() => ShowPassword()} />
+                  <i className="icon__right">
+                    <Icon_i onClick={() => ShowPassword()} />
+                  </i>
                 ) : (
-                  <Icon_i2 onClick={() => ShowPassword()} />
+                  <i className="icon__right">
+                    <Icon_i2 onClick={() => ShowPassword()} />
+                  </i>
                 )}
               </InputWhithIcon>
               <span className="text-small text-danger">
@@ -316,9 +320,13 @@ const ModalSignUp = ({ showSignUp, setSignUp }) => {
                   <IoLockClosedOutline />{" "}
                 </i>
                 {types2 ? (
-                  <Icon_i onClick={() => ShowPassword(2)} />
+                  <i className="icon__right">
+                    <Icon_i onClick={() => ShowPassword(2)} />
+                  </i>
                 ) : (
-                  <Icon_i2 onClick={() => ShowPassword(2)} />
+                  <i className="icon__right">
+                    <Icon_i2 onClick={() => ShowPassword(2)} />
+                  </i>
                 )}
               </InputWhithIcon>
               {errors.ConfirmPassword && (

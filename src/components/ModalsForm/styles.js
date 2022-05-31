@@ -38,15 +38,16 @@ export const InputCountry = styled(CountryDropdown)`
 // input email  css
 export const InputWhithIcon = styled.div`
   position: relative;
+
   margin: 0;
   & > input {
-    padding-left: 40px !important;
+    padding-left: 30px !important;
     width: 100%;
     border: 1px solid silver;
     border-radius: 4px;
     margin: 0;
     outline: none;
-    padding: 0.2rem;
+    padding: 0.5rem 0.5rem;
     box-sizing: border-box;
     transition: 0.3s;
   }
@@ -74,19 +75,29 @@ export const InputWhithIcon = styled.div`
 
   & > i {
     position: absolute;
-    left: 0;
-    top: -5px;
-    padding: 9px 8px;
+    padding: 10px 8px;
     color: #636e72;
     transition: 0.3s;
     font-size: 1.1rem;
+    &.icon__email {
+      left: 0;
+      top: -5px;
+    }
+    &.icon__left {
+      left: 0;
+      top: 5px;
+    }
+    &.icon__right {
+      right: 0;
+      top: -5px;
+    }
   }
 `;
 
 export const Icon_i2 = styled(IoEyeOutline)`
-  position: absolute;
+  /* position: absolute;
   top: 6px;
-  right: 8px;
+  right: 8px; */
   color: dodgerBlue;
   transition: 0.3s;
   font-size: 1.2rem;
@@ -98,9 +109,9 @@ export const Input = styled.input`
   font-size: 1rem;
 `;
 export const Icon_i = styled(IoEyeOffOutline)`
-  position: absolute;
+  /* position: absolute;
   top: 6px;
-  right: 8px;
+  right: 8px; */
   color: #636e72;
   transition: 0.3s;
   font-size: 1.2rem;

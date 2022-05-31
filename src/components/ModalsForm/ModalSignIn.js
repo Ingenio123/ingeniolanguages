@@ -136,10 +136,14 @@ function ModalSignIn({ history, ShowModal, setShowModal }) {
                         placeholder="Email"
                         {...register("email", {
                           required: "Email is required",
+                          pattern: {
+                            value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                            message: "Invalid email address",
+                          },
                         })}
                       />
                       {/* icon */}
-                      <i style={{ top: "-8px" }}>
+                      <i className="icon__email">
                         <IoMailOutline />{" "}
                       </i>
                       <span className="text-small text-danger">
@@ -154,7 +158,7 @@ function ModalSignIn({ history, ShowModal, setShowModal }) {
                         type={types ? "password" : "text"}
                         className="form-control"
                         {...register("password", {
-                          required: "password required",
+                          required: "Password is required",
                           maxLength: {
                             value: 20,
                             message: "max length character is 8",
@@ -184,10 +188,13 @@ function ModalSignIn({ history, ShowModal, setShowModal }) {
                     <ButtonSubmit className="btn">Sign In</ButtonSubmit>
                   </Centrar>
                 </Form>
-                <LineCenter>Or Sign In with</LineCenter>
+                <LineCenter>Or </LineCenter>
                 <Centrar>
                   {/* button google  */}
-                  <GoogleButton contentSign="Sign In" route="clientPay" />
+                  <GoogleButton
+                    contentSign="Sign in with Google"
+                    route="clientPay"
+                  />
                 </Centrar>
                 <Centrar>
                   <TextGray>
@@ -246,14 +253,18 @@ const ModalWrapper = styled.div`
   background: #fff;
   position: relative;
   padding: 2rem 0;
+  border-radius: 4px;
   @media screen and (max-width: 900px) {
     width: 50vw;
   }
   @media screen and (max-width: 800px) {
     width: 70vw;
   }
+  @media screen and (max-width: 768px) {
+    width: 90%;
+  }
   @media screen and (max-width: 400px) {
-    width: 90vw;
+    width: 100%;
   }
 `;
 const TitleModal = styled.h6`
@@ -276,7 +287,7 @@ const MsgErr = styled.span`
 const BtnClose = styled(MdClose)`
   cursor: pointer;
   position: absolute;
-  top: 20px;
+  top: 10px;
   right: 10px;
   width: 25px;
   height: 25px;

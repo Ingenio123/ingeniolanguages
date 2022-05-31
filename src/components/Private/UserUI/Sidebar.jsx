@@ -1,12 +1,4 @@
-import {
-  BiLogOut,
-  BiUser,
-  BiBook,
-  BiPieChart,
-  BiDotsVerticalRounded,
-} from "react-icons/bi";
-import { FiLogOut } from "react-icons/fi";
-import { AiOutlineUser } from "react-icons/ai";
+import { BiMenu } from "react-icons/bi";
 import "./Sidebar.css";
 import { useDispatch, useSelector } from "react-redux";
 import { useState, useEffect, useContext, useCallback, useRef } from "react";
@@ -29,7 +21,7 @@ import ImgComponent from "../../SideBar/image";
 import ContextNavbar from "../../../context/NavbarContext";
 import ContextImageProfile from "../.../../../../context/imageContext";
 
-export default function Sidebar({ salir, isLogged }) {
+export default function Sidebar({ salir, isLogged, toggle }) {
   const dispatch = useDispatch();
   const { courses } = useSelector((state) => state.Menu);
   //
@@ -126,6 +118,9 @@ export default function Sidebar({ salir, isLogged }) {
             />
           </ContextImageProfile>
         </FlexBox>
+        <MenuBars onClick={toggle}>
+          <BiMenu />
+        </MenuBars>
       </header>
       {/* Aqui empiza los cambios */}
       {Roles === "teacher" ? (
@@ -419,6 +414,29 @@ const StyledDiv = styled.div`
 const FlexBox = styled.div`
   display: flex;
   align-items: center;
+  border: 1px solid red;
+  @media screen and (max-width: 768px) {
+    display: none;
+  }
+`;
+
+const MenuBars = styled.i`
+  display: none;
+  @media screen and (max-width: 768px) {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 30px;
+    font-weight: 700;
+    cursor: pointer;
+    position: absolute;
+    top: 5px;
+    right: 0;
+    transform: translate(-50%, 25%);
+    /* border: 1px solid green; */
+  }
 `;
 
 const ItemsNav = styled.li`

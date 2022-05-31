@@ -73,8 +73,6 @@ export default function OrderPay(props) {
 
     items.map((val) => arrayPrices.push(val.price));
 
-    console.log(arrayPrices);
-
     res = items.reduce((acc, item) => {
       return (acc += item.price);
     }, 0);
@@ -226,24 +224,40 @@ const BoxContentOrderSummary = styled.div`
   border-radius: 10px;
   transition: 0.3s ease;
   margin: 20px 0;
+  /* border: 1px solid green; */
   &:hover {
     background: rgb(227, 242, 253);
   }
+  @media screen and (max-width: 768px) {
+    flex-direction: column;
+    padding: 0;
+  }
 `;
-const BoxImages = styled.div``;
+const BoxImages = styled.div`
+  @media screen and (max-width: 768px) {
+    display: none;
+  }
+`;
 const BoxContent = styled.div`
-  width: 70%;
+  width: 100%;
   margin-left: 1.2rem;
+  @media screen and (max-width: 768px) {
+    margin: 0;
+  }
 `;
 const ListContent = styled.ul`
   list-style: none;
   margin-top: 20px;
+  /* border: 1px solid black; */
+  @media screen and (max-width: 768px) {
+    margin-top: 0;
+  }
 `;
 const ItemListContent = styled.li`
   font-size: 1.2rem;
   font-weight: 500;
   margin: 0;
-  line-height: 1.4;
+  line-height: 1.2;
 `;
 const TextFuerte = styled.span`
   /* font-weight: 700; */
@@ -280,7 +294,9 @@ const BoxPrices = styled.div`
   flex-direction: column;
   align-items: flex-end;
   margin-right: 2rem;
-
+  @media screen and (max-width: 768px) {
+    margin-right: 0;
+  }
   .or {
     margin: 0 auto;
     font-size: 1.2rem;

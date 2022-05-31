@@ -412,7 +412,8 @@ const IconCart = styled(IoCart)`
 const Content = styled.div`
   z-index: 4;
   position: fixed;
-  bottom: ${({ show }) => (show ? "0" : "-500px")};
+  /* bottom: ${({ show }) => (show ? "0" : "-500px")}; */
+  ${({ show }) => (show ? "bottom:0" : "display:none")};
   right: 0;
   width: 200px;
   background: white;
@@ -420,6 +421,10 @@ const Content = styled.div`
   padding: 20px 5px;
   transition: 0.5s;
   box-shadow: -1px 0px 10px 0px rgba(0, 0, 0, 0.2);
+
+  @media (max-width: 768px) {
+    display: none;
+  }
 `;
 const Content__Cart = styled.div`
   height: 100%;

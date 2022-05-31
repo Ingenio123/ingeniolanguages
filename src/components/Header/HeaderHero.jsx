@@ -246,6 +246,9 @@ const Button = styled.button`
   &:hover {
     color: #ff3946;
   }
+  @media screen and (max-width: 768px) {
+    margin-left: 0;
+  }
 `;
 
 const Form = styled.form``;

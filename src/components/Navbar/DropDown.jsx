@@ -65,7 +65,7 @@ const DropDownContainer = styled.div`
   /* responsive */
 
   @media screen and(max-width: 480px) {
-    grid-tempalte-rows: repeat(4, 60px);
+    grid-template-rows: repeat(4, 60px);
   }
 `;
 
