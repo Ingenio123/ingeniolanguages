@@ -44,7 +44,7 @@ export default function NotStudent({
     <>
       {notStudent ? (
         <Background onClick={(e) => close(e)} ref={BackgroundRef}>
-          <ModalCard>
+          <ModalCard id="modal__">
             <Content>
               <GridText>
                 {expiredLessons ? (
@@ -120,6 +120,13 @@ const ModalCard = styled.div`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   border-radius: 10px;
+  @media screen and (max-width: 768px) {
+    height: 70%;
+    width: 90%;
+    grid-template-columns: 1fr;
+    grid-template-rows: 50% 50%;
+    grid-template-areas: "image" "content";
+  }
 `;
 const Content = styled.div`
   width: 100%;
@@ -131,6 +138,11 @@ const Content = styled.div`
   -moz-border-radius-bottomleft: 10px;
   border-top-left-radius: 10px;
   border-bottom-left-radius: 10px;
+  @media screen and (max-width: 768px) {
+    grid-area: content;
+    border-top-left-radius: 0;
+    border-bottom-right-radius: 10px;
+  }
 `;
 const ContentImg = styled.div`
   position: relative;
@@ -145,12 +157,23 @@ const ContentImg = styled.div`
   -moz-border-radius-bottomright: 10px;
   border-top-right-radius: 10px;
   border-bottom-right-radius: 10px;
+  @media screen and (max-width: 768px) {
+    grid-area: image;
+    border-bottom-right-radius: 0;
+    border-top-left-radius: 10px;
+  }
 `;
 
 const GridText = styled.div`
   display: grid;
   grid-template-rows: repeat(2, 200px);
   padding: 0.5rem 1rem;
+  @media screen and (max-width: 768px) {
+    grid-template-rows: repeat(2, 1fr);
+
+    height: 100%;
+    row-gap: 0.85rem;
+  }
 `;
 const DivText = styled.div`
   display: flex;
@@ -159,6 +182,8 @@ const DivText = styled.div`
   height: 100%;
   width: 100%;
   flex-direction: column;
+  @media screen and (max-width: 768px) {
+  }
 `;
 
 const ButtonFree = styled.button`
@@ -181,7 +206,7 @@ const ButtonFree = styled.button`
 const Button = styled(Link)`
   transition: all 0.2s ease;
   padding: 0.2rem 1rem;
-  margin-bottom: 0.5rem;
+
   border-radius: 4px;
   color: #fff;
   font-size: 1rem;
@@ -224,8 +249,11 @@ const TextMd = styled.h3`
 const TextSm = styled.p`
   color: #616161;
   margin: 0;
-  margin-top: 0.5rem !important;
+  margin-top: 0.5rem;
   font-size: 1.21875rem;
   text-align: center;
   line-height: normal;
+  @media screen and (max-width: 768px) {
+    margin: 0.5rem 0;
+  }
 `;

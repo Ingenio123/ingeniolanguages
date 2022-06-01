@@ -332,6 +332,9 @@ const CardContent = styled.div`
   border-radius: 4px;
   position: relative;
   max-height: 175px;
+  @media screen and (max-width: 768px) {
+    margin: 0;
+  }
 `;
 
 const ContentCards = styled.div`
@@ -340,6 +343,10 @@ const ContentCards = styled.div`
   display: flex;
   flex-direction: column;
   flex-wrap: nowrap;
+  @media screen and (max-width: 768px) {
+    width: 100%;
+    height: 100%;
+  }
 `;
 const ContentCard = styled.div`
   display: flex;
@@ -373,7 +380,7 @@ const CardCourse = styled.div`
   display: grid;
   grid-template-columns: 120px 333px;
   border-radius: 5px;
-  padding: 1rem 1rem 0.8rem 0.2rem;
+  padding: 1rem 1rem 0.8rem 0.4rem;
   /* background: rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(3px); */
   background: rgb(0, 0, 0);
@@ -386,7 +393,7 @@ const CardCourse = styled.div`
   font-size: 0.8rem;
   height: 100%;
   @media (max-width: 768px) {
-    width: 312px;
+    width: 100%;
     font-size: 12px;
     grid-template-columns: max-content;
   }

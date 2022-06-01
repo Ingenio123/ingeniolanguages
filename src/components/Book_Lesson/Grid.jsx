@@ -18,4 +18,7 @@ const ContentGrid = styled.div`
     props.column ? `repeat(${props.column})` : `repeat(2,1fr)`};
   column-gap: ${(props) => props.column_gap};
   row-gap: ${(props) => props.row_gap};
+  @media screen and (max-width: 768px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
 `;

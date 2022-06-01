@@ -5,8 +5,9 @@ import { IoChevronForwardOutline } from "react-icons/io5";
 import { Link } from "react-router-dom";
 import { useContext } from "react";
 import stundetContext from "../Context/StudentContext";
+import useUser from "../../hooks/useUser";
 
-const ContentNaList = ({ data, student }) => {
+const ContentNaList = ({ data, student, toggle }) => {
   const [IndexDropDown, setDropDown] = useState(null);
   const handleDropDown = (key) => {
     if (key === IndexDropDown) {
@@ -18,37 +19,96 @@ const ContentNaList = ({ data, student }) => {
     <>
       {data.map((item, index) => (
         <ListItem key={index}>
-          <BoxText>
-            {item.name === "Home" ? (
-              <TextLinkItem to="/">{item.name}</TextLinkItem>
-            ) : (
-              <Text>{item.name}</Text>
-            )}
+          {item.idiom.length > 0 ? (
+            <TextBox onClick={() => handleDropDown(index)}>
+              <div>
+                <SidebarLabel>{item.name}</SidebarLabel>
+              </div>
+              {item.idiom.length > 0 && <IconChevron />}
+            </TextBox>
+          ) : (
+            <TextLinkItem onClick={toggle} to={"/"}>
+              <div>
+                <SidebarLabel>{item.name}</SidebarLabel>
+              </div>
+            </TextLinkItem>
+          )}
 
-            {item.idiom.length > 0 && (
-              <IconChevron onClick={() => handleDropDown(index)} />
-            )}
-          </BoxText>
-          {IndexDropDown == index && (
+          {IndexDropDown === index && (
             <>
               <SubNav>
                 {/* {JSON.stringify(student)} */}
                 {student !== null &&
                   student.QueryStudent.courses.map((itemcourse) => (
-                    <ListItemSubNav>
-                      <TextSubNav to={`/private/${itemcourse._id}`}>
-                        {itemcourse.idiom} {itemcourse.kids && "kids"}
-                      </TextSubNav>
-                    </ListItemSubNav>
+                    <>
+                      {item.name == "My progress" && (
+                        <ListItemSubNav>
+                          <TextSubNav
+                            onClick={toggle}
+                            to={`/progress/${itemcourse._id}`}
+                          >
+                            {itemcourse.idiom} {itemcourse.kids && "kids"}
+                          </TextSubNav>
+                        </ListItemSubNav>
+                      )}
+                      {item.name == "My learning plan" && (
+                        <ListItemSubNav>
+                          <TextSubNav
+                            onClick={toggle}
+                            to={`/private/${itemcourse._id}`}
+                          >
+                            {itemcourse.idiom} {itemcourse.kids && "kids"}
+                          </TextSubNav>
+                        </ListItemSubNav>
+                      )}
+                      {item.name == "Book my lessons" && (
+                        <ListItemSubNav>
+                          <TextSubNav
+                            onClick={toggle}
+                            to={`/booklesson?language=${itemcourse.idiom}`}
+                          >
+                            {itemcourse.idiom} {itemcourse.kids && "kids"}
+                          </TextSubNav>
+                        </ListItemSubNav>
+                      )}
+                    </>
                   ))}
                 {!student && (
                   <>
                     {item.idiom.map((itemtwo) => (
-                      <ListItemSubNav>
-                        <TextSubNav to={`/private/${itemtwo.idiomN}`}>
-                          {itemtwo.idiomN}
-                        </TextSubNav>
-                      </ListItemSubNav>
+                      <>
+                        {item.name == "My progress" && (
+                          <ListItemSubNav>
+                            <TextSubNav
+                              onClick={toggle}
+                              to={`/progress/${itemtwo.idiomN}`}
+                            >
+                              {itemtwo.idiomN}
+                            </TextSubNav>
+                          </ListItemSubNav>
+                        )}
+                        {item.name == "My learning plan" && (
+                          <ListItemSubNav>
+                            <TextSubNav
+                              onClick={toggle}
+                              to={`/private/${itemtwo.idiomN}`}
+                            >
+                              {itemtwo.idiomN}
+                            </TextSubNav>
+                          </ListItemSubNav>
+                        )}
+
+                        {item.name == "Book my lessons" && (
+                          <ListItemSubNav>
+                            <TextSubNav
+                              onClick={toggle}
+                              to={`/booklesson?language=${itemtwo.idiomN}`}
+                            >
+                              {itemtwo.idiomN}
+                            </TextSubNav>
+                          </ListItemSubNav>
+                        )}
+                      </>
                     ))}
                   </>
                 )}
@@ -64,10 +124,10 @@ const ContentNaList = ({ data, student }) => {
 const items = [
   { name: "Home", idiom: [] },
   {
-    name: "My learnin plan",
+    name: "My learning plan",
     idiom: [
       {
-        idiomN: "English ",
+        idiomN: "English",
       },
       {
         idiomN: "Spanish",
@@ -77,6 +137,12 @@ const items = [
       },
       {
         idiomN: "German",
+      },
+      {
+        idiomN: "Russian",
+      },
+      {
+        idiomN: "Korean",
       },
     ],
   },
@@ -95,6 +161,12 @@ const items = [
       {
         idiomN: "German",
       },
+      {
+        idiomN: "Russian",
+      },
+      {
+        idiomN: "Korean",
+      },
     ],
   },
   {
@@ -112,10 +184,17 @@ const items = [
       {
         idiomN: "German",
       },
+      {
+        idiomN: "Russian",
+      },
+      {
+        idiomN: "Korean",
+      },
     ],
   },
 ];
 export const SideDrawer = ({ toggle, open }) => {
+  const { logout } = useUser();
   const studentContext = useContext(stundetContext);
   return (
     <>
@@ -126,12 +205,23 @@ export const SideDrawer = ({ toggle, open }) => {
               <IconClose />
             </Icon>
             <ContentNav>
-              <ContentNaList data={items} student={studentContext.student} />
+              <ContentNaList
+                data={items}
+                student={studentContext.student}
+                toggle={toggle}
+              />
             </ContentNav>
             <ContentNav>
               <ListItem>
                 <BoxText>
-                  <Text>Log out</Text>
+                  <TextLinkItem onClick={toggle} to="/updateinformation">
+                    Update Information
+                  </TextLinkItem>
+                </BoxText>
+              </ListItem>
+              <ListItem>
+                <BoxText>
+                  <Text onClick={logout}>Sign Out</Text>
                 </BoxText>
               </ListItem>
             </ContentNav>
@@ -208,14 +298,16 @@ const TextStyleItem = css`
 
 const Text = styled.span`
   ${TextStyleItem};
-  display: inline-block;
+  display: block;
 
+  width: 100%;
   /* border: 1px solid yellow; */
 `;
 const IconChevron = styled(IoChevronForwardOutline)`
   font-size: 1.5rem;
-
   border-radius: 50%;
+  float: right;
+
   :hover {
     background-color: #ff646e;
   }
@@ -248,13 +340,25 @@ const TextSubNav = styled(Link)`
 `;
 const TextLinkItem = styled(Link)`
   ${TextStyleItem};
-  display: block;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   padding: 0.5rem 0.2rem;
   border-radius: 4px;
+
   :hover {
     background-color: #ff646e;
   }
   :focus {
     color: #fff !important;
   }
+`;
+const SidebarLabel = styled.span``;
+const TextBox = styled.div`
+  ${TextStyleItem};
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 0.2rem;
+  border-radius: 4px;
 `;

@@ -35,6 +35,7 @@ const TextTitle = styled.h2`
   margin: 0;
   font-weight: 600;
   font-family: "Sacramento", cursive;
+  text-align: center;
 `;
 const Line = styled.hr`
   width: 80%;

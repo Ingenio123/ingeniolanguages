@@ -71,7 +71,7 @@ export default function UserPrivate({ children, ...props }) {
   }, [contextStudent.loading]);
 
   return (
-    <Container>
+    <Container className="container">
       <ContentTemary>
         {contextStudent.loading || !OneCourse.course ? (
           <CardSkeleton>
@@ -109,19 +109,16 @@ export default function UserPrivate({ children, ...props }) {
   );
 }
 
-const Container = styled.main`
-  margin: 3rem 3rem;
-
-  max-width: 1272px;
-  @media screen and (max-width: 768px) {
-    margin: 0 3rem;
-  }
-`;
+const Container = styled.main``;
 const ContentTemary = styled.div`
   width: 100%;
   display: grid;
   grid-template-columns: 485px 1fr;
   column-gap: 5.8rem;
+  @media screen and (max-width: 768px) {
+    grid-template-columns: 1fr;
+    /* border: 2px solid black; */
+  }
 `;
 
 // const CardList = styled.div`
@@ -257,5 +254,10 @@ const CardSkeleton = styled.div`
       animation-duration: 0.8s;
       animation-iteration-count: infinite;
     }
+  }
+
+  @media screen and (max-width: 768px) {
+    width: 100%;
+    margin-bottom: 0.5rem;
   }
 `;

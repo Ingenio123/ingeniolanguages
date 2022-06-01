@@ -134,7 +134,7 @@ function Index() {
   };
 
   return (
-    <Container>
+    <Container className="container">
       <div>
         {/* loading */}
         {contextNavbar.load ? (
@@ -164,7 +164,7 @@ function Index() {
             <Grid
               id
               width="100%"
-              column="3,1fr"
+              column="5,1fr"
               column_gap=".5rem"
               row_gap=".5rem"
             >
@@ -245,10 +245,17 @@ const PictureSkeleton = styled(ProductSkeleton)`
 `;
 
 const Container = styled.div`
-  margin: 1rem 0;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  /* margin: 1rem 0;
   display: flex;
   padding: 0 3rem;
   column-gap: 0.5rem;
+  @media screen and (max-width: 768px) {
+    margin: 0;
+    padding: 0;
+    column-gap: 0;
+  } */
 `;
 const ContentBox = styled.div`
   width: 100%;

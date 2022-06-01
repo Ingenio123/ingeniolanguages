@@ -117,7 +117,7 @@ export const InformationUpdate = ({ history }, props) => {
                   onChange={handleGender}
                 />
               </div>
-              <div className="input__form">
+              <div className="input__form --Grow">
                 <label htmlFor="">Country of nationality</label>
                 {/* <input type="number" className="--flex" /> */}
                 <InputCountry
@@ -128,9 +128,11 @@ export const InformationUpdate = ({ history }, props) => {
                 />
               </div>
             </div>
-            <div className="input__group">
-              <div className="input__form">
-                <label htmlFor="">Country of residence</label>
+            <div className="input__group ">
+              <div className="input__form ">
+                <label className="all" htmlFor="">
+                  Country of residence
+                </label>
                 {/* <input type="number" className="--flex" /> */}
                 <InputCountry
                   valueType="short"
@@ -139,9 +141,9 @@ export const InformationUpdate = ({ history }, props) => {
                   onChange={(val) => selectCountry(val)}
                 />
               </div>
-              <div className="input__form">
+              <div className="input__form end">
                 <label htmlFor="">Phone Number</label>
-                <PhoneInput
+                <PhoneInputTel
                   specialLabel=""
                   country={Country || "us"}
                   value={Valor.phone}
@@ -242,7 +244,7 @@ const TextParrafo = styled.p`
 
 const Container = styled.main`
   max-width: 1920px;
-  height: 100vh;
+  height: 80vh;
   background-color: #f4f4f5;
   margin: 0;
   display: flex;
@@ -317,7 +319,31 @@ const Form = styled.form`
         :hover {
           background-color: #2563eb;
         }
+        @media screen and (max-width: 768px) {
+          width: 100%;
+        }
       }
+    }
+  }
+  @media screen and (max-width: 768px) {
+    width: 90%;
+    & .form__body .input__group {
+      flex-wrap: wrap;
+      gap: 2%;
+      justify-content: flex-start;
+    }
+  }
+  & .form__body .input__group .input__form {
+    width: 48%;
+  }
+  & .form__body .input__group .--Grow {
+    flex-grow: 1;
+  }
+  & .form__body .input__group .end {
+    justify-content: flex-end;
+  }
+  & .form__body .input__group .input__form .all {
+      margin: 0;
     }
   }
 `;
@@ -329,4 +355,7 @@ const InputCountry = styled(CountryDropdown)`
   color: #495057;
   border-radius: 4px;
   width: 100%;
+`;
+const PhoneInputTel = styled(PhoneInput)`
+  margin: 0;
 `;

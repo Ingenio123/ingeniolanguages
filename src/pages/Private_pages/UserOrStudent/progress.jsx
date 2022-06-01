@@ -164,7 +164,7 @@ function Progress() {
   }, [summaryContext.loading]);
 
   return (
-    <GridColumns>
+    <GridColumns className="container">
       <ContentFlex>
         {studentContext.loading ? (
           <CardSkeleton>
@@ -323,8 +323,13 @@ const Cirlce = styled.span`
 const GridColumns = styled.div`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  margin: 20px 50px;
-  max-width: 1280px;
+  margin-top: 2rem;
+  /* margin: 20px 50px;
+  max-width: 1280px; */
+  @media screen and (max-width: 768px) {
+    grid-template-columns: 1fr;
+    margin: 0;
+  }
 `;
 const ContentFlex = styled.div`
   display: flex;

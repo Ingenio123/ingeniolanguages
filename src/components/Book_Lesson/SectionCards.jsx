@@ -12,10 +12,10 @@ const SectionCards = ({
     <Img src={image_url} alt={idiom} />
     <ContenTextTeacher>
       <NombreTeacher>{name_teacher}</NombreTeacher>
-      <TextTeacher>{eslogan}</TextTeacher>
+
       <ContentButton>
         <ButtonAgendarClass onClick={() => clickModal({ calendar })}>
-          Book a lesson with me
+          Book now
         </ButtonAgendarClass>
       </ContentButton>
     </ContenTextTeacher>
@@ -45,12 +45,14 @@ const ContentCards = styled.div`
   background-color: #fff;
   padding: 0.8rem 1rem;
   border-radius: 0.5rem;
-
   box-shadow: 0px 7px 15px -1px rgba(0, 0, 0, 0.18);
   -webkit-box-shadow: 0px 7px 15px -1px rgba(0, 0, 0, 0.18);
   -moz-box-shadow: 0px 7px 15px -1px rgba(0, 0, 0, 0.18);
+  //
+  flex-direction: column;
+  align-items: center;
+  //
   @media screen and (max-width: 768px) {
-    background-color: gray;
   }
 `;
 const Img = styled.img`
@@ -60,16 +62,19 @@ const Img = styled.img`
 `;
 const ContenTextTeacher = styled.div`
   margin: 0;
-  margin-left: 0.5rem;
-  margin-top: auto;
+  /* margin-left: 0.5rem; */
+  /* margin-top: auto; */
+
   width: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
 `;
 const NombreTeacher = styled.span`
   font-size: 1.5rem;
   color: rgb(82, 82, 82);
   align-self: center;
   margin: 0;
-  width: 100%;
 `;
 const TextTeacher = styled.p`
   margin: 0;
@@ -79,8 +84,8 @@ const TextTeacher = styled.p`
 `;
 const ContentButton = styled.div`
   display: flex;
-  align-items: flex-end;
-  justify-content: flex-end;
+  /* align-items: flex-end;
+  justify-content: flex-end; */
   margin-top: auto;
   /* border: 1px solid red; */
 `;
