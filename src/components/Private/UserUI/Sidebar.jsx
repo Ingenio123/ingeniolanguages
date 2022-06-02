@@ -414,7 +414,7 @@ const StyledDiv = styled.div`
 const FlexBox = styled.div`
   display: flex;
   align-items: center;
-  border: 1px solid red;
+
   @media screen and (max-width: 768px) {
     display: none;
   }

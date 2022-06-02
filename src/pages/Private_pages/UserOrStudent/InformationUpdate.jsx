@@ -244,7 +244,7 @@ const TextParrafo = styled.p`
 
 const Container = styled.main`
   max-width: 1920px;
-  height: 80vh;
+  height: 100%;
   background-color: #f4f4f5;
   margin: 0;
   display: flex;
@@ -262,6 +262,7 @@ const Form = styled.form`
   border-radius: 0.3rem;
   box-shadow: -1px 3px 9px -1px rgba(0, 0, 0, 0.27);
   width: 50%;
+  margin:2rem 0 ;
   input {
     border: 1px solid silver;
     padding: 0.253rem;

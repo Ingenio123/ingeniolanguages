@@ -93,7 +93,7 @@ export const UserPrivateNotId = () => {
   }, []);
 
   return (
-    <Container>
+    <div className="container">
       <ContentTemary>
         {contextStudent.student?.QueryStudent && (
           <CardContent
@@ -178,7 +178,7 @@ export const UserPrivateNotId = () => {
           textSacramento={true}
         />
       </ContentTemary>
-    </Container>
+    </div>
   );
 };
 
@@ -189,20 +189,14 @@ const SectionButton = styled.div`
   }
 `;
 
-const Container = styled.main`
-  margin: 3rem 3rem;
-
-  max-width: 1272px;
-  @media screen and (max-width: 768px) {
-    margin: 0 3rem;
-  }
-`;
-
 const ContentTemary = styled.div`
   width: 100%;
   display: grid;
   grid-template-columns: 485px 1fr;
   column-gap: 5.8rem;
+  @media screen and (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
 `;
 const CardContent = styled.div`
   background-image: url(${(props) => props.img});
