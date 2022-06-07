@@ -111,73 +111,7 @@ export const Temary = (props) => {
               </div>
               {ClickPrimary === key ? (
                 <ul className="l-none s-ml-2">
-                  {item.sublevel.map((subItem, keySub) => (
-                    <div key={keySub}>
-                      <li className="s-border-bottom s-py-2 s-transition ">
-                        <div
-                          className="dflex spc-between s-cursor-pointer alg-center"
-                          onClick={() => toggleSecondary(keySub)}
-                        >
-                          <h4 className=" s-mb-0 font-md-1">
-                            {subItem.name_sublevel}
-                          </h4>
-                          <button
-                            className={
-                              ClickSecondary === keySub
-                                ? " blue-grey-400 s-border-none s-mb-0 s-pxy-0 bg-0 icon-md s-tra s-transition   "
-                                : " blue-grey-400 s-border-none s-mb-0 s-pxy-0 bg-0 icon-md s-transition s-rotation-180"
-                            }
-                          >
-                            <BiChevronUp />
-                          </button>
-                        </div>
-                        {ClickSecondary === keySub ? (
-                          <ul className="l-none s-transition ">
-                            <form
-                              onSubmit={(e) => handleSubmit(e)}
-                              ref={FormRef}
-                            >
-                              {subItem.content.map(
-                                (subItemContent, Contentindex) => (
-                                  <li
-                                    key={Contentindex}
-                                    className=" s-pxy-1 small grey-600 s-transition hover-bg-03"
-                                  >
-                                    <div className="dflex alg-center contentInputsCheck">
-                                      <input
-                                        type="checkbox"
-                                        id={Contentindex}
-                                        value="valor luis"
-                                      />
-                                      <label htmlFor={Contentindex}>
-                                        {" "}
-                                        <i className="icon-sm s-mr-1">
-                                          {" "}
-                                          <BiCheckCircle />{" "}
-                                        </i>{" "}
-                                      </label>
-                                      <p className="small grey-500 s-mb-0 ">
-                                        {subItemContent.item}
-                                      </p>
-                                    </div>
-                                  </li>
-                                )
-                              )}
-
-                              {/* <div className="dflex jst-content-end">
-                                  <button
-                                    className="border-blue-600 btn-temary color-blue-600"
-                                    type="submit"
-                                  >
-                                    Enviar
-                                  </button>
-                                </div> */}
-                            </form>
-                          </ul>
-                        ) : null}
-                      </li>
-                    </div>
-                  ))}
+                  <TextLi>{item.content}</TextLi>
                 </ul>
               ) : null}
             </div>
@@ -196,7 +130,77 @@ const InputSearch = styled.input`
   font-size: 1rem;
   line-height: 1;
 `;
+
+const TextLi = styled.li`
+  font-size: 1.2rem;
+  color: gray;
+  text-align: justify;
+  line-height: normal;
+`;
+
 const TemaryLayout = styled.div`
   padding: 0 1rem;
   /* margin-bottom: 1rem; */
 `;
+//  {
+//    item.sublevel.map((subItem, keySub) => (
+//      <div key={keySub}>
+//        <li className="s-border-bottom s-py-2 s-transition ">
+//          <div
+//            className="dflex spc-between s-cursor-pointer alg-center"
+//            onClick={() => toggleSecondary(keySub)}
+//          >
+//            <h4 className=" s-mb-0 font-md-1">{subItem.name_sublevel}</h4>
+//            <button
+//              className={
+//                ClickSecondary === keySub
+//                  ? " blue-grey-400 s-border-none s-mb-0 s-pxy-0 bg-0 icon-md s-tra s-transition   "
+//                  : " blue-grey-400 s-border-none s-mb-0 s-pxy-0 bg-0 icon-md s-transition s-rotation-180"
+//              }
+//            >
+//              <BiChevronUp />
+//            </button>
+//          </div>
+//          {ClickSecondary === keySub ? (
+//            <ul className="l-none s-transition ">
+//              <form onSubmit={(e) => handleSubmit(e)} ref={FormRef}>
+//                {subItem.content.map((subItemContent, Contentindex) => (
+//                  <li
+//                    key={Contentindex}
+//                    className=" s-pxy-1 small grey-600 s-transition hover-bg-03"
+//                  >
+//                    <div className="dflex alg-center contentInputsCheck">
+//                      <input
+//                        type="checkbox"
+//                        id={Contentindex}
+//                        value="valor luis"
+//                      />
+//                      <label htmlFor={Contentindex}>
+//                        {" "}
+//                        <i className="icon-sm s-mr-1">
+//                          {" "}
+//                          <BiCheckCircle />{" "}
+//                        </i>{" "}
+//                      </label>
+//                      <p className="small grey-500 s-mb-0 ">
+//                        {subItemContent.item}
+//                      </p>
+//                    </div>
+//                  </li>
+//                ))}
+
+//                {/* <div className="dflex jst-content-end">
+//                                   <button
+//                                     className="border-blue-600 btn-temary color-blue-600"
+//                                     type="submit"
+//                                   >
+//                                     Enviar
+//                                   </button>
+//                                 </div> */}
+//              </form>
+//            </ul>
+//          ) : null}
+//        </li>
+//      </div>
+//    ));
+//  }

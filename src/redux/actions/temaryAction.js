@@ -17,18 +17,19 @@ export const CreateOneItemTemary = (data) => async (dispatch) => {
   //   console.log(contentItem);
   const dataObject = {
     name_level: data.payload.Level,
-    sublevel: [
-      {
-        name_sublevel: data.payload.subLevel,
-        content: [
-          { item: data.payload.data.item1 },
-          { item: data.payload.data.item2 },
-          { item: data.payload.data.item3 },
-        ],
-        // contnet: contentItem,
-        exam: data.payload.data.Exam,
-      },
-    ],
+    content: data.payload.data.item1,
+    // sublevel: [
+    //   {
+    //     // name_sublevel: data.payload.subLevel,
+    //     content: [
+    //       { item:  },
+    //       // { item: data.payload.data.item2 },
+    //       // { item: data.payload.data.item3 },
+    //     ],
+    //     // contnet: contentItem,
+    //     // exam: data.payload.data.Exam,
+    //   },
+    // ],
   };
   console.log(dataObject);
   const res = await axios.post(`${Url.url}/temary/createOne`, dataObject);

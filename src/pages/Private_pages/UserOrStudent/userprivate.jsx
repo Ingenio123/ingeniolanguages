@@ -115,8 +115,10 @@ const ContentTemary = styled.div`
   display: grid;
   grid-template-columns: 485px 1fr;
   column-gap: 5.8rem;
+  margin-top: 2rem;
   @media screen and (max-width: 768px) {
     grid-template-columns: 1fr;
+    margin-top: 0;
     /* border: 2px solid black; */
   }
 `;

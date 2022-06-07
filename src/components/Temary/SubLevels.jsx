@@ -31,13 +31,10 @@ export default function SubLevels({ subLevel, Level }) {
 
   return (
     <div>
-      <SubLevelItem className="text-center">
-        {subLevel ? subLevel : <LevelMuestra>Level</LevelMuestra>}
-      </SubLevelItem>
       <Form onSubmit={handleSubmit(createTemary)} id="form_temary">
         <GridForm>
           <ItemsContent>
-            <label> Content 1</label>
+            <label> Content </label>
             <InputFormContent
               type="text"
               {...register("item1", {
@@ -49,17 +46,7 @@ export default function SubLevels({ subLevel, Level }) {
                 {errors.item1?.message}
               </TextError>
             )}
-            <label> Content 2</label>
-            <InputFormContent type="text" {...register("item2")} />
-
-            <label> Content 3</label>
-            <InputFormContent type="text" {...register("item3")} />
           </ItemsContent>
-
-          <UrlExamen>
-            <label htmlFor="UrlExam">Url Exam</label>
-            <InputForm className="inputs" id="UrlExam" {...register("Exam")} />
-          </UrlExamen>
         </GridForm>
         <ButtonSend type="submit" value="Send" />
       </Form>
@@ -71,20 +58,17 @@ const SubLevelItem = styled.h6`
   font-size: 1.1rem;
 `;
 
-const UrlExamen = styled.div`
-  grid-area: UrlExamen;
-  margin-top: 5px;
-`;
-
 const ButtonSend = styled.input`
   padding: 5px 8px;
+  margin: 0 auto;
+  display: block;
   margin-top: 20px;
   border: none;
   background: #3867d6;
   color: #fff;
   font-size: 16px;
   border-radius: 5px;
-  width: 100%;
+  width: 30%;
   &:hover {
     background-color: #185adb;
   }
@@ -93,6 +77,9 @@ const ItemsContent = styled.div`
   grid-area: ItemContent;
   & > input {
     width: 100%;
+  }
+  label {
+    font-size: 1.2rem;
   }
 `;
 

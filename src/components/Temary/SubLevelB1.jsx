@@ -30,9 +30,6 @@ export default function SubLevelA2({ subLevel, Level }) {
 
   return (
     <div>
-      <SubLevelItem className="text-center">
-        {subLevel ? subLevel : <LevelMuestra>Level</LevelMuestra>}
-      </SubLevelItem>
       <Form onSubmit={handleSubmit(createTemary)} id="form_temary_B1">
         <GridForm>
           <ItemsContent>
@@ -48,11 +45,6 @@ export default function SubLevelA2({ subLevel, Level }) {
                 {errors.item1?.message}
               </TextError>
             )}
-            <label>Content 2</label>
-            <InputFormContent type="text" {...register("item2")} />
-
-            <label> Content 3</label>
-            <InputFormContent type="text" {...register("item3")} />
           </ItemsContent>
 
           <UrlExamen>
