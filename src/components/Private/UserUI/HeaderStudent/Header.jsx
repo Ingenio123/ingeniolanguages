@@ -123,6 +123,14 @@ export default function Header({ course }) {
     });
     history.push("/orderSummary");
   };
+
+  const CompareDate = (date) => {
+    //return false / true
+    let dateOne = new Date(date);
+    let dateTwo = new Date();
+
+    return dateOne.getTime() > dateTwo.getTime() ? false : true;
+  };
   return (
     <ContentCards>
       <>
@@ -177,15 +185,17 @@ export default function Header({ course }) {
                 </div>
               </CardCourse>
             </CardContent>
-            <CardExpired>
-              <ButtonStyled bg="#ff3946" onClick={handleClickRenewPackage}>
-                Renew my current lessons package
-              </ButtonStyled>
-              <TextOr>or</TextOr>
-              <LinkText to="/prices">
-                Change my current lessons package
-              </LinkText>
-            </CardExpired>
+            {CompareDate(course?.expiresCours) && (
+              <CardExpired>
+                <ButtonStyled bg="#ff3946" onClick={handleClickRenewPackage}>
+                  Renew my current lessons package
+                </ButtonStyled>
+                <TextOr>or</TextOr>
+                <LinkText to="/prices">
+                  Change my current lessons package
+                </LinkText>
+              </CardExpired>
+            )}
             {/* {course?.ExpiresCourse && (
             )} */}
           </>

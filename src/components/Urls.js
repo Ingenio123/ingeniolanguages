@@ -4,5 +4,4 @@ module.exports = {
   urlClient: "https://www.ingeniolanguages.com",
   // url: "http://localhost:4000",
   // urlClient: "http://localhost:3000",
-  // asdasda
 };
